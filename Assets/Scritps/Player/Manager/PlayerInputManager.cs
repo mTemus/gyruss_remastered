@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerInputManager : MonoBehaviour
 {
-    [SerializeField] private Transform mapCenterPoint;
     [SerializeField] private GameObject playerShip;
 
     private float speed = 100f;
@@ -16,6 +15,8 @@ public class PlayerInputManager : MonoBehaviour
 
     void Update()
     {
+        // TODO: Change input for android to be like in original, when left, go only left, when top, only top etc.
+        
         if (Input.GetKey(KeyCode.RightArrow))
         {
             RotateShip(Vector3.forward);
