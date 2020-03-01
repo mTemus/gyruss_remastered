@@ -13,11 +13,13 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] private SpriteRenderer background;
 
     private float speed = 150f;
+    private float reload;
     
     void Start()
     {
         Camera cam = Camera.main;
         Vector3 startingPosition = Vector3.zero;
+        reload = 1;
         
         // if (cam.pixelWidth < cam.pixelHeight) {
             // Vector3 p1 = cam.WorldToScreenPoint(Vector3.zero);
@@ -68,7 +70,14 @@ public class PlayerInputManager : MonoBehaviour
 
     private void ShootBullet()
     {
+        reload += Time.deltaTime;
+        
+        if (!(reload >= 0.4f)) return;
+        reload = 0;
         Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
+
+        if (Input.GetKeyUp(KeyCode.Space)) { reload = 1; }
+
     }
     
     
