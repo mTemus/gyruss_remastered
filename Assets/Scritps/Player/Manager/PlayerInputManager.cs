@@ -2,7 +2,14 @@
 
 public class PlayerInputManager : MonoBehaviour
 {
+    [Header("Ship parts")]
     [SerializeField] private GameObject playerShip;
+    [SerializeField] private Transform shootingPoint;
+
+    [Header("Other")] 
+    [SerializeField] private GameObject bulletPrefab;
+    
+    [Header("Map")]
     [SerializeField] private SpriteRenderer background;
 
     private float speed = 150f;
@@ -48,13 +55,21 @@ public class PlayerInputManager : MonoBehaviour
         {
             RotateShip(Vector3.back);
         }
+
+        if (Input.GetKey(KeyCode.Space)) {
+            ShootBullet();
+        }
     }
 
     private void RotateShip(Vector3 rotateAxis)
     {
         playerShip.transform.RotateAround(Vector3.zero,rotateAxis, Time.deltaTime * speed);
     }
-    
+
+    private void ShootBullet()
+    {
+        Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
+    }
     
     
 }
