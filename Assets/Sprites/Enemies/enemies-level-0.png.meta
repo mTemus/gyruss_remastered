@@ -1,13 +1,25 @@
 fileFormatVersion: 2
-guid: 2fbdb948c9456e04d9bdc290365112ac
+guid: d51262d59eb72a94094dacdd71ae8f3c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 925644995290009758
-    second: ship-revive-particles_0
+      213: -3030613979204504520
+    second: enemies-level-0_0
   - first:
-      213: -689829138990761171
-    second: ship-revive-particles_1
+      213: -5285351011402695429
+    second: enemies-level-0_1
+  - first:
+      213: -1905814632263623195
+    second: enemies-level-0_2
+  - first:
+      213: -6197760285376069137
+    second: enemies-level-0_3
+  - first:
+      213: -7699041385613805942
+    second: enemies-level-0_4
+  - first:
+      213: 3559370198399282312
+    second: enemies-level-0_5
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -116,7 +128,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ship-revive-particles_0
+      name: enemies-level-0_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,20 +136,83 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e90116c083d88dc00800000000000000
-      internalID: 925644995290009758
+      spriteID: 834be2e84a811f5d0800000000000000
+      internalID: -3030613979204504520
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ship-revive-particles_1
+      name: enemies-level-0_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfc37141249a6a6b0800000000000000
+      internalID: -5285351011402695429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemies-level-0_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ed5f2c70bf2d85e0800000000000000
+      internalID: -1905814632263623195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemies-level-0_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe1c22b8bd12df9a0800000000000000
+      internalID: -6197760285376069137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemies-level-0_4
       rect:
         serializedVersion: 2
         x: 0
@@ -145,14 +220,35 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d2bfdbe8d0c3d66f0800000000000000
-      internalID: -689829138990761171
+      spriteID: a86357ba6a2872590800000000000000
+      internalID: -7699041385613805942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemies-level-0_5
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88c63bb465c656130800000000000000
+      internalID: 3559370198399282312
       vertices: []
       indices: 
       edges: []
