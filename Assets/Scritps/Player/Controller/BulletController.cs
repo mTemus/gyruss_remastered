@@ -2,17 +2,18 @@
 
 public class BulletController : MonoBehaviour
 {
-    [SerializeField] private float speed = 100;
+    [SerializeField] private float speed = 6;
+    [SerializeField] private Vector3 bulletScale = new Vector3(0.03f, 0.03f, 0);
     [SerializeField] private Rigidbody2D bulletRB;
 
     private void Start()
     {
-        bulletRB.velocity = transform.up * (speed * Time.deltaTime);
+        bulletRB.velocity = transform.up * speed;
     }
 
     void Update()
     {
-        transform.localScale -= new Vector3(0.05f, 0.05f, 0);
+        transform.localScale -= bulletScale;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
