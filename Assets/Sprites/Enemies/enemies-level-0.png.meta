@@ -4,22 +4,94 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -3030613979204504520
-    second: enemies-level-0_0
+    second: enemy_1_wave_1_center
   - first:
       213: -5285351011402695429
-    second: enemies-level-0_1
+    second: enemy_2_wave_1_center
   - first:
       213: -1905814632263623195
-    second: enemies-level-0_2
+    second: enemy_1_wave_2_center
   - first:
       213: -6197760285376069137
-    second: enemies-level-0_3
+    second: enemy_2_wave_2_center
   - first:
       213: -7699041385613805942
-    second: enemies-level-0_4
+    second: enemy_1_wave_3_center
   - first:
       213: 3559370198399282312
-    second: enemies-level-0_5
+    second: enemy_2_wave_3_center
+  - first:
+      213: 646821833740470509
+    second: enemy_1_wave_4_center
+  - first:
+      213: 4393140740609772143
+    second: enemy_2_wave_4_center
+  - first:
+      213: 538127197706208365
+    second: enemy_1_wave_1_normal
+  - first:
+      213: 3789199254590412894
+    second: enemy_2_wave_1_normal
+  - first:
+      213: 7331498034880921547
+    second: enemy_1_wave_2_normal
+  - first:
+      213: -2422364481230537141
+    second: enemy_2_wave_2_normal
+  - first:
+      213: -2748402600785013289
+    second: enemy_1_wave_3_normal
+  - first:
+      213: -220580571526233145
+    second: enemy_2_wave_3_normal
+  - first:
+      213: 6384080233151523433
+    second: enemy_1_wave_4_normal
+  - first:
+      213: -7460730313924655503
+    second: enemy_2_wave_4_normal
+  - first:
+      213: 236206067980309402
+    second: module_normal_closed
+  - first:
+      213: 6029516618271742001
+    second: module_normal_open
+  - first:
+      213: 3073428161932579210
+    second: enemy_particle
+  - first:
+      213: 3757152561451869625
+    second: chance_points_capsule_1
+  - first:
+      213: 4232669731142449385
+    second: chance_points_capsule_2
+  - first:
+      213: -2842397950739269523
+    second: module_hurt(1)_closed
+  - first:
+      213: 1257470743104743189
+    second: module_hurt(1)_open
+  - first:
+      213: 6866221789645667068
+    second: chance_bomb_capsule_1
+  - first:
+      213: 8370751063082493989
+    second: chance_bomb_capsule_2
+  - first:
+      213: 959200223341119486
+    second: module_hurt(2)_closed
+  - first:
+      213: 1806018851321562247
+    second: module_hurt(2)_open
+  - first:
+      213: -5516015672035606159
+    second: module_hurt(3)_closed
+  - first:
+      213: -2829483366544246901
+    second: module_hurt(3)_open
+  - first:
+      213: -1250500078593146353
+    second: enemies-level-0_29
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -128,15 +200,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: enemies-level-0_0
+      name: enemy_1_wave_1_center
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
+        y: 160
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -149,15 +221,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: enemies-level-0_1
+      name: enemy_2_wave_1_center
       rect:
         serializedVersion: 2
         x: 32
-        y: 32
+        y: 160
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -170,15 +242,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: enemies-level-0_2
+      name: enemy_1_wave_2_center
       rect:
         serializedVersion: 2
         x: 64
-        y: 32
+        y: 160
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -191,15 +263,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: enemies-level-0_3
+      name: enemy_2_wave_2_center
       rect:
         serializedVersion: 2
         x: 96
-        y: 32
+        y: 160
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -212,15 +284,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: enemies-level-0_4
+      name: enemy_1_wave_3_center
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 128
+        y: 160
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -233,15 +305,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: enemies-level-0_5
+      name: enemy_2_wave_3_center
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
+        x: 160
+        y: 160
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -249,6 +321,510 @@ TextureImporter:
       bones: []
       spriteID: 88c63bb465c656130800000000000000
       internalID: 3559370198399282312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_1_wave_4_center
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de84111e709f9f800800000000000000
+      internalID: 646821833740470509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_2_wave_4_center
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6a875c4a3297fc30800000000000000
+      internalID: 4393140740609772143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_1_wave_1_normal
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d64414fc5dfc77700800000000000000
+      internalID: 538127197706208365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_2_wave_1_normal
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e58590165a0f59430800000000000000
+      internalID: 3789199254590412894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_1_wave_2_normal
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcf3d886e96beb560800000000000000
+      internalID: 7331498034880921547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_2_wave_2_normal
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4efabba658026ed0800000000000000
+      internalID: -2422364481230537141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_1_wave_3_normal
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d513707566bbd9d0800000000000000
+      internalID: -2748402600785013289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_2_wave_3_normal
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c383dd832750fcf0800000000000000
+      internalID: -220580571526233145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_1_wave_4_normal
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96ae692d52fc89850800000000000000
+      internalID: 6384080233151523433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_2_wave_4_normal
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1764881ee49267890800000000000000
+      internalID: -7460730313924655503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: module_normal_closed
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9312c7da2c274300800000000000000
+      internalID: 236206067980309402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: module_normal_open
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 138d6672b652da350800000000000000
+      internalID: 6029516618271742001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_particle
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a815caa21a207aa20800000000000000
+      internalID: 3073428161932579210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chance_points_capsule_1
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b5a9403956142430800000000000000
+      internalID: 3757152561451869625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chance_points_capsule_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e83b40e1b67dba30800000000000000
+      internalID: 4232669731142449385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: module_hurt(1)_closed
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6833eb9f16cd88d0800000000000000
+      internalID: -2842397950739269523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: module_hurt(1)_open
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 517643e7afe637110800000000000000
+      internalID: 1257470743104743189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chance_bomb_capsule_1
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfa70e0c658b94f50800000000000000
+      internalID: 6866221789645667068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chance_bomb_capsule_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5286142edb1ea2470800000000000000
+      internalID: 8370751063082493989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: module_hurt(2)_closed
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef709b46583cf4d00800000000000000
+      internalID: 959200223341119486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: module_hurt(2)_open
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7844eaa9394401910800000000000000
+      internalID: 1806018851321562247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: module_hurt(3)_closed
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17184dca8fc2373b0800000000000000
+      internalID: -5516015672035606159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: module_hurt(3)_open
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b87f04f8ed7abb8d0800000000000000
+      internalID: -2829483366544246901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemies-level-0_29
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 53
+        width: 36
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f028bdfcdc455aee0800000000000000
+      internalID: -1250500078593146353
       vertices: []
       indices: 
       edges: []
