@@ -9,7 +9,8 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] private GameObject shootingPointDoubleGO;
     
     [Header("Other")] 
-    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject bulletPrefabSingle;
+    [SerializeField] private GameObject bulletPrefabDouble;
     
     [Header("Map")]
     [SerializeField] private SpriteRenderer background;
@@ -21,9 +22,9 @@ public class PlayerInputManager : MonoBehaviour
     private float reload;
     private bool doubleBulletMode = false;
     
-    private Transform singleShootingPoint;
-    private Transform doubleShootingPointOne;
-    private Transform doubleShootingPointTwo;
+    private Transform shootingPointSingle;
+    private Transform shootingPointDoubleOne;
+    private Transform shootingPointDoubleTwo;
     
     void Start()
     {
@@ -35,9 +36,9 @@ public class PlayerInputManager : MonoBehaviour
         startingPosition = new Vector3(0, -((backgroundBounds.size.y / 4) - 0.2f), 0);
         playerShip.transform.position = startingPosition;
 
-        singleShootingPoint = shootingPointSingleGO.transform;
-        doubleShootingPointOne = shootingPointDoubleGO.transform.GetChild(0);
-        doubleShootingPointTwo = shootingPointDoubleGO.transform.GetChild(1);
+        shootingPointSingle = shootingPointSingleGO.transform;
+        shootingPointDoubleOne = shootingPointDoubleGO.transform.GetChild(0);
+        shootingPointDoubleTwo = shootingPointDoubleGO.transform.GetChild(1);
         
         ToggleShootingMode();
     }
@@ -69,15 +70,14 @@ public class PlayerInputManager : MonoBehaviour
 
     private void ShootBullet()
     {
-        if (!(reload >= 0.2f)) return;
+        if (!(reload >= 0.3f)) return;
         reload = 0;
 
         if (!doubleBulletMode) {
-            Instantiate(bulletPrefab, singleShootingPoint.position, singleShootingPoint.rotation, playerBulletPool);
+            Instantiate(bulletPrefabSingle, shootingPointSingle.position, shootingPointSingle.rotation, playerBulletPool);
         }
         else {
-            Instantiate(bulletPrefab, doubleShootingPointOne.position, doubleShootingPointOne.rotation, playerBulletPool).GetComponent<BulletController>().LeftBullet = true;
-            Instantiate(bulletPrefab, doubleShootingPointTwo.position, doubleShootingPointTwo.rotation, playerBulletPool).GetComponent<BulletController>().LeftBullet = false;
+            Instantiate(bulletPrefabDouble, shootingPointSingle.position, shootingPointSingle.rotation, playerBulletPool);
         }
 
         if (Input.GetKeyUp(KeyCode.Space)) { reload = 1; }

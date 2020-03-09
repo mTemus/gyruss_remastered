@@ -461,7 +461,9 @@ MonoBehaviour:
   playerShip: {fileID: 944044111}
   shootingPointSingleGO: {fileID: 953461120}
   shootingPointDoubleGO: {fileID: 1221860526}
-  bulletPrefab: {fileID: 5386332670569712077, guid: cda4372f39e8c6140afb2f8aa23892d2,
+  bulletPrefabSingle: {fileID: 5386332670569712077, guid: cda4372f39e8c6140afb2f8aa23892d2,
+    type: 3}
+  bulletPrefabDouble: {fileID: 2028959240650705139, guid: f64f14ee424d4e64c8cc527602a4c6bc,
     type: 3}
   background: {fileID: 470943390}
   playerBulletPool: {fileID: 78132617}
