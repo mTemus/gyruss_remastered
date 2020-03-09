@@ -10,10 +10,12 @@ public class BulletController : MonoBehaviour
     private Transform bulletTransform;
     private bool leftBullet;
 
+    private float scalingToCenter = 0.005f;
+    
     private void Start()
     {
         bulletTransform = transform;
-        bulletRB.velocity = bulletTransform.up * speed;
+        // bulletRB.velocity = bulletTransform.up * speed;
     }
 
     void Update()
@@ -21,11 +23,20 @@ public class BulletController : MonoBehaviour
         if (transform.localScale.x > 0)
             transform.localScale -= bulletScale;
         
-        if (leftBullet) 
-            bulletTransform.localPosition += new Vector3(0.003f, 0, 0);
-        else if (!leftBullet) 
-             bulletTransform.localPosition -= new Vector3(0.003f, 0, 0);
+        // if (bulletTransform.position.y < 0) {
+        //     if (leftBullet) 
+        //         bulletTransform.localPosition += new Vector3( scalingToCenter, 0, 0);
+        //     else if (!leftBullet) 
+        //         bulletTransform.localPosition -= new Vector3( scalingToCenter, 0, 0);
+        // }
+        // else {
+        //     if (leftBullet) 
+        //         bulletTransform.localPosition -= new Vector3( scalingToCenter, 0, 0);
+        //     else if (!leftBullet) 
+        //         bulletTransform.localPosition += new Vector3( scalingToCenter, 0, 0);
+        // }
         
+        bulletTransform.localPosition += bulletTransform.up * (speed * 0.05f);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

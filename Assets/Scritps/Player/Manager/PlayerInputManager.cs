@@ -69,7 +69,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private void ShootBullet()
     {
-        if (!(reload >= 0.4f)) return;
+        if (!(reload >= 0.2f)) return;
         reload = 0;
 
         if (!doubleBulletMode) {
