@@ -5306,7 +5306,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.05
+  m_Radius: 0.07
 --- !u!50 &1773605238
 Rigidbody2D:
   serializedVersion: 4
@@ -5394,6 +5394,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8276731626266755868, guid: bea6cd027b3fc8a4e9b3120deae8c44c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bea6cd027b3fc8a4e9b3120deae8c44c, type: 3}

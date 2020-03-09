@@ -1,53 +1,52 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerInputManager : MonoBehaviour
 {
     [Header("Ship parts")]
     [SerializeField] private GameObject playerShip;
-    [SerializeField] private Transform shootingPoint;
-
+    [SerializeField] private GameObject shootingPointSingleGO;
+    [SerializeField] private GameObject shootingPointDoubleGO;
+    
     [Header("Other")] 
     [SerializeField] private GameObject bulletPrefab;
     
     [Header("Map")]
     [SerializeField] private SpriteRenderer background;
 
+    [Header("Pools")] 
+    [SerializeField] private Transform playerBulletPool;
+    
     private float speed = 150f;
     private float reload;
+    private bool doubleBulletMode = false;
+    
+    private Transform singleShootingPoint;
+    private Transform doubleShootingPointOne;
+    private Transform doubleShootingPointTwo;
     
     void Start()
     {
-        Camera cam = Camera.main;
         Vector3 startingPosition = Vector3.zero;
         reload = 1;
         
-        // if (cam.pixelWidth < cam.pixelHeight) {
-            // Vector3 p1 = cam.WorldToScreenPoint(Vector3.zero);
-            // Vector3 p2 = cam.WorldToScreenPoint(Vector3.right);
-            // float dist = Vector3.Distance(p1, p2);
-            // float halfOfWidth = (cam.pixelWidth * (1 / dist)) - 0.5f;
-            
-            // startingPosition = new Vector3(0, -(halfOfWidth / 2), 0);
-        // }
-        // else if (cam.pixelWidth > cam.pixelHeight) {
-        //     Vector3 p1 = cam.WorldToScreenPoint(Vector3.zero);
-        //     Vector3 p2 = cam.WorldToScreenPoint(Vector3.up);
-        //     float dist = Vector3.Distance(p1, p2);
-        //     float halfOfHeight = (cam.pixelHeight * (1 / dist)) - 0.5f;
-        //     
-        //     startingPosition = new Vector3(0, -(halfOfHeight / 2), 0);
-        // }
-
+        // Calculating starting position
         Bounds backgroundBounds = background.bounds;
         startingPosition = new Vector3(0, -((backgroundBounds.size.y / 4) - 0.2f), 0);
         playerShip.transform.position = startingPosition;
 
-
+        singleShootingPoint = shootingPointSingleGO.transform;
+        doubleShootingPointOne = shootingPointDoubleGO.transform.GetChild(0);
+        doubleShootingPointTwo = shootingPointDoubleGO.transform.GetChild(1);
+        
+        ToggleShootingMode();
     }
 
     void Update()
     {
         // TODO: Change input for android to be like in original, when left, go only left, when top, only top etc.
+        
+        reload += Time.deltaTime;
         
         if (Input.GetKey(KeyCode.RightArrow))
         {
@@ -70,15 +69,33 @@ public class PlayerInputManager : MonoBehaviour
 
     private void ShootBullet()
     {
-        reload += Time.deltaTime;
-        
         if (!(reload >= 0.4f)) return;
         reload = 0;
-        Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
+
+        if (!doubleBulletMode) {
+            Instantiate(bulletPrefab, singleShootingPoint.position, singleShootingPoint.rotation, playerBulletPool);
+        }
+        else {
+            Instantiate(bulletPrefab, doubleShootingPointOne.position, doubleShootingPointOne.rotation, playerBulletPool).GetComponent<BulletController>().LeftBullet = true;
+            Instantiate(bulletPrefab, doubleShootingPointTwo.position, doubleShootingPointTwo.rotation, playerBulletPool).GetComponent<BulletController>().LeftBullet = false;
+        }
 
         if (Input.GetKeyUp(KeyCode.Space)) { reload = 1; }
 
     }
-    
+
+    public void ToggleShootingMode()
+    {
+        doubleBulletMode = !doubleBulletMode;
+        
+        if (doubleBulletMode) {
+            shootingPointSingleGO.SetActive(false);
+            shootingPointDoubleGO.SetActive(true);
+        } else {
+            shootingPointSingleGO.SetActive(true);
+            shootingPointDoubleGO.SetActive(false);
+        }
+        
+    }
     
 }
