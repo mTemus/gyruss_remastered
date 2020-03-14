@@ -5412,11 +5412,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 78177766922498227, guid: bea6cd027b3fc8a4e9b3120deae8c44c,
-        type: 3}
-      propertyPath: m_Name
-      value: ShootingPointSingle
-      objectReference: {fileID: 0}
     - target: {fileID: 7484981641670123532, guid: bea6cd027b3fc8a4e9b3120deae8c44c,
         type: 3}
       propertyPath: m_Name
@@ -5476,11 +5471,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8276731626266755868, guid: bea6cd027b3fc8a4e9b3120deae8c44c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bea6cd027b3fc8a4e9b3120deae8c44c, type: 3}
