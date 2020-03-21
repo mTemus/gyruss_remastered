@@ -71,17 +71,14 @@ public class PlayerInputManager : MonoBehaviour
 
     private void ShootBullet()
     {
-        GameObject bulletGO;
-        
         if (!(reload >= 0.3f)) return;
         reload = 0;
 
         if (!doubleBulletMode) 
-            bulletGO = Instantiate(bulletPrefabSingle, shootingPointSingle.position, playerShip.transform.rotation, playerBulletPool);
+            Instantiate(bulletPrefabSingle, shootingPointSingle.position, playerShip.transform.rotation, playerBulletPool);
         else 
-            bulletGO = Instantiate(bulletPrefabDouble, shootingPointSingle.position, playerShip.transform.rotation, playerBulletPool);
+            Instantiate(bulletPrefabDouble, shootingPointSingle.position, playerShip.transform.rotation, playerBulletPool);
         
-        bulletGO.GetComponent<Rigidbody2D>().AddForce(shootingPointSingle.up * 10, ForceMode2D.Impulse);
 
         if (Input.GetKeyUp(KeyCode.Space)) { reload = 1; }
 
