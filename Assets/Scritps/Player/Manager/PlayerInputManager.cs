@@ -20,7 +20,7 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] private Transform playerBulletPool;
     
     private float speed = 150f;
-    private float reload;
+    private float reload = 1;
     private bool doubleBulletMode = false;
     
     private Transform shootingPointSingle;
@@ -29,12 +29,9 @@ public class PlayerInputManager : MonoBehaviour
     
     void Start()
     {
-        Vector3 startingPosition = Vector3.zero;
-        reload = 1;
-        
         // Calculating starting position
         Bounds backgroundBounds = background.bounds;
-        startingPosition = new Vector3(0, -((backgroundBounds.size.y / 4) - 0.2f), 0);
+        Vector3 startingPosition = new Vector3(0, -((backgroundBounds.size.y / 4) - 0.2f), 0);
         playerShip.transform.position = startingPosition;
 
         shootingPointSingle = shootingPointSingleGO.transform;
