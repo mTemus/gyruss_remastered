@@ -4,6 +4,7 @@ public class GyrussGameManager : MonoBehaviour
 {
     [SerializeField] private GyrussEventManager gyrussEventManager;
     [SerializeField] private PlayerInputManager playerInputManager;
+    [SerializeField] private LevelManager levelManager;
     [SerializeField] private StageManager stageManager;
 
     private GyrussGameManager instance;
@@ -12,9 +13,6 @@ public class GyrussGameManager : MonoBehaviour
     {
         instance = this;
     }
-    
-    
-    
     
     
 
@@ -26,4 +24,5 @@ public class GyrussGameManager : MonoBehaviour
 
     public StageManager StageManager => stageManager;
     
+    public LevelManager LevelManager => levelManager;
 }
