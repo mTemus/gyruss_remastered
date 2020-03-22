@@ -93,10 +93,4 @@ public class PlayerInputManager : MonoBehaviour
             shootingPointDoubleGO.SetActive(false);
         }
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(shootingPointSingle.position, playerShip.transform.up);
-    }
 }
