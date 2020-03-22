@@ -2,15 +2,28 @@
 
 public class GyrussGameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GyrussEventManager gyrussEventManager;
+    [SerializeField] private PlayerInputManager playerInputManager;
+    [SerializeField] private StageManager stageManager;
 
-    // Update is called once per frame
-    void Update()
+    private GyrussGameManager instance;
+
+    private void Awake()
     {
-        
+        instance = this;
     }
+    
+    
+    
+    
+    
+
+    public GyrussGameManager Instance => instance;
+
+    public GyrussEventManager GyrussEventManager => gyrussEventManager;
+
+    public PlayerInputManager PlayerInputManager => playerInputManager;
+
+    public StageManager StageManager => stageManager;
+    
 }
