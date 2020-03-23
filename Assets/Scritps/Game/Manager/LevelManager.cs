@@ -26,10 +26,10 @@ public class LevelManager : MonoBehaviour
       //TODO: add State machine to level manager
       //TODO: add State machine to waves creating process or no?
       
-      int currentStage = GyrussGameManager.Instance.StageManager.CurrentStage;
-      enemyName = "Enemy_L" + currentLevel + "_S" + currentStage + "_T";
-
       if (waveLoadingTimer == 0) {
+          int currentStage = GyrussGameManager.Instance.StageManager.CurrentStage;
+          enemyName = "Enemy_L" + currentLevel + "_S" + currentStage + "_T";
+          
           switch (currentWave) {
               case 1:
               case 3:
