@@ -30,10 +30,25 @@ public class LevelManager : MonoBehaviour
       enemyName = "Enemy_L" + currentLevel + "_S" + currentStage + "_T";
 
       if (waveLoadingTimer == 0) {
-          if (currentWave == 1) {
-              Wave waveToAdd = new Wave(enemyName + "1");
-              GyrussGameManager.Instance.StageManager.AddNewWave(waveToAdd);
-              currentWave++;
+          switch (currentWave) {
+              case 1:
+              case 3:
+              {
+                  Wave waveToAdd = new Wave(enemyName + "1");
+                  GyrussGameManager.Instance.StageManager.AddNewWave(waveToAdd);
+                  currentWave++;
+                  break;
+              }
+              case 2:
+              case 4:
+              {
+                  Wave waveToAdd = new Wave(enemyName + "2");
+                  GyrussGameManager.Instance.StageManager.AddNewWave(waveToAdd);
+                  currentWave++;
+                  break;
+              }
+              case 5:
+                  return;
           }
       }
       else {
