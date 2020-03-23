@@ -1191,7 +1191,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &458098564
 Transform:
   m_ObjectHideFlags: 0
@@ -1200,7 +1200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 458098563}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.0208397, y: -2.1098804, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 678941773}
@@ -1221,19 +1221,19 @@ MonoBehaviour:
   editorData:
     _bezierPath:
       points:
-      - {x: -4.0031824, y: -1.4753586, z: 0}
-      - {x: -2.4140925, y: -2.9115856, z: 0}
-      - {x: 0.5691362, y: -2.8512645, z: 0}
-      - {x: 1.5003827, y: -2.6142159, z: 0}
-      - {x: 2.060546, y: -2.4716263, z: 0}
-      - {x: 2.2169912, y: -2.0657794, z: 0}
-      - {x: 1.3589123, y: -2.2648697, z: 0}
-      - {x: -0.2388103, y: -2.635571, z: 0}
-      - {x: -2.0049129, y: -2.0966187, z: 0}
-      - {x: -2.0049129, y: -1.8728782, z: 0}
-      - {x: -2.0049129, y: -1.562552, z: 0}
-      - {x: -1.0251584, y: -2.019875, z: 0}
-      - {x: 0.0035846233, y: -1.6278837, z: 0}
+      - {x: -2.9823427, y: 0.63452184, z: 0}
+      - {x: -1.3932528, y: -0.8017051, z: 0}
+      - {x: 1.5899758, y: -0.741384, z: 0}
+      - {x: 2.5212224, y: -0.5043354, z: 0}
+      - {x: 3.0813856, y: -0.36174583, z: 0}
+      - {x: 3.2378309, y: 0.044101, z: 0}
+      - {x: 2.3797522, y: -0.15498924, z: 0}
+      - {x: 0.7820294, y: -0.52569056, z: 0}
+      - {x: -0.98407316, y: 0.013261795, z: 0}
+      - {x: -0.98407316, y: 0.23700225, z: 0}
+      - {x: -0.98407316, y: 0.5473285, z: 0}
+      - {x: -0.004318714, y: 0.0900054, z: 0}
+      - {x: 1.0244243, y: 0.48199677, z: 0}
       isClosed: 0
       space: 1
       controlMode: 0
@@ -1250,10 +1250,10 @@ MonoBehaviour:
       - 0
       globalNormalsAngle: 0
       flipNormals: 0
-    vertexPathUpToDate: 0
+    vertexPathUpToDate: 1
     vertexPathMaxAngleError: 0.3
     vertexPathMinVertexSpacing: 0.01
-    showTransformTool: 1
+    showTransformTool: 0
     showPathBounds: 0
     showPerSegmentBounds: 0
     displayAnchorPoints: 1
@@ -1263,11 +1263,11 @@ MonoBehaviour:
     keepConstantHandleSize: 0
     showNormalsInVertexMode: 0
     showBezierPathInVertexMode: 0
-    showDisplayOptions: 0
+    showDisplayOptions: 1
     showPathOptions: 1
     showVertexPathDisplayOptions: 0
     showVertexPathOptions: 1
-    showNormals: 0
+    showNormals: 1
     showNormalsHelpInfo: 0
     tabIndex: 0
   initialized: 1
@@ -2891,7 +2891,7 @@ Transform:
   - {fileID: 213111327}
   - {fileID: 678941773}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1529139228
 GameObject:
@@ -8276,7 +8276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1824649420
 Transform:
   m_ObjectHideFlags: 0
@@ -8472,7 +8472,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2015765810
 Transform:
   m_ObjectHideFlags: 0
@@ -8535,7 +8535,7 @@ MonoBehaviour:
       - 0
       globalNormalsAngle: 0
       flipNormals: 0
-    vertexPathUpToDate: 1
+    vertexPathUpToDate: 0
     vertexPathMaxAngleError: 0.3
     vertexPathMinVertexSpacing: 0.01
     showTransformTool: 1
@@ -8552,7 +8552,7 @@ MonoBehaviour:
     showPathOptions: 1
     showVertexPathDisplayOptions: 0
     showVertexPathOptions: 1
-    showNormals: 0
+    showNormals: 1
     showNormalsHelpInfo: 0
     tabIndex: 0
   initialized: 1
@@ -8946,7 +8946,7 @@ PrefabInstance:
     - target: {fileID: 7484981641670123539, guid: bea6cd027b3fc8a4e9b3120deae8c44c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7484981641670123539, guid: bea6cd027b3fc8a4e9b3120deae8c44c,
         type: 3}

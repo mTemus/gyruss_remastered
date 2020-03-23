@@ -8,6 +8,7 @@ namespace PathCreation.Examples
     {
         public PathCreator pathCreator;
         public EndOfPathInstruction endOfPathInstruction;
+        public Transform mapCenter;
         public float speed = 5;
         float distanceTravelled;
 
@@ -25,7 +26,11 @@ namespace PathCreation.Examples
             {
                 distanceTravelled += speed * Time.deltaTime;
                 transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
-                transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction);
+                Vector3 tarObj = (mapCenter.position - transform.position).normalized;
+                float angle = Mathf.Atan2(tarObj.y, tarObj.x) * Mathf.Rad2Deg;
+                Quaternion rotation = new Quaternion();
+                rotation.eulerAngles = new Vector3(0,0,Mathf.LerpAngle(transform.rotation.z, angle-90, 1));
+                transform.rotation = rotation;
             }
         }
 
