@@ -4,19 +4,23 @@
    private int pointsAmount;
    private int bonusPoints;
    private int enemiesKilled;
+
+   private string enemyName;
    
-   public Wave()
+   public Wave(string enemyName)
    {
       enemyAmount = 8;
       pointsAmount = 800;
       bonusPoints = 1000;
+      this.enemyName = enemyName;
    }
 
-   public Wave(int enemyAmount, int pointsAmount, int bonusPoints)
+   public Wave(int enemyAmount, int pointsAmount, int bonusPoints, string enemyName)
    {
       this.enemyAmount = enemyAmount;
       this.pointsAmount = pointsAmount;
       this.bonusPoints = bonusPoints;
+      this.enemyName = enemyName;
    }
    
    public int EnemyAmount => enemyAmount;
