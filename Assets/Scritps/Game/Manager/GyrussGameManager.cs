@@ -7,7 +7,7 @@ public class GyrussGameManager : MonoBehaviour
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private StageManager stageManager;
 
-    private GyrussGameManager instance;
+    private static GyrussGameManager instance;
 
     private void Awake()
     {
@@ -16,7 +16,7 @@ public class GyrussGameManager : MonoBehaviour
     
     
 
-    public GyrussGameManager Instance => instance;
+    public static GyrussGameManager Instance => instance;
 
     public GyrussEventManager GyrussEventManager => gyrussEventManager;
 
