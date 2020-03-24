@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &669712066555115024
+--- !u!1 &5373970292781427522
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,36 +8,36 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5204904306438068629}
-  - component: {fileID: 27170794188578395}
+  - component: {fileID: 3880043741281465850}
+  - component: {fileID: 6565375538883211614}
   m_Layer: 0
-  m_Name: pathBack4
+  m_Name: path5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5204904306438068629
+--- !u!4 &3880043741281465850
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 669712066555115024}
+  m_GameObject: {fileID: 5373970292781427522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.26833233, y: 0.32077146, z: -4.8418837}
+  m_LocalPosition: {x: -0.2901166, y: 1.2016205, z: -5.0189257}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &27170794188578395
+--- !u!114 &6565375538883211614
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 669712066555115024}
+  m_GameObject: {fileID: 5373970292781427522}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e5ac92bc18f545cc84cd886ece82b4d, type: 3}
@@ -46,41 +46,38 @@ MonoBehaviour:
   editorData:
     _bezierPath:
       points:
-      - {x: 0.2680045, y: -0.3276444, z: 0}
-      - {x: 0.58575356, y: 0.0016331077, z: 0}
-      - {x: 0.55417, y: 0.47883046, z: 0}
-      - {x: 0.25559655, y: 0.6652175, z: 0}
-      - {x: -0.41603783, y: 1.0844911, z: 0}
-      - {x: -1.2017002, y: 0.4434747, z: 0}
-      - {x: -1.3208817, y: -0.32160795, z: 0}
-      - {x: -1.480084, y: -1.3436024, z: 0}
-      - {x: -0.75985456, y: -2.0241883, z: 0}
-      - {x: 0.2680045, y: -2.1396177, z: 0}
-      - {x: 1.5628679, y: -2.285032, z: 0}
-      - {x: 2.5036216, y: -1.6001179, z: 0}
-      - {x: 2.6254494, y: -0.30282295, z: 0}
-      - {x: 2.7716885, y: 1.2544171, z: 0}
-      - {x: 1.8177774, y: 2.3130288, z: 0}
-      - {x: 0.25559655, y: 2.3903153, z: 0}
-      - {x: -1.4802269, y: 2.4761925, z: 0}
-      - {x: -2.6068153, y: 1.4094822, z: 0}
-      - {x: -2.6601906, y: -0.3276444, z: 0}
-      - {x: -2.7170556, y: -2.1783454, z: 0}
-      - {x: -1.5883069, y: -3.3586612, z: 0}
-      - {x: 0.2625952, y: -3.4085605, z: 0}
-      - {x: 2.240516, y: -3.4618843, z: 0}
-      - {x: 3.5218513, y: -2.2675781, z: 0}
-      - {x: 3.5588126, y: -0.289284, z: 0}
-      - {x: 3.5973442, y: 1.7730474, z: 0}
-      - {x: 2.3067148, y: 2.9888122, z: 0}
-      - {x: 0.24643755, y: 3.0885856, z: 0}
-      - {x: -2.0413196, y: 3.1993752, z: 0}
-      - {x: -3.2275174, y: 1.7148108, z: 0}
-      - {x: -3.7768872, y: -0.289284, z: 0}
+      - {x: -4.2398405, y: -1.234781, z: 0}
+      - {x: -3.6784296, y: -3.293676, z: 0}
+      - {x: -1.7972658, y: -4.4898677, z: 0}
+      - {x: 0.27946037, y: -4.230371, z: 0}
+      - {x: 1.8436396, y: -4.0349193, z: 0}
+      - {x: 3.1148276, y: -2.7795863, z: 0}
+      - {x: 3.0235198, y: -1.2058899, z: 0}
+      - {x: 2.9415314, y: 0.20718491, z: 0}
+      - {x: 1.6720424, y: 1.3301288, z: 0}
+      - {x: 0.26198262, y: 1.2067021, z: 0}
+      - {x: -0.9379254, y: 1.1016706, z: 0}
+      - {x: -1.8213477, y: -0.025461912, z: 0}
+      - {x: -1.6955631, y: -1.2233722, z: 0}
+      - {x: -1.5928907, y: -2.201172, z: 0}
+      - {x: -0.69848675, y: -2.9330285, z: 0}
+      - {x: 0.27946037, y: -2.831767, z: 0}
+      - {x: 1.1002109, y: -2.7467828, z: 0}
+      - {x: 1.7432085, y: -1.9875917, z: 0}
+      - {x: 1.6252735, y: -1.1709247, z: 0}
+      - {x: 1.5351291, y: -0.5466998, z: 0}
+      - {x: 0.9042041, y: -0.15787509, z: 0}
+      - {x: 0.27946037, y: -0.2443499, z: 0}
+      - {x: -0.18094862, y: -0.30807808, z: 0}
+      - {x: -0.5851693, y: -0.7160626, z: 0}
+      - {x: -0.4895752, y: -1.1709247, z: 0}
+      - {x: -0.42131346, y: -1.4957321, z: 0}
+      - {x: -0.062732905, y: -1.7091367, z: 0}
+      - {x: 0.27946037, y: -1.5555409, z: 0}
       isClosed: 0
       space: 1
       controlMode: 0
-      autoControlLength: 0.436
+      autoControlLength: 0.386
       boundsUpToDate: 0
       bounds:
         m_Center: {x: 0, y: 0, z: 0}
@@ -96,10 +93,9 @@ MonoBehaviour:
       - 0
       - 0
       - 0
-      - 0
       globalNormalsAngle: 0
       flipNormals: 0
-    vertexPathUpToDate: 0
+    vertexPathUpToDate: 1
     vertexPathMaxAngleError: 0.3
     vertexPathMinVertexSpacing: 0.01
     showTransformTool: 1
