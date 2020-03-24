@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public static class GyrussEventManager
+public class GyrussEventManager : MonoBehaviour
 {
     public static Action<StageType> StageTypeChangeInitiated;
     public static Action<Wave> WaveEnqueuingInitiated;

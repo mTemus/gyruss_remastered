@@ -1210,8 +1210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56577a93929e13c4b9b6f083c33c87e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gyrussEventManager: {fileID: 1300365188}
   playerInputManager: {fileID: 960823794}
+  gyrussEventManager: {fileID: 1300365188}
   levelManager: {fileID: 400678062}
   stageManager: {fileID: 789441953}
 --- !u!1 &452709662

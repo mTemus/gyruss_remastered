@@ -4,6 +4,7 @@ using UnityEngine;
 public class GyrussGameManager : MonoBehaviour
 {
     [SerializeField] private PlayerInputManager playerInputManager;
+    [SerializeField] private GyrussEventManager gyrussEventManager;
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private StageManager stageManager;
 
@@ -37,6 +38,7 @@ public class GyrussGameManager : MonoBehaviour
         GyrussEventManager.ClearDelegates();
     }
 
+    public GyrussEventManager GyrussEventManager => gyrussEventManager;
 
     public static GyrussGameManager Instance => instance;
     
