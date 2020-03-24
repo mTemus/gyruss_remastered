@@ -8,6 +8,7 @@ public class PathFollow : MonoBehaviour
     public Transform mapCenter;
     public float speed = 5;
     public float distanceTravelled;
+    public float turningRate = 30f; 
 
     private void Start() {
         if (pathCreator != null)
@@ -27,8 +28,7 @@ public class PathFollow : MonoBehaviour
             transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
             Vector3 tarObj = (mapCenter.position - transform.position).normalized;
             float angle = Mathf.Atan2(tarObj.y, tarObj.x) * Mathf.Rad2Deg;
-            Quaternion rotation = new Quaternion();
-            rotation.eulerAngles = new Vector3(0,0,Mathf.LerpAngle(transform.rotation.z, angle-90, 1));
+            Quaternion rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0,0,Mathf.LerpAngle(transform.rotation.z, angle-90, 1)), turningRate*Time.deltaTime);
             transform.rotation = rotation;
         }
     }
