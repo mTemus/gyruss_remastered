@@ -8,7 +8,7 @@ public class PathFollow : MonoBehaviour
     public Transform mapCenter;
     public float speed = 5;
     public float distanceTravelled;
-    public float turningRate = 30f; 
+    public float turningRate = 90f; 
 
     private void Start() {
         if (pathCreator != null)
@@ -26,10 +26,7 @@ public class PathFollow : MonoBehaviour
         {
             distanceTravelled += speed * Time.deltaTime;
             transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
-            Vector3 tarObj = (mapCenter.position - transform.position).normalized;
-            float angle = Mathf.Atan2(tarObj.y, tarObj.x) * Mathf.Rad2Deg;
-            Quaternion rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0,0,Mathf.LerpAngle(transform.rotation.z, angle-90, 1)), turningRate*Time.deltaTime);
-            transform.rotation = rotation;
+            rotateOnPath();
         }
     }
 
@@ -41,11 +38,9 @@ public class PathFollow : MonoBehaviour
         }
     }
 
-    public bool centerReached(){
-        if(transform.position == mapCenter.position){
-            return true;
-        }else{
-            return false;
-        }
+    private void rotateOnPath(){
+        Vector3 tarObj = (mapCenter.position - transform.position).normalized;
+        float angle = Mathf.Atan2(tarObj.y, tarObj.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0,0,Mathf.LerpAngle(transform.rotation.z, angle-90, 1));;
     }
 }

@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    public StageManager stageManager;
     public EnemyStates currentEnemyState = EnemyStates.entering;
     public PathFollow pathFollow;
     public PathsDatabase pathsDatabase;
@@ -18,7 +17,7 @@ public class EnemyController : MonoBehaviour
                 enterScreen();
             break;
             case EnemyStates.fly_to_spot:
-                flyToTheCenter();
+                flyToSpot();
             break;
             case EnemyStates.wait:
                 waitInTheMiddle();
@@ -41,13 +40,10 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void flyToTheCenter(){
-        // if(!pathFollow.centerReached()){
-
-        // }else{
-        //     currentEnemyState = EnemyStates.wait;
-        // }
-        currentEnemyState = EnemyStates.wait;
+    private void flyToSpot(){
+        if(pathFollow.endPathReached()){
+            currentEnemyState = EnemyStates.wait;
+        }
     }
 
     private void waitInTheMiddle(){

@@ -12,6 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e6bed71f1fe50a4892eff1a739cfef8, type: 3}
   m_Name: PathsDatabase
   m_EditorClassIdentifier: 
-  normalLevelPaths: []
-  chanceLevelPaths: []
-  backLevelPaths: []
+  normalLevelPaths:
+  - {fileID: 4280495477906366611, guid: 9b526489939a2bd47a48228cbaa311ca, type: 3}
+  chanceLevelPaths:
+  - {fileID: 6703866195760387580, guid: 7ca5b674d069ddf4fb2076c222c632ed, type: 3}
+  - {fileID: 8370787921498969979, guid: ca9fbd600ed648b49a15ee2b16e5472c, type: 3}
+  - {fileID: 6965329967712227233, guid: 28f2ef894239b9442b1ce8db5e3f3e77, type: 3}
+  - {fileID: 737580877184838374, guid: 119947c35a740c341bfe776f6b27ecd0, type: 3}
+  backLevelPaths:
+  - {fileID: 2403163638296332153, guid: c195d052e25acfa46959bc47b83d7a9d, type: 3}
+  - {fileID: 4588844506609689533, guid: 5ddccb23b9a4ccc4197fac538cdd8b60, type: 3}
+  - {fileID: 1130521111720509996, guid: c230b9e7c1eff4e4b8bb4216ed47ed87, type: 3}
+  - {fileID: 7997107633087218349, guid: 7983500082f8c6b4cad00708fbbe3e25, type: 3}
+  - {fileID: 5473348787126899091, guid: fd7bea08c897c0449966313cf88e29f6, type: 3}
+  - {fileID: 5200278722015091910, guid: d60363316ea0b554eaa9d643a35fdd38, type: 3}
+  - {fileID: 390129045360538561, guid: 1f559f93cc0e8b649b4406030aebc837, type: 3}
+  - {fileID: 3230446411091239897, guid: 0438477bcd5ed0347a2e82dc607db7ab, type: 3}
+  - {fileID: 5454616887554752285, guid: af1fd33318695e6479e66d8e5a937352, type: 3}
+  - {fileID: 2104342589430704729, guid: 174de5665fc6e5e4eade91222e0b1300, type: 3}
+  - {fileID: 360022914211271523, guid: 6375cff7b423d5e49a6d4a4ce3bb401e, type: 3}
+  - {fileID: 1774701046250267550, guid: aaa12a4274bcd3f4dbf14c6b8c60acf1, type: 3}
