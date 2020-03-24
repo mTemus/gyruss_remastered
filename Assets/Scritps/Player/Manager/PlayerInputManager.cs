@@ -93,4 +93,9 @@ public class PlayerInputManager : MonoBehaviour
             shootingPointDoubleGO.SetActive(false);
         }
     }
+
+    public Vector3 GetPlayerPosition()
+    {
+        return playerShip.transform.position;
+    }
 }
