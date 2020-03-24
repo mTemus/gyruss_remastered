@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7710749852460570904}
   - component: {fileID: -6497605563753433847}
   m_Layer: 0
-  m_Name: Enemy_L0_S1_T1
+  m_Name: Enemy_L0_S3_T2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 538127197706208365, guid: d51262d59eb72a94094dacdd71ae8f3c, type: 3}
+  m_Sprite: {fileID: -2422364481230537141, guid: d51262d59eb72a94094dacdd71ae8f3c,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -122,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801bb6572e3bc8c48a7d8d9dcda45ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentEnemyState: 0
 --- !u!50 &-6497605563753433847
 Rigidbody2D:
   serializedVersion: 4
