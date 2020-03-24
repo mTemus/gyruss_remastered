@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class GyrussGameManager : MonoBehaviour
 {
-    [SerializeField] private GyrussEventManager gyrussEventManager;
     [SerializeField] private PlayerInputManager playerInputManager;
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private StageManager stageManager;
@@ -13,13 +13,33 @@ public class GyrussGameManager : MonoBehaviour
     {
         instance = this;
     }
+
+
+    public void ChangeCurrentStageType(StageType newStageType)
+    {
+        GyrussEventManager.OnStageTypeChangeInitiated(newStageType);
+    }
+
+    public void EnqueueWave(Wave wave)
+    {
+        GyrussEventManager.OnWaveEnqueuingInitiated(wave);
+    }
+
+    public void ChangeStageState(StageState newStageState)
+    {
+        GyrussEventManager.OnStageStateChangeInitiated(newStageState);
+    }
     
-    
+
+
+    private void OnDestroy()
+    {
+        GyrussEventManager.ClearDelegates();
+    }
+
 
     public static GyrussGameManager Instance => instance;
-
-    public GyrussEventManager GyrussEventManager => gyrussEventManager;
-
+    
     public PlayerInputManager PlayerInputManager => playerInputManager;
 
     public StageManager StageManager => stageManager;

@@ -27,6 +27,7 @@ public class StageManager : MonoBehaviour
         wavesAwaiting = new Queue<Wave>();
 
         currentStageState = StageState.start;
+        SetDelegates();
         
         InitiateSpotsMap();
     }
@@ -37,6 +38,13 @@ public class StageManager : MonoBehaviour
         if (currentStageState == StageState.wait) return; 
         ProcessOrdersInStage();
     }
+
+    private void SetDelegates()
+    {
+        GyrussEventManager.StageTypeChangeInitiated += ChangeStageType;
+        GyrussEventManager.WaveEnqueuingInitiated += AddNewWave;
+    }
+    
 
     private void ProcessOrdersInStage()
     {
@@ -105,6 +113,26 @@ public class StageManager : MonoBehaviour
         enemiesAlive += enemiesAmount;
     }
 
+    private void ChangeStageType(StageType newStageType)
+    {
+        currentStageType = newStageType;
+    }
+
+    private void ChangeStageState(StageState newStageState)
+    {
+        currentStageState = newStageState;
+    }
+    
+    private void GoToNextStage()
+    {
+        currentStage++;
+        if (currentStage > 4) { currentStage = 1; }
+    }
+    
+    private void AddNewWave(Wave newWave)
+    {
+        wavesAwaiting.Enqueue(newWave);
+    }
     
     public void SetEnemySpotFree(int index)
     {
@@ -126,17 +154,6 @@ public class StageManager : MonoBehaviour
         SetEnemySpotOccupied(index);
         OccupyEnemySpot(index, enemy);
         return t.position;
-    }
-
-    public void GoToNextStage()
-    {
-        currentStage++;
-        if (currentStage > 4) { currentStage = 1; }
-    }
-
-    public void AddNewWave(Wave newWave)
-    {
-        wavesAwaiting.Enqueue(newWave);
     }
 
     public StageState CurrentStageState

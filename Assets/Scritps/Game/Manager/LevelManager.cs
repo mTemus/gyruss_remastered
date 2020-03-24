@@ -59,7 +59,9 @@ public class LevelManager : MonoBehaviour
     private void SetWaveToSpawn(int enemyType)
    {
        Wave waveToAdd = new Wave(enemyName + enemyType);
-       GyrussGameManager.Instance.StageManager.AddNewWave(waveToAdd);
+       GyrussGameManager.Instance.EnqueueWave(waveToAdd);
+       
+       GyrussGameManager.Instance.ChangeStageState(StageState.loading_wave);
        currentWave++;
    }
 
@@ -67,7 +69,7 @@ public class LevelManager : MonoBehaviour
     private void SetCurrentStageType()
    {
        int currentStage = GyrussGameManager.Instance.StageManager.CurrentStage;
-       StageType currentStageType;
+       StageType currentStageType = StageType.no_type;
        
        switch (currentStage) {
            case 1:
@@ -84,6 +86,7 @@ public class LevelManager : MonoBehaviour
                break;
        }
 
+       GyrussGameManager.Instance.ChangeCurrentStageType(currentStageType);
    }
 
 

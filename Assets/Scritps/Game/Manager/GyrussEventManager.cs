@@ -1,16 +1,35 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class GyrussEventManager : MonoBehaviour
+public static class GyrussEventManager
 {
-    // Start is called before the first frame update
-    void Start()
+    public static Action<StageType> StageTypeChangeInitiated;
+    public static Action<Wave> WaveEnqueuingInitiated;
+    public static Action<StageState> StageStateChangeInitiated;
+
+
+
+
+    public static void OnStageTypeChangeInitiated(StageType newStageType)
     {
-        
+        StageTypeChangeInitiated?.Invoke(newStageType);
     }
 
-    // Update is called once per frame
-    void Update()
+    public static void OnWaveEnqueuingInitiated(Wave wave)
     {
-        
+        WaveEnqueuingInitiated?.Invoke(wave);
+    }
+
+    public static void OnStageStateChangeInitiated(StageState newStageState)
+    {
+        StageStateChangeInitiated?.Invoke(newStageState);
+    }
+
+
+    public static void ClearDelegates()
+    {
+        StageTypeChangeInitiated = null;
+        WaveEnqueuingInitiated = null;
+        StageStateChangeInitiated = null;
     }
 }
