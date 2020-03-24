@@ -20,11 +20,11 @@ public class PathsDatabase : ScriptableObject {
     }
 
     public PathCreator getRandomPathBack(){
-        return backLevelPaths[Random.Range(0,normalLevelPaths.Count)];
+        return backLevelPaths[Random.Range(0,backLevelPaths.Count)];
     }
 
     public PathCreator getRandomPathInChanceStage(){
-        return chanceLevelPaths[Random.Range(0,normalLevelPaths.Count)];
+        return chanceLevelPaths[Random.Range(0,chanceLevelPaths.Count)];
     }
 
     // public PathCreator getPathClosestToPlayer(){
