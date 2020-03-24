@@ -13,7 +13,8 @@ public class StageManager : MonoBehaviour
     private int currentStage = 1;
     private int enemiesAlive;
 
-    private StageState currentState;
+    private StageState currentStageState;
+    private StageType currentStageType;
     private Wave currentWave;
     private Queue<Wave> wavesAwaiting;
     
@@ -25,7 +26,7 @@ public class StageManager : MonoBehaviour
         occupiedEnemySpots = new Dictionary<Transform, GameObject>();
         wavesAwaiting = new Queue<Wave>();
 
-        currentState = StageState.start;
+        currentStageState = StageState.start;
         
         InitiateSpotsMap();
     }
@@ -33,21 +34,25 @@ public class StageManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (currentState == StageState.wait) return; 
+        if (currentStageState == StageState.wait) return; 
         ProcessOrdersInStage();
     }
 
     private void ProcessOrdersInStage()
     {
-        switch (currentState) {
+        switch (currentStageState) {
             case StageState.start:
                 // timer needed
                 // after displaying "ready", ship should appear
                 // then enemies should spawn so state should change to loading_wave
 
+                //TODO: check current stage type here
+                if (currentStageType == StageType.normal) {
+                    currentStageState = StageState.loading_wave;
+                }
 
 
-                currentState = StageState.loading_wave;
+                
                 break;
             case StageState.wait:
                 // practically, should do nothing, for now, maybe wait for an event
@@ -60,14 +65,14 @@ public class StageManager : MonoBehaviour
                     Debug.LogError("Wave queue is empty!");
                     return;
                 }
-                currentState = StageState.spawn_enemies;
+                currentStageState = StageState.spawn_enemies;
                 
                 break;
             case StageState.spawn_enemies:
                 // spawning enemies
 
 
-                if (currentWave.EnemySpawned == currentWave.EnemyAmount) { currentState = StageState.wait; }
+                if (currentWave.EnemySpawned == currentWave.EnemyAmount) { currentStageState = StageState.wait; }
                 
                 break;
             case StageState.end:
@@ -123,11 +128,29 @@ public class StageManager : MonoBehaviour
         return t.position;
     }
 
+    public void GoToNextStage()
+    {
+        currentStage++;
+        if (currentStage > 4) { currentStage = 1; }
+    }
+
     public void AddNewWave(Wave newWave)
     {
         wavesAwaiting.Enqueue(newWave);
     }
-    
+
+    public StageState CurrentStageState
+    {
+        get => currentStageState;
+        set => currentStageState = value;
+    }
+
+    public StageType CurrentStageType
+    {
+        get => currentStageType;
+        set => currentStageType = value;
+    }
+
     public int CurrentStage => currentStage;
 
     public int EnemiesAlive => enemiesAlive;
