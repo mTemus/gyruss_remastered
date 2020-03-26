@@ -30,9 +30,17 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussEventManager.OnStageStateChangeInitiated(newStageState);
     }
+
+    public void KillEnemy()
+    {
+        GyrussEventManager.OnEnemyDeathInitiated();
+    }
+
+    public Vector3 OccupyEnemySpot(int index, GameObject enemy)
+    {
+        return GyrussEventManager.OnEnemySpotOccupationInitiated(index, enemy);
+    }
     
-
-
     private void OnDestroy()
     {
         GyrussEventManager.ClearDelegates();
