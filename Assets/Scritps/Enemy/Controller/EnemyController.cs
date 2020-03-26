@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
@@ -78,5 +79,11 @@ public class EnemyController : MonoBehaviour
             pathFollow.distanceTravelled = 0f;
             pathAssignedBack = true;
         }
+    }
+
+
+    private void OnDestroy()
+    {
+        GyrussGameManager.Instance.KillEnemy();
     }
 }
