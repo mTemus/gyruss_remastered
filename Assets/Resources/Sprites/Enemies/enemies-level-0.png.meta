@@ -58,7 +58,7 @@ TextureImporter:
     second: module_normal_open
   - first:
       213: 3073428161932579210
-    second: enemy_particle
+    second: enemy_bullet_particle_1
   - first:
       213: 3757152561451869625
     second: chance_points_capsule_1
@@ -92,6 +92,9 @@ TextureImporter:
   - first:
       213: -1250500078593146353
     second: enemies-level-0_29
+  - first:
+      213: 7494725275113236342
+    second: enemy_bullet_particle_2
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -578,7 +581,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: enemy_particle
+      name: enemy_bullet_particle_1
       rect:
         serializedVersion: 2
         x: 64
@@ -825,6 +828,27 @@ TextureImporter:
       bones: []
       spriteID: f028bdfcdc455aee0800000000000000
       internalID: -1250500078593146353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_bullet_particle_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6772440ddec920860800000000000000
+      internalID: 7494725275113236342
       vertices: []
       indices: 
       edges: []
