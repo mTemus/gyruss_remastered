@@ -11,50 +11,69 @@ public class LevelManager : MonoBehaviour
     private float waveLoadingTimer = 0;
     private float waveLoadTime = 30f;
 
+    private LevelState currentLevelState = LevelState.start;
+    
     private void Update()
    {
          // if current state == wait => return
          
-         InitiateWaves();
-         
+         ProcessOrdersInLevel();
 
    }
 
+    private void ProcessOrdersInLevel()
+    {
+        switch (currentLevelState) {
+            case LevelState.start:
 
-    private void InitiateWaves()
-   {
-      //TODO: add State machine to level manager
-      //TODO: add State machine to waves creating process or no?
+                currentLevelState = LevelState.create_wave;
+                
+                break;
+            case LevelState.wait:
+                
+                break;
+            case LevelState.create_wave:
+                //TODO: add State machine to waves creating process or no?
       
-      if (waveLoadingTimer == 0) {
-          int currentStage = GyrussGameManager.Instance.StageManager.CurrentStage;
-          enemyName = "Enemy_L" + currentLevel + "_S" + currentStage + "_T";
+                if (waveLoadingTimer == 0) {
+                    int currentStage = GyrussGameManager.Instance.StageManager.CurrentStage;
+                    enemyName = "Enemy_L" + currentLevel + "_S" + currentStage + "_T";
           
-          switch (currentWave) {
-              case 1:
-                  SetCurrentStageType();
-                  SetWaveToSpawn(1);
-                  break;
-              case 3:
-              {
-                  SetWaveToSpawn(1);
-                  break;
-              }
-              case 2:
-              case 4:
-              {
-                  SetWaveToSpawn(2);
-                  break;
-              }
-              case 5:
-                  return;
-          }
-      }
-      else {
-          waveLoadingTimer += Time.deltaTime;
-          if (waveLoadingTimer >= waveLoadTime) waveLoadingTimer = 0; 
-      }
-   }
+                    switch (currentWave) {
+                        case 1:
+                            SetCurrentStageType();
+                            SetWaveToSpawn(1);
+                            break;
+                        case 3:
+                        {
+                            SetWaveToSpawn(1);
+                            break;
+                        }
+                        case 2:
+                        case 4:
+                        {
+                            SetWaveToSpawn(2);
+                            break;
+                        }
+                        case 5:
+                            currentLevelState = LevelState.wait;
+                            break;
+                    }
+                }
+                //TODO: move timer to time manager
+                else {
+                    waveLoadingTimer += Time.deltaTime;
+                    if (waveLoadingTimer >= waveLoadTime) waveLoadingTimer = 0; 
+                }
+                
+                break;
+            
+            case LevelState.end:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
 
     private void SetWaveToSpawn(int enemyType)
    {
