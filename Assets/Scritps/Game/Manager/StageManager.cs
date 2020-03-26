@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class StageManager : MonoBehaviour
@@ -58,8 +57,6 @@ public class StageManager : MonoBehaviour
                     currentStageState = StageState.loading_wave;
                 }
 
-
-                
                 break;
             
             case StageState.wait:
