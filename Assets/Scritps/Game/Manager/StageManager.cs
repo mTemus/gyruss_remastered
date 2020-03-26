@@ -18,8 +18,6 @@ public class StageManager : MonoBehaviour
     private Wave currentWave;
     private Queue<Wave> wavesAwaiting;
     
-    
-    // Start is called before the first frame update
     private void Start()
     {
         enemySpotsMap = new Dictionary<Transform, bool>();
@@ -32,7 +30,6 @@ public class StageManager : MonoBehaviour
         InitiateSpotsMap();
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (currentStageState == StageState.wait) return; 
@@ -42,10 +39,12 @@ public class StageManager : MonoBehaviour
     private void SetDelegates()
     {
         GyrussEventManager.StageTypeChangeInitiated += ChangeStageType;
+        GyrussEventManager.StageStateChangeInitiated += ChangeStageState;
         GyrussEventManager.WaveEnqueuingInitiated += AddNewWave;
+        GyrussEventManager.EnemyDeathInitiated += KillEnemy;
+        GyrussEventManager.EnemySpotOccupationInitiated += OccupyEnemySpot;
     }
     
-
     private void ProcessOrdersInStage()
     {
         switch (currentStageState) {
@@ -62,13 +61,17 @@ public class StageManager : MonoBehaviour
 
                 
                 break;
+            
             case StageState.wait:
                 // practically, should do nothing, for now, maybe wait for an event
                 
                 
                 break;
+            
             case StageState.loading_wave:
-                if (wavesAwaiting.Count > 0) { currentWave = wavesAwaiting.Dequeue(); }
+                if (wavesAwaiting.Count > 0) {
+                    currentWave = wavesAwaiting.Dequeue();
+                }
                 else {
                     Debug.LogError("Wave queue is empty!");
                     return;
@@ -76,6 +79,7 @@ public class StageManager : MonoBehaviour
                 currentStageState = StageState.spawn_enemies;
                 
                 break;
+            
             case StageState.spawn_enemies:
                 // spawning enemies
 
@@ -83,8 +87,14 @@ public class StageManager : MonoBehaviour
                 if (currentWave.EnemySpawned == currentWave.EnemyAmount) { currentStageState = StageState.wait; }
                 
                 break;
+            
             case StageState.end:
+                ClearStage();
+
+                currentStageState = StageState.wait;
+                
                 break;
+            
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -97,22 +107,32 @@ public class StageManager : MonoBehaviour
         foreach (Transform enemySpot in enemySpots) { enemySpotsMap[enemySpot] = false; }
     }
 
-    private void SetEnemySpotOccupied(int index)
-    {
-        Transform t = enemySpots[index];
-        enemySpotsMap[t] = true;
-    }
-
-    private void OccupyEnemySpot(int index, GameObject enemy)
-    {
-        occupiedEnemySpots[enemySpots[index]] = enemy;
-    }
-
     private void AddEnemiesAlive(int enemiesAmount)
     {
         enemiesAlive += enemiesAmount;
     }
 
+    private void ClearStage()
+    {
+        occupiedEnemySpots = new Dictionary<Transform, GameObject>();
+        InitiateSpotsMap();
+        
+    }
+
+    private void KillEnemy()
+    {
+        --enemiesAlive;
+        
+        if (enemiesAlive < 0) {
+            Debug.LogError("You killed too much enemies!");
+        }
+
+        if (enemiesAlive == 0) {
+            //TODO: next stage event will be added here
+            GoToNextStage();
+        }
+    }
+    
     private void ChangeStageType(StageType newStageType)
     {
         currentStageType = newStageType;
@@ -133,26 +153,15 @@ public class StageManager : MonoBehaviour
     {
         wavesAwaiting.Enqueue(newWave);
     }
-    
-    public void SetEnemySpotFree(int index)
-    {
-        Transform t = enemySpots[index];
-        enemySpotsMap[t] = false;
-    }
 
-    public void LeaveEnemySpot(GameObject enemy)
-    {
-        occupiedEnemySpots.Remove(occupiedEnemySpots.FirstOrDefault(key => key.Value == enemy).Key);
-    }
-    
-    public Vector3 GetEnemySpotPosition(int index, GameObject enemy)
+    private Vector3 OccupyEnemySpot(int index, GameObject enemy)
     {
         Transform t = enemySpots[index];
 
-        if (enemySpotsMap[t]) return Vector3.negativeInfinity;
+        if (enemySpotsMap[t]) return Vector3.zero;
         
-        SetEnemySpotOccupied(index);
-        OccupyEnemySpot(index, enemy);
+        enemySpotsMap[t] = true;
+        occupiedEnemySpots[enemySpots[index]] = enemy;
         return t.position;
     }
 
