@@ -6,6 +6,7 @@ public class GyrussGameManager : MonoBehaviour
     [SerializeField] private GyrussEventManager gyrussEventManager;
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private StageManager stageManager;
+    [SerializeField] private TimeManager timeManager;
 
     private static GyrussGameManager instance;
 
@@ -14,10 +15,9 @@ public class GyrussGameManager : MonoBehaviour
         instance = this;
     }
 
-
-    public void ChangeCurrentStageType(StageType newStageType)
+    public void SetCurrentStageType(StageType newStageType)
     {
-        GyrussEventManager.OnStageTypeChangeInitiated(newStageType);
+        GyrussEventManager.OnStageTypeSetupInitiated(newStageType);
     }
 
     public void EnqueueWave(Wave wave)
@@ -25,9 +25,9 @@ public class GyrussGameManager : MonoBehaviour
         GyrussEventManager.OnWaveEnqueuingInitiated(wave);
     }
 
-    public void ChangeStageState(StageState newStageState)
+    public void SetStageState(StageState newStageState)
     {
-        GyrussEventManager.OnStageStateChangeInitiated(newStageState);
+        GyrussEventManager.OnStageStateSetupInitiated(newStageState);
     }
 
     public void KillEnemy()
@@ -38,6 +38,21 @@ public class GyrussGameManager : MonoBehaviour
     public Vector3 OccupyEnemySpot(int index, GameObject enemy)
     {
         return GyrussEventManager.OnEnemySpotOccupationInitiated(index, enemy);
+    }
+
+    public void SetLevelState(LevelState newLevelState)
+    {
+        GyrussEventManager.OnLevelStateSetupInitiated(newLevelState);
+    }
+
+    public StageState GetCurrentStageState()
+    {
+        return GyrussEventManager.OnCurrentStageStateGetInitiate();
+    }
+
+    public LevelState GetCurrentLevelState()
+    {
+        return GyrussEventManager.OnCurrentLevelStateGetInitiated();
     }
     
     private void OnDestroy()
@@ -54,4 +69,6 @@ public class GyrussGameManager : MonoBehaviour
     public StageManager StageManager => stageManager;
     
     public LevelManager LevelManager => levelManager;
+
+    public TimeManager TimeManager => timeManager;
 }

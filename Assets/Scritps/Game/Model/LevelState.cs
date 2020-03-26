@@ -1,5 +1,9 @@
 ﻿public enum LevelState
 {
-    start, wait, create_wave, end
+    no_state,
+    start, 
+    wait, 
+    create_wave, 
+    end
 }
 

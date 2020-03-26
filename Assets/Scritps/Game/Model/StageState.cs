@@ -1,5 +1,6 @@
 ﻿public enum StageState
 {
+    no_state,
     start,            // initiate player ship
     end,              // move player ship to leave position and initiate warping
     wait,             // wait until player kill all enemies or until new wave data will arrive

@@ -37,8 +37,8 @@ public class StageManager : MonoBehaviour
 
     private void SetDelegates()
     {
-        GyrussEventManager.StageTypeChangeInitiated += ChangeStageType;
-        GyrussEventManager.StageStateChangeInitiated += ChangeStageState;
+        GyrussEventManager.StageTypeSetupInitiated += SetNewStageType;
+        GyrussEventManager.StageStateSetupInitiated += SetNewStageState;
         GyrussEventManager.WaveEnqueuingInitiated += AddNewWave;
         GyrussEventManager.EnemyDeathInitiated += KillEnemy;
         GyrussEventManager.EnemySpotOccupationInitiated += OccupyEnemySpot;
@@ -130,12 +130,12 @@ public class StageManager : MonoBehaviour
         }
     }
     
-    private void ChangeStageType(StageType newStageType)
+    private void SetNewStageType(StageType newStageType)
     {
         currentStageType = newStageType;
     }
 
-    private void ChangeStageState(StageState newStageState)
+    private void SetNewStageState(StageState newStageState)
     {
         currentStageState = newStageState;
     }

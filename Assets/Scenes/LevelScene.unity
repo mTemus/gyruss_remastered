@@ -626,6 +626,7 @@ MonoBehaviour:
   gyrussEventManager: {fileID: 1300365188}
   levelManager: {fileID: 400678062}
   stageManager: {fileID: 789441953}
+  timeManager: {fileID: 832122678}
 --- !u!1 &452709662
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,6 +979,49 @@ MonoBehaviour:
   - {fileID: 1734847669}
   - {fileID: 323874503}
   - {fileID: 321730045}
+--- !u!1 &832122676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 832122677}
+  - component: {fileID: 832122678}
+  m_Layer: 0
+  m_Name: TimeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &832122677
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832122676}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1529139229}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &832122678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832122676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78719fec42662a344a16f7fb0a3af96a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &879739751
 GameObject:
   m_ObjectHideFlags: 0
@@ -1646,6 +1690,7 @@ Transform:
   - {fileID: 960823793}
   - {fileID: 400678061}
   - {fileID: 789441952}
+  - {fileID: 832122677}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -12,14 +12,24 @@ public class LevelManager : MonoBehaviour
     private float waveLoadTime = 30f;
 
     private LevelState currentLevelState = LevelState.start;
-    
+
+    private void Start()
+    {
+        SetDelegates();
+    }
+
     private void Update()
-   {
+    {
          // if current state == wait => return
          
          ProcessOrdersInLevel();
 
-   }
+    }
+
+    private void SetDelegates()
+    {
+        GyrussEventManager.LevelStateSetupInitiated += SetLevelState;
+    }
 
     private void ProcessOrdersInLevel()
     {
@@ -80,7 +90,7 @@ public class LevelManager : MonoBehaviour
        Wave waveToAdd = new Wave(enemyName + enemyType);
        GyrussGameManager.Instance.EnqueueWave(waveToAdd);
        
-       GyrussGameManager.Instance.ChangeStageState(StageState.loading_wave);
+       GyrussGameManager.Instance.SetStageState(StageState.loading_wave);
        currentWave++;
    }
 
@@ -105,9 +115,13 @@ public class LevelManager : MonoBehaviour
                break;
        }
 
-       GyrussGameManager.Instance.ChangeCurrentStageType(currentStageType);
+       GyrussGameManager.Instance.SetCurrentStageType(currentStageType);
    }
 
+    private void SetLevelState(LevelState newLevelState)
+    {
+        currentLevelState = newLevelState;
+    }
 
     public int CurrentLevel => currentLevel;
 
