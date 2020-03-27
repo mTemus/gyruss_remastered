@@ -88,6 +88,9 @@ public class StageManager : MonoBehaviour
                 enemy.GetComponent<PathFollow>().mapCenter = mapCenterPoint;
                 
                 IncreaseEnemyAlive();
+                enemy.transform.name = currentWave.EnemyName + "_" + enemiesAlive;
+                
+                
                 Debug.Log("Enemy spawned");
                 
                 currentWave.EnemySpawned++;
