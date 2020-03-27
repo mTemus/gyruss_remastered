@@ -35,6 +35,16 @@ public class GyrussGameManager : MonoBehaviour
         GyrussEventManager.OnEnemyDeathInitiated();
     }
 
+    public void SetWaveSpawnCondition(bool condition)
+    {
+        GyrussEventManager.OnWaveSpawnConditionSetInitiated(condition);
+    }
+
+    public void SetEnemySpawnCondition(bool condition)
+    {
+        GyrussEventManager.OnEnemySpawnConditionSetInitiated(condition);
+    }
+
     public Vector3 OccupyEnemySpot(int index, GameObject enemy)
     {
         return GyrussEventManager.OnEnemySpotOccupationInitiated(index, enemy);
@@ -45,16 +55,6 @@ public class GyrussGameManager : MonoBehaviour
         GyrussEventManager.OnLevelStateSetupInitiated(newLevelState);
     }
 
-    public StageState GetCurrentStageState()
-    {
-        return GyrussEventManager.OnCurrentStageStateGetInitiate();
-    }
-
-    public LevelState GetCurrentLevelState()
-    {
-        return GyrussEventManager.OnCurrentLevelStateGetInitiated();
-    }
-    
     private void OnDestroy()
     {
         GyrussEventManager.ClearDelegates();

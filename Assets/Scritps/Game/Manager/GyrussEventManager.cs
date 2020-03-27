@@ -9,25 +9,19 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<LevelState> LevelStateSetupInitiated;
     public static Action EnemyDeathInitiated;
     public static Func<int, GameObject, Vector3> EnemySpotOccupationInitiated;
-    public static Func<StageState> CurrentStageStateGetInitiated;
-    public static Func<LevelState> CurrentLevelStateGetInitiated;
+    public static Action<bool> WaveSpawnConditionSetInitiated;
+    public static Action<bool> EnemySpawnConditionSetInitiated;
 
-    public StageState OnCurrentStageStateGetInitiate()
+    public static void OnWaveSpawnConditionSetInitiated(bool condition)
     {
-        if (CurrentStageStateGetInitiated != null) 
-            return (StageState) CurrentStageStateGetInitiated?.Invoke();
-
-        return StageState.no_state;
+        WaveSpawnConditionSetInitiated?.Invoke(condition);
     }
 
-    public LevelState OnCurrentLevelStateGetInitiated()
+    public static void OnEnemySpawnConditionSetInitiated(bool condition)
     {
-        if (CurrentLevelStateGetInitiated != null) 
-            return (LevelState) CurrentLevelStateGetInitiated?.Invoke();
-
-        return LevelState.no_state;
+        EnemySpawnConditionSetInitiated?.Invoke(condition);
     }
-    
+
     public static void OnLevelStateSetupInitiated(LevelState newLevelState)
     {
         LevelStateSetupInitiated?.Invoke(newLevelState);
@@ -70,7 +64,7 @@ public class GyrussEventManager : MonoBehaviour
         EnemyDeathInitiated = null;
         EnemySpotOccupationInitiated = null;
         LevelStateSetupInitiated = null;
-        CurrentLevelStateGetInitiated = null;
-        CurrentStageStateGetInitiated = null;
+        WaveSpawnConditionSetInitiated = null;
+        EnemySpawnConditionSetInitiated = null;
     }
 }

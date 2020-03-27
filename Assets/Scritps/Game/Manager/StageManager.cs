@@ -68,6 +68,7 @@ public class StageManager : MonoBehaviour
             case StageState.loading_wave:
                 if (wavesAwaiting.Count > 0) {
                     currentWave = wavesAwaiting.Dequeue();
+                    GyrussGameManager.Instance.SetEnemySpawnCondition(true);
                 }
                 else {
                     Debug.LogError("Wave queue is empty!");
@@ -80,8 +81,11 @@ public class StageManager : MonoBehaviour
             case StageState.spawn_enemies:
                 // spawning enemies
 
-
-                if (currentWave.EnemySpawned == currentWave.EnemyAmount) { currentStageState = StageState.wait; }
+                currentWave.EnemySpawned++;
+                if (currentWave.EnemySpawned == currentWave.EnemyAmount) {
+                    GyrussGameManager.Instance.SetEnemySpawnCondition(false);
+                    currentStageState = StageState.wait;
+                } 
                 
                 break;
             

@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour
     {
         switch (currentLevelState) {
             case LevelState.start:
-
+                
                 currentLevelState = LevelState.create_wave;
                 
                 break;
@@ -43,16 +43,13 @@ public class LevelManager : MonoBehaviour
                 
                 break;
             case LevelState.create_wave:
-                //TODO: add State machine to waves creating process or no?
-      
-                if (waveLoadingTimer == 0) {
-                    int currentStage = GyrussGameManager.Instance.StageManager.CurrentStage;
-                    enemyName = "Enemy_L" + currentLevel + "_S" + currentStage + "_T";
+                enemyName = "Enemy_L" + currentLevel + "_S" + GyrussGameManager.Instance.StageManager.CurrentStage + "_T";
           
                     switch (currentWave) {
                         case 1:
                             SetCurrentStageType();
                             SetWaveToSpawn(1);
+                            GyrussGameManager.Instance.SetWaveSpawnCondition(true);
                             break;
                         case 3:
                         {
@@ -66,15 +63,13 @@ public class LevelManager : MonoBehaviour
                             break;
                         }
                         case 5:
-                            currentLevelState = LevelState.wait;
+                            currentWave = 1;
+                            GyrussGameManager.Instance.SetLevelState(LevelState.wait);
+                            GyrussGameManager.Instance.SetWaveSpawnCondition(false);
                             break;
                     }
-                }
-                //TODO: move timer to time manager
-                else {
-                    waveLoadingTimer += Time.deltaTime;
-                    if (waveLoadingTimer >= waveLoadTime) waveLoadingTimer = 0; 
-                }
+                
+                Debug.LogWarning("Wave created");
                 
                 break;
             
@@ -89,8 +84,8 @@ public class LevelManager : MonoBehaviour
    {
        Wave waveToAdd = new Wave(enemyName + enemyType);
        GyrussGameManager.Instance.EnqueueWave(waveToAdd);
-       
        GyrussGameManager.Instance.SetStageState(StageState.loading_wave);
+       GyrussGameManager.Instance.SetLevelState(LevelState.wait);
        currentWave++;
    }
 
