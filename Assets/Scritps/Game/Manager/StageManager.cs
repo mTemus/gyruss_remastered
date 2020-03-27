@@ -89,13 +89,14 @@ public class StageManager : MonoBehaviour
                 
                 IncreaseEnemyAlive();
                 Debug.Log("Enemy spawned");
-
+                
                 currentWave.EnemySpawned++;
+                
                 if (currentWave.EnemySpawned == currentWave.EnemyAmount) {
                     GyrussGameManager.Instance.SetEnemySpawnCondition(false);
-                    currentStageState = StageState.wait;
                 } 
                 
+                GyrussGameManager.Instance.SetStageState(StageState.wait);
                 break;
             
             case StageState.end:

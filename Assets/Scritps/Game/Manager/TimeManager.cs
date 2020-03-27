@@ -9,7 +9,7 @@ public class TimeManager : MonoBehaviour
     private float enemySpawningTimer;
 
     private float waveCreatingPeriod = 6f;
-    private float enemySpawnPeriod = 2f;
+    private float enemySpawnPeriod = 0.3f;
     
     private bool createWave;
     private bool spawnEnemies;
@@ -38,6 +38,7 @@ public class TimeManager : MonoBehaviour
         if (currentLevelState != LevelState.wait || !(waveCreatingTimer <= 0)) return;
         
         GyrussGameManager.Instance.SetLevelState(LevelState.create_wave);
+        
         waveCreatingTimer = waveCreatingPeriod;
     }
 
