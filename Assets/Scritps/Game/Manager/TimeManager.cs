@@ -4,31 +4,55 @@ public class TimeManager : MonoBehaviour
 {
     private LevelState currentLevelState = LevelState.start;
     private StageState currentStageState = StageState.start;
-    
-    private float waveCreatingTimer = 30;
-    private float waveSpawningTimer = 0;
 
+    private float waveCreatingTimer;
+    private float enemySpawningTimer;
+
+    private float waveCreatingPeriod = 6f;
+    private float enemySpawnPeriod = 0.5f;
+    
     private bool createWave;
     private bool spawnEnemies;
     
     
     private void Start()
     {
+        waveCreatingTimer = waveCreatingPeriod;
+        enemySpawningTimer = enemySpawnPeriod;
         SetDelegates();
     }
 
     void Update()
     {
-        if (createWave) {
-            waveCreatingTimer -= Time.deltaTime;
+        CheckWaveCreation();
+        CheckEnemySpawning();
 
-            if (currentLevelState == LevelState.wait && waveCreatingTimer <= 0) {
-                GyrussGameManager.Instance.SetLevelState(LevelState.create_wave);
-                waveCreatingTimer = 30;
-            }
-        }
         
     }
+
+    private void CheckWaveCreation()
+    {
+        if (!createWave) return;
+        waveCreatingTimer -= Time.deltaTime;
+
+        if (currentLevelState != LevelState.wait || !(waveCreatingTimer <= 0)) return;
+        
+        GyrussGameManager.Instance.SetLevelState(LevelState.create_wave);
+        waveCreatingTimer = waveCreatingPeriod;
+    }
+
+    private void CheckEnemySpawning()
+    {
+        if (!spawnEnemies) return;
+        enemySpawningTimer -= Time.deltaTime;
+
+        if (currentStageState != StageState.wait || !(enemySpawningTimer <= 0)) return;
+        
+        GyrussGameManager.Instance.SetStageState(StageState.spawn_enemies);
+        enemySpawningTimer = enemySpawnPeriod;
+    }
+    
+    
 
     private void SetDelegates()
     {

@@ -80,6 +80,8 @@ public class StageManager : MonoBehaviour
             
             case StageState.spawn_enemies:
                 // spawning enemies
+                
+                Debug.Log("Enemy spawned");
 
                 currentWave.EnemySpawned++;
                 if (currentWave.EnemySpawned == currentWave.EnemyAmount) {
