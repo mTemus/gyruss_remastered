@@ -6,7 +6,6 @@
    private int enemiesKilled;
    private int enemySpawned;
    
-   
    private string enemyName;
    
    public Wave(string enemyName)
@@ -30,6 +29,8 @@
    public int PointsAmount => pointsAmount;
 
    public int BonusPoints => bonusPoints;
+
+   public string EnemyName => enemyName;
 
    public int EnemySpawned
    {

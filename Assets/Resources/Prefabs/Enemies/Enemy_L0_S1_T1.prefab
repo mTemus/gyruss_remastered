@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2516895222608609327}
   - component: {fileID: 4904522728625553535}
   - component: {fileID: 7710749852460570904}
-  - component: {fileID: -521093085363651897}
   - component: {fileID: 478720627}
+  - component: {fileID: -521093085363651897}
   m_Layer: 0
   m_Name: Enemy_L0_S1_T1
   m_TagString: EnemyShip
@@ -128,18 +128,6 @@ MonoBehaviour:
   pathFollow: {fileID: 478720627}
   pathsDatabase: {fileID: 11400000, guid: 80dd15cc02e98a6428a2f3c4b2a78207, type: 2}
   timeToWait: 0
---- !u!114 &-521093085363651897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6718578167572102063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0f3b346d5ac6a94bb2fead6dc5875e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &478720627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,3 +146,15 @@ MonoBehaviour:
   speed: 3.5
   distanceTravelled: 0
   turningRate: 90
+--- !u!114 &-521093085363651897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6718578167572102063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f3b346d5ac6a94bb2fead6dc5875e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

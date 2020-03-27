@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class StageManager : MonoBehaviour
 {
     [SerializeField] private Transform[] enemySpots;
+    [SerializeField] private Transform mapCenterPoint;
 
     private Dictionary<Transform, bool> enemySpotsMap;
     private Dictionary<Transform, GameObject> occupiedEnemySpots;
@@ -12,6 +14,8 @@ public class StageManager : MonoBehaviour
     private int currentStage = 1;
     private int enemiesAlive;
 
+    private int randomOfPath;
+    
     private StageState currentStageState;
     private StageType currentStageType;
     private Wave currentWave;
@@ -68,6 +72,7 @@ public class StageManager : MonoBehaviour
             case StageState.loading_wave:
                 if (wavesAwaiting.Count > 0) {
                     currentWave = wavesAwaiting.Dequeue();
+                    randomOfPath = Random.Range(1, 8); // ???????????????
                     GyrussGameManager.Instance.SetEnemySpawnCondition(true);
                 }
                 else {
@@ -79,8 +84,10 @@ public class StageManager : MonoBehaviour
                 break;
             
             case StageState.spawn_enemies:
-                // spawning enemies
+                GameObject enemy = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/" + currentWave.EnemyName));
+                enemy.GetComponent<PathFollow>().mapCenter = mapCenterPoint;
                 
+                IncreaseEnemyAlive();
                 Debug.Log("Enemy spawned");
 
                 currentWave.EnemySpawned++;
@@ -110,9 +117,9 @@ public class StageManager : MonoBehaviour
         foreach (Transform enemySpot in enemySpots) { enemySpotsMap[enemySpot] = false; }
     }
 
-    private void AddEnemiesAlive(int enemiesAmount)
+    private void IncreaseEnemyAlive()
     {
-        enemiesAlive += enemiesAmount;
+        enemiesAlive++;
     }
 
     private void ClearStage()

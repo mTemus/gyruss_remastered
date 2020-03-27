@@ -9,7 +9,7 @@ public class TimeManager : MonoBehaviour
     private float enemySpawningTimer;
 
     private float waveCreatingPeriod = 6f;
-    private float enemySpawnPeriod = 0.5f;
+    private float enemySpawnPeriod = 2f;
     
     private bool createWave;
     private bool spawnEnemies;

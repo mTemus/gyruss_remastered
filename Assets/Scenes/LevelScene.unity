@@ -979,6 +979,7 @@ MonoBehaviour:
   - {fileID: 1734847669}
   - {fileID: 323874503}
   - {fileID: 321730045}
+  mapCenterPoint: {fileID: 879739752}
 --- !u!1 &832122676
 GameObject:
   m_ObjectHideFlags: 0

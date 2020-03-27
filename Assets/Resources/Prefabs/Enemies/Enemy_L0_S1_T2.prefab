@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2516895222608609327}
   - component: {fileID: 4904522728625553535}
   - component: {fileID: 7710749852460570904}
+  - component: {fileID: 4097480019218467140}
   - component: {fileID: -6106743201459439738}
   m_Layer: 0
   m_Name: Enemy_L0_S1_T2
@@ -123,7 +124,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801bb6572e3bc8c48a7d8d9dcda45ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageManager: {fileID: 0}
   currentEnemyState: 0
+  pathFollow: {fileID: 4097480019218467140}
+  pathsDatabase: {fileID: 11400000, guid: 80dd15cc02e98a6428a2f3c4b2a78207, type: 2}
+  timeToWait: 0
+--- !u!114 &4097480019218467140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6718578167572102063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 255e156a351520a4986b87537f09ba08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathCreator: {fileID: 0}
+  endOfPathInstruction: 2
+  mapCenter: {fileID: 0}
+  speed: 3.5
+  distanceTravelled: 0
+  turningRate: 90
 --- !u!114 &-6106743201459439738
 MonoBehaviour:
   m_ObjectHideFlags: 0
