@@ -5,15 +5,18 @@
    private int bonusPoints;
    private int enemiesKilled;
    private int enemySpawned;
+
+   private bool isWaveEven;
    
    private string enemyName;
    
-   public Wave(string enemyName)
+   public Wave(string enemyName, bool isWaveEven)
    {
       enemyAmount = 8;
       pointsAmount = 800;
       bonusPoints = 1000;
       this.enemyName = enemyName;
+      this.isWaveEven = isWaveEven;
    }
 
    public Wave(int enemyAmount, int pointsAmount, int bonusPoints, string enemyName)
@@ -31,6 +34,12 @@
    public int BonusPoints => bonusPoints;
 
    public string EnemyName => enemyName;
+
+   public bool IsWaveEven
+   {
+      get => isWaveEven;
+      set => isWaveEven = value;
+   }
 
    public int EnemySpawned
    {

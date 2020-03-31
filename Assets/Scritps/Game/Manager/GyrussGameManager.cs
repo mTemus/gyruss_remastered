@@ -45,9 +45,9 @@ public class GyrussGameManager : MonoBehaviour
         GyrussEventManager.OnEnemySpawnConditionSetInitiated(condition);
     }
 
-    public Vector3 OccupyEnemySpot(int index, GameObject enemy)
+    public Vector3 OccupyEnemySpot(int index)
     {
-        return GyrussEventManager.OnEnemySpotOccupationInitiated(index, enemy);
+        return GyrussEventManager.OnEnemySpotOccupationInitiated(index);
     }
 
     public void SetLevelState(LevelState newLevelState)

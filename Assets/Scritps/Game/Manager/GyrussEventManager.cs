@@ -8,7 +8,7 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<Wave> WaveEnqueuingInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
     public static Action EnemyDeathInitiated;
-    public static Func<int, GameObject, Vector3> EnemySpotOccupationInitiated;
+    public static Func<int, Vector3> EnemySpotOccupationInitiated;
     public static Action<bool> WaveSpawnConditionSetInitiated;
     public static Action<bool> EnemySpawnConditionSetInitiated;
 
@@ -27,10 +27,10 @@ public class GyrussEventManager : MonoBehaviour
         LevelStateSetupInitiated?.Invoke(newLevelState);
     }
     
-    public static Vector3 OnEnemySpotOccupationInitiated(int index, GameObject enemy)
+    public static Vector3 OnEnemySpotOccupationInitiated(int index)
     {
         if (EnemySpotOccupationInitiated != null) return (Vector3) 
-            EnemySpotOccupationInitiated?.Invoke(index, enemy);
+            EnemySpotOccupationInitiated?.Invoke(index);
         
         return Vector3.zero;
     }

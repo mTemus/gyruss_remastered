@@ -7,14 +7,14 @@ public class StageManager : MonoBehaviour
 {
     [SerializeField] private Transform[] enemySpots;
     [SerializeField] private Transform mapCenterPoint;
-
-    private Dictionary<Transform, bool> enemySpotsMap;
-    private Dictionary<Transform, GameObject> occupiedEnemySpots;
-
+    
     private int currentStage = 1;
     private int enemiesAlive;
 
-    private int randomOfPath;
+    private int randomOfPath; // ???????????????????????????????
+
+    private int evenSpotId = 0;
+    private int unevenSpotId = 1;
     
     private StageState currentStageState;
     private StageType currentStageType;
@@ -23,14 +23,10 @@ public class StageManager : MonoBehaviour
     
     private void Start()
     {
-        enemySpotsMap = new Dictionary<Transform, bool>();
-        occupiedEnemySpots = new Dictionary<Transform, GameObject>();
         wavesAwaiting = new Queue<Wave>();
 
         currentStageState = StageState.start;
         SetDelegates();
-        
-        InitiateSpotsMap();
     }
 
     private void Update()
@@ -86,12 +82,14 @@ public class StageManager : MonoBehaviour
             case StageState.spawn_enemies:
                 GameObject enemy = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/" + currentWave.EnemyName));
                 enemy.GetComponent<PathFollow>().mapCenter = mapCenterPoint;
+                enemy.GetComponent<EnemyController>().SpotIndex = currentWave.IsWaveEven ? evenSpotId += 2 : unevenSpotId += 2;
                 
                 IncreaseEnemyAlive();
                 enemy.transform.name = currentWave.EnemyName + "_" + enemiesAlive;
                 
                 
-                Debug.Log("Enemy spawned");
+                // Debug.Log("Enemy spawned");
+                // Debug.Log(enemy.GetComponent<EnemyController>().SpotIndex);
                 
                 currentWave.EnemySpawned++;
                 
@@ -113,13 +111,6 @@ public class StageManager : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
     }
-    
-    
-    
-    private void InitiateSpotsMap()
-    {
-        foreach (Transform enemySpot in enemySpots) { enemySpotsMap[enemySpot] = false; }
-    }
 
     private void IncreaseEnemyAlive()
     {
@@ -128,9 +119,8 @@ public class StageManager : MonoBehaviour
 
     private void ClearStage()
     {
-        occupiedEnemySpots = new Dictionary<Transform, GameObject>();
-        InitiateSpotsMap();
-        
+        evenSpotId = 0;
+        unevenSpotId = 1;
     }
 
     private void KillEnemy()
@@ -168,14 +158,9 @@ public class StageManager : MonoBehaviour
         wavesAwaiting.Enqueue(newWave);
     }
 
-    private Vector3 OccupyEnemySpot(int index, GameObject enemy)
+    private Vector3 OccupyEnemySpot(int index)
     {
         Transform t = enemySpots[index];
-
-        if (enemySpotsMap[t]) return Vector3.zero;
-        
-        enemySpotsMap[t] = true;
-        occupiedEnemySpots[enemySpots[index]] = enemy;
         return t.position;
     }
 

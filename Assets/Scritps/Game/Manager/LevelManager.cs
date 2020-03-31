@@ -48,18 +48,18 @@ public class LevelManager : MonoBehaviour
                     switch (currentWave) {
                         case 1:
                             SetCurrentStageType();
-                            SetWaveToSpawn(1);
+                            SetWaveToSpawn(1, false);
                             GyrussGameManager.Instance.SetWaveSpawnCondition(true);
                             break;
                         case 3:
                         {
-                            SetWaveToSpawn(1);
+                            SetWaveToSpawn(1, false);
                             break;
                         }
                         case 2:
                         case 4:
                         {
-                            SetWaveToSpawn(2);
+                            SetWaveToSpawn(2, true);
                             break;
                         }
                         case 5:
@@ -80,9 +80,9 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void SetWaveToSpawn(int enemyType)
+    private void SetWaveToSpawn(int enemyType, bool isWaveEven)
    {
-       Wave waveToAdd = new Wave(enemyName + enemyType);
+       Wave waveToAdd = new Wave(enemyName + enemyType, isWaveEven);
        GyrussGameManager.Instance.EnqueueWave(waveToAdd);
        GyrussGameManager.Instance.SetStageState(StageState.loading_wave);
        GyrussGameManager.Instance.SetLevelState(LevelState.wait);
