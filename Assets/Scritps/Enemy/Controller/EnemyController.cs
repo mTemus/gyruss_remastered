@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour
     
     private int spotIndex;
     private Vector3 centerPosition;
+    private static readonly int Dead = Animator.StringToHash("dead");
 
     private void Start()
     {
@@ -32,7 +33,7 @@ public class EnemyController : MonoBehaviour
             break;
             
             case EnemyStates.wait:
-                // waitInTheMiddle();
+                waitInTheMiddle();
             break;
             
             case EnemyStates.attack:
@@ -55,6 +56,7 @@ public class EnemyController : MonoBehaviour
             case EnemyStates.fly_from_mini_boss:
                 break;
             case EnemyStates.die:
+                transform.GetComponent<Animator>().SetBool(Dead, true);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -114,6 +116,12 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    private void Die() // <-- funkcja do animacji
+    {
+        Destroy(transform.gameObject);
+    }
+    
+
     public int SpotIndex
     {
         get => spotIndex;
@@ -130,5 +138,15 @@ public class EnemyController : MonoBehaviour
     private void OnDestroy()
     {
         GyrussGameManager.Instance.KillEnemy();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (currentEnemyState == EnemyStates.die) return;
+        if (!other.CompareTag("PlayerBullet")) return;
+        
+        transform.GetComponent<BoxCollider2D>().enabled = false;
+        currentEnemyState = EnemyStates.die;
+
     }
 }

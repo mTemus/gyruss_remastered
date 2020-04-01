@@ -24,9 +24,6 @@ public class StageManager : MonoBehaviour
     private void Start()
     {
         wavesAwaiting = new Queue<Wave>();
-
-        Debug.Log(enemySpots.Length);
-        
         currentStageState = StageState.start;
         SetDelegates();
     }

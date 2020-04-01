@@ -16,7 +16,8 @@ public class ScalingController : MonoBehaviour
 
     private Vector2 normalEnemyColliderSize;
     private Vector2 normalEnemyColliderOffset;
-    
+    private static readonly int Scaling = Animator.StringToHash("scaling");
+
     void Start()
     {
         Vector3 playerPos = GyrussGameManager.Instance.PlayerInputManager.GetPlayerPosition();
@@ -53,7 +54,7 @@ public class ScalingController : MonoBehaviour
         if (transform.CompareTag("EnemyShip")) {
             if (scalingFactor <= 0.20) {
                 if (!enemyIsInCenterPosition) {
-                    myRenderer.sprite = enemyCenterSprite;
+                    // myRenderer.sprite = enemyCenterSprite;
                     currentCollider.size = new Vector2(0.1f, 0.1f);
                     currentCollider.offset = new Vector2(-0.016f, 0.015f);
                     enemyIsInCenterPosition = !enemyIsInCenterPosition;
@@ -61,15 +62,18 @@ public class ScalingController : MonoBehaviour
             }
             else {
                 if (enemyIsInCenterPosition) {
-                    myRenderer.sprite = enemyNormalSprite;
+                    // myRenderer.sprite = enemyNormalSprite;
                     currentCollider.size = normalEnemyColliderSize;
                     currentCollider.offset = normalEnemyColliderOffset;
                     enemyIsInCenterPosition = !enemyIsInCenterPosition;
                 }
             }
+            
+            transform.GetComponent<Animator>().SetFloat(Scaling, scalingFactor);
         }
 
         if (enemyIsInCenterPosition) { scalingFactor = 1; }
         transform.localScale = new Vector3(scalingFactor, scalingFactor, 0);
+        
     }
 }
