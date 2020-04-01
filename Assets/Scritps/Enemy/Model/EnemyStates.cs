@@ -1,5 +1,7 @@
 ﻿public enum EnemyStates
 {
+    no_state,
+    take_a_spot,
     entering, // enter the map and fly on a path
     fly_to_spot, // fly to spot in the center of the map
     wait, // wait in the center of the map

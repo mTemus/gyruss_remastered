@@ -25,6 +25,8 @@ public class StageManager : MonoBehaviour
     {
         wavesAwaiting = new Queue<Wave>();
 
+        Debug.Log(enemySpots.Length);
+        
         currentStageState = StageState.start;
         SetDelegates();
     }
@@ -82,7 +84,19 @@ public class StageManager : MonoBehaviour
             case StageState.spawn_enemies:
                 GameObject enemy = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/" + currentWave.EnemyName));
                 enemy.GetComponent<PathFollow>().mapCenter = mapCenterPoint;
-                enemy.GetComponent<EnemyController>().SpotIndex = currentWave.IsWaveEven ? evenSpotId += 2 : unevenSpotId += 2;
+                EnemyController currentEnemyController = enemy.GetComponent<EnemyController>();
+                
+                if (currentWave.IsWaveEven) {
+                    currentEnemyController.SpotIndex = evenSpotId;
+                    evenSpotId += 2;
+                }
+                else {
+                    currentEnemyController.SpotIndex = unevenSpotId;
+                    unevenSpotId += 2;
+                }
+                
+                
+                currentEnemyController.currentEnemyState = EnemyStates.take_a_spot;
                 
                 IncreaseEnemyAlive();
                 enemy.transform.name = currentWave.EnemyName + "_" + enemiesAlive;
@@ -160,6 +174,8 @@ public class StageManager : MonoBehaviour
 
     private Vector3 OccupyEnemySpot(int index)
     {
+        Debug.LogError(index);
+        
         Transform t = enemySpots[index];
         return t.position;
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public EnemyStates currentEnemyState = EnemyStates.entering;
+    public EnemyStates currentEnemyState = EnemyStates.no_state;
     public PathFollow pathFollow;
     public PathsDatabase pathsDatabase;
     public float timeToWait = 0;
@@ -23,9 +23,6 @@ public class EnemyController : MonoBehaviour
     private void Update() {
         switch(currentEnemyState){
             case EnemyStates.entering:
-                centerPosition = GyrussGameManager.Instance.OccupyEnemySpot(spotIndex);
-                Debug.Log(centerPosition);
-                
                 randomizePath();
                 enterScreen();
             break;
@@ -35,7 +32,7 @@ public class EnemyController : MonoBehaviour
             break;
             
             case EnemyStates.wait:
-                waitInTheMiddle();
+                // waitInTheMiddle();
             break;
             
             case EnemyStates.attack:
@@ -46,22 +43,39 @@ public class EnemyController : MonoBehaviour
             case EnemyStates.fly_away:
                 flyAway();
             break;
+            case EnemyStates.no_state:
+                break;
+            case EnemyStates.take_a_spot:
+                centerPosition = GyrussGameManager.Instance.OccupyEnemySpot(spotIndex);
+                currentEnemyState = EnemyStates.entering;
+                
+                break;
+            case EnemyStates.fly_to_mini_boss:
+                break;
+            case EnemyStates.fly_from_mini_boss:
+                break;
+            case EnemyStates.die:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }   
     }
 
     private void enterScreen(){
         if(!pathFollow.endPathReached()) {
             pathFollow.moveOnPath();
-        } else { currentEnemyState = EnemyStates.fly_to_spot; }
+        }
+        else {
+            currentEnemyState = EnemyStates.fly_to_spot;
+        }
     }
 
     private void flyToSpot(){
-        if (!pathFollow.endPathReached()) return;
-        
-        Vector3.MoveTowards(transform.position, centerPosition, speed);
+        // if (!pathFollow.endPathReached()) return; <- to blokuje latanie do punktu
+
+        transform.position = Vector3.MoveTowards(transform.position, centerPosition, Time.deltaTime * speed);
 
         if (transform.position == centerPosition) {
-            Debug.Log("here");
             currentEnemyState = EnemyStates.wait;
         }
     }
