@@ -83,6 +83,7 @@ public class StageManager : MonoBehaviour
             
             case StageState.spawn_enemies:
                 GameObject enemy = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/" + currentWave.EnemyName));
+                enemy.transform.position = new Vector3(-100, -100, 0);
                 enemy.GetComponent<PathFollow>().mapCenter = mapCenterPoint;
                 EnemyController currentEnemyController = enemy.GetComponent<EnemyController>();
                 
@@ -174,8 +175,6 @@ public class StageManager : MonoBehaviour
 
     private Vector3 OccupyEnemySpot(int index)
     {
-        Debug.LogError(index);
-        
         Transform t = enemySpots[index];
         return t.position;
     }
