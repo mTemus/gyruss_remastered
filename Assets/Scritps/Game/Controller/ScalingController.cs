@@ -13,6 +13,9 @@ public class ScalingController : MonoBehaviour
     private SpriteRenderer myRenderer;
     private Sprite enemyNormalSprite;
     private Sprite enemyCenterSprite;
+
+    private Vector2 normalEnemyColliderSize;
+    private Vector2 normalEnemyColliderOffset;
     
     void Start()
     {
@@ -23,6 +26,10 @@ public class ScalingController : MonoBehaviour
 
         if (transform.CompareTag("EnemyShip")) {
             currentCollider = transform.GetComponent<BoxCollider2D>();
+            normalEnemyColliderSize = currentCollider.size;
+            normalEnemyColliderOffset = currentCollider.offset;
+            
+            
             myRenderer = transform.GetComponent<SpriteRenderer>();
             enemyNormalSprite = transform.GetComponent<SpriteRenderer>().sprite;
             
@@ -55,6 +62,8 @@ public class ScalingController : MonoBehaviour
             else {
                 if (enemyIsInCenterPosition) {
                     myRenderer.sprite = enemyNormalSprite;
+                    currentCollider.size = normalEnemyColliderSize;
+                    currentCollider.offset = normalEnemyColliderOffset;
                     enemyIsInCenterPosition = !enemyIsInCenterPosition;
                 }
             }
