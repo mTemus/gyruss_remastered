@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7710749852460570904}
   - component: {fileID: 4097480019218467140}
   - component: {fileID: -6106743201459439738}
+  - component: {fileID: 1833700687822768536}
   m_Layer: 0
   m_Name: Enemy_L0_S1_T2
   m_TagString: EnemyShip
@@ -180,3 +181,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f3b346d5ac6a94bb2fead6dc5875e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1833700687822768536
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6718578167572102063}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 10a659f71fdec8b479d570dbe1e7fd87, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
