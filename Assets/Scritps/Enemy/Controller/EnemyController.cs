@@ -13,6 +13,8 @@ public class EnemyController : MonoBehaviour
     private float speed;
     
     private int spotIndex;
+    private float deathCounter = 0;
+    
     private Vector3 centerPosition;
     private static readonly int Dead = Animator.StringToHash("dead");
 
@@ -56,8 +58,15 @@ public class EnemyController : MonoBehaviour
             case EnemyStates.fly_from_mini_boss:
                 break;
             case EnemyStates.die:
-                transform.GetComponent<Animator>().SetBool(Dead, true);
+
+                if (deathCounter == 0) { transform.GetComponent<Animator>().SetBool(Dead, true); }
+                else if (deathCounter >= 0.4f) {
+                    Destroy(transform.gameObject);
+                }
+
+                deathCounter += Time.deltaTime;
                 break;
+            
             default:
                 throw new ArgumentOutOfRangeException();
         }   
@@ -147,6 +156,5 @@ public class EnemyController : MonoBehaviour
         
         transform.GetComponent<BoxCollider2D>().enabled = false;
         currentEnemyState = EnemyStates.die;
-
     }
 }
