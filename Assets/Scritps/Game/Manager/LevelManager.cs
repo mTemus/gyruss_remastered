@@ -35,6 +35,8 @@ public class LevelManager : MonoBehaviour
     {
         switch (currentLevelState) {
             case LevelState.start:
+                // mini-map operations
+                // initializing player ship on every level
                 
                 currentLevelState = LevelState.create_wave;
                 
