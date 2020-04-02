@@ -55,10 +55,16 @@ public class GyrussGameManager : MonoBehaviour
         GyrussEventManager.OnLevelStateSetupInitiated(newLevelState);
     }
 
+    public void SetCurrentWave(int currentWave)
+    {
+        GyrussEventManager.OnCurrentWaveSetupInitiated(currentWave);
+    }
+
     private void OnDestroy()
     {
         GyrussEventManager.ClearDelegates();
     }
+    
 
     public GyrussEventManager GyrussEventManager => gyrussEventManager;
 

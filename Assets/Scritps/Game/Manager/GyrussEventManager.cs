@@ -5,6 +5,7 @@ public class GyrussEventManager : MonoBehaviour
 {
     public static Action<StageType> StageTypeSetupInitiated;
     public static Action<StageState> StageStateSetupInitiated;
+    public static Action<int> CurrentWaveSetupInitiated;
     public static Action<Wave> WaveEnqueuingInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
     public static Action EnemyDeathInitiated;
@@ -12,6 +13,10 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<bool> WaveSpawnConditionSetInitiated;
     public static Action<bool> EnemySpawnConditionSetInitiated;
 
+    public static void OnCurrentWaveSetupInitiated(int currentWave)
+    {
+        CurrentWaveSetupInitiated?.Invoke(currentWave);
+    }
     public static void OnWaveSpawnConditionSetInitiated(bool condition)
     {
         WaveSpawnConditionSetInitiated?.Invoke(condition);
@@ -54,8 +59,7 @@ public class GyrussEventManager : MonoBehaviour
     {
         StageStateSetupInitiated?.Invoke(newStageState);
     }
-
-
+    
     public static void ClearDelegates()
     {
         StageTypeSetupInitiated = null;
@@ -66,5 +70,6 @@ public class GyrussEventManager : MonoBehaviour
         LevelStateSetupInitiated = null;
         WaveSpawnConditionSetInitiated = null;
         EnemySpawnConditionSetInitiated = null;
+        CurrentWaveSetupInitiated = null;
     }
 }

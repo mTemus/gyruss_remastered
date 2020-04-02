@@ -15,6 +15,7 @@ public class StageManager : MonoBehaviour
 
     private int evenSpotId = 0;
     private int unevenSpotId = 1;
+    private int currentWaveCounter;
     
     private StageState currentStageState;
     private StageType currentStageType;
@@ -41,6 +42,7 @@ public class StageManager : MonoBehaviour
         GyrussEventManager.WaveEnqueuingInitiated += AddNewWave;
         GyrussEventManager.EnemyDeathInitiated += KillEnemy;
         GyrussEventManager.EnemySpotOccupationInitiated += OccupyEnemySpot;
+        GyrussEventManager.CurrentWaveSetupInitiated += SetCurrentWave;
     }
     
     private void ProcessOrdersInStage()
@@ -127,6 +129,7 @@ public class StageManager : MonoBehaviour
     private void IncreaseEnemyAlive()
     {
         enemiesAlive++;
+        Debug.LogWarning(enemiesAlive + " created.");
     }
 
     private void ClearStage()
@@ -137,15 +140,17 @@ public class StageManager : MonoBehaviour
 
     private void KillEnemy()
     {
-        --enemiesAlive;
+        enemiesAlive--;
+        Debug.LogError(enemiesAlive + " left.");
         
         if (enemiesAlive < 0) {
             Debug.LogError("You killed too much enemies!");
         }
 
-        if (enemiesAlive == 0) {
+        if (enemiesAlive == 0 && currentWaveCounter == 4) {
             //TODO: next stage event will be added here
-            GoToNextStage();
+            // GoToNextStage();
+            Debug.LogError("next stage");
         }
     }
     
@@ -174,6 +179,11 @@ public class StageManager : MonoBehaviour
     {
         Transform t = enemySpots[index];
         return t.position;
+    }
+
+    private void SetCurrentWave(int currentWave)
+    {
+        currentWaveCounter = currentWave;
     }
 
     public StageState CurrentStageState

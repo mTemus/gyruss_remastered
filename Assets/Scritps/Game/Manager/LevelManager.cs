@@ -44,7 +44,8 @@ public class LevelManager : MonoBehaviour
                 break;
             case LevelState.create_wave:
                 enemyName = "Enemy_L" + currentLevel + "_S" + GyrussGameManager.Instance.StageManager.CurrentStage + "_T";
-          
+                GyrussGameManager.Instance.SetCurrentWave(currentWave);
+                
                     switch (currentWave) {
                         case 1:
                             SetCurrentStageType();
@@ -68,8 +69,8 @@ public class LevelManager : MonoBehaviour
                             GyrussGameManager.Instance.SetWaveSpawnCondition(false);
                             break;
                     }
-                
-                Debug.LogWarning("Wave created");
+
+                // Debug.LogWarning("Wave created");
                 
                 break;
             
