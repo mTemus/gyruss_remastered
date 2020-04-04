@@ -12,7 +12,19 @@ public class GyrussEventManager : MonoBehaviour
     public static Func<int, Vector3> EnemySpotOccupationInitiated;
     public static Action<bool> WaveSpawnConditionSetInitiated;
     public static Action<bool> EnemySpawnConditionSetInitiated;
-
+    public static Action PlayerArrivalOnMinimapInitiated;
+    public static Action<int> MoveToLevelOnMinimapInitiated;
+    
+    public static void OnMoveToLevelOnMinimapInitiated(int levelIndex)
+    {
+        MoveToLevelOnMinimapInitiated?.Invoke(levelIndex);
+    }
+    
+    public static void OnPlayerArrivalOnMinimapInitiated()
+    {
+        PlayerArrivalOnMinimapInitiated?.Invoke();
+    }
+    
     public static void OnCurrentWaveSetupInitiated(int currentWave)
     {
         CurrentWaveSetupInitiated?.Invoke(currentWave);
@@ -71,5 +83,7 @@ public class GyrussEventManager : MonoBehaviour
         WaveSpawnConditionSetInitiated = null;
         EnemySpawnConditionSetInitiated = null;
         CurrentWaveSetupInitiated = null;
+        PlayerArrivalOnMinimapInitiated = null;
+        MoveToLevelOnMinimapInitiated = null;
     }
 }

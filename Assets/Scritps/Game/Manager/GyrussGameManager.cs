@@ -59,15 +59,22 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussEventManager.OnCurrentWaveSetupInitiated(currentWave);
     }
+    
+    public void TogglePlayerArrivalOnMinimap()
+    {
+        GyrussEventManager.OnPlayerArrivalOnMinimapInitiated();
+    }
+
+    public void MoveToLevelOnMinimap(int levelIndex)
+    {
+        GyrussEventManager.OnMoveToLevelOnMinimapInitiated(levelIndex);
+    }
 
     private void OnDestroy()
     {
         GyrussEventManager.ClearDelegates();
     }
     
-
-    public GyrussEventManager GyrussEventManager => gyrussEventManager;
-
     public static GyrussGameManager Instance => instance;
     
     public PlayerInputManager PlayerInputManager => playerInputManager;

@@ -37,6 +37,11 @@ public class LevelManager : MonoBehaviour
             case LevelState.start:
                 // mini-map operations
                 // initializing player ship on every level
+
+                GyrussGameManager.Instance.MoveToLevelOnMinimap(currentLevel);
+                
+                currentLevelState = LevelState.wait;
+                return;
                 
                 currentLevelState = LevelState.create_wave;
                 

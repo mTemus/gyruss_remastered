@@ -7,12 +7,15 @@ public class TimeManager : MonoBehaviour
 
     private float waveCreatingTimer;
     private float enemySpawningTimer;
+    private float minimapArriveTimer;
 
     private float waveCreatingPeriod = 6f;
     private float enemySpawnPeriod = 0.3f;
+    private float playerArrivalPeriod = 0.6f;
     
     private bool createWave;
     private bool spawnEnemies;
+    private bool playerArrived = true;
     
     
     private void Start()
@@ -26,8 +29,16 @@ public class TimeManager : MonoBehaviour
     {
         CheckWaveCreation();
         CheckEnemySpawning();
-
-        
+        CheckPlayerArrival();
+    }
+    
+    private void SetDelegates()
+    {
+        GyrussEventManager.StageStateSetupInitiated += GetCurrentStageState;
+        GyrussEventManager.LevelStateSetupInitiated += GetCurrentLevelState;
+        GyrussEventManager.EnemySpawnConditionSetInitiated += SetEnemySpawnCondition;
+        GyrussEventManager.WaveSpawnConditionSetInitiated += SetSpawnWaveCondition;
+        GyrussEventManager.PlayerArrivalOnMinimapInitiated += TogglePlayerArrival;
     }
 
     private void CheckWaveCreation()
@@ -52,15 +63,25 @@ public class TimeManager : MonoBehaviour
         GyrussGameManager.Instance.SetStageState(StageState.spawn_enemies);
         enemySpawningTimer = enemySpawnPeriod;
     }
-    
-    
 
-    private void SetDelegates()
+
+    private void CheckPlayerArrival()
     {
-        GyrussEventManager.StageStateSetupInitiated += GetCurrentStageState;
-        GyrussEventManager.LevelStateSetupInitiated += GetCurrentLevelState;
-        GyrussEventManager.EnemySpawnConditionSetInitiated += SetEnemySpawnCondition;
-        GyrussEventManager.WaveSpawnConditionSetInitiated += SetSpawnWaveCondition;
+        if (playerArrived) return;
+        minimapArriveTimer -= Time.deltaTime;
+
+        if (minimapArriveTimer <= 0) {
+            //TODO: event arrival in LevelManager (change state or something)
+
+            Debug.LogError("Player arrived successfully!");
+            playerArrived = true;
+        }
+    }
+
+    private void TogglePlayerArrival()
+    {
+        playerArrived = !playerArrived;
+        minimapArriveTimer = playerArrivalPeriod;
     }
 
     private void GetCurrentStageState(StageState newStageState)
