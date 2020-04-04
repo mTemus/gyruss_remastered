@@ -6,6 +6,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject playerShip;
     [SerializeField] private GameObject shootingPointSingleGO;
     [SerializeField] private GameObject shootingPointDoubleGO;
+    [SerializeField] private Animator playerAnimator;
     
     [Header("Other")] 
     [SerializeField] private GameObject bulletPrefabSingle;
@@ -24,9 +25,12 @@ public class PlayerManager : MonoBehaviour
     private Transform shootingPointSingle;
     private Transform shootingPointDoubleOne;
     private Transform shootingPointDoubleTwo;
-    
+    private static readonly int Enters = Animator.StringToHash("enters");
+
     void Start()
     {
+        SetDelegates();
+        
         // Calculating starting position
         Bounds backgroundBounds = background.bounds;
         Vector3 startingPosition = new Vector3(0, -((backgroundBounds.size.y / 4) - 0.2f), 0);
@@ -66,6 +70,7 @@ public class PlayerManager : MonoBehaviour
     private void SetDelegates()
     {
         GyrussEventManager.GetPlayerShipPositionInitiated += GetPlayerPosition;
+        GyrussEventManager.PlayerEnteredSetupInitiated += SetPlayerEntered;
     }
 
     private void RotateShip(Vector3 rotateAxis)
@@ -85,7 +90,12 @@ public class PlayerManager : MonoBehaviour
         
 
         if (Input.GetKeyUp(KeyCode.Space)) { reload = 1; }
+    }
 
+    private void SetPlayerEntered(bool entered)
+    {
+        Debug.Log("here 3 " + entered);
+        playerShip.transform.GetChild(0).GetComponent<Animator>().SetBool(Enters, entered);
     }
     
     private Vector3 GetPlayerPosition()

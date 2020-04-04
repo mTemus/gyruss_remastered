@@ -18,7 +18,19 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<Vector3> PlayerShipPositionSetupInitiated;
     public static Action<GameObject> ReviveParticleRegistrationInitiated;
     public static Action ReviveParticlesPreparationInitiated;
+    public static Action<bool> PlayerEnteredSetupInitiated;
+    public static Action<bool> PlayerEnterOnStageInitiated;
 
+    public static void OnPlayerEnterOnStageInitiated(bool condition)
+    {
+        PlayerEnterOnStageInitiated?.Invoke(condition);
+    }
+    
+    public static void OnPlayerEnteredSetupInitiated(bool entered)
+    {
+        PlayerEnteredSetupInitiated?.Invoke(entered);
+    }
+    
     public static Vector3 OnGetPlayerShipPositionInitiated()
     {
         if (GetPlayerShipPositionInitiated != null) 
@@ -116,5 +128,7 @@ public class GyrussEventManager : MonoBehaviour
         ReviveParticleRegistrationInitiated = null;
         ReviveParticlesPreparationInitiated = null;
         GetPlayerShipPositionInitiated = null;
+        PlayerEnteredSetupInitiated = null;
+        PlayerEnterOnStageInitiated = null;
     }
 }

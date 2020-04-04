@@ -69,6 +69,8 @@ public class EffectsManager : MonoBehaviour
         playerShip.transform.position = playerShipPosition;
         playerShip.SetActive(true);
         playerShip.transform.GetChild(0).GetComponent<Animator>().SetBool(Entered, true);
+        
+        GyrussGameManager.Instance.SetPlayerEnteredOnStage(true);
     }
 
     private void PrepareReviveParticles()

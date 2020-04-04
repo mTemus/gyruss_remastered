@@ -8,14 +8,17 @@ public class TimeManager : MonoBehaviour
     private float waveCreatingTimer;
     private float enemySpawningTimer;
     private float minimapArriveTimer;
+    private float playerEnteredTimer;
 
     private float waveCreatingPeriod = 6f;
     private float enemySpawnPeriod = 0.3f;
     private float playerArrivalPeriod = 0.6f;
+    private float playerEnteredPeriod = 0.5f;
     
     private bool createWave;
     private bool spawnEnemies;
     private bool playerArrived = true;
+    private bool playerEntered;
     
     
     private void Start()
@@ -25,11 +28,12 @@ public class TimeManager : MonoBehaviour
         SetDelegates();
     }
 
-    void Update()
+    private void Update()
     {
         CheckWaveCreation();
         CheckEnemySpawning();
         CheckPlayerArrival();
+        CheckPlayerEnter();
     }
     
     private void SetDelegates()
@@ -39,6 +43,7 @@ public class TimeManager : MonoBehaviour
         GyrussEventManager.EnemySpawnConditionSetInitiated += SetEnemySpawnCondition;
         GyrussEventManager.WaveSpawnConditionSetInitiated += SetSpawnWaveCondition;
         GyrussEventManager.PlayerArrivalOnMinimapInitiated += TogglePlayerArrival;
+        GyrussEventManager.PlayerEnterOnStageInitiated += SetPlayerEnterCondition;
     }
 
     private void CheckWaveCreation()
@@ -73,9 +78,23 @@ public class TimeManager : MonoBehaviour
         if (minimapArriveTimer <= 0) {
             //TODO: event arrival in LevelManager (change state or something)
 
-            Debug.LogError("Player arrived successfully!");
             playerArrived = true;
+            minimapArriveTimer = playerArrivalPeriod;
         }
+    }
+
+    private void CheckPlayerEnter()
+    {
+        if(!playerEntered) return;
+        playerEnteredTimer -= Time.deltaTime;
+
+        if (playerEnteredTimer <= 0) {
+            playerEntered = false;
+            GyrussGameManager.Instance.SetPlayerEntered(false);
+            playerEnteredTimer = playerEnteredPeriod;
+        }
+
+
     }
 
     private void TogglePlayerArrival()
@@ -102,6 +121,11 @@ public class TimeManager : MonoBehaviour
     private void SetEnemySpawnCondition(bool condition)
     {
         spawnEnemies = condition;
+    }
+
+    private void SetPlayerEnterCondition(bool condition)
+    {
+        playerEntered = condition;
     }
 }
 
