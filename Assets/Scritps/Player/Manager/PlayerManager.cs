@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerInputManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
     [Header("Ship parts")]
     [SerializeField] private GameObject playerShip;

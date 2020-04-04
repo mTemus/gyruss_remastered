@@ -36,7 +36,6 @@ public class EffectsManager : MonoBehaviour
             reviveParticle.transform.RotateAround(playerShipPosition, Vector3.forward, angle);
 
             angle += 360 / reviveParticles.Length;
-            Debug.Log(angle);
         }
     }
 

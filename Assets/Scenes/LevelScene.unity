@@ -1443,7 +1443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56577a93929e13c4b9b6f083c33c87e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInputManager: {fileID: 960823794}
+  playerManager: {fileID: 960823794}
   gyrussEventManager: {fileID: 1300365188}
   levelManager: {fileID: 400678062}
   stageManager: {fileID: 789441953}
@@ -2473,7 +2473,7 @@ GameObject:
   - component: {fileID: 960823793}
   - component: {fileID: 960823794}
   m_Layer: 0
-  m_Name: PlayerInputManager
+  m_Name: PlayerManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2508,7 +2508,7 @@ MonoBehaviour:
   playerShip: {fileID: 944044111}
   shootingPointSingleGO: {fileID: 953461120}
   shootingPointDoubleGO: {fileID: 1221860526}
-  bulletPrefabSingle: {fileID: 5386332670569712077, guid: cda4372f39e8c6140afb2f8aa23892d2,
+  bulletPrefabSingle: {fileID: 8500875632415132017, guid: 36843e0a9b74f0c4895ffad58161996e,
     type: 3}
   bulletPrefabDouble: {fileID: 2028959240650705139, guid: f64f14ee424d4e64c8cc527602a4c6bc,
     type: 3}
@@ -3455,7 +3455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1321701587
 Transform:
   m_ObjectHideFlags: 0
@@ -9505,7 +9505,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2131011261
 Transform:
   m_ObjectHideFlags: 0

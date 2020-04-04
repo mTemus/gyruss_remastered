@@ -58,12 +58,13 @@ public class EnemyController : MonoBehaviour
             case EnemyStates.fly_from_mini_boss:
                 break;
             case EnemyStates.die:
-
                 if (deathCounter == 0) { transform.GetComponent<Animator>().SetBool(Dead, true); }
                 else if (deathCounter >= 0.4f) {
                     Destroy(transform.gameObject);
                 }
-
+                // TODO: move slowly to player but in random left or right direction
+                
+                
                 deathCounter += Time.deltaTime;
                 break;
             

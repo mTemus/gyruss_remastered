@@ -2,7 +2,7 @@
 
 public class GyrussGameManager : MonoBehaviour
 {
-    [SerializeField] private PlayerInputManager playerInputManager;
+    [SerializeField] private PlayerManager playerManager;
     [SerializeField] private GyrussEventManager gyrussEventManager;
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private StageManager stageManager;
@@ -94,7 +94,7 @@ public class GyrussGameManager : MonoBehaviour
     
     public static GyrussGameManager Instance => instance;
     
-    public PlayerInputManager PlayerInputManager => playerInputManager;
+    public PlayerManager PlayerManager => playerManager;
 
     public StageManager StageManager => stageManager;
     
