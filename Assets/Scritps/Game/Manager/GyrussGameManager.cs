@@ -87,6 +87,11 @@ public class GyrussGameManager : MonoBehaviour
         GyrussEventManager.OnReviveParticlesPreparationInitiated();
     }
 
+    public Vector3 GetPlayerShipPosition()
+    {
+        return GyrussEventManager.OnGetPlayerShipPositionInitiated();
+    }
+    
     private void OnDestroy()
     {
         GyrussEventManager.ClearDelegates();

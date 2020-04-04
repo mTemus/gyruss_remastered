@@ -10,6 +10,7 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<LevelState> LevelStateSetupInitiated;
     public static Action EnemyDeathInitiated;
     public static Func<int, Vector3> EnemySpotOccupationInitiated;
+    public static Func<Vector3> GetPlayerShipPositionInitiated;
     public static Action<bool> WaveSpawnConditionSetInitiated;
     public static Action<bool> EnemySpawnConditionSetInitiated;
     public static Action PlayerArrivalOnMinimapInitiated;
@@ -18,6 +19,14 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<GameObject> ReviveParticleRegistrationInitiated;
     public static Action ReviveParticlesPreparationInitiated;
 
+    public static Vector3 OnGetPlayerShipPositionInitiated()
+    {
+        if (GetPlayerShipPositionInitiated != null) 
+            return (Vector3) GetPlayerShipPositionInitiated?.Invoke(); 
+        
+        return Vector3.negativeInfinity;
+    }
+    
     public static void OnReviveParticlesPreparationInitiated()
     {
         ReviveParticlesPreparationInitiated?.Invoke();
@@ -67,7 +76,7 @@ public class GyrussEventManager : MonoBehaviour
         if (EnemySpotOccupationInitiated != null) return (Vector3) 
             EnemySpotOccupationInitiated?.Invoke(index);
         
-        return Vector3.zero;
+        return Vector3.negativeInfinity;
     }
     
     public static void OnEnemyDeathInitiated()
@@ -106,5 +115,6 @@ public class GyrussEventManager : MonoBehaviour
         PlayerShipPositionSetupInitiated = null;
         ReviveParticleRegistrationInitiated = null;
         ReviveParticlesPreparationInitiated = null;
+        GetPlayerShipPositionInitiated = null;
     }
 }

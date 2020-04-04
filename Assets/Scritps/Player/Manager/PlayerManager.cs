@@ -63,6 +63,11 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    private void SetDelegates()
+    {
+        GyrussEventManager.GetPlayerShipPositionInitiated += GetPlayerPosition;
+    }
+
     private void RotateShip(Vector3 rotateAxis)
     {
         playerShip.transform.RotateAround(Vector3.zero, rotateAxis, Time.deltaTime * speed);
@@ -82,6 +87,11 @@ public class PlayerManager : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space)) { reload = 1; }
 
     }
+    
+    private Vector3 GetPlayerPosition()
+    {
+        return playerShip.transform.position;
+    }
 
     public void ToggleShootingMode()
     {
@@ -94,11 +104,5 @@ public class PlayerManager : MonoBehaviour
             shootingPointSingleGO.SetActive(true);
             shootingPointDoubleGO.SetActive(false);
         }
-    }
-
-    public Vector3 GetPlayerPosition()
-    {
-        //TODO: make event from this
-        return playerShip.transform.position;
     }
 }

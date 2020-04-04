@@ -20,7 +20,7 @@ public class ScalingController : MonoBehaviour
 
     void Start()
     {
-        Vector3 playerPos = GyrussGameManager.Instance.PlayerManager.GetPlayerPosition();
+        Vector3 playerPos = GyrussGameManager.Instance.GetPlayerShipPosition();
         Vector3 centerPos = Vector3.zero;
 
         distanceToCenter = Vector3.Distance(playerPos, centerPos);
