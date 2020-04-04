@@ -156,6 +156,6 @@ public class EnemyController : MonoBehaviour
         
         transform.GetComponent<BoxCollider2D>().enabled = false;
         currentEnemyState = EnemyStates.die;
-        Destroy(other);
+        Destroy(other.transform.gameObject);
     }
 }
