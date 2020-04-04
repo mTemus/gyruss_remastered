@@ -7,6 +7,8 @@ public class GyrussGameManager : MonoBehaviour
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private StageManager stageManager;
     [SerializeField] private TimeManager timeManager;
+    [SerializeField] private MinimapManager minimapManager;
+    [SerializeField] private EffectsManager effectsManager;
 
     private static GyrussGameManager instance;
 
@@ -70,6 +72,21 @@ public class GyrussGameManager : MonoBehaviour
         GyrussEventManager.OnMoveToLevelOnMinimapInitiated(levelIndex);
     }
 
+    public void SetPlayerShipPosition(Vector3 playerShipPosition)
+    {
+        GyrussEventManager.OnPlayerShipPositionSetupInitiated(playerShipPosition);
+    }
+
+    public void RegisterReviveParticle(GameObject reviveParticle)
+    {
+        GyrussEventManager.OnReviveParticleRegistrationInitiated(reviveParticle);
+    }
+
+    public void PrepareReviveParticles()
+    {
+        GyrussEventManager.OnReviveParticlesPreparationInitiated();
+    }
+
     private void OnDestroy()
     {
         GyrussEventManager.ClearDelegates();
@@ -84,4 +101,8 @@ public class GyrussGameManager : MonoBehaviour
     public LevelManager LevelManager => levelManager;
 
     public TimeManager TimeManager => timeManager;
+
+    public MinimapManager MinimapManager => minimapManager;
+
+    public EffectsManager EffectsManager => effectsManager;
 }

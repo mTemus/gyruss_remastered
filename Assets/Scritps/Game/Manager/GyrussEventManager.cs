@@ -14,6 +14,24 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<bool> EnemySpawnConditionSetInitiated;
     public static Action PlayerArrivalOnMinimapInitiated;
     public static Action<int> MoveToLevelOnMinimapInitiated;
+    public static Action<Vector3> PlayerShipPositionSetupInitiated;
+    public static Action<GameObject> ReviveParticleRegistrationInitiated;
+    public static Action ReviveParticlesPreparationInitiated;
+
+    public static void OnReviveParticlesPreparationInitiated()
+    {
+        ReviveParticlesPreparationInitiated?.Invoke();
+    }
+    
+    public static void OnReviveParticleRegistrationInitiated(GameObject reviveParticle)
+    {
+        ReviveParticleRegistrationInitiated?.Invoke(reviveParticle);
+    }
+    
+    public static void OnPlayerShipPositionSetupInitiated(Vector3 playerShipPosition)
+    {
+        PlayerShipPositionSetupInitiated?.Invoke(playerShipPosition);
+    }
     
     public static void OnMoveToLevelOnMinimapInitiated(int levelIndex)
     {
@@ -85,5 +103,8 @@ public class GyrussEventManager : MonoBehaviour
         CurrentWaveSetupInitiated = null;
         PlayerArrivalOnMinimapInitiated = null;
         MoveToLevelOnMinimapInitiated = null;
+        PlayerShipPositionSetupInitiated = null;
+        ReviveParticleRegistrationInitiated = null;
+        ReviveParticlesPreparationInitiated = null;
     }
 }

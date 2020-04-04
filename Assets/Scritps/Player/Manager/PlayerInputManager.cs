@@ -31,7 +31,11 @@ public class PlayerInputManager : MonoBehaviour
         Bounds backgroundBounds = background.bounds;
         Vector3 startingPosition = new Vector3(0, -((backgroundBounds.size.y / 4) - 0.2f), 0);
         playerShip.transform.position = startingPosition;
-
+        
+        // setting starting position in managers that use it
+        GyrussGameManager.Instance.SetPlayerShipPosition(startingPosition);
+        
+        // taking shooting points for shooting purposes
         shootingPointSingle = shootingPointSingleGO.transform;
         shootingPointDoubleOne = shootingPointDoubleGO.transform.GetChild(0);
         shootingPointDoubleTwo = shootingPointDoubleGO.transform.GetChild(1);
@@ -61,7 +65,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private void RotateShip(Vector3 rotateAxis)
     {
-        playerShip.transform.RotateAround(Vector3.zero,rotateAxis, Time.deltaTime * speed);
+        playerShip.transform.RotateAround(Vector3.zero, rotateAxis, Time.deltaTime * speed);
     }
 
     private void ShootBullet()
@@ -94,6 +98,7 @@ public class PlayerInputManager : MonoBehaviour
 
     public Vector3 GetPlayerPosition()
     {
+        //TODO: make event from this
         return playerShip.transform.position;
     }
 }

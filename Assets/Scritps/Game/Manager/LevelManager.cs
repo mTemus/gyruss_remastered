@@ -39,6 +39,7 @@ public class LevelManager : MonoBehaviour
                 // initializing player ship on every level
 
                 GyrussGameManager.Instance.MoveToLevelOnMinimap(currentLevel);
+                GyrussGameManager.Instance.PrepareReviveParticles();
                 
                 currentLevelState = LevelState.wait;
                 return;
