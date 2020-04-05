@@ -18,17 +18,23 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<Vector3> PlayerShipPositionSetupInitiated;
     public static Action<GameObject> ReviveParticleRegistrationInitiated;
     public static Action ReviveParticlesPreparationInitiated;
-    public static Action<bool> PlayerEnteredSetupInitiated;
-    public static Action<bool> PlayerEnterOnStageInitiated;
+    public static Action<bool> PlayerEnteredSetupInAnimatorInitiated;
+    public static Action<bool> PlayerEnteredOnStageConditionSetInitiated;
+    public static Action PlayerShipSpawnInitiated;
 
-    public static void OnPlayerEnterOnStageInitiated(bool condition)
+    public static void OnPlayerShipSpawnInitiated()
     {
-        PlayerEnterOnStageInitiated?.Invoke(condition);
+        PlayerShipSpawnInitiated?.Invoke();
     }
     
-    public static void OnPlayerEnteredSetupInitiated(bool entered)
+    public static void OnPlayerEnteredOnStageConditionSetInitiated(bool condition)
     {
-        PlayerEnteredSetupInitiated?.Invoke(entered);
+        PlayerEnteredOnStageConditionSetInitiated?.Invoke(condition);
+    }
+    
+    public static void OnPlayerEnteredSetupInAnimatorInitiated(bool entered)
+    {
+        PlayerEnteredSetupInAnimatorInitiated?.Invoke(entered);
     }
     
     public static Vector3 OnGetPlayerShipPositionInitiated()
@@ -128,7 +134,8 @@ public class GyrussEventManager : MonoBehaviour
         ReviveParticleRegistrationInitiated = null;
         ReviveParticlesPreparationInitiated = null;
         GetPlayerShipPositionInitiated = null;
-        PlayerEnteredSetupInitiated = null;
-        PlayerEnterOnStageInitiated = null;
+        PlayerEnteredSetupInAnimatorInitiated = null;
+        PlayerEnteredOnStageConditionSetInitiated = null;
+        PlayerShipSpawnInitiated = null;
     }
 }

@@ -13,7 +13,7 @@ public class TimeManager : MonoBehaviour
     private float waveCreatingPeriod = 6f;
     private float enemySpawnPeriod = 0.3f;
     private float playerArrivalPeriod = 0.6f;
-    private float playerEnteredPeriod = 0.5f;
+    private float playerEnteredPeriod = 1f;
     
     private bool createWave;
     private bool spawnEnemies;
@@ -25,6 +25,7 @@ public class TimeManager : MonoBehaviour
     {
         waveCreatingTimer = waveCreatingPeriod;
         enemySpawningTimer = enemySpawnPeriod;
+        playerEnteredTimer = playerEnteredPeriod;
         SetDelegates();
     }
 
@@ -43,7 +44,7 @@ public class TimeManager : MonoBehaviour
         GyrussEventManager.EnemySpawnConditionSetInitiated += SetEnemySpawnCondition;
         GyrussEventManager.WaveSpawnConditionSetInitiated += SetSpawnWaveCondition;
         GyrussEventManager.PlayerArrivalOnMinimapInitiated += TogglePlayerArrival;
-        GyrussEventManager.PlayerEnterOnStageInitiated += SetPlayerEnterCondition;
+        GyrussEventManager.PlayerEnteredOnStageConditionSetInitiated += SetPlayerEnterCondition;
     }
 
     private void CheckWaveCreation()
@@ -87,14 +88,13 @@ public class TimeManager : MonoBehaviour
     {
         if(!playerEntered) return;
         playerEnteredTimer -= Time.deltaTime;
+        Debug.Log(playerEnteredTimer);
 
         if (playerEnteredTimer <= 0) {
             playerEntered = false;
-            GyrussGameManager.Instance.SetPlayerEntered(false);
+            GyrussGameManager.Instance.SetPlayerEnteredInAnimator(false);
             playerEnteredTimer = playerEnteredPeriod;
         }
-
-
     }
 
     private void TogglePlayerArrival()

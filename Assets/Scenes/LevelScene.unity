@@ -2345,7 +2345,6 @@ MonoBehaviour:
   - {fileID: 323874503}
   - {fileID: 321730045}
   mapCenterPoint: {fileID: 879739752}
-  PlayerAnimator: {fileID: 0}
 --- !u!1 &832122676
 GameObject:
   m_ObjectHideFlags: 0
@@ -2508,6 +2507,7 @@ MonoBehaviour:
   playerShip: {fileID: 944044111}
   shootingPointSingleGO: {fileID: 953461120}
   shootingPointDoubleGO: {fileID: 1221860526}
+  playerAnimator: {fileID: 1498397692}
   bulletPrefabSingle: {fileID: 8500875632415132017, guid: 36843e0a9b74f0c4895ffad58161996e,
     type: 3}
   bulletPrefabDouble: {fileID: 2028959240650705139, guid: f64f14ee424d4e64c8cc527602a4c6bc,
@@ -3455,7 +3455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1321701587
 Transform:
   m_ObjectHideFlags: 0
@@ -3831,6 +3831,12 @@ Transform:
   m_Father: {fileID: 2131011261}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1498397692 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7484981641743436773, guid: bea6cd027b3fc8a4e9b3120deae8c44c,
+    type: 3}
+  m_PrefabInstance: {fileID: 7484981641808812099}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1529139228
 GameObject:
   m_ObjectHideFlags: 0
@@ -9505,7 +9511,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2131011261
 Transform:
   m_ObjectHideFlags: 0
@@ -9664,7 +9670,7 @@ PrefabInstance:
     - target: {fileID: 7484981641670123532, guid: bea6cd027b3fc8a4e9b3120deae8c44c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7484981641670123539, guid: bea6cd027b3fc8a4e9b3120deae8c44c,
         type: 3}

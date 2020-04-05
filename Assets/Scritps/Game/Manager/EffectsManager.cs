@@ -9,7 +9,6 @@ public class EffectsManager : MonoBehaviour
     
     private List<GameObject> readyReviveParticles;
     private Vector3 playerShipPosition;
-    private static readonly int Entered = Animator.StringToHash("entered");
 
     private void Start()
     {
@@ -23,8 +22,6 @@ public class EffectsManager : MonoBehaviour
         GyrussEventManager.ReviveParticleRegistrationInitiated += RegisterReviveParticle;
         GyrussEventManager.ReviveParticlesPreparationInitiated += PrepareReviveParticles;
     }
-    
-    
     
     private void SetReviveParticlesOnPositions()
     {
@@ -52,7 +49,7 @@ public class EffectsManager : MonoBehaviour
         readyReviveParticles.Add(reviveParticle);
 
         if (readyReviveParticles.Count == 8) {
-            SpawnPlayerShip();
+            GyrussGameManager.Instance.SpawnPlayerShip();
             
             foreach (GameObject particle in reviveParticles) {
                 particle.SetActive(false);
@@ -62,15 +59,6 @@ public class EffectsManager : MonoBehaviour
             
             readyReviveParticles = new List<GameObject>();
         }
-    }
-
-    private void SpawnPlayerShip()
-    {
-        playerShip.transform.position = playerShipPosition;
-        playerShip.SetActive(true);
-        playerShip.transform.GetChild(0).GetComponent<Animator>().SetBool(Entered, true);
-        
-        GyrussGameManager.Instance.SetPlayerEnteredOnStage(true);
     }
 
     private void PrepareReviveParticles()

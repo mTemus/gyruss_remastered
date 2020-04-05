@@ -92,14 +92,19 @@ public class GyrussGameManager : MonoBehaviour
         return GyrussEventManager.OnGetPlayerShipPositionInitiated();
     }
 
-    public void SetPlayerEntered(bool entered)
+    public void SetPlayerEnteredInAnimator(bool entered)
     {
-        GyrussEventManager.OnPlayerEnteredSetupInitiated(entered);
+        GyrussEventManager.OnPlayerEnteredSetupInAnimatorInitiated(entered);
     }
 
-    public void SetPlayerEnteredOnStage(bool condition)
+    public void SetPlayerEnteredOnStageInTimer(bool condition)
     {
-        GyrussEventManager.OnPlayerEnterOnStageInitiated(condition);
+        GyrussEventManager.OnPlayerEnteredOnStageConditionSetInitiated(condition);
+    }
+
+    public void SpawnPlayerShip()
+    {
+        GyrussEventManager.OnPlayerShipSpawnInitiated();
     }
     
     private void OnDestroy()

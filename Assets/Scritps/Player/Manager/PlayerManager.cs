@@ -21,11 +21,13 @@ public class PlayerManager : MonoBehaviour
     private float speed = 150f;
     private float reload = 1;
     private bool doubleBulletMode = false;
+
+    private Vector3 playerStartingPosition;
     
     private Transform shootingPointSingle;
     private Transform shootingPointDoubleOne;
     private Transform shootingPointDoubleTwo;
-    private static readonly int Enters = Animator.StringToHash("enters");
+    private static readonly int Entered = Animator.StringToHash("entered");
 
     void Start()
     {
@@ -33,17 +35,18 @@ public class PlayerManager : MonoBehaviour
         
         // Calculating starting position
         Bounds backgroundBounds = background.bounds;
-        Vector3 startingPosition = new Vector3(0, -((backgroundBounds.size.y / 4) - 0.2f), 0);
-        playerShip.transform.position = startingPosition;
+        playerStartingPosition = new Vector3(0, -((backgroundBounds.size.y / 4) - 0.2f), 0);
+        playerShip.transform.position = playerStartingPosition;
         
         // setting starting position in managers that use it
-        GyrussGameManager.Instance.SetPlayerShipPosition(startingPosition);
+        GyrussGameManager.Instance.SetPlayerShipPosition(playerStartingPosition);
         
         // taking shooting points for shooting purposes
         shootingPointSingle = shootingPointSingleGO.transform;
         shootingPointDoubleOne = shootingPointDoubleGO.transform.GetChild(0);
         shootingPointDoubleTwo = shootingPointDoubleGO.transform.GetChild(1);
         
+        // TODO: Remove this after weapon upgrade implementation
         ToggleShootingMode();
     }
 
@@ -70,7 +73,8 @@ public class PlayerManager : MonoBehaviour
     private void SetDelegates()
     {
         GyrussEventManager.GetPlayerShipPositionInitiated += GetPlayerPosition;
-        GyrussEventManager.PlayerEnteredSetupInitiated += SetPlayerEntered;
+        GyrussEventManager.PlayerEnteredSetupInAnimatorInitiated += SetPlayerEnteredInAnimator;
+        GyrussEventManager.PlayerShipSpawnInitiated += SpawnPlayerShip;
     }
 
     private void RotateShip(Vector3 rotateAxis)
@@ -92,10 +96,19 @@ public class PlayerManager : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space)) { reload = 1; }
     }
 
-    private void SetPlayerEntered(bool entered)
+    private void SpawnPlayerShip()
+    {
+        playerShip.transform.position = playerStartingPosition;
+        playerShip.SetActive(true);
+        playerShip.transform.GetChild(0).GetComponent<Animator>().SetBool(Entered, true);
+        
+        GyrussGameManager.Instance.SetPlayerEnteredOnStageInTimer(true);
+    }
+
+    private void SetPlayerEnteredInAnimator(bool entered)
     {
         Debug.Log("here 3 " + entered);
-        playerShip.transform.GetChild(0).GetComponent<Animator>().SetBool(Enters, entered);
+        playerShip.transform.GetChild(0).GetComponent<Animator>().SetBool(Entered, entered);
     }
     
     private Vector3 GetPlayerPosition()
