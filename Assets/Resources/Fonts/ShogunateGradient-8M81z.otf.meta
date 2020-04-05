@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7eb78422b422802439ac87a2f478471d
+guid: 5dfeb643830f49c4eb5d8c9ccf8ece7c
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,12 +8,12 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Arcade Normal
+  fontName: Shogunate Gradient
   fontNames:
-  - Arcade Normal
+  - Shogunate Gradient
   fallbackFontReferences: []
   customCharacters: 
-  fontRenderingMode: 1
+  fontRenderingMode: 0
   ascentCalculationMode: 1
   useLegacyBoundsCalculation: 0
   shouldRoundAdvanceValue: 1
