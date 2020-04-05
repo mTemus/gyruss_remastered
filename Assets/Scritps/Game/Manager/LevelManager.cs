@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    [Header("Game views")] 
+    [SerializeField] private GameObject MinimapView;
+    [SerializeField] private GameObject StageView;
+    
     private int currentLevel = 0;
     private int currentWave = 1;
 
     private String enemyName;
-
-    private float waveLoadingTimer = 0;
-    private float waveLoadTime = 30f;
 
     private LevelState currentLevelState = LevelState.start;
 
@@ -35,22 +36,45 @@ public class LevelManager : MonoBehaviour
     {
         switch (currentLevelState) {
             case LevelState.start:
-                // mini-map operations
-                // initializing player ship on every level
-
-                GyrussGameManager.Instance.MoveToLevelOnMinimap(currentLevel);
-                GyrussGameManager.Instance.PrepareReviveParticles();
+                // something will be there probably like loading the best score
+                
+                // initialize timer
+                GyrussGameManager.Instance.SetPlayerStayedOnMinimapInTimer(true);
                 
                 currentLevelState = LevelState.wait;
-                return;
-                
-                currentLevelState = LevelState.create_wave;
-                
                 break;
+            
+            case LevelState.move_on_minimap:
+                GyrussGameManager.Instance.MoveToLevelOnMinimap(currentLevel);
+                currentLevelState = LevelState.wait;
+                break;
+            
+            case LevelState.initialize_GUI:
+
+                currentLevelState = LevelState.change_view_to_stage;
+                break;
+            
+            case LevelState.change_view_to_stage:
+                ToggleViews();
+                // currentLevelState = LevelState.initialize_GUI;
+                currentLevelState = LevelState.spawn_player;
+                break;
+
+            case LevelState.spawn_player:
+                GyrussGameManager.Instance.PrepareReviveParticles();
+                // spawn score amount
+                // spawn hi-score amount
+                // after ship will be spawned
+                
+                currentLevelState = LevelState.wait;
+                break;
+            
             case LevelState.wait:
                 
                 break;
             case LevelState.create_wave:
+                //TODO: change this for chance stage
+                
                 enemyName = "Enemy_L" + currentLevel + "_S" + GyrussGameManager.Instance.StageManager.CurrentStage + "_T";
                 GyrussGameManager.Instance.SetCurrentWave(currentWave);
                 
@@ -60,30 +84,33 @@ public class LevelManager : MonoBehaviour
                             SetWaveToSpawn(1, false);
                             GyrussGameManager.Instance.SetWaveSpawnCondition(true);
                             break;
+                        
                         case 3:
-                        {
                             SetWaveToSpawn(1, false);
                             break;
-                        }
+                        
                         case 2:
                         case 4:
-                        {
                             SetWaveToSpawn(2, true);
                             break;
-                        }
+                        
                         case 5:
                             currentWave = 1;
                             GyrussGameManager.Instance.SetLevelState(LevelState.wait);
                             GyrussGameManager.Instance.SetWaveSpawnCondition(false);
                             break;
                     }
-
-                // Debug.LogWarning("Wave created");
-                
+                break;
+            
+            case LevelState.change_view_to_minimap:
                 break;
             
             case LevelState.end:
+                // move player ship to starting position
+                // activate warping
+                
                 break;
+            
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -97,6 +124,12 @@ public class LevelManager : MonoBehaviour
        GyrussGameManager.Instance.SetLevelState(LevelState.wait);
        currentWave++;
    }
+
+    private void ToggleViews()
+    {
+        MinimapView.SetActive(!MinimapView.activeSelf);
+        StageView.SetActive(!StageView.activeSelf);
+    }
 
 
     private void SetCurrentStageType()

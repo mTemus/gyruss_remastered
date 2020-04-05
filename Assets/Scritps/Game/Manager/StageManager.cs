@@ -5,10 +5,6 @@ using Random = UnityEngine.Random;
 
 public class StageManager : MonoBehaviour
 {
-    [Header("Game views")] 
-    [SerializeField] private GameObject MinimapView;
-    [SerializeField] private GameObject StageView;
-    
     [Header("StageView")] 
     [SerializeField] private Transform[] enemySpots;
     [SerializeField] private Transform mapCenterPoint;

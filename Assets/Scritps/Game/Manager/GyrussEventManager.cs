@@ -21,7 +21,13 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<bool> PlayerEnteredSetupInAnimatorInitiated;
     public static Action<bool> PlayerEnteredOnStageConditionSetInitiated;
     public static Action PlayerShipSpawnInitiated;
+    public static Action<bool> PlayerStayedOnMinimapConditionInitiated;
 
+    public static void OnPlayerStayedOnMinimapConditionInitiated(bool condition)
+    {
+        PlayerStayedOnMinimapConditionInitiated?.Invoke(condition);
+    }
+    
     public static void OnPlayerShipSpawnInitiated()
     {
         PlayerShipSpawnInitiated?.Invoke();
@@ -137,5 +143,6 @@ public class GyrussEventManager : MonoBehaviour
         PlayerEnteredSetupInAnimatorInitiated = null;
         PlayerEnteredOnStageConditionSetInitiated = null;
         PlayerShipSpawnInitiated = null;
+        PlayerStayedOnMinimapConditionInitiated = null;
     }
 }

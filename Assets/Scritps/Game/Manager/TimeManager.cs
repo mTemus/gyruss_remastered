@@ -9,16 +9,19 @@ public class TimeManager : MonoBehaviour
     private float enemySpawningTimer;
     private float minimapArriveTimer;
     private float playerEnteredTimer;
+    private float playerStayedOnMinimapTimer;
 
     private float waveCreatingPeriod = 6f;
     private float enemySpawnPeriod = 0.3f;
-    private float playerArrivalPeriod = 0.6f;
+    private float playerArrivalPeriod = 2f;
     private float playerEnteredPeriod = 1f;
+    private float playerStayedOnMinimapPeriod = 1f;
     
     private bool createWave;
     private bool spawnEnemies;
     private bool playerArrived = true;
     private bool playerEntered;
+    private bool playerStayed;
     
     
     private void Start()
@@ -26,15 +29,17 @@ public class TimeManager : MonoBehaviour
         waveCreatingTimer = waveCreatingPeriod;
         enemySpawningTimer = enemySpawnPeriod;
         playerEnteredTimer = playerEnteredPeriod;
+        playerStayedOnMinimapTimer = playerStayedOnMinimapPeriod;
         SetDelegates();
     }
 
     private void Update()
     {
+        CheckPlayerStayOnMinimap();
+        CheckPlayerArrivalOnMinimap();
         CheckWaveCreation();
         CheckEnemySpawning();
-        CheckPlayerArrival();
-        CheckPlayerEnter();
+        CheckPlayerEnterStage();
     }
     
     private void SetDelegates()
@@ -45,6 +50,7 @@ public class TimeManager : MonoBehaviour
         GyrussEventManager.WaveSpawnConditionSetInitiated += SetSpawnWaveCondition;
         GyrussEventManager.PlayerArrivalOnMinimapInitiated += TogglePlayerArrival;
         GyrussEventManager.PlayerEnteredOnStageConditionSetInitiated += SetPlayerEnterCondition;
+        GyrussEventManager.PlayerStayedOnMinimapConditionInitiated += setPlayerStayedCondition;
     }
 
     private void CheckWaveCreation()
@@ -71,29 +77,39 @@ public class TimeManager : MonoBehaviour
     }
 
 
-    private void CheckPlayerArrival()
+    private void CheckPlayerArrivalOnMinimap()
     {
         if (playerArrived) return;
         minimapArriveTimer -= Time.deltaTime;
 
         if (minimapArriveTimer <= 0) {
-            //TODO: event arrival in LevelManager (change state or something)
-
             playerArrived = true;
+            GyrussGameManager.Instance.SetLevelState(LevelState.initialize_GUI);
             minimapArriveTimer = playerArrivalPeriod;
         }
     }
 
-    private void CheckPlayerEnter()
+    private void CheckPlayerEnterStage()
     {
         if(!playerEntered) return;
         playerEnteredTimer -= Time.deltaTime;
-        Debug.Log(playerEnteredTimer);
 
         if (playerEnteredTimer <= 0) {
             playerEntered = false;
             GyrussGameManager.Instance.SetPlayerEnteredInAnimator(false);
             playerEnteredTimer = playerEnteredPeriod;
+        }
+    }
+
+    private void CheckPlayerStayOnMinimap()
+    {
+        if(!playerStayed) return;
+        playerStayedOnMinimapTimer -= Time.deltaTime;
+
+        if (playerStayedOnMinimapTimer <= 0) {
+            playerStayed = false;
+            GyrussGameManager.Instance.SetLevelState(LevelState.move_on_minimap);
+            playerStayedOnMinimapTimer = playerStayedOnMinimapPeriod;
         }
     }
 
@@ -126,6 +142,11 @@ public class TimeManager : MonoBehaviour
     private void SetPlayerEnterCondition(bool condition)
     {
         playerEntered = condition;
+    }
+
+    private void setPlayerStayedCondition(bool condition)
+    {
+        playerStayed = condition;
     }
 }
 

@@ -106,6 +106,11 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussEventManager.OnPlayerShipSpawnInitiated();
     }
+
+    public void SetPlayerStayedOnMinimapInTimer(bool condition)
+    {
+        GyrussEventManager.OnPlayerStayedOnMinimapConditionInitiated(condition);
+    }
     
     private void OnDestroy()
     {
