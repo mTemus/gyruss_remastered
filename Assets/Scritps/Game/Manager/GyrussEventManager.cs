@@ -3,24 +3,24 @@ using UnityEngine;
 
 public class GyrussEventManager : MonoBehaviour
 {
+    public static Func<Vector3> GetPlayerShipPositionInitiated;
+    public static Func<int, Vector3> EnemySpotOccupationInitiated;
+    public static Action EnemyDeathInitiated;
+    public static Action PlayerArrivalOnMinimapInitiated;
+    public static Action ReviveParticlesPreparationInitiated;
+    public static Action PlayerShipSpawnInitiated;
     public static Action<StageType> StageTypeSetupInitiated;
     public static Action<StageState> StageStateSetupInitiated;
-    public static Action<int> CurrentWaveSetupInitiated;
-    public static Action<Wave> WaveEnqueuingInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
-    public static Action EnemyDeathInitiated;
-    public static Func<int, Vector3> EnemySpotOccupationInitiated;
-    public static Func<Vector3> GetPlayerShipPositionInitiated;
-    public static Action<bool> WaveSpawnConditionSetInitiated;
-    public static Action<bool> EnemySpawnConditionSetInitiated;
-    public static Action PlayerArrivalOnMinimapInitiated;
-    public static Action<int> MoveToLevelOnMinimapInitiated;
+    public static Action<Wave> WaveEnqueuingInitiated;
     public static Action<Vector3> PlayerShipPositionSetupInitiated;
     public static Action<GameObject> ReviveParticleRegistrationInitiated;
-    public static Action ReviveParticlesPreparationInitiated;
+    public static Action<int> MoveToLevelOnMinimapInitiated;
+    public static Action<int> CurrentWaveSetupInitiated;
+    public static Action<bool> WaveSpawnConditionSetInitiated;
+    public static Action<bool> EnemySpawnConditionSetInitiated;
     public static Action<bool> PlayerEnteredSetupInAnimatorInitiated;
     public static Action<bool> PlayerEnteredOnStageConditionSetInitiated;
-    public static Action PlayerShipSpawnInitiated;
     public static Action<bool> PlayerStayedOnMinimapConditionInitiated;
 
     public static void OnPlayerStayedOnMinimapConditionInitiated(bool condition)
