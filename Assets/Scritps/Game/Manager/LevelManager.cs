@@ -63,7 +63,7 @@ public class LevelManager : MonoBehaviour
                 // spawn hi-score amount
                 // after ship will be spawned
                 
-                currentLevelState = LevelState.create_wave;
+                currentLevelState = LevelState.wait;
                 break;
             
             case LevelState.wait:
