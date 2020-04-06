@@ -27,6 +27,43 @@ public class GyrussGameManager : MonoBehaviour
         GyrussEventManager.OnWaveEnqueuingInitiated(wave);
     }
 
+    public void SetStageState(int newStageStateOnInt)
+    {
+        StageState newStageState = StageState.wait;
+
+
+        switch (newStageStateOnInt) {
+            case 0:
+                newStageState = StageState.no_state;
+                break;
+            
+            case 1:
+                newStageState = StageState.start;
+                break;
+            
+            case 2:
+                newStageState = StageState.end;
+                break;
+
+            case 3:
+                newStageState = StageState.wait;
+                break;
+
+            case 4:
+                newStageState = StageState.loading_wave;
+                break;
+
+            case 5:
+                newStageState = StageState.spawn_enemies;
+                break;
+            
+            default:
+                Debug.LogError("GGM -- No integer to set stage state!");
+                break;
+        }
+        GyrussEventManager.OnStageStateSetupInitiated(newStageState);
+    }
+    
     public void SetStageState(StageState newStageState)
     {
         GyrussEventManager.OnStageStateSetupInitiated(newStageState);
@@ -37,19 +74,58 @@ public class GyrussGameManager : MonoBehaviour
         GyrussEventManager.OnEnemyDeathInitiated();
     }
 
-    public void SetWaveSpawnCondition(bool condition)
-    {
-        GyrussEventManager.OnWaveSpawnConditionSetInitiated(condition);
-    }
-
-    public void SetEnemySpawnCondition(bool condition)
-    {
-        GyrussEventManager.OnEnemySpawnConditionSetInitiated(condition);
-    }
-
     public Vector3 OccupyEnemySpot(int index)
     {
         return GyrussEventManager.OnEnemySpotOccupationInitiated(index);
+    }
+    
+    public void SetLevelState(int stateOnInt)
+    {
+        LevelState newLevelState = LevelState.wait;
+
+        switch (stateOnInt) {
+            case 0:
+                newLevelState = LevelState.start;
+                break;
+            
+            case 1:
+                newLevelState = LevelState.move_on_minimap;
+                break;
+            
+            case 2:
+                newLevelState = LevelState.change_view_to_stage;
+                break;
+            
+            case 3:
+                newLevelState = LevelState.change_view_to_minimap;
+                break;
+            
+            case 4:
+                newLevelState = LevelState.initialize_GUI;
+                break;
+            
+            case 5:
+                newLevelState = LevelState.spawn_player;
+                break;
+            
+            case 6:
+                newLevelState = LevelState.wait;
+                break;
+            
+            case 7:
+                newLevelState = LevelState.create_wave;
+                break;
+            
+            case 8:
+                newLevelState = LevelState.end;
+                break;
+            
+            default:
+                Debug.LogError("GGM -- No integer to set level state!");
+                break;
+        }
+        
+        GyrussEventManager.OnLevelStateSetupInitiated(newLevelState);
     }
 
     public void SetLevelState(LevelState newLevelState)
@@ -60,11 +136,6 @@ public class GyrussGameManager : MonoBehaviour
     public void SetCurrentWave(int currentWave)
     {
         GyrussEventManager.OnCurrentWaveSetupInitiated(currentWave);
-    }
-    
-    public void TogglePlayerArrivalOnMinimap()
-    {
-        GyrussEventManager.OnPlayerArrivalOnMinimapInitiated();
     }
 
     public void MoveToLevelOnMinimap(int levelIndex)
@@ -97,19 +168,14 @@ public class GyrussGameManager : MonoBehaviour
         GyrussEventManager.OnPlayerEnteredSetupInAnimatorInitiated(entered);
     }
 
-    public void SetPlayerEnteredOnStageInTimer(bool condition)
-    {
-        GyrussEventManager.OnPlayerEnteredOnStageConditionSetInitiated(condition);
-    }
-
     public void SpawnPlayerShip()
     {
         GyrussEventManager.OnPlayerShipSpawnInitiated();
     }
 
-    public void SetPlayerStayedOnMinimapInTimer(bool condition)
+    public void SetConditionInTimer(string timerName, bool timerCondition)
     {
-        GyrussEventManager.OnPlayerStayedOnMinimapConditionInitiated(condition);
+        GyrussEventManager.OnConditionSetupInTimerInitiated(timerName, timerCondition);
     }
     
     private void OnDestroy()

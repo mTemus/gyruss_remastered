@@ -84,6 +84,8 @@ public class PlayerManager : MonoBehaviour
 
     private void ShootBullet()
     {
+        //TODO: add shooting effect near ship
+        
         if (!(reload >= 0.3f)) return;
         reload = 0;
 
@@ -102,12 +104,11 @@ public class PlayerManager : MonoBehaviour
         playerShip.SetActive(true);
         playerShip.transform.GetChild(0).GetComponent<Animator>().SetBool(Entered, true);
         
-        GyrussGameManager.Instance.SetPlayerEnteredOnStageInTimer(true);
+        GyrussGameManager.Instance.SetConditionInTimer("playerEnteredStage", true);
     }
 
     private void SetPlayerEnteredInAnimator(bool entered)
     {
-        Debug.Log("here 3 " + entered);
         playerShip.transform.GetChild(0).GetComponent<Animator>().SetBool(Entered, entered);
     }
     

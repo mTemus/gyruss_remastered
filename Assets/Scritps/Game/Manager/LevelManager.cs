@@ -21,10 +21,7 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-         // if current state == wait => return
-         
-         ProcessOrdersInLevel();
-
+        ProcessOrdersInLevel();
     }
 
     private void SetDelegates()
@@ -39,7 +36,7 @@ public class LevelManager : MonoBehaviour
                 // something will be there probably like loading the best score
                 
                 // initialize timer
-                GyrussGameManager.Instance.SetPlayerStayedOnMinimapInTimer(true);
+                GyrussGameManager.Instance.SetConditionInTimer("playerDelayOnMinimap", true);
                 
                 currentLevelState = LevelState.wait;
                 break;
@@ -66,14 +63,14 @@ public class LevelManager : MonoBehaviour
                 // spawn hi-score amount
                 // after ship will be spawned
                 
-                currentLevelState = LevelState.wait;
+                currentLevelState = LevelState.create_wave;
                 break;
             
             case LevelState.wait:
                 
                 break;
             case LevelState.create_wave:
-                //TODO: change this for chance stage
+                
                 
                 enemyName = "Enemy_L" + currentLevel + "_S" + GyrussGameManager.Instance.StageManager.CurrentStage + "_T";
                 GyrussGameManager.Instance.SetCurrentWave(currentWave);
@@ -82,22 +79,24 @@ public class LevelManager : MonoBehaviour
                         case 1:
                             SetCurrentStageType();
                             SetWaveToSpawn(1, false);
-                            GyrussGameManager.Instance.SetWaveSpawnCondition(true);
+                            GyrussGameManager.Instance.SetConditionInTimer("waveCreating", true);
                             break;
                         
                         case 3:
                             SetWaveToSpawn(1, false);
+                            GyrussGameManager.Instance.SetConditionInTimer("waveCreating", true);
                             break;
                         
                         case 2:
                         case 4:
                             SetWaveToSpawn(2, true);
+                            GyrussGameManager.Instance.SetConditionInTimer("waveCreating", true);
                             break;
                         
                         case 5:
+                            //TODO: change this for chance stage
                             currentWave = 1;
                             GyrussGameManager.Instance.SetLevelState(LevelState.wait);
-                            GyrussGameManager.Instance.SetWaveSpawnCondition(false);
                             break;
                     }
                 break;
@@ -162,5 +161,5 @@ public class LevelManager : MonoBehaviour
 
     public int CurrentLevel => currentLevel;
 
-    // method to go to another level, should be added to event (delegate)
+    //TODO: method to go to another level, should be added to event (delegate)
 }

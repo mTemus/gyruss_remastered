@@ -6,7 +6,6 @@ public class GyrussEventManager : MonoBehaviour
     public static Func<Vector3> GetPlayerShipPositionInitiated;
     public static Func<int, Vector3> EnemySpotOccupationInitiated;
     public static Action EnemyDeathInitiated;
-    public static Action PlayerArrivalOnMinimapInitiated;
     public static Action ReviveParticlesPreparationInitiated;
     public static Action PlayerShipSpawnInitiated;
     public static Action<StageType> StageTypeSetupInitiated;
@@ -17,25 +16,19 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<GameObject> ReviveParticleRegistrationInitiated;
     public static Action<int> MoveToLevelOnMinimapInitiated;
     public static Action<int> CurrentWaveSetupInitiated;
-    public static Action<bool> WaveSpawnConditionSetInitiated;
-    public static Action<bool> EnemySpawnConditionSetInitiated;
     public static Action<bool> PlayerEnteredSetupInAnimatorInitiated;
-    public static Action<bool> PlayerEnteredOnStageConditionSetInitiated;
-    public static Action<bool> PlayerStayedOnMinimapConditionInitiated;
 
-    public static void OnPlayerStayedOnMinimapConditionInitiated(bool condition)
+    public static Action<string, bool> ConditionSetupInTimerInitiated;
+
+
+    public static void OnConditionSetupInTimerInitiated(string timerName, bool timerCondition)
     {
-        PlayerStayedOnMinimapConditionInitiated?.Invoke(condition);
+        ConditionSetupInTimerInitiated?.Invoke(timerName, timerCondition);
     }
-    
+
     public static void OnPlayerShipSpawnInitiated()
     {
         PlayerShipSpawnInitiated?.Invoke();
-    }
-    
-    public static void OnPlayerEnteredOnStageConditionSetInitiated(bool condition)
-    {
-        PlayerEnteredOnStageConditionSetInitiated?.Invoke(condition);
     }
     
     public static void OnPlayerEnteredSetupInAnimatorInitiated(bool entered)
@@ -71,23 +64,9 @@ public class GyrussEventManager : MonoBehaviour
         MoveToLevelOnMinimapInitiated?.Invoke(levelIndex);
     }
     
-    public static void OnPlayerArrivalOnMinimapInitiated()
-    {
-        PlayerArrivalOnMinimapInitiated?.Invoke();
-    }
-    
     public static void OnCurrentWaveSetupInitiated(int currentWave)
     {
         CurrentWaveSetupInitiated?.Invoke(currentWave);
-    }
-    public static void OnWaveSpawnConditionSetInitiated(bool condition)
-    {
-        WaveSpawnConditionSetInitiated?.Invoke(condition);
-    }
-
-    public static void OnEnemySpawnConditionSetInitiated(bool condition)
-    {
-        EnemySpawnConditionSetInitiated?.Invoke(condition);
     }
 
     public static void OnLevelStateSetupInitiated(LevelState newLevelState)
@@ -131,18 +110,14 @@ public class GyrussEventManager : MonoBehaviour
         EnemyDeathInitiated = null;
         EnemySpotOccupationInitiated = null;
         LevelStateSetupInitiated = null;
-        WaveSpawnConditionSetInitiated = null;
-        EnemySpawnConditionSetInitiated = null;
         CurrentWaveSetupInitiated = null;
-        PlayerArrivalOnMinimapInitiated = null;
         MoveToLevelOnMinimapInitiated = null;
         PlayerShipPositionSetupInitiated = null;
         ReviveParticleRegistrationInitiated = null;
         ReviveParticlesPreparationInitiated = null;
         GetPlayerShipPositionInitiated = null;
         PlayerEnteredSetupInAnimatorInitiated = null;
-        PlayerEnteredOnStageConditionSetInitiated = null;
         PlayerShipSpawnInitiated = null;
-        PlayerStayedOnMinimapConditionInitiated = null;
+        ConditionSetupInTimerInitiated = null;
     }
 }

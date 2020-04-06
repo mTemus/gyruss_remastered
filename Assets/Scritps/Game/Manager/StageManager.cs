@@ -64,22 +64,21 @@ public class StageManager : MonoBehaviour
             
             case StageState.wait:
                 // practically, should do nothing, for now, maybe wait for an event
-                
-                
                 break;
             
             case StageState.loading_wave:
                 if (wavesAwaiting.Count > 0) {
                     currentWave = wavesAwaiting.Dequeue();
-                    randomOfPath = Random.Range(1, 8); // ???????????????
-                    GyrussGameManager.Instance.SetEnemySpawnCondition(true);
+                    // randomOfPath = Random.Range(1, 8); // ???????????????
+                    
+                    GyrussGameManager.Instance.SetConditionInTimer("enemySpawningDelay", true);
                 }
                 else {
                     Debug.LogError("Wave queue is empty!");
                     return;
                 }
-                currentStageState = StageState.spawn_enemies;
                 
+                currentStageState = StageState.spawn_enemies;
                 break;
             
             case StageState.spawn_enemies:
@@ -97,20 +96,15 @@ public class StageManager : MonoBehaviour
                     unevenSpotId += 2;
                 }
                 
-                
                 currentEnemyController.currentEnemyState = EnemyStates.take_a_spot;
                 
                 IncreaseEnemyAlive();
                 enemy.transform.name = currentWave.EnemyName + "_" + enemiesAlive;
                 
-                
-                // Debug.Log("Enemy spawned");
-                // Debug.Log(enemy.GetComponent<EnemyController>().SpotIndex);
-                
                 currentWave.EnemySpawned++;
                 
-                if (currentWave.EnemySpawned == currentWave.EnemyAmount) {
-                    GyrussGameManager.Instance.SetEnemySpawnCondition(false);
+                if (currentWave.EnemySpawned != currentWave.EnemyAmount) {
+                    GyrussGameManager.Instance.SetConditionInTimer("enemySpawningDelay", true);
                 } 
                 
                 GyrussGameManager.Instance.SetStageState(StageState.wait);
@@ -186,18 +180,6 @@ public class StageManager : MonoBehaviour
     private void SetCurrentWave(int currentWave)
     {
         currentWaveCounter = currentWave;
-    }
-
-    public StageState CurrentStageState
-    {
-        get => currentStageState;
-        set => currentStageState = value;
-    }
-
-    public StageType CurrentStageType
-    {
-        get => currentStageType;
-        set => currentStageType = value;
     }
 
     public int CurrentStage => currentStage;

@@ -29,7 +29,8 @@ public class MinimapManager : MonoBehaviour
             }
             else {
                 playerShipAnimator.SetFloat(Speed, 0);
-                GyrussGameManager.Instance.TogglePlayerArrivalOnMinimap();
+                
+                GyrussGameManager.Instance.SetConditionInTimer("minimapArrivalAtPlanet", true);
                 move = false;
             }
         }
