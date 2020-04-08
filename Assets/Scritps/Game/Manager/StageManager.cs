@@ -11,6 +11,7 @@ public class StageManager : MonoBehaviour
     
 
     private int currentStage = 1;
+    private int stages = 1;
     private int enemiesAlive;
 
     private int randomOfPath; // ???????????????????????????????
@@ -112,9 +113,21 @@ public class StageManager : MonoBehaviour
             
             case StageState.end:
                 ClearStage();
+                currentStageState = StageState.wait;
+                break;
+
+            case StageState.no_state:
+                break;
+            
+            case StageState.initialize_GUI:
+
 
                 currentStageState = StageState.wait;
-                
+                break;
+            
+            case StageState.spawn_player:
+                GyrussGameManager.Instance.PrepareReviveParticles();
+                currentStageState = StageState.wait;
                 break;
             
             default:
@@ -163,6 +176,9 @@ public class StageManager : MonoBehaviour
     private void GoToNextStage()
     {
         currentStage++;
+        stages++;
+        //TODO: invoke gui event to update stages
+        
         if (currentStage > 4) { currentStage = 1; }
     }
     

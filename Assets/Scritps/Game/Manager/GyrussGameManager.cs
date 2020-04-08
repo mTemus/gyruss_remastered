@@ -57,6 +57,15 @@ public class GyrussGameManager : MonoBehaviour
                 newStageState = StageState.spawn_enemies;
                 break;
             
+            case 6:
+                newStageState = StageState.initialize_GUI;
+                break;
+
+            case 7:
+                newStageState = StageState.spawn_player;
+                break;
+            
+            
             default:
                 Debug.LogError("GGM -- No integer to set stage state!");
                 break;
@@ -99,24 +108,16 @@ public class GyrussGameManager : MonoBehaviour
             case 3:
                 newLevelState = LevelState.change_view_to_minimap;
                 break;
-            
+
             case 4:
-                newLevelState = LevelState.initialize_GUI;
-                break;
-            
-            case 5:
-                newLevelState = LevelState.spawn_player;
-                break;
-            
-            case 6:
                 newLevelState = LevelState.wait;
                 break;
             
-            case 7:
+            case 5:
                 newLevelState = LevelState.create_wave;
                 break;
             
-            case 8:
+            case 6:
                 newLevelState = LevelState.end;
                 break;
             
@@ -176,6 +177,26 @@ public class GyrussGameManager : MonoBehaviour
     public void SetConditionInTimer(string timerName, bool timerCondition)
     {
         GyrussEventManager.OnConditionSetupInTimerInitiated(timerName, timerCondition);
+    }
+
+    public void ToggleWarpsText()
+    {
+        GyrussGUIEventManager.OnWarpsTextToggleInitiated();
+    }
+
+    public void ToggleReadyText()
+    {
+        GyrussGUIEventManager.OnReadyTextToggleInitiated();
+    }
+
+    public void ToggleScoreText()
+    {
+        GyrussGUIEventManager.OnScoreTextToggleInitiated();
+    }
+
+    public void SetWarpsText(int warps, string planet)
+    {
+        GyrussGUIEventManager.OnWarpsTextSetupInitiated(warps, planet);
     }
     
     private void OnDestroy()

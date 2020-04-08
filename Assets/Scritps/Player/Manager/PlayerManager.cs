@@ -22,6 +22,10 @@ public class PlayerManager : MonoBehaviour
     private float reload = 1;
     private bool doubleBulletMode = false;
 
+    private int lives = 4;
+    private int rockets = 1;
+    private int currentScore = 0;
+
     private Vector3 playerStartingPosition;
     
     private Transform shootingPointSingle;
@@ -53,7 +57,7 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         // TODO: Change input for android to be like in original, when left, go only left, when top, only top etc.
-        
+
         reload += Time.deltaTime;
         
         if (Input.GetKey(KeyCode.RightArrow))
@@ -117,7 +121,7 @@ public class PlayerManager : MonoBehaviour
         return playerShip.transform.position;
     }
 
-    public void ToggleShootingMode()
+    private void ToggleShootingMode()
     {
         doubleBulletMode = !doubleBulletMode;
         

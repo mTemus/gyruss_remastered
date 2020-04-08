@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -9,6 +10,10 @@ public class LevelManager : MonoBehaviour
     
     private int currentLevel = 0;
     private int currentWave = 1;
+    private int currentStage;
+
+    private List<string> planetsInGame;
+    
 
     private String enemyName;
 
@@ -16,6 +21,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        planetsInGame = new List<string> {"NEPTUNE", "PLUTO"};
         SetDelegates();
     }
 
@@ -33,9 +39,8 @@ public class LevelManager : MonoBehaviour
     {
         switch (currentLevelState) {
             case LevelState.start:
-                // something will be there probably like loading the best score
+                // TODO: load hiScore 
                 
-                // initialize timer
                 GyrussGameManager.Instance.SetConditionInTimer("playerDelayOnMinimap", true);
                 
                 currentLevelState = LevelState.wait;
@@ -46,25 +51,30 @@ public class LevelManager : MonoBehaviour
                 currentLevelState = LevelState.wait;
                 break;
             
-            case LevelState.initialize_GUI:
-
-                currentLevelState = LevelState.change_view_to_stage;
-                break;
-            
             case LevelState.change_view_to_stage:
                 ToggleViews();
-                // currentLevelState = LevelState.initialize_GUI;
-                currentLevelState = LevelState.spawn_player;
-                break;
 
-            case LevelState.spawn_player:
-                GyrussGameManager.Instance.PrepareReviveParticles();
-                // spawn score amount
-                // spawn hi-score amount
-                // after ship will be spawned
+                if (currentStage < 4)
+                    GyrussGameManager.Instance.SetWarpsText(4 - currentStage, planetsInGame[currentLevel]);
                 
+                
+                GyrussGameManager.Instance.SetConditionInTimer("warpsTextDelay", true);
+                GyrussGameManager.Instance.SetConditionInTimer("readyTextDelay", true);
+
+                // currentLevelState = LevelState.initialize_GUI;
+                // currentLevelState = LevelState.spawn_player;
+
                 currentLevelState = LevelState.wait;
                 break;
+
+            // case LevelState.spawn_player:
+            //     GyrussGameManager.Instance.PrepareReviveParticles();
+            //     // spawn score amount
+            //     // spawn hi-score amount
+            //     // after ship will be spawned
+            //     
+            //     currentLevelState = LevelState.wait;
+            //     break;
             
             case LevelState.wait:
                 
