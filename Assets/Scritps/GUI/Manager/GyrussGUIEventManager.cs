@@ -6,12 +6,12 @@ public class GyrussGUIEventManager : MonoBehaviour
 {
     public static Action<int> ScoreTextSetupInitiated;
     public static Action<int> StagesTextSetupInitiated;
-    public static Action LivesIconsIncreaseInitiated;
     public static Action<int> LivesIconsDecreaseInitiated;
-    public static Action RocketsIconsIncreaseInitiated;
     public static Action<int> RocketsIconsDecreaseInitiated;
-    public static Action GUIToggleInitiated;
     public static Action<int, string> WarpsTextSetupInitiated;
+    public static Action LivesIconsIncreaseInitiated;
+    public static Action RocketsIconsIncreaseInitiated;
+    public static Action GUIToggleInitiated;
     public static Action WarpsTextToggleInitiated;
     public static Action ReadyTextToggleInitiated;
     public static Action ScoreTextToggleInitiated;
