@@ -7,17 +7,16 @@ public class EnemyController : MonoBehaviour
     public PathFollow pathFollow;
     public PathsDatabase pathsDatabase;
     public float timeToWait = 0;
+    
     private bool pathAssignedIn = false;
     private bool pathAssignedBack = false;
 
+    private int spotIndex;
+    
     private float speed;
     
-    private int spotIndex;
-    private float deathCounter = 0;
-    
     private Vector3 centerPosition;
-    private static readonly int Dead = Animator.StringToHash("dead");
-
+    
     private void Start()
     {
         speed = pathFollow.speed;
@@ -46,8 +45,10 @@ public class EnemyController : MonoBehaviour
             case EnemyStates.fly_away:
                 flyAway();
             break;
+            
             case EnemyStates.no_state:
                 break;
+            
             case EnemyStates.take_a_spot:
                 centerPosition = GyrussGameManager.Instance.OccupyEnemySpot(spotIndex);
                 currentEnemyState = EnemyStates.entering;
@@ -55,17 +56,13 @@ public class EnemyController : MonoBehaviour
                 break;
             case EnemyStates.fly_to_mini_boss:
                 break;
+            
             case EnemyStates.fly_from_mini_boss:
                 break;
+            
             case EnemyStates.die:
-                if (deathCounter == 0) { transform.GetComponent<Animator>().SetBool(Dead, true); }
-                else if (deathCounter >= 0.4f) {
-                    Destroy(transform.gameObject);
-                }
-                // TODO: move slowly to player but in random left or right direction
-                
-                
-                deathCounter += Time.deltaTime;
+                GyrussGameManager.Instance.CreateExplosion(transform.position);
+                Destroy(transform.gameObject);
                 break;
             
             default:
@@ -88,7 +85,7 @@ public class EnemyController : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, centerPosition, Time.deltaTime * speed);
 
         if (transform.position == centerPosition) {
-            currentEnemyState = EnemyStates.wait;
+            currentEnemyState = EnemyStates.no_state;
         }
     }
 
@@ -125,26 +122,7 @@ public class EnemyController : MonoBehaviour
             pathAssignedBack = true;
         }
     }
-
-    private void Die() // <-- funkcja do animacji
-    {
-        Destroy(transform.gameObject);
-    }
     
-
-    public int SpotIndex
-    {
-        get => spotIndex;
-        set => spotIndex = value;
-    }
-
-    public Vector3 CenterPosition
-    {
-        get => centerPosition;
-        set => centerPosition = value;
-    }
-
-
     private void OnDestroy()
     {
         GyrussGameManager.Instance.KillEnemy();
@@ -159,4 +137,18 @@ public class EnemyController : MonoBehaviour
         currentEnemyState = EnemyStates.die;
         Destroy(other.transform.parent.gameObject);
     }
+    
+    
+    public int SpotIndex
+    {
+        get => spotIndex;
+        set => spotIndex = value;
+    }
+
+    public Vector3 CenterPosition
+    {
+        get => centerPosition;
+        set => centerPosition = value;
+    }
+
 }

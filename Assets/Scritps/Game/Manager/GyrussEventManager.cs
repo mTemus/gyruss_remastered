@@ -15,12 +15,18 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<LevelState> LevelStateSetupInitiated;
     public static Action<Wave> WaveEnqueuingInitiated;
     public static Action<Vector3> PlayerShipPositionSetupInitiated;
+    public static Action<Vector3> ExplosionCreationInitiated;
     public static Action<GameObject> ReviveParticleRegistrationInitiated;
     public static Action<int> MoveToLevelOnMinimapInitiated;
     public static Action<int> CurrentWaveSetupInitiated;
     public static Action<bool> PlayerEnteredSetupInAnimatorInitiated;
     public static Action<string, bool> ConditionSetupInTimerInitiated;
 
+    public static void OnExplosionCreationInitiated(Vector3 explosionPosition)
+    {
+        ExplosionCreationInitiated?.Invoke(explosionPosition);
+    }
+    
     public static int OnPlayerRocketsGetInitiated() => (int) PlayerRocketsGetInitiated?.Invoke();
     
     public static int OnPlayerLivesGetInitiated() => (int) PlayerLivesGetInitiated?.Invoke();
@@ -113,5 +119,6 @@ public class GyrussEventManager : MonoBehaviour
         ConditionSetupInTimerInitiated = null;
         PlayerLivesGetInitiated = null;
         PlayerRocketsGetInitiated = null;
+        ExplosionCreationInitiated = null;
     }
 }

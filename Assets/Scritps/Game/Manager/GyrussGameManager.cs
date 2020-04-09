@@ -3,7 +3,6 @@
 public class GyrussGameManager : MonoBehaviour
 {
     [SerializeField] private PlayerManager playerManager;
-    [SerializeField] private GyrussEventManager gyrussEventManager;
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private StageManager stageManager;
     [SerializeField] private TimeManager timeManager;
@@ -212,7 +211,11 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussGUIEventManager.OnRocketIconsInitializeInitiated();
     }
-    
+
+    public void CreateExplosion(Vector3 explosionPosition)
+    {
+        GyrussEventManager.OnExplosionCreationInitiated(explosionPosition);
+    }
     
     private void OnDestroy()
     {

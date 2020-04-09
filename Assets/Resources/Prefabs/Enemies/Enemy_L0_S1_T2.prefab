@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4904522728625553535}
   - component: {fileID: -6588616073827023410}
   - component: {fileID: 7710749852460570904}
+  - component: {fileID: 1301816983031465962}
   - component: {fileID: 4097480019218467140}
   - component: {fileID: -6106743201459439738}
   - component: {fileID: 1833700687822768536}
@@ -151,6 +152,20 @@ MonoBehaviour:
   pathFollow: {fileID: 4097480019218467140}
   pathsDatabase: {fileID: 11400000, guid: 80dd15cc02e98a6428a2f3c4b2a78207, type: 2}
   timeToWait: 0
+--- !u!114 &1301816983031465962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6718578167572102063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad12d1309a0643145b3d50e4e1416bab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.5
+  deathPeriod: 0.4
 --- !u!114 &4097480019218467140
 MonoBehaviour:
   m_ObjectHideFlags: 0

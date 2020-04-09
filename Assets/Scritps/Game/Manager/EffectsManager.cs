@@ -3,7 +3,16 @@ using UnityEngine;
 
 public class EffectsManager : MonoBehaviour
 {
+    [Header("Player Ship")]
     [SerializeField] private GameObject playerShip;
+    
+    [Header("Effects Prefabs")]
+    [SerializeField] private GameObject ExplosionPrefab;
+
+    [Header("Pools")] 
+    [SerializeField] private Transform explosionPool;
+    
+    [Header("Particles")]
     [SerializeField] private GameObject[] reviveParticles;
     
     private List<GameObject> readyReviveParticles;
@@ -20,6 +29,7 @@ public class EffectsManager : MonoBehaviour
         GyrussEventManager.PlayerShipPositionSetupInitiated += SetPlayerShipPosition;
         GyrussEventManager.ReviveParticleRegistrationInitiated += RegisterReviveParticle;
         GyrussEventManager.ReviveParticlesPreparationInitiated += PrepareReviveParticles;
+        GyrussEventManager.ExplosionCreationInitiated += CreateExplosion;
     }
     
     private void SetReviveParticlesOnPositions()
@@ -66,6 +76,13 @@ public class EffectsManager : MonoBehaviour
             reviveParticle.SetActive(true);
             reviveParticle.GetComponent<ReviveParticleController>().PrepareMovement(playerShipPosition);
         }
+    }
+
+    private void CreateExplosion(Vector3 explosionPosition)
+    {
+        GameObject explosion = Instantiate(ExplosionPrefab, explosionPool, true);
+        explosion.transform.position = explosionPosition;
+        explosion.GetComponent<DeathController>().Die();
     }
     
 }
