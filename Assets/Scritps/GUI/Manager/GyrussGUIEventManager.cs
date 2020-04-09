@@ -15,7 +15,19 @@ public class GyrussGUIEventManager : MonoBehaviour
     public static Action WarpsTextToggleInitiated;
     public static Action ReadyTextToggleInitiated;
     public static Action ScoreTextToggleInitiated;
+    public static Action LifeIconsInitializeInitiated;
+    public static Action RocketIconsInitializeInitiated;
 
+    public static void OnRocketIconsInitializeInitiated()
+    {
+        RocketIconsInitializeInitiated?.Invoke();
+    }
+    
+    public static void OnLifeIconsInitializeInitiated()
+    {
+        LifeIconsInitializeInitiated?.Invoke();
+    }
+    
     public static void OnScoreTextToggleInitiated()
     {
         ScoreTextToggleInitiated?.Invoke();
@@ -84,6 +96,8 @@ public class GyrussGUIEventManager : MonoBehaviour
         WarpsTextToggleInitiated = null;
         ReadyTextToggleInitiated = null;
         ScoreTextToggleInitiated = null;
+        LifeIconsInitializeInitiated = null;
+        RocketIconsInitializeInitiated = null;
     }
     
 }

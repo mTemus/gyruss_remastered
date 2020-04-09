@@ -83,15 +83,11 @@ public class GyrussGameManager : MonoBehaviour
         GyrussEventManager.OnEnemyDeathInitiated();
     }
 
-    public Vector3 OccupyEnemySpot(int index)
-    {
-        return GyrussEventManager.OnEnemySpotOccupationInitiated(index);
-    }
+    public Vector3 OccupyEnemySpot(int index) => 
+        GyrussEventManager.OnEnemySpotOccupationInitiated(index);
     
     public void SetLevelState(int stateOnInt)
     {
-        Debug.Log(stateOnInt);
-        
         LevelState newLevelState = LevelState.wait;
 
         switch (stateOnInt) {
@@ -200,6 +196,23 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussGUIEventManager.OnWarpsTextSetupInitiated(warps, planet);
     }
+
+    public int GetPlayerLives() => 
+        GyrussEventManager.OnPlayerLivesGetInitiated();
+
+    public int GetPlayerRockets() => 
+        GyrussEventManager.OnPlayerRocketsGetInitiated();
+
+    public void InitializeLifeIcons()
+    {
+        GyrussGUIEventManager.OnLifeIconsInitializeInitiated();
+    }
+
+    public void InitializeRocketIcons()
+    {
+        GyrussGUIEventManager.OnRocketIconsInitializeInitiated();
+    }
+    
     
     private void OnDestroy()
     {

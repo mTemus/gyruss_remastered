@@ -5,6 +5,8 @@ public class GyrussEventManager : MonoBehaviour
 {
     public static Func<Vector3> GetPlayerShipPositionInitiated;
     public static Func<int, Vector3> EnemySpotOccupationInitiated;
+    public static Func<int> PlayerLivesGetInitiated;
+    public static Func<int> PlayerRocketsGetInitiated;
     public static Action EnemyDeathInitiated;
     public static Action ReviveParticlesPreparationInitiated;
     public static Action PlayerShipSpawnInitiated;
@@ -17,9 +19,11 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<int> MoveToLevelOnMinimapInitiated;
     public static Action<int> CurrentWaveSetupInitiated;
     public static Action<bool> PlayerEnteredSetupInAnimatorInitiated;
-
     public static Action<string, bool> ConditionSetupInTimerInitiated;
 
+    public static int OnPlayerRocketsGetInitiated() => (int) PlayerRocketsGetInitiated?.Invoke();
+    
+    public static int OnPlayerLivesGetInitiated() => (int) PlayerLivesGetInitiated?.Invoke();
 
     public static void OnConditionSetupInTimerInitiated(string timerName, bool timerCondition)
     {
@@ -36,13 +40,7 @@ public class GyrussEventManager : MonoBehaviour
         PlayerEnteredSetupInAnimatorInitiated?.Invoke(entered);
     }
     
-    public static Vector3 OnGetPlayerShipPositionInitiated()
-    {
-        if (GetPlayerShipPositionInitiated != null) 
-            return (Vector3) GetPlayerShipPositionInitiated?.Invoke(); 
-        
-        return Vector3.negativeInfinity;
-    }
+    public static Vector3 OnGetPlayerShipPositionInitiated() => (Vector3) GetPlayerShipPositionInitiated?.Invoke();
     
     public static void OnReviveParticlesPreparationInitiated()
     {
@@ -74,13 +72,7 @@ public class GyrussEventManager : MonoBehaviour
         LevelStateSetupInitiated?.Invoke(newLevelState);
     }
     
-    public static Vector3 OnEnemySpotOccupationInitiated(int index)
-    {
-        if (EnemySpotOccupationInitiated != null) return (Vector3) 
-            EnemySpotOccupationInitiated?.Invoke(index);
-        
-        return Vector3.negativeInfinity;
-    }
+    public static Vector3 OnEnemySpotOccupationInitiated(int index) => (Vector3) EnemySpotOccupationInitiated?.Invoke(index);
     
     public static void OnEnemyDeathInitiated()
     {
@@ -119,5 +111,7 @@ public class GyrussEventManager : MonoBehaviour
         PlayerEnteredSetupInAnimatorInitiated = null;
         PlayerShipSpawnInitiated = null;
         ConditionSetupInTimerInitiated = null;
+        PlayerLivesGetInitiated = null;
+        PlayerRocketsGetInitiated = null;
     }
 }

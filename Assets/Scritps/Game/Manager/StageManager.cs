@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class StageManager : MonoBehaviour
 {
@@ -32,6 +31,7 @@ public class StageManager : MonoBehaviour
     {
         wavesAwaiting = new Queue<Wave>();
         currentStageState = StageState.start;
+        currentStageType = StageType.first_stage;
         SetDelegates();
     }
 
@@ -60,9 +60,7 @@ public class StageManager : MonoBehaviour
                 // then enemies should spawn so state should change to loading_wave
 
                 //TODO: check current stage type here
-                if (currentStageType == StageType.normal) {
-                    currentStageState = StageState.loading_wave;
-                }
+                
 
                 break;
             
@@ -125,12 +123,18 @@ public class StageManager : MonoBehaviour
 
             case StageState.get_ready:
                 if (playerShip.activeSelf) {
-                    GyrussGUIEventManager.OnReadyTextToggleInitiated();
+                    GyrussGameManager.Instance.ToggleReadyText();
+                    GyrussGameManager.Instance.ToggleScoreText();
                     GyrussGameManager.Instance.SetLevelState(LevelState.create_wave);
                 }
                 break;
             
             case StageState.initialize_GUI:
+                if (currentStageType == StageType.first_stage) {
+                    GyrussGameManager.Instance.InitializeLifeIcons();
+                    GyrussGameManager.Instance.InitializeRocketIcons();
+                }
+                
                 currentStageState = StageState.get_ready;
                 break;
             

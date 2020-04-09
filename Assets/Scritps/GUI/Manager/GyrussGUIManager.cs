@@ -40,6 +40,9 @@ public class GyrussGUIManager : MonoBehaviour
         GyrussGUIEventManager.WarpsTextSetupInitiated += SetWarpsText;
         GyrussGUIEventManager.WarpsTextToggleInitiated += ToggleWarpsText;
         GyrussGUIEventManager.ReadyTextToggleInitiated += ToggleReadyText;
+        GyrussGUIEventManager.ScoreTextToggleInitiated += ToggleScoreText;
+        GyrussGUIEventManager.LifeIconsInitializeInitiated += InitializeLifeIcons;
+        GyrussGUIEventManager.RocketIconsInitializeInitiated += InitializeRocketIcons;
     }
     
     private void SetScoreText(int score)
@@ -66,7 +69,8 @@ public class GyrussGUIManager : MonoBehaviour
         int currentLives = livesTransform.childCount;
         
         if (currentLives > 7) return;
-        Instantiate(lifeIcon, livesTransform, true);
+        GameObject lifeGO = Instantiate(lifeIcon, livesTransform, true);
+        lifeGO.transform.localScale = new Vector3(1.5f, 1.5f,1);
     }
 
     private void DecreaseLives(int lives)
@@ -80,7 +84,8 @@ public class GyrussGUIManager : MonoBehaviour
         int currentRockets = rocketsTransform.childCount;
         
         if (currentRockets > 8) return;
-        Instantiate(rocketIcon, rocketsTransform, true);
+        GameObject rocketGO = Instantiate(rocketIcon, rocketsTransform, true);
+        rocketGO.transform.localScale = new Vector3(1.5f, 1.5f, 1);
     }
 
     private void DecreaseRockets(int rockets)
@@ -114,6 +119,29 @@ public class GyrussGUIManager : MonoBehaviour
     {
         GUI.SetActive(!GUI.activeSelf);
     }
+
+    private void InitializeLifeIcons()
+    {
+        int playerLives = GyrussGameManager.Instance.GetPlayerLives();
+        int initializedLives = livesTransform.childCount;
+
+        if (initializedLives >= playerLives) return;
+        
+        IncreaseLives();
+        GyrussGameManager.Instance.SetConditionInTimer("lifeIconsInitialization", true);
+    }
+    
+    private void InitializeRocketIcons()
+    {
+        int playerRockets = GyrussGameManager.Instance.GetPlayerRockets();
+        int initializedRockets = rocketsTransform.childCount;
+
+        if (initializedRockets >= playerRockets) return;
+        
+        IncreaseRockets();
+        GyrussGameManager.Instance.SetConditionInTimer("rocketIconsInitialization", true);
+    }
+    
     
     private void OnDestroy()
     {

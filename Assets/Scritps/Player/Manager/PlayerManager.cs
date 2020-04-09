@@ -79,6 +79,8 @@ public class PlayerManager : MonoBehaviour
         GyrussEventManager.GetPlayerShipPositionInitiated += GetPlayerPosition;
         GyrussEventManager.PlayerEnteredSetupInAnimatorInitiated += SetPlayerEnteredInAnimator;
         GyrussEventManager.PlayerShipSpawnInitiated += SpawnPlayerShip;
+        GyrussEventManager.PlayerLivesGetInitiated += GetPlayerLives;
+        GyrussEventManager.PlayerRocketsGetInitiated += GetPlayerRockets;
     }
 
     private void RotateShip(Vector3 rotateAxis)
@@ -119,6 +121,16 @@ public class PlayerManager : MonoBehaviour
     private Vector3 GetPlayerPosition()
     {
         return playerShip.transform.position;
+    }
+
+    private int GetPlayerLives()
+    {
+        return lives;
+    }
+
+    private int GetPlayerRockets()
+    {
+        return rockets;
     }
 
     private void ToggleShootingMode()

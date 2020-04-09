@@ -1,4 +1,4 @@
 ﻿public enum StageType
 {
-    no_type, normal, mini_boss, boss, chance
+    no_type, first_stage, mini_boss, boss, chance
 }

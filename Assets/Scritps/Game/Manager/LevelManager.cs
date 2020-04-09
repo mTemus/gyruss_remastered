@@ -133,7 +133,7 @@ public class LevelManager : MonoBehaviour
        
        switch (currentStage) {
            case 1:
-               currentStageType = StageType.normal;
+               currentStageType = StageType.first_stage;
                break;
            case 2:
                currentStageType = StageType.mini_boss;
