@@ -91,14 +91,29 @@ public class PlayerManager : MonoBehaviour
     private void ShootBullet()
     {
         //TODO: add shooting effect near ship
-        
-        if (!(reload >= 0.3f)) return;
+
+        if (!(reload >= 0.3f)) {
+            if (shootingPointSingleGO.GetComponent<SpriteRenderer>().enabled) {
+                shootingPointSingleGO.GetComponent<SpriteRenderer>().enabled = false;
+            }
+            
+            if (shootingPointDoubleGO.GetComponent<SpriteRenderer>().enabled) {
+                shootingPointDoubleGO.GetComponent<SpriteRenderer>().enabled = false;
+            }
+            
+            return;
+        }
         reload = 0;
 
-        if (!doubleBulletMode) 
+        if (!doubleBulletMode) {
             Instantiate(bulletPrefabSingle, shootingPointSingle.position, playerShip.transform.rotation, playerBulletPool);
-        else 
-            Instantiate(bulletPrefabDouble, shootingPointSingle.position, playerShip.transform.rotation, playerBulletPool);
+            shootingPointSingleGO.GetComponent<SpriteRenderer>().enabled = true;
+        }
+        else {
+            Instantiate(bulletPrefabDouble, shootingPointSingle.position, playerShip.transform.rotation,
+                playerBulletPool);
+            shootingPointDoubleGO.GetComponent<SpriteRenderer>().enabled = true;
+        }
         
 
         if (Input.GetKeyUp(KeyCode.Space)) { reload = 1; }
