@@ -8,6 +8,9 @@ public class StageManager : MonoBehaviour
     [Header("StageView")] 
     [SerializeField] private Transform[] enemySpots;
     [SerializeField] private Transform mapCenterPoint;
+
+    [Header("PlayerShip")] 
+    [SerializeField] private GameObject playerShip;
     
 
     private int currentStage = 1;
@@ -113,21 +116,27 @@ public class StageManager : MonoBehaviour
             
             case StageState.end:
                 ClearStage();
+                // move player ship to starting position
+                // activate warping
+                
+                
                 currentStageState = StageState.wait;
                 break;
 
-            case StageState.no_state:
+            case StageState.get_ready:
+                if (playerShip.activeSelf) {
+                    GyrussGUIEventManager.OnReadyTextToggleInitiated();
+                    GyrussGameManager.Instance.SetLevelState(LevelState.create_wave);
+                }
                 break;
             
             case StageState.initialize_GUI:
-
-
-                currentStageState = StageState.wait;
+                currentStageState = StageState.get_ready;
                 break;
             
             case StageState.spawn_player:
                 GyrussGameManager.Instance.PrepareReviveParticles();
-                currentStageState = StageState.wait;
+                currentStageState = StageState.initialize_GUI;
                 break;
             
             default:

@@ -34,7 +34,7 @@ public class GyrussGameManager : MonoBehaviour
 
         switch (newStageStateOnInt) {
             case 0:
-                newStageState = StageState.no_state;
+                newStageState = StageState.get_ready;
                 break;
             
             case 1:
@@ -90,6 +90,8 @@ public class GyrussGameManager : MonoBehaviour
     
     public void SetLevelState(int stateOnInt)
     {
+        Debug.Log(stateOnInt);
+        
         LevelState newLevelState = LevelState.wait;
 
         switch (stateOnInt) {

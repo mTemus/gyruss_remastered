@@ -57,31 +57,16 @@ public class LevelManager : MonoBehaviour
                 if (currentStage < 4)
                     GyrussGameManager.Instance.SetWarpsText(4 - currentStage, planetsInGame[currentLevel]);
                 
-                
                 GyrussGameManager.Instance.SetConditionInTimer("warpsTextDelay", true);
                 GyrussGameManager.Instance.SetConditionInTimer("readyTextDelay", true);
 
-                // currentLevelState = LevelState.initialize_GUI;
-                // currentLevelState = LevelState.spawn_player;
-
                 currentLevelState = LevelState.wait;
                 break;
-
-            // case LevelState.spawn_player:
-            //     GyrussGameManager.Instance.PrepareReviveParticles();
-            //     // spawn score amount
-            //     // spawn hi-score amount
-            //     // after ship will be spawned
-            //     
-            //     currentLevelState = LevelState.wait;
-            //     break;
             
             case LevelState.wait:
-                
                 break;
+            
             case LevelState.create_wave:
-                
-                
                 enemyName = "Enemy_L" + currentLevel + "_S" + GyrussGameManager.Instance.StageManager.CurrentStage + "_T";
                 GyrussGameManager.Instance.SetCurrentWave(currentWave);
                 
