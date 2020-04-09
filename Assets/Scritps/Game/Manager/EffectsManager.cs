@@ -45,9 +45,9 @@ public class EffectsManager : MonoBehaviour
         }
     }
 
-    private void SetPlayerShipPosition(Vector3 playerShipPosition)
+    private void SetPlayerShipPosition(Vector3 newPlayerShipPosition)
     {
-        this.playerShipPosition = playerShipPosition;
+        playerShipPosition = newPlayerShipPosition;
         SetReviveParticlesOnPositions();
     }
 
