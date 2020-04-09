@@ -20,7 +20,9 @@ public class PlayerManager : MonoBehaviour
     
     private float speed = 150f;
     private float reload = 1;
+    
     private bool doubleBulletMode = false;
+    private bool spawned;
 
     private int lives = 4;
     private int rockets = 1;
@@ -54,8 +56,10 @@ public class PlayerManager : MonoBehaviour
         ToggleShootingMode();
     }
 
-    void Update()
+    private void Update()
     {
+        if (!spawned) return;
+
         // TODO: Change input for android to be like in original, when left, go only left, when top, only top etc.
 
         reload += Time.deltaTime;
@@ -81,6 +85,7 @@ public class PlayerManager : MonoBehaviour
         GyrussEventManager.PlayerShipSpawnInitiated += SpawnPlayerShip;
         GyrussEventManager.PlayerLivesGetInitiated += GetPlayerLives;
         GyrussEventManager.PlayerRocketsGetInitiated += GetPlayerRockets;
+        GyrussEventManager.PlayerSpawnedToggleInitiated += TogglePlayerSpawned;
     }
 
     private void RotateShip(Vector3 rotateAxis)
@@ -147,7 +152,7 @@ public class PlayerManager : MonoBehaviour
     {
         return rockets;
     }
-
+    
     private void ToggleShootingMode()
     {
         doubleBulletMode = !doubleBulletMode;
@@ -159,5 +164,10 @@ public class PlayerManager : MonoBehaviour
             shootingPointSingleGO.SetActive(true);
             shootingPointDoubleGO.SetActive(false);
         }
+    }
+
+    private void TogglePlayerSpawned()
+    {
+        spawned = !spawned;
     }
 }

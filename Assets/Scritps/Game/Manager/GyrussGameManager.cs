@@ -216,6 +216,11 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussEventManager.OnExplosionCreationInitiated(explosionPosition);
     }
+
+    public void TogglePlayerSpawned()
+    {
+        GyrussEventManager.OnPlayerSpawnedToggleInitiated();
+    }
     
     private void OnDestroy()
     {

@@ -10,6 +10,7 @@ public class GyrussEventManager : MonoBehaviour
     public static Action EnemyDeathInitiated;
     public static Action ReviveParticlesPreparationInitiated;
     public static Action PlayerShipSpawnInitiated;
+    public static Action PlayerSpawnedToggleInitiated;
     public static Action<StageType> StageTypeSetupInitiated;
     public static Action<StageState> StageStateSetupInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
@@ -22,6 +23,11 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<bool> PlayerEnteredSetupInAnimatorInitiated;
     public static Action<string, bool> ConditionSetupInTimerInitiated;
 
+    public static void OnPlayerSpawnedToggleInitiated()
+    {
+        PlayerSpawnedToggleInitiated?.Invoke();
+    }
+    
     public static void OnExplosionCreationInitiated(Vector3 explosionPosition)
     {
         ExplosionCreationInitiated?.Invoke(explosionPosition);
@@ -120,5 +126,6 @@ public class GyrussEventManager : MonoBehaviour
         PlayerLivesGetInitiated = null;
         PlayerRocketsGetInitiated = null;
         ExplosionCreationInitiated = null;
+        PlayerSpawnedToggleInitiated = null;
     }
 }

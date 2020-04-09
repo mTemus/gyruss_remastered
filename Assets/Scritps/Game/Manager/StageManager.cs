@@ -126,6 +126,7 @@ public class StageManager : MonoBehaviour
                     GyrussGameManager.Instance.ToggleReadyText();
                     GyrussGameManager.Instance.ToggleScoreText();
                     GyrussGameManager.Instance.SetLevelState(LevelState.create_wave);
+                    GyrussGameManager.Instance.TogglePlayerSpawned();
                 }
                 break;
             
