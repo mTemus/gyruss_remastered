@@ -60,6 +60,7 @@ public class ScalingController : MonoBehaviour
                         currentCollider.size = new Vector2(0.1f, 0.1f);
                         currentCollider.offset = new Vector2(-0.016f, 0.015f);
                         enemyIsInCenterPosition = !enemyIsInCenterPosition;
+                        myRenderer.sprite = enemyCenterSprite;
                     }
                 }
                 else {
@@ -68,8 +69,13 @@ public class ScalingController : MonoBehaviour
                         currentCollider.offset = normalEnemyColliderOffset;
                         enemyIsInCenterPosition = !enemyIsInCenterPosition;
                     }
+                    else {
+                        if (!myRenderer.sprite.Equals(enemyNormalSprite)) {
+                            myRenderer.sprite = enemyNormalSprite;
+                        }
+                    }
                 }
-                transform.GetComponent<Animator>().SetFloat(Scaling, scalingFactor);
+                // transform.GetComponent<Animator>().SetFloat(Scaling, scalingFactor);
                 break;
             
             case "Player":
