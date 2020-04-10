@@ -3,15 +3,12 @@
 public class DeathController : MonoBehaviour
 {
     [SerializeField] private float speed = 0.8f;
-    [SerializeField] private float deathPeriod = 0.4f;
+    [SerializeField] private float deathPeriod = 0.6f;
 
     private float deathCounter;
     private bool die;
     
     private Vector3 deathPosition;
-    
-    private static readonly int Dead = Animator.StringToHash("dead");
-
 
     // Update is called once per frame
     void Update()
@@ -19,7 +16,6 @@ public class DeathController : MonoBehaviour
         if (!die) return;
         
         if (deathCounter == 0) {
-            // transform.GetComponent<Animator>().SetBool(Dead, true);
             SetDeathRoute();
         } else if (deathCounter < deathPeriod) {
             MoveOnDeathRoute();

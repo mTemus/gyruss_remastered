@@ -152,7 +152,7 @@ public class StageManager : MonoBehaviour
     private void IncreaseEnemyAlive()
     {
         enemiesAlive++;
-        Debug.LogWarning(enemiesAlive + " created.");
+        // Debug.LogWarning(enemiesAlive + " created.");
     }
 
     private void ClearStage()
@@ -164,7 +164,8 @@ public class StageManager : MonoBehaviour
     private void KillEnemy()
     {
         enemiesAlive--;
-        // Debug.LogError(enemiesAlive + " left.");
+        Debug.LogWarning(enemiesAlive + " left.");
+        Debug.LogWarning("Curr wave counter " + currentWaveCounter);
         
         if (enemiesAlive < 0) {
             Debug.LogError("You killed too much enemies!");
@@ -209,6 +210,9 @@ public class StageManager : MonoBehaviour
 
     private void SetCurrentWave(int currentWave)
     {
+        if (currentWave == 5 && currentStageType != StageType.chance) 
+            return;
+        
         currentWaveCounter = currentWave;
     }
 
