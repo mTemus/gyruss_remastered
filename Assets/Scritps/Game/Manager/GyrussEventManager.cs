@@ -15,6 +15,7 @@ public class GyrussEventManager : MonoBehaviour
     public static Action PlayerSpawnedToggleInitiated;
     public static Action WarpingEffectsToggleInitiated;
     public static Action WarpingPlayerInitiated;
+    public static Action GoToNextStageInitiated;
     public static Action<StageType> StageTypeSetupInitiated;
     public static Action<StageState> StageStateSetupInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
@@ -27,6 +28,11 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<bool> PlayerEnteredSetupInAnimatorInitiated;
     public static Action<string, bool> ConditionSetupInTimerInitiated;
 
+    public static void OnGoToNextStageInitiated()
+    {
+        GoToNextStageInitiated?.Invoke();
+    }
+    
     public static bool OnMovePlayerToCenterPointInitiated() => (bool) MovePlayerToCenterPointInitiated?.Invoke();
     
     public static void OnWarpingPlayerInitiated()
@@ -149,5 +155,6 @@ public class GyrussEventManager : MonoBehaviour
         WarpingEffectsToggleInitiated = null;
         WarpingPlayerInitiated = null;
         MovePlayerToCenterPointInitiated = null;
+        GoToNextStageInitiated = null;
     }
 }

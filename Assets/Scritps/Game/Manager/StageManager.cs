@@ -49,6 +49,7 @@ public class StageManager : MonoBehaviour
         GyrussEventManager.EnemyDeathInitiated += KillEnemy;
         GyrussEventManager.EnemySpotOccupationInitiated += OccupyEnemySpot;
         GyrussEventManager.CurrentWaveSetupInitiated += SetCurrentWave;
+        GyrussEventManager.GoToNextStageInitiated += GoToNextStage;
     }
     
     private void ProcessOrdersInStage()
@@ -154,7 +155,7 @@ public class StageManager : MonoBehaviour
 
         if (currentStageType == StageType.first_stage || currentStageType == StageType.chance) {
             if (enemiesAlive == 0 && currentWaveCounter == 4) {
-                GoToNextStage();
+                GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true);
             } else if (enemiesAlive == 0 && currentWaveCounter == 5) {
                 
             }

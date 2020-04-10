@@ -235,6 +235,11 @@ public class GyrussGameManager : MonoBehaviour
     }
 
     public bool MovePlayerShipToCenterPosition() => GyrussEventManager.OnMovePlayerToCenterPointInitiated();
+
+    public void GoToNextStage()
+    {
+        GyrussEventManager.OnGoToNextStageInitiated();
+    }
     
     
     private void OnDestroy()
