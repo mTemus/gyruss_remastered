@@ -223,6 +223,19 @@ public class GyrussGameManager : MonoBehaviour
     }
 
     public bool MovePlayerShipToWarpingPosition() => GyrussEventManager.OnMovePlayerToWarpPositionInitiated();
+
+    public void ToggleWarpingEffects()
+    {
+        GyrussEventManager.OnWarpingEffectsToggleInitiated();
+    }
+
+    public void WarpPlayer()
+    {
+        GyrussEventManager.OnWarpingPlayerInitiated();
+    }
+
+    public bool MovePlayerShipToCenterPosition() => GyrussEventManager.OnMovePlayerToCenterPointInitiated();
+    
     
     private void OnDestroy()
     {

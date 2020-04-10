@@ -8,10 +8,13 @@ public class GyrussEventManager : MonoBehaviour
     public static Func<int> PlayerLivesGetInitiated;
     public static Func<int> PlayerRocketsGetInitiated;
     public static Func<bool> MovePlayerToWarpPositionInitiated;
+    public static Func<bool> MovePlayerToCenterPointInitiated;
     public static Action EnemyDeathInitiated;
     public static Action ReviveParticlesPreparationInitiated;
     public static Action PlayerShipSpawnInitiated;
     public static Action PlayerSpawnedToggleInitiated;
+    public static Action WarpingEffectsToggleInitiated;
+    public static Action WarpingPlayerInitiated;
     public static Action<StageType> StageTypeSetupInitiated;
     public static Action<StageState> StageStateSetupInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
@@ -24,6 +27,18 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<bool> PlayerEnteredSetupInAnimatorInitiated;
     public static Action<string, bool> ConditionSetupInTimerInitiated;
 
+    public static bool OnMovePlayerToCenterPointInitiated() => (bool) MovePlayerToCenterPointInitiated?.Invoke();
+    
+    public static void OnWarpingPlayerInitiated()
+    {
+        WarpingPlayerInitiated?.Invoke();
+    }
+    
+    public static void OnWarpingEffectsToggleInitiated()
+    {
+        WarpingEffectsToggleInitiated?.Invoke();
+    }
+    
     public static bool OnMovePlayerToWarpPositionInitiated() => (bool) MovePlayerToWarpPositionInitiated?.Invoke();
     
     public static void OnPlayerSpawnedToggleInitiated()
@@ -131,5 +146,8 @@ public class GyrussEventManager : MonoBehaviour
         ExplosionCreationInitiated = null;
         PlayerSpawnedToggleInitiated = null;
         MovePlayerToWarpPositionInitiated = null;
+        WarpingEffectsToggleInitiated = null;
+        WarpingPlayerInitiated = null;
+        MovePlayerToCenterPointInitiated = null;
     }
 }

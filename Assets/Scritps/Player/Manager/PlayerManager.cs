@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject shootingPointSingleGO;
     [SerializeField] private GameObject shootingPointDoubleGO;
     [SerializeField] private Animator playerAnimator;
+    [SerializeField] private GameObject warpingEffects;
     
     [Header("Other")] 
     [SerializeField] private GameObject bulletPrefabSingle;
@@ -34,6 +36,7 @@ public class PlayerManager : MonoBehaviour
     private Transform shootingPointDoubleOne;
     private Transform shootingPointDoubleTwo;
     private static readonly int Entered = Animator.StringToHash("entered");
+    private static readonly int Warping = Animator.StringToHash("warping");
 
     void Start()
     {
@@ -87,6 +90,9 @@ public class PlayerManager : MonoBehaviour
         GyrussEventManager.PlayerRocketsGetInitiated += GetPlayerRockets;
         GyrussEventManager.PlayerSpawnedToggleInitiated += TogglePlayerSpawned;
         GyrussEventManager.MovePlayerToWarpPositionInitiated += MoveShipToWarpingPosition;
+        GyrussEventManager.WarpingEffectsToggleInitiated += ToggleWarpingEffects;
+        GyrussEventManager.WarpingPlayerInitiated += WarpPlayer;
+        GyrussEventManager.MovePlayerToCenterPointInitiated += MoveShipToCenterPoint;
     }
 
     private void RotateShip(Vector3 rotateAxis)
@@ -129,14 +135,14 @@ public class PlayerManager : MonoBehaviour
     {
         playerShip.transform.position = playerStartingPosition;
         playerShip.SetActive(true);
-        playerShip.transform.GetChild(0).GetComponent<Animator>().SetBool(Entered, true);
+        playerAnimator.SetBool(Entered, true);
         
         GyrussGameManager.Instance.SetConditionInTimer("playerEnteredStage", true);
     }
 
     private void SetPlayerEnteredInAnimator(bool entered)
     {
-        playerShip.transform.GetChild(0).GetComponent<Animator>().SetBool(Entered, entered);
+        playerAnimator.SetBool(Entered, entered);
     }
     
     private Vector3 GetPlayerPosition()
@@ -169,6 +175,8 @@ public class PlayerManager : MonoBehaviour
 
     private bool MoveShipToWarpingPosition()
     {
+        if (playerAnimator.GetBool(Warping)) return true;
+        
         RotateShip(Vector3.forward);
         
         Vector3 currPos = playerShip.transform.position;
@@ -185,5 +193,28 @@ public class PlayerManager : MonoBehaviour
     private void TogglePlayerSpawned()
     {
         spawned = !spawned;
+    }
+
+    private void ToggleWarpingEffects()
+    {
+        warpingEffects.SetActive(!warpingEffects.activeSelf);
+    }
+
+    private bool MoveShipToCenterPoint()
+    {
+        Vector3 currPos = playerShip.transform.position;
+        
+        playerShip.transform.position =
+            Vector3.MoveTowards(currPos, Vector3.zero, Time.deltaTime);
+
+        return currPos == Vector3.zero;
+    }
+    
+    private void WarpPlayer()
+    {
+        if (playerAnimator.GetBool(Warping)) return;
+        playerAnimator.SetBool(Warping, true);
+        ToggleWarpingEffects();
+        GyrussGameManager.Instance.SetConditionInTimer("warping", true);
     }
 }

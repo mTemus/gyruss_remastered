@@ -2873,6 +2873,7 @@ Transform:
   - {fileID: 1761276435}
   - {fileID: 800776641}
   - {fileID: 444032797}
+  - {fileID: 1466804700}
   m_Father: {fileID: 1529139229}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2956,6 +2957,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7484981641808812099}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &944044112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944044111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f3b346d5ac6a94bb2fead6dc5875e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &953461120 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 78177766922498227, guid: bea6cd027b3fc8a4e9b3120deae8c44c,
@@ -3009,6 +3022,7 @@ MonoBehaviour:
   shootingPointSingleGO: {fileID: 953461120}
   shootingPointDoubleGO: {fileID: 1221860526}
   playerAnimator: {fileID: 1498397692}
+  warpingEffects: {fileID: 7484981641808812101}
   bulletPrefabSingle: {fileID: 8500875632415132017, guid: 36843e0a9b74f0c4895ffad58161996e,
     type: 3}
   bulletPrefabDouble: {fileID: 2028959240650705139, guid: f64f14ee424d4e64c8cc527602a4c6bc,
@@ -4635,6 +4649,65 @@ Transform:
   m_Father: {fileID: 212435568}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1466804699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1466804700}
+  - component: {fileID: 1466804701}
+  m_Layer: 0
+  m_Name: WarpingTimer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1466804700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466804699}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 832122677}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1466804701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466804699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf502923a14f324ea01d384a941eb45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerName: warping
+  timerPeriod: 0.3
+  timerEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 450874486}
+        m_MethodName: ToggleWarpingEffects
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1490928370
 GameObject:
   m_ObjectHideFlags: 0
@@ -11306,6 +11379,12 @@ PrefabInstance:
 --- !u!4 &7484981641808812100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7484981641670123539, guid: bea6cd027b3fc8a4e9b3120deae8c44c,
+    type: 3}
+  m_PrefabInstance: {fileID: 7484981641808812099}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7484981641808812101 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8151195695406213230, guid: bea6cd027b3fc8a4e9b3120deae8c44c,
     type: 3}
   m_PrefabInstance: {fileID: 7484981641808812099}
   m_PrefabAsset: {fileID: 0}

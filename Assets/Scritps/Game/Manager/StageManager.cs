@@ -84,40 +84,25 @@ public class StageManager : MonoBehaviour
                 break;
             
             case StageState.spawn_enemies:
-                GameObject enemy = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/" + currentWave.EnemyName));
-                enemy.transform.position = new Vector3(-100, -100, 0);
-                enemy.GetComponent<PathFollow>().mapCenter = mapCenterPoint;
-                EnemyController currentEnemyController = enemy.GetComponent<EnemyController>();
-                
-                if (currentWave.IsWaveEven) {
-                    currentEnemyController.SpotIndex = evenSpotId;
-                    evenSpotId += 2;
-                }
-                else {
-                    currentEnemyController.SpotIndex = unevenSpotId;
-                    unevenSpotId += 2;
-                }
-                
-                currentEnemyController.currentEnemyState = EnemyStates.take_a_spot;
-                
+                SpawnEnemy();
                 IncreaseEnemyAlive();
-                enemy.transform.name = currentWave.EnemyName + "_" + enemiesAlive;
-                
-                currentWave.EnemySpawned++;
-                
-                if (currentWave.EnemySpawned != currentWave.EnemyAmount) {
-                    GyrussGameManager.Instance.SetConditionInTimer("enemySpawningDelay", true);
-                } 
                 
                 GyrussGameManager.Instance.SetStageState(StageState.wait);
                 break;
             
             case StageState.end:
-                if (!GyrussGameManager.Instance.MovePlayerShipToWarpingPosition()) return;    
+                if (!GyrussGameManager.Instance.MovePlayerShipToWarpingPosition()) return;
+
+                if (GyrussGameManager.Instance.MovePlayerShipToCenterPosition()) {
+                    
+                    ClearStage();
+                    //Proceed to next stage
+                    GyrussGameManager.Instance.SetStageState(StageState.wait);
+                }
+                else {
+                    GyrussGameManager.Instance.WarpPlayer();
+                }
                 
-                ClearStage();
-                
-                GyrussGameManager.Instance.SetStageState(StageState.wait);
                 break;
 
             case StageState.get_ready:
@@ -151,7 +136,6 @@ public class StageManager : MonoBehaviour
     private void IncreaseEnemyAlive()
     {
         enemiesAlive++;
-        // Debug.LogWarning(enemiesAlive + " created.");
     }
 
     private void ClearStage()
@@ -217,6 +201,33 @@ public class StageManager : MonoBehaviour
             return;
         
         currentWaveCounter = currentWave;
+    }
+
+    private void SpawnEnemy()
+    {
+        GameObject enemy = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/" + currentWave.EnemyName));
+        enemy.transform.position = new Vector3(-100, -100, 0);
+        enemy.GetComponent<PathFollow>().mapCenter = mapCenterPoint;
+        EnemyController currentEnemyController = enemy.GetComponent<EnemyController>();
+                
+        if (currentWave.IsWaveEven) {
+            currentEnemyController.SpotIndex = evenSpotId;
+            evenSpotId += 2;
+        }
+        else {
+            currentEnemyController.SpotIndex = unevenSpotId;
+            unevenSpotId += 2;
+        }
+                
+        currentEnemyController.currentEnemyState = EnemyStates.take_a_spot;
+        
+        enemy.transform.name = currentWave.EnemyName + "_" + enemiesAlive;
+                
+        currentWave.EnemySpawned++;
+                
+        if (currentWave.EnemySpawned != currentWave.EnemyAmount) {
+            GyrussGameManager.Instance.SetConditionInTimer("enemySpawningDelay", true);
+        } 
     }
 
     public int CurrentStage => currentStage; 
