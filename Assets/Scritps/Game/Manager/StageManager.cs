@@ -80,7 +80,7 @@ public class StageManager : MonoBehaviour
                     return;
                 }
                 
-                currentStageState = StageState.spawn_enemies;
+                GyrussGameManager.Instance.SetStageState(StageState.spawn_enemies);
                 break;
             
             case StageState.spawn_enemies:
@@ -113,12 +113,11 @@ public class StageManager : MonoBehaviour
                 break;
             
             case StageState.end:
+                if (!GyrussGameManager.Instance.MovePlayerShipToWarpingPosition()) return;    
+                
                 ClearStage();
-                // move player ship to starting position
-                // activate warping
                 
-                
-                currentStageState = StageState.wait;
+                GyrussGameManager.Instance.SetStageState(StageState.wait);
                 break;
 
             case StageState.get_ready:
@@ -136,12 +135,12 @@ public class StageManager : MonoBehaviour
                     GyrussGameManager.Instance.InitializeRocketIcons();
                 }
                 
-                currentStageState = StageState.get_ready;
+                GyrussGameManager.Instance.SetStageState(StageState.get_ready);
                 break;
             
             case StageState.spawn_player:
                 GyrussGameManager.Instance.PrepareReviveParticles();
-                currentStageState = StageState.initialize_GUI;
+                GyrussGameManager.Instance.SetStageState(StageState.initialize_GUI);
                 break;
             
             default:
@@ -164,17 +163,17 @@ public class StageManager : MonoBehaviour
     private void KillEnemy()
     {
         enemiesAlive--;
-        Debug.LogWarning(enemiesAlive + " left.");
-        Debug.LogWarning("Curr wave counter " + currentWaveCounter);
-        
+
         if (enemiesAlive < 0) {
             Debug.LogError("You killed too much enemies!");
         }
 
-        if (enemiesAlive == 0 && currentWaveCounter == 4) {
-            //TODO: next stage event will be added here
-            // GoToNextStage();
-            Debug.LogError("next stage");
+        if (currentStageType == StageType.first_stage || currentStageType == StageType.chance) {
+            if (enemiesAlive == 0 && currentWaveCounter == 4) {
+                GoToNextStage();
+            } else if (enemiesAlive == 0 && currentWaveCounter == 5) {
+                
+            }
         }
     }
     
@@ -192,9 +191,13 @@ public class StageManager : MonoBehaviour
     {
         currentStage++;
         stages++;
-        //TODO: invoke gui event to update stages
         
+        GyrussGUIEventManager.OnStagesTextSetupInitiated(stages);
+
         if (currentStage > 4) { currentStage = 1; }
+        
+        GyrussGameManager.Instance.TogglePlayerSpawned();
+        GyrussGameManager.Instance.SetStageState(StageState.end);
     }
     
     private void AddNewWave(Wave newWave)
@@ -216,7 +219,5 @@ public class StageManager : MonoBehaviour
         currentWaveCounter = currentWave;
     }
 
-    public int CurrentStage => currentStage;
-
-    public int EnemiesAlive => enemiesAlive;
+    public int CurrentStage => currentStage; 
 }

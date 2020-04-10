@@ -7,6 +7,7 @@ public class GyrussEventManager : MonoBehaviour
     public static Func<int, Vector3> EnemySpotOccupationInitiated;
     public static Func<int> PlayerLivesGetInitiated;
     public static Func<int> PlayerRocketsGetInitiated;
+    public static Func<bool> MovePlayerToWarpPositionInitiated;
     public static Action EnemyDeathInitiated;
     public static Action ReviveParticlesPreparationInitiated;
     public static Action PlayerShipSpawnInitiated;
@@ -23,6 +24,8 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<bool> PlayerEnteredSetupInAnimatorInitiated;
     public static Action<string, bool> ConditionSetupInTimerInitiated;
 
+    public static bool OnMovePlayerToWarpPositionInitiated() => (bool) MovePlayerToWarpPositionInitiated?.Invoke();
+    
     public static void OnPlayerSpawnedToggleInitiated()
     {
         PlayerSpawnedToggleInitiated?.Invoke();
@@ -127,5 +130,6 @@ public class GyrussEventManager : MonoBehaviour
         PlayerRocketsGetInitiated = null;
         ExplosionCreationInitiated = null;
         PlayerSpawnedToggleInitiated = null;
+        MovePlayerToWarpPositionInitiated = null;
     }
 }

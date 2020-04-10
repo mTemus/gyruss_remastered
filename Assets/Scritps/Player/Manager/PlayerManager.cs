@@ -86,6 +86,7 @@ public class PlayerManager : MonoBehaviour
         GyrussEventManager.PlayerLivesGetInitiated += GetPlayerLives;
         GyrussEventManager.PlayerRocketsGetInitiated += GetPlayerRockets;
         GyrussEventManager.PlayerSpawnedToggleInitiated += TogglePlayerSpawned;
+        GyrussEventManager.MovePlayerToWarpPositionInitiated += MoveShipToWarpingPosition;
     }
 
     private void RotateShip(Vector3 rotateAxis)
@@ -164,6 +165,21 @@ public class PlayerManager : MonoBehaviour
             shootingPointSingleGO.SetActive(true);
             shootingPointDoubleGO.SetActive(false);
         }
+    }
+
+    private bool MoveShipToWarpingPosition()
+    {
+        RotateShip(Vector3.forward);
+        
+        Vector3 currPos = playerShip.transform.position;
+
+        float condition = currPos.y - playerStartingPosition.y;
+
+        if (!(condition < 0.01)) return false;
+        
+        playerShip.transform.position = playerStartingPosition;
+        playerShip.transform.rotation = Quaternion.identity;
+        return true;
     }
 
     private void TogglePlayerSpawned()

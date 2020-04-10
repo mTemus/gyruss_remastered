@@ -221,6 +221,8 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussEventManager.OnPlayerSpawnedToggleInitiated();
     }
+
+    public bool MovePlayerShipToWarpingPosition() => GyrussEventManager.OnMovePlayerToWarpPositionInitiated();
     
     private void OnDestroy()
     {
