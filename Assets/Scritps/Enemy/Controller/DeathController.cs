@@ -10,7 +10,6 @@ public class DeathController : MonoBehaviour
     
     private Vector3 deathPosition;
 
-    // Update is called once per frame
     void Update()
     {
         if (!die) return;
@@ -30,18 +29,34 @@ public class DeathController : MonoBehaviour
     private void SetDeathRoute()
     {
         Vector3 currentPosition = transform.position;
-        float newX = Random.Range(0.5f, 5);
-        float newY = Random.Range(0.5f, 5);
+        float newX = Random.Range(0.1f, 0.7f);
+        float newY = Random.Range(-0.2f, 0.2f);
 
-        if (currentPosition.x <= 0) { newX = -newX; }
-        if (currentPosition.y <= 0) { newY = -newY; }
-
+        float x1;
+        float x2;
         
-        // Debug.Log("-----------------");
-        // Debug.Log(newX);
-        // Debug.Log(newY);
+        if (currentPosition.x < 0) {
+            if (currentPosition.y < 0) {
+                x1 = -newX;
+                x2 = -newX + newY;
+            }
+            else {
+                x1 = -newX;
+                x2 = newX + newY;
+            }
+        }
+        else {
+            if (currentPosition.y < 0) {
+                x1 = newX;
+                x2 = -newX + newY;
+            }
+            else {
+                x1 = newX;
+                x2 = newX + newY;
+            }
+        }
         
-        deathPosition = new Vector3(newX, newY, 0);
+        deathPosition = new Vector3(currentPosition.x + x1, currentPosition.y + x2, 0);
     }
 
     private void MoveOnDeathRoute()
