@@ -176,6 +176,21 @@ public class GyrussGameManager : MonoBehaviour
         GyrussEventManager.OnConditionSetupInTimerInitiated(timerName, timerCondition);
     }
 
+    public void SetPeriodInTimer(string timerName, float timerPeriod)
+    {
+        GyrussEventManager.OnPeriodSetupInTimerInitiated(timerName, timerPeriod);
+    }
+
+    public void StopTimer(string timerName)
+    {
+        GyrussEventManager.OnTimerStopInitiated(timerName);
+    }
+
+    public void ResetPeriodInTimer(string timerName)
+    {
+        GyrussEventManager.OnPeriodResetInTimerInitiated(timerName);
+    }
+
     public void ToggleWarpsText()
     {
         GyrussGUIEventManager.OnWarpsTextToggleInitiated();
@@ -239,6 +254,11 @@ public class GyrussGameManager : MonoBehaviour
     public void GoToNextStage()
     {
         GyrussEventManager.OnGoToNextStageInitiated();
+    }
+
+    public void SpawnAsteroid()
+    {
+        GyrussEventManager.OnAsteroidSpawnInitiated();
     }
     
     

@@ -53,6 +53,7 @@ public class StageManager : MonoBehaviour
         GyrussEventManager.EnemySpotOccupationInitiated += OccupyEnemySpot;
         GyrussEventManager.CurrentWaveSetupInitiated += SetCurrentWave;
         GyrussEventManager.GoToNextStageInitiated += GoToNextStage;
+        GyrussEventManager.AsteroidSpawnInitiated += SpawnAsteroid;
     }
     
     private void ProcessOrdersInStage()
@@ -64,8 +65,27 @@ public class StageManager : MonoBehaviour
                 // then enemies should spawn so state should change to loading_wave
 
                 //TODO: check current stage type here
-                
 
+                switch (currentStageType) {
+                    case StageType.no_type:
+                        break;
+                    
+                    case StageType.first_stage:
+                        SpawnAsteroid();
+                        break;
+                    
+                    case StageType.mini_boss:
+                        break;
+                    
+                    case StageType.boss:
+                        break;
+                    
+                    case StageType.chance:
+                        break;
+                    
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
                 break;
             
             case StageState.wait:
@@ -232,6 +252,17 @@ public class StageManager : MonoBehaviour
         if (currentWave.EnemySpawned != currentWave.EnemyAmount) {
             GyrussGameManager.Instance.SetConditionInTimer("enemySpawningDelay", true);
         } 
+    }
+
+    private void SpawnAsteroid()
+    {
+        GameObject asteroid = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/Asteroid"), EnemyPool, true);
+
+        AsteroidController myAsteroidController = asteroid.GetComponent<AsteroidController>();
+        myAsteroidController.PlayerPosition = playerShip.transform.position;
+        myAsteroidController.CalculateExitPosition();
+
+        GyrussGameManager.Instance.SetConditionInTimer("asteroidSpawn", true);
     }
 
     public int CurrentStage => currentStage; 

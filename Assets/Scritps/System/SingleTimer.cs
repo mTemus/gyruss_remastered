@@ -8,6 +8,7 @@ public class SingleTimer : MonoBehaviour
     [SerializeField] private UnityEvent timerEvent;
     
     private float timer;
+    private float initialPeriod;
     private bool condition;
     
     void Start()
@@ -30,6 +31,24 @@ public class SingleTimer : MonoBehaviour
     public void SetTimerCondition(bool condition)
     {
         this.condition = condition;
+    }
+
+    public void StopTimer()
+    {
+        condition = false;
+        timer = timerPeriod;
+    }
+
+    public void SetTimerPeriod(float newPeriod)
+    {
+        if (initialPeriod == 0) initialPeriod = timerPeriod;
+        timerPeriod = newPeriod;
+    }
+
+    public void ResetTimerPeriod()
+    {
+        timerPeriod = initialPeriod;
+        initialPeriod = 0;
     }
     
     public string TimerName => timerName;

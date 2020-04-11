@@ -16,6 +16,7 @@ public class GyrussEventManager : MonoBehaviour
     public static Action WarpingEffectsToggleInitiated;
     public static Action WarpingPlayerInitiated;
     public static Action GoToNextStageInitiated;
+    public static Action AsteroidSpawnInitiated;
     public static Action<StageType> StageTypeSetupInitiated;
     public static Action<StageState> StageStateSetupInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
@@ -26,8 +27,31 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<int> MoveToLevelOnMinimapInitiated;
     public static Action<int> CurrentWaveSetupInitiated;
     public static Action<bool> PlayerEnteredSetupInAnimatorInitiated;
+    public static Action<string> TimerStopInitiated;
+    public static Action<string> PeriodResetInTimerInitiated;
     public static Action<string, bool> ConditionSetupInTimerInitiated;
+    public static Action<string, float> PeriodSetupInTimerInitiated;
 
+    public static void OnAsteroidSpawnInitiated()
+    {
+        AsteroidSpawnInitiated?.Invoke();
+    }
+    
+    public static void OnPeriodResetInTimerInitiated(string timerName)
+    {
+        PeriodResetInTimerInitiated?.Invoke(timerName);
+    }
+    
+    public static void OnTimerStopInitiated(string timerName)
+    {
+        TimerStopInitiated?.Invoke(timerName);
+    }
+
+    public static void OnPeriodSetupInTimerInitiated(string timerName, float timerPeriod)
+    {
+        PeriodSetupInTimerInitiated?.Invoke(timerName, timerPeriod);
+    }
+    
     public static void OnGoToNextStageInitiated()
     {
         GoToNextStageInitiated?.Invoke();
@@ -156,5 +180,9 @@ public class GyrussEventManager : MonoBehaviour
         WarpingPlayerInitiated = null;
         MovePlayerToCenterPointInitiated = null;
         GoToNextStageInitiated = null;
+        PeriodSetupInTimerInitiated = null;
+        TimerStopInitiated = null;
+        PeriodResetInTimerInitiated = null;
+        AsteroidSpawnInitiated = null;
     }
 }

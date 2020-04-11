@@ -14,6 +14,9 @@ public class TimeManager : MonoBehaviour
     private void SetDelegates()
     {
         GyrussEventManager.ConditionSetupInTimerInitiated += SetConditionInTimer;
+        GyrussEventManager.PeriodSetupInTimerInitiated += SetNewTimerPeriod;
+        GyrussEventManager.TimerStopInitiated += StopTimer;
+        GyrussEventManager.PeriodResetInTimerInitiated += ResetTimerPeriod;
     }
 
     private void GetAllTimers()
@@ -31,6 +34,22 @@ public class TimeManager : MonoBehaviour
     {
         timers[timerName].SetTimerCondition(condition);
     }
+
+    private void SetNewTimerPeriod(string timerName, float period)
+    {
+        timers[timerName].SetTimerPeriod(period);
+    }
+
+    private void StopTimer(string timerName)
+    {
+        timers[timerName].StopTimer();
+    }
+
+    private void ResetTimerPeriod(string timerName)
+    {
+        timers[timerName].ResetTimerPeriod();
+    }
+    
 }
 
 

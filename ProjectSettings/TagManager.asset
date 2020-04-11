@@ -9,6 +9,7 @@ TagManager:
   - EnemyBullet
   - Bullet
   - ReviveParticle
+  - Asteroid
   layers:
   - Default
   - TransparentFX
