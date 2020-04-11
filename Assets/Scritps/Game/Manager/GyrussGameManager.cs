@@ -82,7 +82,7 @@ public class GyrussGameManager : MonoBehaviour
         GyrussEventManager.OnEnemyDeathInitiated();
     }
 
-    public Vector3 OccupyEnemySpot(int index) => 
+    public Transform OccupyEnemySpot(int index) => 
         GyrussEventManager.OnEnemySpotOccupationInitiated(index);
     
     public void SetLevelState(int stateOnInt)

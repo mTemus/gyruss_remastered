@@ -34,7 +34,9 @@ public class EnemyController : MonoBehaviour
             break;
             
             case EnemyStates.wait:
-                waitInTheMiddle();
+                // waitInTheMiddle();
+                UpdateCenterPosition();
+                
             break;
             
             case EnemyStates.attack:
@@ -50,7 +52,13 @@ public class EnemyController : MonoBehaviour
                 break;
             
             case EnemyStates.take_a_spot:
-                centerPosition = GyrussGameManager.Instance.OccupyEnemySpot(spotIndex);
+                Transform myCenterPoint = GyrussGameManager.Instance.OccupyEnemySpot(spotIndex);
+                CenterPointUpdator myUpdator = transform.GetComponent<CenterPointUpdator>();
+                
+                myUpdator.CenterPoint = myCenterPoint;
+                myUpdator.MyEnemyController = this;
+                
+                centerPosition = myCenterPoint.position;
                 currentEnemyState = EnemyStates.entering;
                 
                 break;
@@ -85,7 +93,7 @@ public class EnemyController : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, centerPosition, Time.deltaTime * speed);
 
         if (transform.position == centerPosition) {
-            currentEnemyState = EnemyStates.no_state;
+            currentEnemyState = EnemyStates.wait;
         }
     }
 
@@ -137,7 +145,11 @@ public class EnemyController : MonoBehaviour
         currentEnemyState = EnemyStates.die;
         Destroy(other.transform.parent.gameObject);
     }
-    
+
+    private void UpdateCenterPosition()
+    {
+        transform.position = centerPosition;
+    }
     
     public int SpotIndex
     {

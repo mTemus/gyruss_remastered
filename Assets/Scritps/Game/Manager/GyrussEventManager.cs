@@ -4,7 +4,7 @@ using UnityEngine;
 public class GyrussEventManager : MonoBehaviour
 {
     public static Func<Vector3> GetPlayerShipPositionInitiated;
-    public static Func<int, Vector3> EnemySpotOccupationInitiated;
+    public static Func<int, Transform> EnemySpotOccupationInitiated;
     public static Func<int> PlayerLivesGetInitiated;
     public static Func<int> PlayerRocketsGetInitiated;
     public static Func<bool> MovePlayerToWarpPositionInitiated;
@@ -108,7 +108,7 @@ public class GyrussEventManager : MonoBehaviour
         LevelStateSetupInitiated?.Invoke(newLevelState);
     }
     
-    public static Vector3 OnEnemySpotOccupationInitiated(int index) => (Vector3) EnemySpotOccupationInitiated?.Invoke(index);
+    public static Transform OnEnemySpotOccupationInitiated(int index) => (Transform) EnemySpotOccupationInitiated?.Invoke(index);
     
     public static void OnEnemyDeathInitiated()
     {

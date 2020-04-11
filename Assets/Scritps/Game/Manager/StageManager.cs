@@ -11,6 +11,7 @@ public class StageManager : MonoBehaviour
     [Header("PlayerShip")] 
     [SerializeField] private GameObject playerShip;
     
+    
 
     private int currentStage = 1;
     private int stages = 1;
@@ -190,10 +191,10 @@ public class StageManager : MonoBehaviour
         wavesAwaiting.Enqueue(newWave);
     }
 
-    private Vector3 OccupyEnemySpot(int index)
+    private Transform OccupyEnemySpot(int index)
     {
         Transform t = enemySpots[index];
-        return t.position;
+        return t;
     }
 
     private void SetCurrentWave(int currentWave)
