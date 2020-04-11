@@ -10,7 +10,9 @@ public class StageManager : MonoBehaviour
 
     [Header("PlayerShip")] 
     [SerializeField] private GameObject playerShip;
-    
+
+    [Header("Pools")] 
+    [SerializeField] private Transform EnemyPool;
     
 
     private int currentStage = 1;
@@ -207,7 +209,7 @@ public class StageManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        GameObject enemy = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/" + currentWave.EnemyName));
+        GameObject enemy = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/" + currentWave.EnemyName), EnemyPool, true);
         enemy.transform.position = new Vector3(-100, -100, 0);
         enemy.GetComponent<PathFollow>().mapCenter = mapCenterPoint;
         EnemyController currentEnemyController = enemy.GetComponent<EnemyController>();
