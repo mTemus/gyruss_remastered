@@ -55,7 +55,7 @@ public class ScalingController : MonoBehaviour
 
         switch (transform.tag) {
             case "EnemyShip":
-                if (scalingFactor <= 0.20) {
+                if (scalingFactor <= 0.25) {
                     if (!enemyIsInCenterPosition) {
                         currentCollider.size = new Vector2(0.1f, 0.1f);
                         currentCollider.offset = new Vector2(-0.016f, 0.015f);
