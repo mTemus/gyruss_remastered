@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -93,6 +94,7 @@ public class PlayerManager : MonoBehaviour
         GyrussEventManager.WarpingEffectsToggleInitiated += ToggleWarpingEffects;
         GyrussEventManager.WarpingPlayerInitiated += WarpPlayer;
         GyrussEventManager.MovePlayerToCenterPointInitiated += MoveShipToCenterPoint;
+        GyrussEventManager.PlayerKillInitiated += KillPlayer;
     }
 
     private void RotateShip(Vector3 rotateAxis)
@@ -135,9 +137,11 @@ public class PlayerManager : MonoBehaviour
     {
         playerShip.transform.position = playerStartingPosition;
         playerShip.SetActive(true);
+        playerShip.transform.rotation = Quaternion.identity;
         playerAnimator.SetBool(Entered, true);
         
         GyrussGameManager.Instance.SetConditionInTimer("playerEnteredStage", true);
+        Debug.LogWarning(playerAnimator.GetBool(Entered));
     }
 
     private void SetPlayerEnteredInAnimator(bool entered)
@@ -209,6 +213,23 @@ public class PlayerManager : MonoBehaviour
 
         return currPos == Vector3.zero;
     }
+
+    private void KillPlayer()
+    {
+        lives--;
+        
+        GyrussGameManager.Instance.SetDeathParticlesOnPosition();
+        playerShip.SetActive(false);
+        GyrussGameManager.Instance.PrepareDeathParticles();
+        
+        if (lives < 0) {
+            Debug.LogError("game ends here");
+        }
+        else { 
+            GyrussGameManager.Instance.DecreaseGUILives(lives);
+            GyrussGameManager.Instance.SetConditionInTimer("playerRespawn", true);
+        }
+    }
     
     private void WarpPlayer()
     {
@@ -217,4 +238,6 @@ public class PlayerManager : MonoBehaviour
         ToggleWarpingEffects();
         GyrussGameManager.Instance.SetConditionInTimer("warping", true);
     }
+
+    
 }

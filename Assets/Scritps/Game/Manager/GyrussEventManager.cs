@@ -17,6 +17,9 @@ public class GyrussEventManager : MonoBehaviour
     public static Action WarpingPlayerInitiated;
     public static Action GoToNextStageInitiated;
     public static Action AsteroidSpawnInitiated;
+    public static Action PlayerKillInitiated;
+    public static Action DeathParticlesOnPositionsSetupInitiated;
+    public static Action DeathParticlesPreparationInitiated;
     public static Action<StageType> StageTypeSetupInitiated;
     public static Action<StageState> StageStateSetupInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
@@ -32,6 +35,21 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<string, bool> ConditionSetupInTimerInitiated;
     public static Action<string, float> PeriodSetupInTimerInitiated;
 
+    public static void OnPlayerKillInitiated()
+    {
+        PlayerKillInitiated?.Invoke();
+    }
+    
+    public static void OnDeathParticlesPreparationInitiated()
+    {
+        DeathParticlesPreparationInitiated?.Invoke();
+    }
+    
+    public static void OnDeathParticlesOnPositionsSetupInitiated()
+    {
+        DeathParticlesOnPositionsSetupInitiated?.Invoke();
+    }
+    
     public static void OnAsteroidSpawnInitiated()
     {
         AsteroidSpawnInitiated?.Invoke();
@@ -184,5 +202,8 @@ public class GyrussEventManager : MonoBehaviour
         TimerStopInitiated = null;
         PeriodResetInTimerInitiated = null;
         AsteroidSpawnInitiated = null;
+        DeathParticlesOnPositionsSetupInitiated = null;
+        DeathParticlesPreparationInitiated = null;
+        PlayerKillInitiated = null;
     }
 }

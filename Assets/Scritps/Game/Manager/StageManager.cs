@@ -133,10 +133,8 @@ public class StageManager : MonoBehaviour
 
             case StageState.get_ready:
                 if (playerShip.activeSelf) {
-                    GyrussGameManager.Instance.ToggleReadyText();
                     GyrussGameManager.Instance.ToggleScoreText();
                     GyrussGameManager.Instance.SetLevelState(LevelState.create_wave);
-                    GyrussGameManager.Instance.TogglePlayerSpawned();
                 }
                 break;
             

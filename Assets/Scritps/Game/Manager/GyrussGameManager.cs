@@ -260,7 +260,27 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussEventManager.OnAsteroidSpawnInitiated();
     }
-    
+
+    public void SetDeathParticlesOnPosition()
+    {
+        GyrussEventManager.OnDeathParticlesOnPositionsSetupInitiated();
+    }
+
+    public void DecreaseGUILives(int livesLeft)
+    {
+        GyrussGUIEventManager.OnLivesIconsDecreaseInitiated(livesLeft);
+    }
+
+
+    public void PrepareDeathParticles()
+    {
+        GyrussEventManager.OnDeathParticlesPreparationInitiated();
+    }
+
+    public void KillPlayer()
+    {
+        GyrussEventManager.OnPlayerKillInitiated();
+    }
     
     private void OnDestroy()
     {

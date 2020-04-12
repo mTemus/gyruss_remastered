@@ -75,7 +75,7 @@ public class GyrussGUIManager : MonoBehaviour
     private void DecreaseLives(int lives)
     {
         if (lives > 7) return;
-        Destroy(livesTransform.GetChild(0));
+        Destroy(livesTransform.GetChild(0).gameObject);
     }
 
     private void IncreaseRockets()

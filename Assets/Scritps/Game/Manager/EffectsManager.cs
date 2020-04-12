@@ -14,6 +14,7 @@ public class EffectsManager : MonoBehaviour
     
     [Header("Particles")]
     [SerializeField] private GameObject[] reviveParticles;
+    [SerializeField] private GameObject[] deathParticles;
     
     private List<GameObject> readyReviveParticles;
     private Vector3 playerShipPosition;
@@ -30,6 +31,8 @@ public class EffectsManager : MonoBehaviour
         GyrussEventManager.ReviveParticleRegistrationInitiated += RegisterReviveParticle;
         GyrussEventManager.ReviveParticlesPreparationInitiated += PrepareReviveParticles;
         GyrussEventManager.ExplosionCreationInitiated += CreateExplosion;
+        GyrussEventManager.DeathParticlesOnPositionsSetupInitiated += SetDeathParticlesOnPositions;
+        GyrussEventManager.DeathParticlesPreparationInitiated += PrepareDeathParticles;
     }
     
     private void SetReviveParticlesOnPositions()
@@ -42,6 +45,32 @@ public class EffectsManager : MonoBehaviour
             reviveParticle.transform.RotateAround(playerShipPosition, Vector3.forward, angle);
 
             angle += 360 / reviveParticles.Length;
+        }
+    }
+
+    private void SetDeathParticlesOnPositions()
+    {
+        Vector3 originPosition = playerShip.transform.position + new Vector3(0, 1.5f, 0);
+        int angle = 0;
+        
+        foreach (GameObject deathParticle in deathParticles) {
+            Transform deathParticleTransform = deathParticle.transform;
+            Transform playerShipTransform = playerShip.transform;
+            
+            deathParticle.transform.position = originPosition;
+            deathParticle.transform.RotateAround(playerShip.transform.position, Vector3.forward, angle);
+            deathParticle.GetComponent<DeathParticleController>().SetDeathPosition(deathParticle.transform.position);
+            deathParticleTransform.position = playerShipTransform.position;
+
+            angle += 360 / deathParticles.Length;
+        }
+    }
+
+    private void PrepareDeathParticles()
+    {
+        foreach (GameObject deathParticle in deathParticles) {
+            deathParticle.SetActive(true);
+            deathParticle.GetComponent<DeathParticleController>().StartParticle();
         }
     }
 
