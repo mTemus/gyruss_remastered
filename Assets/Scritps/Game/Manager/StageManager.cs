@@ -63,21 +63,22 @@ public class StageManager : MonoBehaviour
                 // timer needed
                 // after displaying "ready", ship should appear
                 // then enemies should spawn so state should change to loading_wave
-
-                //TODO: check current stage type here
-
+                
                 switch (currentStageType) {
                     case StageType.no_type:
                         break;
                     
                     case StageType.first_stage:
-                        SpawnAsteroid();
+                        PrepareAsteroidSpawning();
+                        Debug.Log("here 1");
                         break;
                     
                     case StageType.mini_boss:
+                        PrepareAsteroidSpawning();
                         break;
                     
                     case StageType.boss:
+                        PrepareAsteroidSpawning();
                         break;
                     
                     case StageType.chance:
@@ -86,6 +87,8 @@ public class StageManager : MonoBehaviour
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
+                
+                GyrussGameManager.Instance.SetStageState(StageState.wait);
                 break;
             
             case StageState.wait:
@@ -254,15 +257,54 @@ public class StageManager : MonoBehaviour
         } 
     }
 
+    private void PrepareAsteroidSpawning()
+    {
+        switch (currentStageType) {
+            case StageType.no_type:
+                break;
+            
+            case StageType.first_stage:
+                GyrussGameManager.Instance.SetConditionInTimer("asteroidSpawn", true);
+                Debug.Log("prepared spawning asteroid");
+                break;
+            
+            case StageType.mini_boss:
+                GyrussGameManager.Instance.SetPeriodInTimer("asteroidSpawn", 3);
+                GyrussGameManager.Instance.SetConditionInTimer("asteroidSpawn", true);
+                break;
+            
+            case StageType.boss:
+                GyrussGameManager.Instance.ResetPeriodInTimer("asteroidSpawn");
+                GyrussGameManager.Instance.SetPeriodInTimer("asteroidSpawn", 7);
+                GyrussGameManager.Instance.SetConditionInTimer("asteroidSpawn", true);
+                break;
+            
+            case StageType.chance:
+                break;
+            
+            default:
+                throw new ArgumentOutOfRangeException();
+        } 
+    }
+    
     private void SpawnAsteroid()
     {
-        GameObject asteroid = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/Asteroid"), EnemyPool, true);
+        if (currentStageState == StageState.wait || currentStageState == StageState.spawn_enemies) {
+            GameObject asteroid = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/Asteroid"), EnemyPool, true);
+            asteroid.transform.position = Vector3.zero;
 
-        AsteroidController myAsteroidController = asteroid.GetComponent<AsteroidController>();
-        myAsteroidController.PlayerPosition = playerShip.transform.position;
-        myAsteroidController.CalculateExitPosition();
+            AsteroidController myAsteroidController = asteroid.GetComponent<AsteroidController>();
+            myAsteroidController.PlayerPosition = playerShip.transform.position;
+            myAsteroidController.CalculateExitPosition();
 
-        GyrussGameManager.Instance.SetConditionInTimer("asteroidSpawn", true);
+            Debug.Log("asteroid spawned");
+            GyrussGameManager.Instance.SetConditionInTimer("asteroidSpawn", true);
+        }
+        else {
+            GyrussGameManager.Instance.SetConditionInTimer("asteroidSpawn", true);
+            Debug.Log("waiting for asteroid spawn___" + currentStageState);
+            
+        }
     }
 
     public int CurrentStage => currentStage; 
