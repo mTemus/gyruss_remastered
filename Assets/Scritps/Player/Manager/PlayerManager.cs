@@ -129,7 +129,6 @@ public class PlayerManager : MonoBehaviour
             shootingPointDoubleGO.GetComponent<SpriteRenderer>().enabled = true;
         }
         
-
         if (Input.GetKeyUp(KeyCode.Space)) { reload = 1; }
     }
 
@@ -141,7 +140,6 @@ public class PlayerManager : MonoBehaviour
         playerAnimator.SetBool(Entered, true);
         
         GyrussGameManager.Instance.SetConditionInTimer("playerEnteredStage", true);
-        Debug.LogWarning(playerAnimator.GetBool(Entered));
     }
 
     private void SetPlayerEnteredInAnimator(bool entered)
@@ -238,6 +236,4 @@ public class PlayerManager : MonoBehaviour
         ToggleWarpingEffects();
         GyrussGameManager.Instance.SetConditionInTimer("warping", true);
     }
-
-    
 }
