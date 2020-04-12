@@ -70,7 +70,6 @@ public class StageManager : MonoBehaviour
                     
                     case StageType.first_stage:
                         PrepareAsteroidSpawning();
-                        Debug.Log("here 1");
                         break;
                     
                     case StageType.mini_boss:
@@ -265,7 +264,6 @@ public class StageManager : MonoBehaviour
             
             case StageType.first_stage:
                 GyrussGameManager.Instance.SetConditionInTimer("asteroidSpawn", true);
-                Debug.Log("prepared spawning asteroid");
                 break;
             
             case StageType.mini_boss:
@@ -297,13 +295,10 @@ public class StageManager : MonoBehaviour
             myAsteroidController.PlayerPosition = playerShip.transform.position;
             myAsteroidController.CalculateExitPosition();
 
-            Debug.Log("asteroid spawned");
             GyrussGameManager.Instance.SetConditionInTimer("asteroidSpawn", true);
         }
         else {
             GyrussGameManager.Instance.SetConditionInTimer("asteroidSpawn", true);
-            Debug.Log("waiting for asteroid spawn___" + currentStageState);
-            
         }
     }
 
