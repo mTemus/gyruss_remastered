@@ -281,6 +281,11 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussEventManager.OnPlayerKillInitiated();
     }
+
+    public void SetStagesText(int stages)
+    {
+        GyrussGUIEventManager.OnStagesTextSetupInitiated(stages);
+    }
     
     private void OnDestroy()
     {

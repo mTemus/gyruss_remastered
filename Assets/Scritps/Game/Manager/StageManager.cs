@@ -200,7 +200,7 @@ public class StageManager : MonoBehaviour
         currentStage++;
         stages++;
         
-        GyrussGUIEventManager.OnStagesTextSetupInitiated(stages);
+        GyrussGameManager.Instance.SetStagesText(stages);
 
         if (currentStage > 4) { currentStage = 1; }
         
