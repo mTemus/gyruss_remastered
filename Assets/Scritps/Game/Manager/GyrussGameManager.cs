@@ -286,12 +286,37 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussGUIEventManager.OnStagesTextSetupInitiated(stages);
     }
+
+    public void SetRocketParticlesOnPosition()
+    {
+        GyrussEventManager.OnRocketParticlesOnPositionsSetupInitiated();
+    }
+    
+    public void DecreasePlayerRockets(int rockets)
+    {
+        GyrussGUIEventManager.OnRocketsIconsDecreaseInitiated(rockets);
+    }
+
+    public void ShootRocket()
+    {
+        GyrussEventManager.OnRocketShootInitiated();
+    }
+
+    public void ReloadRocket()
+    {
+        GyrussEventManager.OnRocketReloadInitiated();
+    }
+
+    public void PrepareRocketParticle()
+    {
+        GyrussEventManager.OnRocketParticlesPreparationInitiated();
+    }
     
     private void OnDestroy()
     {
         GyrussEventManager.ClearDelegates();
     }
-    
+
     public static GyrussGameManager Instance => instance;
     
     public PlayerManager PlayerManager => playerManager;

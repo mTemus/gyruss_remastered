@@ -10,10 +10,12 @@ public class EnemyController : MonoBehaviour
     
     private bool pathAssignedIn = false;
     private bool pathAssignedBack = false;
-
+    private bool move = true;
+    
     private int spotIndex;
     
     private float speed;
+    
     
     private Vector3 centerPosition;
     
@@ -23,7 +25,9 @@ public class EnemyController : MonoBehaviour
     }
 
     private void Update() {
-        switch(currentEnemyState){
+        if (!move) return;
+
+            switch(currentEnemyState){
             case EnemyStates.entering:
                 randomizePath();
                 enterScreen();
@@ -150,6 +154,11 @@ public class EnemyController : MonoBehaviour
     {
         transform.position = centerPosition;
     }
+
+    public void SetMoving(bool condition)
+    {
+        move = condition;
+    }
     
     public int SpotIndex
     {
@@ -162,5 +171,5 @@ public class EnemyController : MonoBehaviour
         get => centerPosition;
         set => centerPosition = value;
     }
-
+    
 }

@@ -20,6 +20,10 @@ public class GyrussEventManager : MonoBehaviour
     public static Action PlayerKillInitiated;
     public static Action DeathParticlesOnPositionsSetupInitiated;
     public static Action DeathParticlesPreparationInitiated;
+    public static Action RocketParticlesOnPositionsSetupInitiated;
+    public static Action RocketShootInitiated;
+    public static Action RocketReloadInitiated;
+    public static Action RocketParticlesPreparationInitiated;
     public static Action<StageType> StageTypeSetupInitiated;
     public static Action<StageState> StageStateSetupInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
@@ -35,6 +39,26 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<string, bool> ConditionSetupInTimerInitiated;
     public static Action<string, float> PeriodSetupInTimerInitiated;
 
+    public static void OnRocketParticlesPreparationInitiated()
+    {
+        RocketParticlesPreparationInitiated?.Invoke();
+    }
+    
+    public static void OnRocketReloadInitiated()
+    {
+        RocketReloadInitiated?.Invoke();
+    }
+    
+    public static void OnRocketShootInitiated()
+    {
+        RocketShootInitiated?.Invoke();
+    }
+    
+    public static void OnRocketParticlesOnPositionsSetupInitiated()
+    {
+        RocketParticlesOnPositionsSetupInitiated?.Invoke();
+    }
+    
     public static void OnPlayerKillInitiated()
     {
         PlayerKillInitiated?.Invoke();
@@ -205,5 +229,9 @@ public class GyrussEventManager : MonoBehaviour
         DeathParticlesOnPositionsSetupInitiated = null;
         DeathParticlesPreparationInitiated = null;
         PlayerKillInitiated = null;
+        RocketParticlesOnPositionsSetupInitiated = null;
+        RocketShootInitiated = null;
+        RocketReloadInitiated = null;
+        RocketParticlesPreparationInitiated = null;
     }
 }

@@ -15,10 +15,14 @@ public class EffectsManager : MonoBehaviour
     [Header("Particles")]
     [SerializeField] private GameObject[] reviveParticles;
     [SerializeField] private GameObject[] deathParticles;
+    [SerializeField] private GameObject[] rocketParticles;
     
     private List<GameObject> readyReviveParticles;
     private Vector3 playerShipPosition;
 
+    private int rocketParticleId;
+    private int rocketParticleCondition;
+    
     private void Start()
     {
         readyReviveParticles = new List<GameObject>();
@@ -33,6 +37,8 @@ public class EffectsManager : MonoBehaviour
         GyrussEventManager.ExplosionCreationInitiated += CreateExplosion;
         GyrussEventManager.DeathParticlesOnPositionsSetupInitiated += SetDeathParticlesOnPositions;
         GyrussEventManager.DeathParticlesPreparationInitiated += PrepareDeathParticles;
+        GyrussEventManager.RocketParticlesOnPositionsSetupInitiated += SetRocketParticlesOnPositions;
+        GyrussEventManager.RocketParticlesPreparationInitiated += PrepareRocketParticles;
     }
     
     private void SetReviveParticlesOnPositions()
@@ -107,6 +113,55 @@ public class EffectsManager : MonoBehaviour
         }
     }
 
+    private void SetRocketParticlesOnPositions()
+    {
+        MoveRocketParticle(0,8,0.5f);
+        MoveRocketParticle(8, 16, 0.75f);
+        MoveRocketParticle(16,24,1f);
+        
+        rocketParticleId = 23;
+        rocketParticleCondition = rocketParticleId - 8;
+        
+        GyrussGameManager.Instance.TogglePlayerSpawned();
+        PrepareRocketParticles();
+    }
+
+    private void MoveRocketParticle(int index, int condition, float originY)
+    {
+        int angle = 0;
+        Vector3 playerShipPos = playerShip.transform.position;
+        Vector3 originPosition = playerShipPos + new Vector3(0, originY, 0);
+        
+        for (int i = index; i < condition; i++) {
+            rocketParticles[i].transform.position = originPosition;
+            rocketParticles[i].transform.RotateAround(playerShipPos, Vector3.forward, angle);
+            angle += 360 / 8;
+        }
+    }
+    
+    private void PrepareRocketParticles()
+    {
+        if (rocketParticleId < 0) {
+            GyrussGameManager.Instance.ShootRocket();
+            GyrussGameManager.Instance.TogglePlayerSpawned();
+            return;
+        }
+        
+        TurnOnRocketParticle(rocketParticleId, rocketParticleCondition);
+        
+        rocketParticleId -= 8;
+        rocketParticleCondition -= 8;
+        
+        GyrussGameManager.Instance.SetConditionInTimer("rocketParticleDelay", true);
+    }
+
+    private void TurnOnRocketParticle(int particleId, int condition)
+    {
+        for (int i = particleId; i > condition; i--) {
+            rocketParticles[i].SetActive(true);
+        }
+    }
+    
     private void CreateExplosion(Vector3 explosionPosition)
     {
         GameObject explosion = Instantiate(ExplosionPrefab, explosionPool, true);

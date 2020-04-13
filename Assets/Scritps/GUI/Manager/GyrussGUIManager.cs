@@ -90,7 +90,7 @@ public class GyrussGUIManager : MonoBehaviour
     private void DecreaseRockets(int rockets)
     {
         if (rockets > 8) return;
-        Destroy(rocketsTransform.GetChild(0));
+        Destroy(rocketsTransform.GetChild(0).gameObject);
     }
 
     private void SetWarpsText(int warps, string planet)

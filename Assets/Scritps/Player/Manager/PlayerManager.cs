@@ -11,9 +11,10 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private GameObject warpingEffects;
     
-    [Header("Other")] 
+    [Header("Prefabs")] 
     [SerializeField] private GameObject bulletPrefabSingle;
     [SerializeField] private GameObject bulletPrefabDouble;
+    [SerializeField] private GameObject rocketPrefab;
     
     [Header("Map")]
     [SerializeField] private SpriteRenderer background;
@@ -26,6 +27,7 @@ public class PlayerManager : MonoBehaviour
     
     private bool doubleBulletMode = false;
     private bool spawned;
+    private bool shootRocket;
 
     private int lives = 4;
     private int rockets = 1;
@@ -80,6 +82,13 @@ public class PlayerManager : MonoBehaviour
         if (Input.GetKey(KeyCode.Space)) {
             ShootBullet();
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl)) {
+            if (shootRocket) return;
+            if (rockets <= 0) return;
+            
+            GyrussGameManager.Instance.SetRocketParticlesOnPosition();
+        }
     }
 
     private void SetDelegates()
@@ -95,6 +104,8 @@ public class PlayerManager : MonoBehaviour
         GyrussEventManager.WarpingPlayerInitiated += WarpPlayer;
         GyrussEventManager.MovePlayerToCenterPointInitiated += MoveShipToCenterPoint;
         GyrussEventManager.PlayerKillInitiated += KillPlayer;
+        GyrussEventManager.RocketShootInitiated += ShootRocket;
+        GyrussEventManager.RocketReloadInitiated += ReloadRocket;
     }
 
     private void RotateShip(Vector3 rotateAxis)
@@ -228,7 +239,7 @@ public class PlayerManager : MonoBehaviour
             GyrussGameManager.Instance.SetConditionInTimer("playerRespawn", true);
         }
     }
-    
+
     private void WarpPlayer()
     {
         if (playerAnimator.GetBool(Warping)) return;
@@ -236,4 +247,18 @@ public class PlayerManager : MonoBehaviour
         ToggleWarpingEffects();
         GyrussGameManager.Instance.SetConditionInTimer("warping", true);
     }
+
+    private void ShootRocket()
+    {
+        Instantiate(rocketPrefab, shootingPointSingle.position, playerShip.transform.rotation, playerBulletPool);
+        shootRocket = true;
+        GyrussGameManager.Instance.DecreasePlayerRockets(--rockets);
+        GyrussGameManager.Instance.SetConditionInTimer("rocketReload", true);
+    }
+
+    private void ReloadRocket()
+    {
+        shootRocket = false;
+    }
+    
 }
