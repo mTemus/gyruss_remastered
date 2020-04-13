@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class AsteroidController : MonoBehaviour
 {
@@ -22,7 +23,14 @@ public class AsteroidController : MonoBehaviour
         exitPosition = new Vector3(playerPosition.x * 2, playerPosition.y * 2, 0);
         move = true;
     }
-    
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("PlayerBullet")) {
+            Destroy(other.transform.gameObject);
+        }
+    }
+
     public Vector3 PlayerPosition
     {
         get => playerPosition;
