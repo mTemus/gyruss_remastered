@@ -81,6 +81,16 @@ public class ScalingController : MonoBehaviour
             case "Player":
                 transform.GetChild(0).GetComponent<Animator>().SetFloat(Scaling, scalingFactor);
                 break;
+            
+            case "Rocket":
+                float doubleScale = scalingFactor * 2;
+
+                if (doubleScale < 1) {
+                    transform.localScale = new Vector3(doubleScale, doubleScale, 0);
+                }
+                
+                return;
+                break;
         }
 
         if (enemyIsInCenterPosition) { scalingFactor = 1; }
