@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,11 +23,11 @@ public class GyrussGUIManager : MonoBehaviour
     [SerializeField] private Transform rocketsTransform;
     [SerializeField] private Transform livesTransform;
 
-    private void Start()
+    private void Awake()
     {
         SetDelegates();
     }
-
+    
     private void SetDelegates()
     {
         GyrussGUIEventManager.ScoreTextSetupInitiated += SetScoreText;
@@ -42,6 +43,7 @@ public class GyrussGUIManager : MonoBehaviour
         GyrussGUIEventManager.ScoreTextToggleInitiated += ToggleScoreText;
         GyrussGUIEventManager.LifeIconsInitializeInitiated += InitializeLifeIcons;
         GyrussGUIEventManager.RocketIconsInitializeInitiated += InitializeRocketIcons;
+        GyrussGUIEventManager.HiScoreTextSetupInitiated += SetHiScoreText;
     }
     
     private void SetScoreText(int score)
@@ -54,8 +56,20 @@ public class GyrussGUIManager : MonoBehaviour
         for (int i = 0; i < neededZeros; i++) { scoreString = scoreString.Insert(0, "0"); }
 
         scoreText.text = scoreString;
+    }
+
+    private void SetHiScoreText(int hiScore)
+    {
+        string hiScoreString = hiScore.ToString();
+        int zeros = 7;
+        int hiScoreLen = hiScoreString.Length;
+        int neededZeros = zeros - hiScoreLen;
+
+        for (int i = 0; i < neededZeros; i++) { hiScoreString = hiScoreString.Insert(0, "0"); }
+        hiScoreText.text = hiScoreString;
         
-        //TODO: if score > hiScore set also hiScore
+        Debug.Log(hiScoreString);
+        Debug.Log(hiScore);
     }
 
     private void SetStagesText(int stages)

@@ -106,6 +106,7 @@ public class PlayerManager : MonoBehaviour
         GyrussEventManager.PlayerKillInitiated += KillPlayer;
         GyrussEventManager.RocketShootInitiated += ShootRocket;
         GyrussEventManager.RocketReloadInitiated += ReloadRocket;
+        GyrussEventManager.LifeAddInitiated += AddLife;
     }
 
     private void RotateShip(Vector3 rotateAxis)
@@ -254,6 +255,17 @@ public class PlayerManager : MonoBehaviour
         shootRocket = true;
         GyrussGameManager.Instance.DecreasePlayerRockets(--rockets);
         GyrussGameManager.Instance.SetConditionInTimer("rocketReload", true);
+    }
+
+    private void AddLife()
+    {
+        lives++;
+        GyrussGameManager.Instance.IncreaseLifeIcons();
+    }
+
+    private void AddRocket()
+    {
+        
     }
 
     private void ReloadRocket()

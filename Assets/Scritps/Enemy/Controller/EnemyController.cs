@@ -71,6 +71,7 @@ public class EnemyController : MonoBehaviour
             
             case EnemyStates.die:
                 GyrussGameManager.Instance.CreateExplosion(transform.position);
+                GyrussGameManager.Instance.AddPointsToScore(100);
                 Destroy(transform.gameObject);
                 break;
             

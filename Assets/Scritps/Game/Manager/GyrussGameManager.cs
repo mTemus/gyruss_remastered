@@ -8,6 +8,7 @@ public class GyrussGameManager : MonoBehaviour
     [SerializeField] private TimeManager timeManager;
     [SerializeField] private MinimapManager minimapManager;
     [SerializeField] private EffectsManager effectsManager;
+    [SerializeField] private ScoreManager scoreManager;
 
     private static GyrussGameManager instance;
 
@@ -270,8 +271,7 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussGUIEventManager.OnLivesIconsDecreaseInitiated(livesLeft);
     }
-
-
+    
     public void PrepareDeathParticles()
     {
         GyrussEventManager.OnDeathParticlesPreparationInitiated();
@@ -311,6 +311,31 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussEventManager.OnRocketParticlesPreparationInitiated();
     }
+
+    public void SetScorePoints(int score)
+    {
+        GyrussGUIEventManager.OnScoreTextSetupInitiated(score);
+    }
+
+    public void SetHiScorePoints(int hiScore)
+    {
+        GyrussGUIEventManager.OnHiScoreTextSetupInitiated(hiScore);
+    }
+
+    public void IncreaseLifeIcons()
+    {
+        GyrussGUIEventManager.OnLivesIconsIncreaseInitiated();
+    }
+
+    public void AddPlayerLife()
+    {
+        GyrussEventManager.OnLifeAddInitiated();
+    }
+
+    public void AddPointsToScore(int score)
+    {
+        GyrussEventManager.OnScorePointsIncreaseInitiated(score);
+    }
     
     private void OnDestroy()
     {
@@ -330,4 +355,7 @@ public class GyrussGameManager : MonoBehaviour
     public MinimapManager MinimapManager => minimapManager;
 
     public EffectsManager EffectsManager => effectsManager;
+
+    public ScoreManager ScoreManager => scoreManager;
 }
+

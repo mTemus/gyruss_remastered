@@ -4,6 +4,7 @@ using UnityEngine;
 public class GyrussGUIEventManager : MonoBehaviour
 {
     public static Action<int> ScoreTextSetupInitiated;
+    public static Action<int> HiScoreTextSetupInitiated;
     public static Action<int> StagesTextSetupInitiated;
     public static Action<int> LivesIconsDecreaseInitiated;
     public static Action<int> RocketsIconsDecreaseInitiated;
@@ -76,6 +77,11 @@ public class GyrussGUIEventManager : MonoBehaviour
     {
         StagesTextSetupInitiated?.Invoke(stage);
     }
+
+    public static void OnHiScoreTextSetupInitiated(int hiScore)
+    {
+        HiScoreTextSetupInitiated?.Invoke(hiScore);
+    }
     
     public static void OnScoreTextSetupInitiated(int score)
     {
@@ -97,6 +103,7 @@ public class GyrussGUIEventManager : MonoBehaviour
         ScoreTextToggleInitiated = null;
         LifeIconsInitializeInitiated = null;
         RocketIconsInitializeInitiated = null;
+        HiScoreTextSetupInitiated = null;
     }
     
 }
