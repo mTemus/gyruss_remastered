@@ -5640,7 +5640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerName: asteroidSpawn
-  timerPeriod: 10
+  timerPeriod: 16
   timerEvent:
     m_PersistentCalls:
       m_Calls:
