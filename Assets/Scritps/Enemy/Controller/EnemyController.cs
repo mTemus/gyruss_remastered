@@ -10,7 +10,6 @@ public class EnemyController : MonoBehaviour
     
     private bool pathAssignedIn = false;
     private bool pathAssignedBack = false;
-    private bool move = true;
     
     private int spotIndex;
     
@@ -25,9 +24,7 @@ public class EnemyController : MonoBehaviour
     }
 
     private void Update() {
-        if (!move) return;
-
-            switch(currentEnemyState){
+        switch(currentEnemyState){
             case EnemyStates.entering:
                 randomizePath();
                 enterScreen();
@@ -144,21 +141,24 @@ public class EnemyController : MonoBehaviour
     {
         if (currentEnemyState == EnemyStates.die) return;
         if (!other.CompareTag("PlayerBullet")) return;
+
+        if (other.CompareTag("PlayerBullet")) {
+            transform.GetComponent<BoxCollider2D>().enabled = false;
+            currentEnemyState = EnemyStates.die;
+            Destroy(other.transform.parent.gameObject);
+        }
+
+        if (other.CompareTag("Rocket")) {
+            currentEnemyState = EnemyStates.die;
+        }
         
-        transform.GetComponent<BoxCollider2D>().enabled = false;
-        currentEnemyState = EnemyStates.die;
-        Destroy(other.transform.parent.gameObject);
     }
 
     private void UpdateCenterPosition()
     {
         transform.position = centerPosition;
     }
-
-    public void SetMoving(bool condition)
-    {
-        move = condition;
-    }
+    
     
     public int SpotIndex
     {
