@@ -140,7 +140,6 @@ public class EnemyController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (currentEnemyState == EnemyStates.die) return;
-        if (!other.CompareTag("PlayerBullet")) return;
 
         if (other.CompareTag("PlayerBullet")) {
             transform.GetComponent<BoxCollider2D>().enabled = false;
@@ -150,8 +149,8 @@ public class EnemyController : MonoBehaviour
 
         if (other.CompareTag("Rocket")) {
             currentEnemyState = EnemyStates.die;
+            Debug.Log("rocket");
         }
-        
     }
 
     private void UpdateCenterPosition()
