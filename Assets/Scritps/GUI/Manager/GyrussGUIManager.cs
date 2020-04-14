@@ -2,6 +2,7 @@
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class GyrussGUIManager : MonoBehaviour
 {
@@ -23,6 +24,9 @@ public class GyrussGUIManager : MonoBehaviour
     [SerializeField] private Transform rocketsTransform;
     [SerializeField] private Transform livesTransform;
 
+    [Header("Prefabs")] 
+    [SerializeField] private GameObject bonusTextPrefab;
+    
     private void Awake()
     {
         SetDelegates();
@@ -44,6 +48,7 @@ public class GyrussGUIManager : MonoBehaviour
         GyrussGUIEventManager.LifeIconsInitializeInitiated += InitializeLifeIcons;
         GyrussGUIEventManager.RocketIconsInitializeInitiated += InitializeRocketIcons;
         GyrussGUIEventManager.HiScoreTextSetupInitiated += SetHiScoreText;
+        GyrussGUIEventManager.WaveBonusTextShowInitiated += ShowWaveBonusText;
     }
     
     private void SetScoreText(int score)
@@ -67,9 +72,6 @@ public class GyrussGUIManager : MonoBehaviour
 
         for (int i = 0; i < neededZeros; i++) { hiScoreString = hiScoreString.Insert(0, "0"); }
         hiScoreText.text = hiScoreString;
-        
-        Debug.Log(hiScoreString);
-        Debug.Log(hiScore);
     }
 
     private void SetStagesText(int stages)
@@ -153,6 +155,25 @@ public class GyrussGUIManager : MonoBehaviour
         
         IncreaseRockets();
         GyrussGameManager.Instance.SetConditionInTimer("rocketIconsInitialization", true);
+    }
+
+    private void ShowWaveBonusText(int score)
+    {
+        Vector3 playerPos = GyrussGameManager.Instance.GetPlayerShipPosition();
+        Vector3 textOffset = new Vector3();
+        
+        if (playerPos.x > 0) { textOffset.x = -0.8f; }
+        else { textOffset.x = 0.8f; }
+
+        int yParity = Random.Range(-1, 1);
+        float yValue = Random.Range(-0.6f, 0.6f);
+
+        textOffset.y = yValue * yParity;
+        
+        GameObject bonusText = Instantiate(bonusTextPrefab, GUI.transform, true);
+        bonusText.GetComponent<Text>().text = score.ToString();
+        bonusText.transform.position = playerPos + textOffset;
+        bonusText.transform.localScale = new Vector3(1,1,0);
     }
     
     

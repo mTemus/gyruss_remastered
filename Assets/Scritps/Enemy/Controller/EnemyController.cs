@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
     private bool pathAssignedBack = false;
     
     private int spotIndex;
+    private int waveId;
     
     private float speed;
     
@@ -72,6 +73,7 @@ public class EnemyController : MonoBehaviour
             case EnemyStates.die:
                 GyrussGameManager.Instance.CreateExplosion(transform.position);
                 GyrussGameManager.Instance.AddPointsToScore(100);
+                GyrussGameManager.Instance.CheckBonusPointsForWaveKill(this);
                 Destroy(transform.gameObject);
                 break;
             
@@ -171,5 +173,10 @@ public class EnemyController : MonoBehaviour
         get => centerPosition;
         set => centerPosition = value;
     }
-    
+
+    public int WaveId
+    {
+        get => waveId;
+        set => waveId = value;
+    }
 }

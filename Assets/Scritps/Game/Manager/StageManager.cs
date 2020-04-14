@@ -13,7 +13,6 @@ public class StageManager : MonoBehaviour
 
     [Header("Pools")] 
     [SerializeField] private Transform EnemyPool;
-    
 
     private int currentStage = 1;
     private int stages = 1;
@@ -33,8 +32,9 @@ public class StageManager : MonoBehaviour
     private void Start()
     {
         wavesAwaiting = new Queue<Wave>();
-        currentStageState = StageState.start;
-        currentStageType = StageType.first_stage;
+        
+        GyrussGameManager.Instance.SetStageState(StageState.start);
+        GyrussGameManager.Instance.SetCurrentStageType(StageType.first_stage);
         SetDelegates();
     }
 
@@ -54,6 +54,7 @@ public class StageManager : MonoBehaviour
         GyrussEventManager.CurrentWaveSetupInitiated += SetCurrentWave;
         GyrussEventManager.GoToNextStageInitiated += GoToNextStage;
         GyrussEventManager.AsteroidSpawnInitiated += SpawnAsteroid;
+        GyrussEventManager.StageClearInitiated += ClearStage;
     }
     
     private void ProcessOrdersInStage()
@@ -120,8 +121,9 @@ public class StageManager : MonoBehaviour
                 if (!GyrussGameManager.Instance.MovePlayerShipToWarpingPosition()) return;
 
                 if (GyrussGameManager.Instance.MovePlayerShipToCenterPosition()) {
+                    GyrussGameManager.Instance.ClearCurrentStage();
                     
-                    ClearStage();
+                    
                     //Proceed to next stage
                     GyrussGameManager.Instance.SetStageState(StageState.wait);
                 }
@@ -242,7 +244,8 @@ public class StageManager : MonoBehaviour
             currentEnemyController.SpotIndex = unevenSpotId;
             unevenSpotId += 2;
         }
-                
+
+        currentEnemyController.WaveId = currentWaveCounter;
         currentEnemyController.currentEnemyState = EnemyStates.take_a_spot;
         
         enemy.transform.name = currentWave.EnemyName + "_" + enemiesAlive;
@@ -299,6 +302,11 @@ public class StageManager : MonoBehaviour
             GyrussGameManager.Instance.SetConditionInTimer("asteroidSpawn", true);
         }
     }
+
+    
+    
+    
+    
 
     public int CurrentStage => currentStage; 
 }

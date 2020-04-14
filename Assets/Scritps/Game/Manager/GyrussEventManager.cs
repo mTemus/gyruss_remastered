@@ -25,6 +25,7 @@ public class GyrussEventManager : MonoBehaviour
     public static Action RocketReloadInitiated;
     public static Action RocketParticlesPreparationInitiated;
     public static Action LifeAddInitiated;
+    public static Action StageClearInitiated;
     public static Action<StageType> StageTypeSetupInitiated;
     public static Action<StageState> StageStateSetupInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
@@ -32,6 +33,7 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<Vector3> PlayerShipPositionSetupInitiated;
     public static Action<Vector3> ExplosionCreationInitiated;
     public static Action<GameObject> ReviveParticleRegistrationInitiated;
+    public static Action<EnemyController> BonusPointsForWaveKillInitiated;
     public static Action<int> MoveToLevelOnMinimapInitiated;
     public static Action<int> CurrentWaveSetupInitiated;
     public static Action<int> ScorePointsIncreaseInitiated;
@@ -41,6 +43,16 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<string, bool> ConditionSetupInTimerInitiated;
     public static Action<string, float> PeriodSetupInTimerInitiated;
 
+    public static void OnStageClearInitiated()
+    {
+        StageClearInitiated?.Invoke();
+    }
+    
+    public static void OnBonusPointsForWaveKillInitiated(EnemyController eC)
+    {
+        BonusPointsForWaveKillInitiated?.Invoke(eC);
+    }
+    
     public static void OnScorePointsIncreaseInitiated(int score)
     {
         ScorePointsIncreaseInitiated?.Invoke(score);
@@ -247,5 +259,7 @@ public class GyrussEventManager : MonoBehaviour
         RocketParticlesPreparationInitiated = null;
         LifeAddInitiated = null;
         ScorePointsIncreaseInitiated = null;
+        BonusPointsForWaveKillInitiated = null;
+        StageClearInitiated = null;
     }
 }

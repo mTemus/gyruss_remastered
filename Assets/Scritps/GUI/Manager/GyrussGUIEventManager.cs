@@ -8,6 +8,7 @@ public class GyrussGUIEventManager : MonoBehaviour
     public static Action<int> StagesTextSetupInitiated;
     public static Action<int> LivesIconsDecreaseInitiated;
     public static Action<int> RocketsIconsDecreaseInitiated;
+    public static Action<int> WaveBonusTextShowInitiated;
     public static Action<int, string> WarpsTextSetupInitiated;
     public static Action LivesIconsIncreaseInitiated;
     public static Action RocketsIconsIncreaseInitiated;
@@ -18,6 +19,11 @@ public class GyrussGUIEventManager : MonoBehaviour
     public static Action LifeIconsInitializeInitiated;
     public static Action RocketIconsInitializeInitiated;
 
+    public static void OnWaveBonusTextShowInitiated(int score)
+    {
+        WaveBonusTextShowInitiated?.Invoke(score);
+    }
+    
     public static void OnRocketIconsInitializeInitiated()
     {
         RocketIconsInitializeInitiated?.Invoke();
@@ -104,6 +110,7 @@ public class GyrussGUIEventManager : MonoBehaviour
         LifeIconsInitializeInitiated = null;
         RocketIconsInitializeInitiated = null;
         HiScoreTextSetupInitiated = null;
+        WaveBonusTextShowInitiated = null;
     }
     
 }

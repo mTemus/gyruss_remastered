@@ -12,10 +12,16 @@ public class ScoreManager : MonoBehaviour
     
     private int rocketPointPeriod;
     private int lifePointPeriod;
+    private int bonusPointsForWave = 1000;
 
 
+    private List<EnemyController> enemiesKilledInWave;
+
+    
     private void Start()
     {
+        enemiesKilledInWave = new List<EnemyController>();
+        
         SetDelegates();
         hiScore = PlayerPrefs.GetInt("hiScore");
         GyrussGameManager.Instance.SetHiScorePoints(hiScore);
@@ -24,6 +30,8 @@ public class ScoreManager : MonoBehaviour
     private void SetDelegates()
     {
         GyrussEventManager.ScorePointsIncreaseInitiated += AddPoints;
+        GyrussEventManager.BonusPointsForWaveKillInitiated += CheckBonusForWave;
+        GyrussEventManager.StageClearInitiated += ClearStage;
     }
 
     private void AddPoints(int additionalPoints)
@@ -69,15 +77,44 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    private void SaveHiScore()
+    private void CheckBonusForWave(EnemyController eC)
     {
-        PlayerPrefs.SetInt("hiScore", hiScore);
+        if (enemiesKilledInWave.Count > 1) {
+            int eCid = enemiesKilledInWave.Count - 1;
+            if (enemiesKilledInWave[eCid].WaveId == eC.WaveId) {
+                enemiesKilledInWave.Add(eC);
+
+                if (enemiesKilledInWave.Count == 8) {
+                    enemiesKilledInWave = new List<EnemyController>();
+                    
+                    
+                    Debug.LogError("bonus");
+                    
+                    GyrussGameManager.Instance.ShowKillingBonusText(bonusPointsForWave);
+
+                    bonusPointsForWave *= 2;
+                    if (bonusPointsForWave > 8000) bonusPointsForWave = 1000; 
+                }
+            }
+            else {
+                enemiesKilledInWave = new List<EnemyController> {eC};
+                bonusPointsForWave = 1000;
+            }
+        }
+        else {
+            enemiesKilledInWave.Add(eC);
+        }
+    }
+
+    public void ClearStage()
+    {
+        enemiesKilledInWave = new List<EnemyController>();
     }
     
     private void OnDestroy()
     {
         if (hiScore <= score) {
             PlayerPrefs.SetInt("hiScore", hiScore);
-        }
+        } 
     }
 }

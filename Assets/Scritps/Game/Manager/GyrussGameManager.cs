@@ -336,6 +336,21 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussEventManager.OnScorePointsIncreaseInitiated(score);
     }
+
+    public void CheckBonusPointsForWaveKill(EnemyController eC)
+    {
+        GyrussEventManager.OnBonusPointsForWaveKillInitiated(eC);
+    }
+
+    public void ClearCurrentStage()
+    {
+        GyrussEventManager.OnStageClearInitiated();
+    }
+
+    public void ShowKillingBonusText(int score)
+    {
+        GyrussGUIEventManager.OnWaveBonusTextShowInitiated(score);
+    }
     
     private void OnDestroy()
     {

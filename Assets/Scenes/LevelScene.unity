@@ -5366,6 +5366,8 @@ MonoBehaviour:
     type: 3}
   rocketsTransform: {fileID: 1167533308}
   livesTransform: {fileID: 2101045832}
+  bonusTextPrefab: {fileID: 3499915280794086070, guid: 2243cb402c07c2c4bab8ae6d34cb7c6d,
+    type: 3}
 --- !u!1 &1300365186
 GameObject:
   m_ObjectHideFlags: 0
@@ -5579,7 +5581,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1321701587
 Transform:
   m_ObjectHideFlags: 0
@@ -12896,7 +12898,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2131011261
 Transform:
   m_ObjectHideFlags: 0
