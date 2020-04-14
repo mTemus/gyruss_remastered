@@ -33,9 +33,9 @@ public class StageManager : MonoBehaviour
     {
         wavesAwaiting = new Queue<Wave>();
         
+        SetDelegates();
         GyrussGameManager.Instance.SetStageState(StageState.start);
         GyrussGameManager.Instance.SetCurrentStageType(StageType.first_stage);
-        SetDelegates();
     }
 
     private void Update()
@@ -151,7 +151,16 @@ public class StageManager : MonoBehaviour
             
             case StageState.spawn_player:
                 GyrussGameManager.Instance.PrepareReviveParticles();
-                GyrussGameManager.Instance.SetStageState(StageState.initialize_GUI);
+                GyrussGameManager.Instance.SetStagesText(stages);
+                Debug.Log(currentStageType);
+                
+                if (currentStageType == StageType.first_stage) {
+                    GyrussGameManager.Instance.SetStageState(StageState.initialize_GUI);
+                }
+                else {
+                    
+                }
+                
                 break;
             
             default:
@@ -202,8 +211,6 @@ public class StageManager : MonoBehaviour
         currentStage++;
         stages++;
         
-        GyrussGameManager.Instance.SetStagesText(stages);
-
         if (currentStage > 4) { currentStage = 1; }
         
         GyrussGameManager.Instance.TogglePlayerSpawned();
