@@ -152,15 +152,7 @@ public class StageManager : MonoBehaviour
             case StageState.spawn_player:
                 GyrussGameManager.Instance.PrepareReviveParticles();
                 GyrussGameManager.Instance.SetStagesText(stages);
-                Debug.Log(currentStageType);
-                
-                if (currentStageType == StageType.first_stage) {
-                    GyrussGameManager.Instance.SetStageState(StageState.initialize_GUI);
-                }
-                else {
-                    
-                }
-                
+                GyrussGameManager.Instance.SetStageState(StageState.initialize_GUI);
                 break;
             
             default:
