@@ -82,17 +82,14 @@ public class ScoreManager : MonoBehaviour
             if (enemiesKilledInWave[eCid].WaveId == eC.WaveId) {
                 enemiesKilledInWave.Add(eC);
 
-                if (enemiesKilledInWave.Count == 8) {
-                    enemiesKilledInWave = new List<EnemyController>();
-                    
-                    
-                    Debug.LogError("bonus");
-                    
-                    GyrussGameManager.Instance.ShowKillingBonusText(bonusPointsForWave);
+                if (enemiesKilledInWave.Count != 8) return;
+                
+                enemiesKilledInWave = new List<EnemyController>();
 
-                    bonusPointsForWave *= 2;
-                    if (bonusPointsForWave > 8000) bonusPointsForWave = 1000; 
-                }
+                GyrussGameManager.Instance.ShowKillingBonusText(bonusPointsForWave);
+
+                bonusPointsForWave *= 2;
+                if (bonusPointsForWave > 8000) bonusPointsForWave = 1000;
             }
             else {
                 enemiesKilledInWave = new List<EnemyController> {eC};
@@ -104,7 +101,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    public void ClearStage()
+    private void ClearStage()
     {
         enemiesKilledInWave = new List<EnemyController>();
     }
