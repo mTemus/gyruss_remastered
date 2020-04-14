@@ -1,6 +1,4 @@
-﻿using System;
-using JetBrains.Annotations;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -116,8 +114,6 @@ public class PlayerManager : MonoBehaviour
 
     private void ShootBullet()
     {
-        //TODO: add shooting effect near ship
-
         if (!(reload >= 0.3f)) {
             if (shootingPointSingleGO.GetComponent<SpriteRenderer>().enabled) {
                 shootingPointSingleGO.GetComponent<SpriteRenderer>().enabled = false;
