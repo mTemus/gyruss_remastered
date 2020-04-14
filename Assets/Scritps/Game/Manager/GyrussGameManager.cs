@@ -351,7 +351,11 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussGUIEventManager.OnWaveBonusTextShowInitiated(score);
     }
-    
+
+    public void SetCurrentStageNumber(int stage)
+    {
+        GyrussEventManager.OnCurrentStageSetupInitiated(stage);
+    }
     private void OnDestroy()
     {
         GyrussEventManager.ClearDelegates();

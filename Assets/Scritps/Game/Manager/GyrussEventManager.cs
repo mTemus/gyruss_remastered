@@ -37,12 +37,18 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<int> MoveToLevelOnMinimapInitiated;
     public static Action<int> CurrentWaveSetupInitiated;
     public static Action<int> ScorePointsIncreaseInitiated;
+    public static Action<int> CurrentStageSetupInitiated;
     public static Action<bool> PlayerEnteredSetupInAnimatorInitiated;
     public static Action<string> TimerStopInitiated;
     public static Action<string> PeriodResetInTimerInitiated;
     public static Action<string, bool> ConditionSetupInTimerInitiated;
     public static Action<string, float> PeriodSetupInTimerInitiated;
 
+    public static void OnCurrentStageSetupInitiated(int stage)
+    {
+        CurrentStageSetupInitiated?.Invoke(stage);
+    }
+    
     public static void OnStageClearInitiated()
     {
         StageClearInitiated?.Invoke();
@@ -261,5 +267,6 @@ public class GyrussEventManager : MonoBehaviour
         ScorePointsIncreaseInitiated = null;
         BonusPointsForWaveKillInitiated = null;
         StageClearInitiated = null;
+        CurrentStageSetupInitiated = null;
     }
 }

@@ -145,7 +145,9 @@ public class PlayerManager : MonoBehaviour
         playerShip.transform.position = playerStartingPosition;
         playerShip.SetActive(true);
         playerShip.transform.rotation = Quaternion.identity;
+        playerAnimator.SetBool(Warping, false);
         playerAnimator.SetBool(Entered, true);
+        playerShip.transform.localScale = new Vector3(1,1,0);
         
         GyrussGameManager.Instance.SetConditionInTimer("playerEnteredStage", true);
     }
@@ -242,6 +244,7 @@ public class PlayerManager : MonoBehaviour
         if (playerAnimator.GetBool(Warping)) return;
         playerAnimator.SetBool(Warping, true);
         ToggleWarpingEffects();
+        GyrussGameManager.Instance.TogglePlayerSpawned();
         GyrussGameManager.Instance.SetConditionInTimer("warping", true);
     }
 

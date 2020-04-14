@@ -10,10 +10,9 @@ public class LevelManager : MonoBehaviour
     
     private int currentLevel = 0;
     private int currentWave = 1;
-    private int currentStage;
+    private int currentStage = 1;
 
     private List<string> planetsInGame;
-    
 
     private String enemyName;
 
@@ -33,17 +32,20 @@ public class LevelManager : MonoBehaviour
     private void SetDelegates()
     {
         GyrussEventManager.LevelStateSetupInitiated += SetLevelState;
+        GyrussEventManager.CurrentStageSetupInitiated += SetCurrentStageNumber;
     }
 
     private void ProcessOrdersInLevel()
     {
         switch (currentLevelState) {
             case LevelState.start:
-                // TODO: load hiScore 
-                
-                GyrussGameManager.Instance.SetConditionInTimer("playerDelayOnMinimap", true);
-                
-                currentLevelState = LevelState.wait;
+                if (MinimapView.activeSelf) {
+                    GyrussGameManager.Instance.SetConditionInTimer("playerDelayOnMinimap", true);
+                    currentLevelState = LevelState.wait;
+                }
+                else {
+                    GyrussGameManager.Instance.SetLevelState(LevelState.change_view_to_stage);
+                }
                 break;
             
             case LevelState.move_on_minimap:
@@ -52,7 +54,8 @@ public class LevelManager : MonoBehaviour
                 break;
             
             case LevelState.change_view_to_stage:
-                ToggleViews();
+
+                if (!StageView.activeSelf) ToggleViews();
 
                 if (currentStage < 4)
                     GyrussGameManager.Instance.SetWarpsText(4 - currentStage, planetsInGame[currentLevel]);
@@ -152,6 +155,11 @@ public class LevelManager : MonoBehaviour
     private void SetLevelState(LevelState newLevelState)
     {
         currentLevelState = newLevelState;
+    }
+
+    private void SetCurrentStageNumber(int stage)
+    {
+        currentStage = stage;
     }
 
     public int CurrentLevel => currentLevel;

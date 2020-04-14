@@ -74,6 +74,9 @@ public class StageManager : MonoBehaviour
                         break;
                     
                     case StageType.mini_boss:
+                        //TODO: prepare mini-boss here, especially show on timer or smth
+                        Debug.Log("miniboss");
+                        
                         PrepareAsteroidSpawning();
                         break;
                     
@@ -92,13 +95,11 @@ public class StageManager : MonoBehaviour
                 break;
             
             case StageState.wait:
-                // practically, should do nothing, for now, maybe wait for an event
                 break;
             
             case StageState.loading_wave:
                 if (wavesAwaiting.Count > 0) {
                     currentWave = wavesAwaiting.Dequeue();
-                    // randomOfPath = Random.Range(1, 8); // ???????????????
                     
                     GyrussGameManager.Instance.SetConditionInTimer("enemySpawningDelay", true);
                 }
@@ -122,9 +123,12 @@ public class StageManager : MonoBehaviour
 
                 if (GyrussGameManager.Instance.MovePlayerShipToCenterPosition()) {
                     GyrussGameManager.Instance.ClearCurrentStage();
+                    SetStageTypeOnNewStage();
+                    playerShip.SetActive(false);
+                    GyrussGameManager.Instance.TogglePlayerSpawned();
+                    GyrussGameManager.Instance.SetLevelState(LevelState.start);
                     
                     
-                    //Proceed to next stage
                     GyrussGameManager.Instance.SetStageState(StageState.wait);
                 }
                 else {
@@ -135,7 +139,9 @@ public class StageManager : MonoBehaviour
 
             case StageState.get_ready:
                 if (playerShip.activeSelf) {
-                    GyrussGameManager.Instance.ToggleScoreText();
+                    if (currentStageType == StageType.first_stage) 
+                        GyrussGameManager.Instance.ToggleScoreText();
+
                     GyrussGameManager.Instance.SetLevelState(LevelState.create_wave);
                 }
                 break;
@@ -202,11 +208,12 @@ public class StageManager : MonoBehaviour
     {
         currentStage++;
         stages++;
-        
+
         if (currentStage > 4) { currentStage = 1; }
         
-        GyrussGameManager.Instance.TogglePlayerSpawned();
+        GyrussGameManager.Instance.StopTimer("asteroidSpawn");
         GyrussGameManager.Instance.SetStageState(StageState.end);
+        GyrussGameManager.Instance.SetCurrentStageNumber(currentStage);
     }
     
     private void AddNewWave(Wave newWave)
@@ -302,10 +309,30 @@ public class StageManager : MonoBehaviour
         }
     }
 
+    private void SetStageTypeOnNewStage()
+    {
+        switch (currentStage) {
+            case 1:
+                GyrussGameManager.Instance.SetCurrentStageType(StageType.first_stage);
+                break;
+            
+            case 2:
+                GyrussGameManager.Instance.SetCurrentStageType(StageType.mini_boss);
+                break;
+            
+            case 3:
+                GyrussGameManager.Instance.SetCurrentStageType(StageType.boss);
+                break;
+            
+            case 4:
+                GyrussGameManager.Instance.SetCurrentStageType(StageType.chance);
+                break;
+            
+            default:
+                Debug.LogError("NO SUCH STAGE NUMBER TO SET STAGE TYPE");
+                break;
+        }
+    }
     
-    
-    
-    
-
     public int CurrentStage => currentStage; 
 }
