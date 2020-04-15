@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class StageManager : MonoBehaviour
@@ -34,8 +35,7 @@ public class StageManager : MonoBehaviour
         wavesAwaiting = new Queue<Wave>();
         
         SetDelegates();
-        GyrussGameManager.Instance.SetStageState(StageState.start);
-        GyrussGameManager.Instance.SetCurrentStageType(StageType.first_stage);
+        GyrussGameManager.Instance.SetStageState(StageState.wait);
     }
 
     private void Update()
@@ -61,10 +61,8 @@ public class StageManager : MonoBehaviour
     {
         switch (currentStageState) {
             case StageState.start:
-                // timer needed
-                // after displaying "ready", ship should appear
-                // then enemies should spawn so state should change to loading_wave
-                
+                Debug.Log("Stage: " + stages + " type: " + currentStageType);
+
                 switch (currentStageType) {
                     case StageType.no_type:
                         break;
@@ -76,6 +74,7 @@ public class StageManager : MonoBehaviour
                     case StageType.mini_boss:
                         //TODO: prepare mini-boss here, especially show on timer or smth
                         Debug.Log("miniboss");
+
                         
                         PrepareAsteroidSpawning();
                         break;
@@ -112,29 +111,15 @@ public class StageManager : MonoBehaviour
                 break;
             
             case StageState.spawn_enemies:
-                SpawnEnemy();
-                IncreaseEnemyAlive();
-                
-                GyrussGameManager.Instance.SetStageState(StageState.wait);
-                break;
-            
-            case StageState.end:
-                if (!GyrussGameManager.Instance.MovePlayerShipToWarpingPosition()) return;
-
-                if (GyrussGameManager.Instance.MovePlayerShipToCenterPosition()) {
-                    GyrussGameManager.Instance.ClearCurrentStage();
-                    SetStageTypeOnNewStage();
-                    playerShip.SetActive(false);
-                    GyrussGameManager.Instance.TogglePlayerSpawned();
-                    GyrussGameManager.Instance.SetLevelState(LevelState.start);
-                    
-                    
-                    GyrussGameManager.Instance.SetStageState(StageState.wait);
+                if (currentWave.MiniBoss) {
+                    SpawnMiniBoss();
                 }
                 else {
-                    GyrussGameManager.Instance.WarpPlayer();
+                    SpawnEnemy();
+                    IncreaseEnemyAlive();
                 }
-                
+
+                GyrussGameManager.Instance.SetStageState(StageState.wait);
                 break;
 
             case StageState.get_ready:
@@ -159,6 +144,24 @@ public class StageManager : MonoBehaviour
                 GyrussGameManager.Instance.PrepareReviveParticles();
                 GyrussGameManager.Instance.SetStagesText(stages);
                 GyrussGameManager.Instance.SetStageState(StageState.initialize_GUI);
+                break;
+            
+            case StageState.end:
+                if (!GyrussGameManager.Instance.MovePlayerShipToWarpingPosition()) return;
+
+                if (GyrussGameManager.Instance.MovePlayerShipToCenterPosition()) {
+                    GyrussGameManager.Instance.ClearCurrentStage();
+                    playerShip.SetActive(false);
+                    GyrussGameManager.Instance.TogglePlayerSpawned();
+                    GyrussGameManager.Instance.SetCurrentWave(0);
+                    GyrussGameManager.Instance.SetLevelState(LevelState.start);
+                    
+                    
+                    GyrussGameManager.Instance.SetStageState(StageState.wait);
+                }
+                else {
+                    GyrussGameManager.Instance.WarpPlayer();
+                }
                 break;
             
             default:
@@ -229,10 +232,16 @@ public class StageManager : MonoBehaviour
 
     private void SetCurrentWave(int currentWave)
     {
-        if (currentWave == 5 && currentStageType != StageType.chance) 
-            return;
-        
-        currentWaveCounter = currentWave;
+        switch (currentWave) {
+            case 5 when currentStageType != StageType.chance:
+                return;
+            case 0:
+                currentWaveCounter = 1;
+                break;
+            default:
+                currentWaveCounter = currentWave;
+                break;
+        }
     }
 
     private void SpawnEnemy()
@@ -309,28 +318,17 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    private void SetStageTypeOnNewStage()
+    private void SpawnMiniBoss()
     {
-        switch (currentStage) {
-            case 1:
-                GyrussGameManager.Instance.SetCurrentStageType(StageType.first_stage);
-                break;
-            
-            case 2:
-                GyrussGameManager.Instance.SetCurrentStageType(StageType.mini_boss);
-                break;
-            
-            case 3:
-                GyrussGameManager.Instance.SetCurrentStageType(StageType.boss);
-                break;
-            
-            case 4:
-                GyrussGameManager.Instance.SetCurrentStageType(StageType.chance);
-                break;
-            
-            default:
-                Debug.LogError("NO SUCH STAGE NUMBER TO SET STAGE TYPE");
-                break;
+        int angle = 0;
+        
+        for (int i = 0; i < 4; i++) {
+            GameObject enemyModule = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/" + currentWave.EnemyName), EnemyPool, true);
+            enemyModule.transform.position = new Vector3(0, 0.3f, 0);
+            enemyModule.transform.RotateAround(Vector3.zero, Vector3.forward, angle);
+            enemyModule.transform.name = "Mini_boss_module_" + i;
+
+            angle += 90;
         }
     }
     

@@ -33,6 +33,7 @@ public class LevelManager : MonoBehaviour
     {
         GyrussEventManager.LevelStateSetupInitiated += SetLevelState;
         GyrussEventManager.CurrentStageSetupInitiated += SetCurrentStageNumber;
+        GyrussEventManager.CurrentWaveSetupInitiated += SetCurrentWave;
     }
 
     private void ProcessOrdersInLevel()
@@ -46,6 +47,8 @@ public class LevelManager : MonoBehaviour
                 else {
                     GyrussGameManager.Instance.SetLevelState(LevelState.change_view_to_stage);
                 }
+                
+                GyrussGameManager.Instance.SetStageState(StageState.start);
                 break;
             
             case LevelState.move_on_minimap:
@@ -63,6 +66,7 @@ public class LevelManager : MonoBehaviour
                 GyrussGameManager.Instance.SetConditionInTimer("warpsTextDelay", true);
                 GyrussGameManager.Instance.SetConditionInTimer("readyTextDelay", true);
 
+                SetCurrentStageType();
                 currentLevelState = LevelState.wait;
                 break;
             
@@ -71,32 +75,39 @@ public class LevelManager : MonoBehaviour
             
             case LevelState.create_wave:
                 enemyName = "Enemy_L" + currentLevel + "_S" + GyrussGameManager.Instance.StageManager.CurrentStage + "_T";
-                GyrussGameManager.Instance.SetCurrentWave(currentWave);
+
+                if (currentWave != 0) {
+                    GyrussGameManager.Instance.SetCurrentWave(currentWave);
+                }
                 
-                    switch (currentWave) {
-                        case 1:
-                            SetCurrentStageType();
-                            SetWaveToSpawn(1, false);
-                            GyrussGameManager.Instance.SetConditionInTimer("waveCreating", true);
-                            break;
+                switch (currentWave) {
+                    case 0:
+                        SetMiniBossToSpawn();
+                        GyrussGameManager.Instance.SetConditionInTimer("waveCreating", true);
+                        break;
                         
-                        case 3:
-                            SetWaveToSpawn(1, false);
-                            GyrussGameManager.Instance.SetConditionInTimer("waveCreating", true);
-                            break;
+                    case 1:
+                        SetWaveToSpawn(1, false);
+                        GyrussGameManager.Instance.SetConditionInTimer("waveCreating", true);
+                        break;
                         
-                        case 2:
-                        case 4:
-                            SetWaveToSpawn(2, true);
-                            GyrussGameManager.Instance.SetConditionInTimer("waveCreating", true);
-                            break;
+                    case 3:
+                        SetWaveToSpawn(1, false);
+                        GyrussGameManager.Instance.SetConditionInTimer("waveCreating", true);
+                        break;
                         
-                        case 5:
-                            //TODO: change this for chance stage
-                            currentWave = 1;
-                            GyrussGameManager.Instance.SetLevelState(LevelState.wait);
-                            break;
-                    }
+                    case 2:
+                    case 4:
+                        SetWaveToSpawn(2, true);
+                        GyrussGameManager.Instance.SetConditionInTimer("waveCreating", true);
+                        break;
+                        
+                    case 5:
+                        //TODO: change this for chance stage
+                        currentWave = 1;
+                        GyrussGameManager.Instance.SetLevelState(LevelState.wait);
+                        break;
+                }
                 break;
             
             case LevelState.change_view_to_minimap:
@@ -113,9 +124,20 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    private void SetMiniBossToSpawn()
+    {
+        string miniBossName = "Mini_boss_l" + currentLevel;
+
+        Wave waveToAdd = new Wave(miniBossName, false, true);
+        GyrussGameManager.Instance.EnqueueWave(waveToAdd);
+        GyrussGameManager.Instance.SetStageState(StageState.loading_wave);
+        GyrussGameManager.Instance.SetLevelState(LevelState.wait);
+        currentWave++;
+    }
+    
     private void SetWaveToSpawn(int enemyType, bool isWaveEven)
    {
-       Wave waveToAdd = new Wave(enemyName + enemyType, isWaveEven);
+       Wave waveToAdd = new Wave(enemyName + enemyType, isWaveEven, false);
        GyrussGameManager.Instance.EnqueueWave(waveToAdd);
        GyrussGameManager.Instance.SetStageState(StageState.loading_wave);
        GyrussGameManager.Instance.SetLevelState(LevelState.wait);
@@ -127,8 +149,7 @@ public class LevelManager : MonoBehaviour
         MinimapView.SetActive(!MinimapView.activeSelf);
         StageView.SetActive(!StageView.activeSelf);
     }
-
-
+    
     private void SetCurrentStageType()
    {
        int currentStage = GyrussGameManager.Instance.StageManager.CurrentStage;
@@ -157,6 +178,11 @@ public class LevelManager : MonoBehaviour
         currentLevelState = newLevelState;
     }
 
+    private void SetCurrentWave(int wave)
+    {
+        currentWave = wave;
+    }
+    
     private void SetCurrentStageNumber(int stage)
     {
         currentStage = stage;

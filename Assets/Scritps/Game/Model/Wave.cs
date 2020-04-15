@@ -1,39 +1,33 @@
 ﻿public class Wave
 {
    private int enemyAmount;
-   private int pointsAmount;
-   private int bonusPoints;
-   private int enemiesKilled;
    private int enemySpawned;
 
    private bool isWaveEven;
+   private bool miniBoss;
    
    private string enemyName;
    
-   public Wave(string enemyName, bool isWaveEven)
+   public Wave(string enemyName, bool isWaveEven, bool miniBoss)
    {
       enemyAmount = 8;
-      pointsAmount = 800;
-      bonusPoints = 1000;
       this.enemyName = enemyName;
       this.isWaveEven = isWaveEven;
+      this.miniBoss = miniBoss;
    }
 
-   public Wave(int enemyAmount, int pointsAmount, int bonusPoints, string enemyName)
+   public Wave(int enemyAmount, string enemyName, bool miniBoss)
    {
       this.enemyAmount = enemyAmount;
-      this.pointsAmount = pointsAmount;
-      this.bonusPoints = bonusPoints;
       this.enemyName = enemyName;
+      this.miniBoss = miniBoss;
    }
-   
+
    public int EnemyAmount => enemyAmount;
 
-   public int PointsAmount => pointsAmount;
-
-   public int BonusPoints => bonusPoints;
-
    public string EnemyName => enemyName;
+
+   public bool MiniBoss => miniBoss;
 
    public bool IsWaveEven
    {
@@ -45,11 +39,5 @@
    {
       get => enemySpawned;
       set => enemySpawned = value;
-   }
-
-   public int EnemiesKilled
-   {
-      get => enemiesKilled;
-      set => enemiesKilled = value;
    }
 }
