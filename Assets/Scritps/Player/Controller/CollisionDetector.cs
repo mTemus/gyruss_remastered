@@ -12,7 +12,7 @@ public class CollisionDetector : MonoBehaviour
                 break;
             
             case "Enemy":
-                if (other.GetComponent<EnemyController>().currentEnemyState == EnemyStates.attack) {
+                if (other.GetComponent<EnemyController>().CurrentEnemyState == EnemyStates.attack) {
                     
                 }
                 break;

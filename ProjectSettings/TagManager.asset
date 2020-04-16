@@ -11,6 +11,7 @@ TagManager:
   - ReviveParticle
   - Asteroid
   - Rocket
+  - MiniBoss
   layers:
   - Default
   - TransparentFX

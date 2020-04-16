@@ -24,14 +24,18 @@ public class StageManager : MonoBehaviour
     private int evenSpotId = 0;
     private int unevenSpotId = 1;
     private int currentWaveCounter;
+    private int moduleId;
     
     private StageState currentStageState;
     private StageType currentStageType;
     private Wave currentWave;
+
+    private List<GameObject> miniBossModules;
     private Queue<Wave> wavesAwaiting;
     
     private void Start()
     {
+        miniBossModules = new List<GameObject>();
         wavesAwaiting = new Queue<Wave>();
         
         SetDelegates();
@@ -61,8 +65,6 @@ public class StageManager : MonoBehaviour
     {
         switch (currentStageState) {
             case StageState.start:
-                Debug.Log("Stage: " + stages + " type: " + currentStageType);
-
                 switch (currentStageType) {
                     case StageType.no_type:
                         break;
@@ -100,7 +102,9 @@ public class StageManager : MonoBehaviour
                 if (wavesAwaiting.Count > 0) {
                     currentWave = wavesAwaiting.Dequeue();
                     
-                    GyrussGameManager.Instance.SetConditionInTimer("enemySpawningDelay", true);
+                    if (!currentWave.MiniBoss) {
+                        GyrussGameManager.Instance.SetConditionInTimer("enemySpawningDelay", true);
+                    }
                 }
                 else {
                     Debug.LogError("Wave queue is empty!");
@@ -111,6 +115,9 @@ public class StageManager : MonoBehaviour
                 break;
             
             case StageState.spawn_enemies:
+                if (currentWave == null) {
+                    Debug.LogError("kurwa jebana");
+                }
                 if (currentWave.MiniBoss) {
                     SpawnMiniBoss();
                 }
@@ -118,7 +125,7 @@ public class StageManager : MonoBehaviour
                     SpawnEnemy();
                     IncreaseEnemyAlive();
                 }
-
+                
                 GyrussGameManager.Instance.SetStageState(StageState.wait);
                 break;
 
@@ -261,15 +268,39 @@ public class StageManager : MonoBehaviour
         }
 
         currentEnemyController.WaveId = currentWaveCounter;
-        currentEnemyController.currentEnemyState = EnemyStates.take_a_spot;
+        currentEnemyController.CurrentEnemyState = EnemyStates.take_a_spot;
+        currentEnemyController.CurrentStageType = currentStageType;
         
         enemy.transform.name = currentWave.EnemyName + "_" + enemiesAlive;
-                
+
+        if (currentStageType == StageType.mini_boss) {
+            enemy.GetComponent<PositionsUpadator>().SetModuleToUpdate(miniBossModules[moduleId++]);
+            if (moduleId > 3) { moduleId = 0; }
+        }
+
         currentWave.EnemySpawned++;
                 
         if (currentWave.EnemySpawned != currentWave.EnemyAmount) {
             GyrussGameManager.Instance.SetConditionInTimer("enemySpawningDelay", true);
         } 
+    }
+    
+    private void SpawnMiniBoss()
+    {
+        int angle = 0;
+        
+        for (int i = 0; i < 4; i++) {
+            GameObject enemyModule = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/" + currentWave.EnemyName), EnemyPool, true);
+            enemyModule.transform.position = new Vector3(0, 0.4f, 0);
+            enemyModule.transform.RotateAround(Vector3.zero, Vector3.forward, angle);
+            enemyModule.transform.name = "Mini_boss_module_" + i;
+
+            miniBossModules.Add(enemyModule);
+            IncreaseEnemyAlive();
+            angle += 90;
+        }
+
+        currentWave = null;
     }
 
     private void PrepareAsteroidSpawning()
@@ -318,19 +349,5 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    private void SpawnMiniBoss()
-    {
-        int angle = 0;
-        
-        for (int i = 0; i < 4; i++) {
-            GameObject enemyModule = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/" + currentWave.EnemyName), EnemyPool, true);
-            enemyModule.transform.position = new Vector3(0, 0.3f, 0);
-            enemyModule.transform.RotateAround(Vector3.zero, Vector3.forward, angle);
-            enemyModule.transform.name = "Mini_boss_module_" + i;
-
-            angle += 90;
-        }
-    }
-    
     public int CurrentStage => currentStage; 
 }

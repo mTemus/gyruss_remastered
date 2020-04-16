@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public EnemyStates currentEnemyState = EnemyStates.no_state;
+    
     public PathFollow pathFollow;
     public PathsDatabase pathsDatabase;
     public float timeToWait = 0;
@@ -15,8 +15,13 @@ public class EnemyController : MonoBehaviour
     private int waveId;
     
     private float speed;
+
+    private GameObject myModule;
     
+    private EnemyStates myCurrentState = EnemyStates.no_state;
+    private StageType currentStageType = StageType.no_type;
     
+    private Vector3 modulePosition;
     private Vector3 centerPosition;
     
     private void Start()
@@ -25,46 +30,61 @@ public class EnemyController : MonoBehaviour
     }
 
     private void Update() {
-        switch(currentEnemyState){
+        switch(myCurrentState){
             case EnemyStates.entering:
                 randomizePath();
                 enterScreen();
-            break;
+                break;
 
             case EnemyStates.fly_to_spot:
                 flyToSpot();
-            break;
+                break;
             
             case EnemyStates.wait:
                 // waitInTheMiddle();
+
                 UpdateCenterPosition();
-                
-            break;
+                break;
             
             case EnemyStates.attack:
                 randomizePathBack();
                 attackPlayer();
-            break;
+                break;
             
             case EnemyStates.fly_away:
                 flyAway();
-            break;
+                break;
             
             case EnemyStates.no_state:
                 break;
             
             case EnemyStates.take_a_spot:
-                Transform myCenterPoint = GyrussGameManager.Instance.OccupyEnemySpot(spotIndex);
-                CenterPointUpdator myUpdator = transform.GetComponent<CenterPointUpdator>();
+                if (currentStageType == StageType.mini_boss) {
+                    transform.GetComponent<PositionsUpadator>().MyEnemyController = this;
+                }
+                else {
+                    Transform myCenterPoint = GyrussGameManager.Instance.OccupyEnemySpot(spotIndex);
+                    
+                    PositionsUpadator myUpdator = transform.GetComponent<PositionsUpadator>();
+                    myUpdator.SetPointToUpdate(myCenterPoint);
+                    myUpdator.MyEnemyController = this;
                 
-                myUpdator.CenterPoint = myCenterPoint;
-                myUpdator.MyEnemyController = this;
+                    centerPosition = myCenterPoint.position;
+                }
                 
-                centerPosition = myCenterPoint.position;
-                currentEnemyState = EnemyStates.entering;
-                
+                myCurrentState = EnemyStates.entering;
                 break;
+            
             case EnemyStates.fly_to_mini_boss:
+                transform.position = Vector3.MoveTowards(transform.position, modulePosition, speed * Time.deltaTime);
+
+                if (transform.position == modulePosition) {
+                    Debug.LogError("Arrived to module");
+                    
+                    transform.GetComponent<PositionsUpadator>()
+                        .MiniBossModule.GetComponent<MiniBossModuleController>()
+                        .EatEnemyShip(transform.gameObject);
+                }
                 break;
             
             case EnemyStates.fly_from_mini_boss:
@@ -83,12 +103,11 @@ public class EnemyController : MonoBehaviour
     }
 
     private void enterScreen(){
-        if(!pathFollow.endPathReached()) {
-            pathFollow.moveOnPath();
-        }
-        else {
-            currentEnemyState = EnemyStates.fly_to_spot;
-        }
+        if(!pathFollow.endPathReached()) 
+            pathFollow.moveOnPath(); 
+        else 
+            myCurrentState = currentStageType == StageType.mini_boss ? 
+            EnemyStates.fly_to_mini_boss : EnemyStates.fly_to_spot; 
     }
 
     private void flyToSpot(){
@@ -97,13 +116,13 @@ public class EnemyController : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, centerPosition, Time.deltaTime * speed);
 
         if (transform.position == centerPosition) {
-            currentEnemyState = EnemyStates.wait;
+            myCurrentState = EnemyStates.wait;
         }
     }
 
     private void waitInTheMiddle(){
         if(timeToWait >= 5f){
-            currentEnemyState = EnemyStates.attack;
+            myCurrentState = EnemyStates.attack;
         }else{
             timeToWait+=Time.deltaTime;
         }
@@ -142,16 +161,16 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (currentEnemyState == EnemyStates.die) return;
+        if (myCurrentState == EnemyStates.die) return;
 
         if (other.CompareTag("PlayerBullet")) {
             transform.GetComponent<BoxCollider2D>().enabled = false;
-            currentEnemyState = EnemyStates.die;
+            myCurrentState = EnemyStates.die;
             Destroy(other.transform.parent.gameObject);
         }
 
         if (other.CompareTag("Rocket")) {
-            currentEnemyState = EnemyStates.die;
+            myCurrentState = EnemyStates.die;
             Debug.Log("rocket");
         }
     }
@@ -178,5 +197,23 @@ public class EnemyController : MonoBehaviour
     {
         get => waveId;
         set => waveId = value;
+    }
+
+    public EnemyStates CurrentEnemyState
+    {
+        get => myCurrentState;
+        set => myCurrentState = value;
+    }
+
+    public StageType CurrentStageType
+    {
+        get => currentStageType;
+        set => currentStageType = value;
+    }
+
+    public Vector3 ModulePosition
+    {
+        get => modulePosition;
+        set => modulePosition = value;
     }
 }
