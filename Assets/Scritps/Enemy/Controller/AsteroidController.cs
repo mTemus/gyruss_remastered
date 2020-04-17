@@ -31,7 +31,7 @@ public class AsteroidController : MonoBehaviour
         else if (other.CompareTag("Rocket")) {
             Destroy(other.transform.gameObject);
             Destroy(transform.gameObject);
-            GyrussGameManager.Instance.CreateExplosion(transform.position);
+            GyrussGameManager.Instance.CreateExplosion(transform.position, "normal");
         }
     }
 

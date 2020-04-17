@@ -372,7 +372,7 @@ public class StageManager : MonoBehaviour
             if (newModule == null) {
                 GyrussGameManager.Instance.KillEnemy();
                 GyrussGameManager.Instance.AddPointsToScore(100);
-                GyrussGameManager.Instance.CreateExplosion(ship.transform.position);
+                GyrussGameManager.Instance.CreateExplosion(ship.transform.position, "normal");
                 Destroy(ship);
             }
             else {

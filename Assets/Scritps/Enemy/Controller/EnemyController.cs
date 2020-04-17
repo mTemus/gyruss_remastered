@@ -94,7 +94,7 @@ public class EnemyController : MonoBehaviour
                     GyrussGameManager.Instance.RemoveShipFromAwaitingList(myModule, transform.gameObject);
                 }
                 
-                GyrussGameManager.Instance.CreateExplosion(transform.position);
+                GyrussGameManager.Instance.CreateExplosion(transform.position, "normal");
                 GyrussGameManager.Instance.AddPointsToScore(100);
                 GyrussGameManager.Instance.CheckBonusPointsForWaveKill(this);
                 Destroy(transform.gameObject);

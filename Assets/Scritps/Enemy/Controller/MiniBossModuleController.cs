@@ -92,7 +92,7 @@ public class MiniBossModuleController : MonoBehaviour
             
         GyrussGameManager.Instance.KillEnemy();
         GyrussGameManager.Instance.AddPointsToScore(800);
-        GyrussGameManager.Instance.CreateExplosion(transform.position);
+        GyrussGameManager.Instance.CreateExplosion(transform.position, "miniBoss");
         GyrussGameManager.Instance.KillMiniBossModule(transform.gameObject);
         Destroy(transform.gameObject);
     }

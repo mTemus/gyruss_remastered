@@ -31,7 +31,7 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<LevelState> LevelStateSetupInitiated;
     public static Action<Wave> WaveEnqueuingInitiated;
     public static Action<Vector3> PlayerShipPositionSetupInitiated;
-    public static Action<Vector3> ExplosionCreationInitiated;
+    public static Action<Vector3, string> ExplosionCreationInitiated;
     public static Action<GameObject> ReviveParticleRegistrationInitiated;
     public static Action<GameObject> MiniBossModuleKillInitiated;
     public static Action<EnemyController> BonusPointsForWaveKillInitiated;
@@ -160,9 +160,9 @@ public class GyrussEventManager : MonoBehaviour
         PlayerSpawnedToggleInitiated?.Invoke();
     }
     
-    public static void OnExplosionCreationInitiated(Vector3 explosionPosition)
+    public static void OnExplosionCreationInitiated(Vector3 explosionPosition, string explosionType)
     {
-        ExplosionCreationInitiated?.Invoke(explosionPosition);
+        ExplosionCreationInitiated?.Invoke(explosionPosition, explosionType);
     }
     
     public static int OnPlayerRocketsGetInitiated() => (int) PlayerRocketsGetInitiated?.Invoke();

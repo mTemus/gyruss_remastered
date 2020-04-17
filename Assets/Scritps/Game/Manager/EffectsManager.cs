@@ -8,6 +8,7 @@ public class EffectsManager : MonoBehaviour
     
     [Header("Effects Prefabs")]
     [SerializeField] private GameObject ExplosionPrefab;
+    [SerializeField] private GameObject ExplosionBossPrefab;
 
     [Header("Pools")] 
     [SerializeField] private Transform explosionPool;
@@ -162,11 +163,24 @@ public class EffectsManager : MonoBehaviour
         }
     }
     
-    private void CreateExplosion(Vector3 explosionPosition)
+    private void CreateExplosion(Vector3 explosionPosition, string explosionType)
     {
-        GameObject explosion = Instantiate(ExplosionPrefab, explosionPool, true);
+        GameObject explosion = null;
+
+        switch (explosionType) {
+            case "normal":
+                explosion = Instantiate(ExplosionPrefab, explosionPool, true);
+                break;
+            
+            case "miniBoss":
+                explosion = Instantiate(ExplosionBossPrefab, explosionPool, true);
+                break;
+        }
+
+        if (explosion == null) return;
+        
         explosion.transform.position = explosionPosition;
         explosion.GetComponent<DeathController>().Die();
     }
-    
+
 }

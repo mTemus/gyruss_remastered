@@ -228,9 +228,9 @@ public class GyrussGameManager : MonoBehaviour
         GyrussGUIEventManager.OnRocketIconsInitializeInitiated();
     }
 
-    public void CreateExplosion(Vector3 explosionPosition)
+    public void CreateExplosion(Vector3 explosionPosition, string explosionType)
     {
-        GyrussEventManager.OnExplosionCreationInitiated(explosionPosition);
+        GyrussEventManager.OnExplosionCreationInitiated(explosionPosition, explosionType);
     }
 
     public void TogglePlayerSpawned()

@@ -1194,6 +1194,8 @@ MonoBehaviour:
   playerShip: {fileID: 944044111}
   ExplosionPrefab: {fileID: 3335215528204796545, guid: 091c84e6c0770b04f835640dc92f0007,
     type: 3}
+  ExplosionBossPrefab: {fileID: 3335215528204796545, guid: 46103fcf207cfa449b0494160361e8b3,
+    type: 3}
   explosionPool: {fileID: 1529828556}
   reviveParticles:
   - {fileID: 363912026}
