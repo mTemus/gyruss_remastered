@@ -33,6 +33,7 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<Vector3> PlayerShipPositionSetupInitiated;
     public static Action<Vector3> ExplosionCreationInitiated;
     public static Action<GameObject> ReviveParticleRegistrationInitiated;
+    public static Action<GameObject> MiniBossModuleKillInitiated;
     public static Action<EnemyController> BonusPointsForWaveKillInitiated;
     public static Action<int> MoveToLevelOnMinimapInitiated;
     public static Action<int> CurrentWaveSetupInitiated;
@@ -43,7 +44,18 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<string> PeriodResetInTimerInitiated;
     public static Action<string, bool> ConditionSetupInTimerInitiated;
     public static Action<string, float> PeriodSetupInTimerInitiated;
+    public static Action<GameObject, GameObject> ShipRemovalFromAwaitingListInitiated;
 
+    public static void OnShipRemovalFromAwaitingListInitiated(GameObject module, GameObject ship)
+    {
+        ShipRemovalFromAwaitingListInitiated?.Invoke(module, ship);
+    }
+    
+    public static void OnMiniBossModuleKillInitiated(GameObject module)
+    {
+        MiniBossModuleKillInitiated?.Invoke(module);
+    }
+    
     public static void OnCurrentStageSetupInitiated(int stage)
     {
         CurrentStageSetupInitiated?.Invoke(stage);
@@ -268,5 +280,7 @@ public class GyrussEventManager : MonoBehaviour
         BonusPointsForWaveKillInitiated = null;
         StageClearInitiated = null;
         CurrentStageSetupInitiated = null;
+        MiniBossModuleKillInitiated = null;
+        ShipRemovalFromAwaitingListInitiated = null;
     }
 }

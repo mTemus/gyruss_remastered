@@ -88,12 +88,11 @@ public class ScalingController : MonoBehaviour
                 if (doubleScale < 1) {
                     transform.localScale = new Vector3(doubleScale, doubleScale, 0);
                 }
-                
                 return;
                 break;
         }
 
-        if (enemyIsInCenterPosition) { scalingFactor = 1; }
+        if (enemyIsInCenterPosition) { scalingFactor = 1.5f; }
         transform.localScale = new Vector3(scalingFactor, scalingFactor, 0);
     }
 }

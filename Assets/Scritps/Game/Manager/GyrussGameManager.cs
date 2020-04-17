@@ -356,6 +356,17 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussEventManager.OnCurrentStageSetupInitiated(stage);
     }
+
+    public void KillMiniBossModule(GameObject module)
+    {
+        GyrussEventManager.OnMiniBossModuleKillInitiated(module);
+    }
+
+    public void RemoveShipFromAwaitingList(GameObject module, GameObject ship)
+    {
+        GyrussEventManager.OnShipRemovalFromAwaitingListInitiated(module, ship);
+    }
+    
     private void OnDestroy()
     {
         GyrussEventManager.ClearDelegates();

@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    
     public PathFollow pathFollow;
     public PathsDatabase pathsDatabase;
     public float timeToWait = 0;
@@ -79,11 +78,10 @@ public class EnemyController : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, modulePosition, speed * Time.deltaTime);
 
                 if (transform.position == modulePosition) {
-                    Debug.LogError("Arrived to module");
-                    
-                    transform.GetComponent<PositionsUpadator>()
-                        .MiniBossModule.GetComponent<MiniBossModuleController>()
-                        .EatEnemyShip(transform.gameObject);
+                    GyrussGameManager.Instance.RemoveShipFromAwaitingList(myModule, transform.gameObject);
+                    transform.position = new Vector3(100, 100, 0);
+                    myModule.GetComponent<MiniBossModuleController>().EatEnemyShip(transform.gameObject);
+                    myCurrentState = EnemyStates.no_state;
                 }
                 break;
             
@@ -91,6 +89,11 @@ public class EnemyController : MonoBehaviour
                 break;
             
             case EnemyStates.die:
+                if (currentStageType == StageType.mini_boss) {
+                    myModule.GetComponent<MiniBossModuleController>().DeleteEatenShip(transform.gameObject);
+                    GyrussGameManager.Instance.RemoveShipFromAwaitingList(myModule, transform.gameObject);
+                }
+                
                 GyrussGameManager.Instance.CreateExplosion(transform.position);
                 GyrussGameManager.Instance.AddPointsToScore(100);
                 GyrussGameManager.Instance.CheckBonusPointsForWaveKill(this);
@@ -171,7 +174,6 @@ public class EnemyController : MonoBehaviour
 
         if (other.CompareTag("Rocket")) {
             myCurrentState = EnemyStates.die;
-            Debug.Log("rocket");
         }
     }
 
@@ -215,5 +217,11 @@ public class EnemyController : MonoBehaviour
     {
         get => modulePosition;
         set => modulePosition = value;
+    }
+
+    public GameObject MyModule
+    {
+        get => myModule;
+        set => myModule = value;
     }
 }

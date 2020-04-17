@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3335215528204796558}
   - component: {fileID: 3335215528204796559}
   - component: {fileID: 3335215528204796544}
-  - component: {fileID: -4005207372536414766}
+  - component: {fileID: 4643941938001785936}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.8
   deathPeriod: 0.6
---- !u!114 &-4005207372536414766
+--- !u!114 &4643941938001785936
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

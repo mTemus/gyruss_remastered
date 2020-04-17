@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class StageManager : MonoBehaviour
@@ -24,6 +23,7 @@ public class StageManager : MonoBehaviour
     private int evenSpotId = 0;
     private int unevenSpotId = 1;
     private int currentWaveCounter;
+    private int modulesAmount = 4;
     private int moduleId;
     
     private StageState currentStageState;
@@ -31,10 +31,12 @@ public class StageManager : MonoBehaviour
     private Wave currentWave;
 
     private List<GameObject> miniBossModules;
+    private Dictionary<GameObject, List<GameObject>> modulesAwaitingForShips;
     private Queue<Wave> wavesAwaiting;
     
     private void Start()
     {
+        modulesAwaitingForShips = new Dictionary<GameObject, List<GameObject>>();
         miniBossModules = new List<GameObject>();
         wavesAwaiting = new Queue<Wave>();
         
@@ -59,6 +61,8 @@ public class StageManager : MonoBehaviour
         GyrussEventManager.GoToNextStageInitiated += GoToNextStage;
         GyrussEventManager.AsteroidSpawnInitiated += SpawnAsteroid;
         GyrussEventManager.StageClearInitiated += ClearStage;
+        GyrussEventManager.MiniBossModuleKillInitiated += DestroyMiniBossModule;
+        GyrussEventManager.ShipRemovalFromAwaitingListInitiated += RemoveShipFromModule;
     }
     
     private void ProcessOrdersInStage()
@@ -274,8 +278,14 @@ public class StageManager : MonoBehaviour
         enemy.transform.name = currentWave.EnemyName + "_" + enemiesAlive;
 
         if (currentStageType == StageType.mini_boss) {
-            enemy.GetComponent<PositionsUpadator>().SetModuleToUpdate(miniBossModules[moduleId++]);
-            if (moduleId > 3) { moduleId = 0; }
+            if (modulesAmount == 0) {
+                Destroy(enemy);
+            }
+            modulesAwaitingForShips[miniBossModules[moduleId]].Add(enemy);
+            enemy.GetComponent<EnemyController>().MyModule = miniBossModules[moduleId];
+            enemy.GetComponent<PositionsUpadator>().SetModuleToUpdate(miniBossModules[moduleId]);
+            moduleId++;
+            if (moduleId > modulesAmount - 1) { moduleId = 0; }
         }
 
         currentWave.EnemySpawned++;
@@ -296,6 +306,7 @@ public class StageManager : MonoBehaviour
             enemyModule.transform.name = "Mini_boss_module_" + i;
 
             miniBossModules.Add(enemyModule);
+            modulesAwaitingForShips[enemyModule] = new List<GameObject>();
             IncreaseEnemyAlive();
             angle += 90;
         }
@@ -349,5 +360,48 @@ public class StageManager : MonoBehaviour
         }
     }
 
+    private void DestroyMiniBossModule(GameObject module)
+    {
+        miniBossModules.Remove(module);
+        modulesAmount--;
+        moduleId = 0;
+
+        foreach (GameObject ship in modulesAwaitingForShips[module]) {
+            GameObject newModule = SetNewMiniBossModule();
+
+            if (newModule == null) {
+                GyrussGameManager.Instance.KillEnemy();
+                GyrussGameManager.Instance.AddPointsToScore(100);
+                GyrussGameManager.Instance.CreateExplosion(ship.transform.position);
+                Destroy(ship);
+            }
+            else {
+                ship.GetComponent<EnemyController>().MyModule = newModule;
+                ship.GetComponent<PositionsUpadator>().SetModuleToUpdate(newModule);
+            }
+        }
+    }
+
+    private GameObject SetNewMiniBossModule()
+    {
+        if (modulesAmount == 0) { return null; }
+        
+        GameObject module = miniBossModules[moduleId++];
+        moduleId++;
+
+        if (moduleId > modulesAmount - 1) {
+            moduleId = 0;
+        }
+
+        return module;
+    }
+
+    private void RemoveShipFromModule(GameObject module, GameObject ship)
+    {
+        if (!modulesAwaitingForShips[module].Contains(ship)) return; 
+        modulesAwaitingForShips[module].Remove(ship);
+    }
+    
+    
     public int CurrentStage => currentStage; 
 }

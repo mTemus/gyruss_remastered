@@ -1,76 +1,149 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MiniBossModuleController : MonoBehaviour
 {
     [Header("Module properties")]
-    [SerializeField] private int lifeAmount;
-    [SerializeField] private float closeTime;
-    [SerializeField] private float openTime;
+    [SerializeField] private int lifeAmount = 60;
+    [SerializeField] private float openTime = 2;
 
-    private Animator myAnimator;    
-    
-    private List<GameObject> eatenShips;
     private static readonly int Open = Animator.StringToHash("open");
     private static readonly int Hurt = Animator.StringToHash("hurt");
 
-    // Start is called before the first frame update
+    private bool attack = true;
+
+    private float timer;
+    private float period;
+    private float closeTime;
+    
+    private Animator myAnimator;    
+    
+    private List<GameObject> eatenShips;
+        
     void Start()
     {
         eatenShips = new List<GameObject>();
-
         myAnimator = transform.GetComponent<Animator>();
+        closeTime = Random.Range(7, 20);
+        period = closeTime;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (!myAnimator.GetBool(Open) && attack) {
+            CountdownToOpen();
+        } else if (myAnimator.GetBool(Open) && attack) {
+            CountdownToClose();
+        }
     }
 
-    private void SpitEnemyShip()
+    private void CountdownToOpen()
     {
-        if (eatenShips.Count > 0) {
-            GameObject spittedShip = eatenShips[eatenShips.Count - 1];
+        if (timer >= period) {
+            myAnimator.SetBool(Open, true);
+            timer = 0;
+            period = openTime;
             
+            // SpitEnemyShip();
+        }
+
+        timer += Time.deltaTime;
+    }
+
+    private void CountdownToClose()
+    {
+        if (timer >= period) {
+            myAnimator.SetBool(Open, false);
+            timer = 0;
+            period = closeTime;
         }
         
+        timer += Time.deltaTime;
+    }
+    
+    private void SpitEnemyShip()
+    {
+        if (eatenShips.Count <= 0) return;
+        GameObject spittedShip = eatenShips[eatenShips.Count - 1];
+
+        spittedShip.transform.position = transform.position;
+        spittedShip.GetComponent<EnemyController>().CurrentEnemyState = EnemyStates.fly_from_mini_boss;
+    }
+    
+    private void SetHurtFalse()
+    {
+        myAnimator.SetBool(Hurt, false);
     }
 
-    public void EatEnemyShip(GameObject ship)
+    private void GetHurt()
     {
-        eatenShips.Add(ship);
-        ship.transform.position = new Vector3(100, 100, 0);
-        ship.GetComponent<EnemyController>().CurrentEnemyState = EnemyStates.no_state;
-        
-        Debug.Log(transform.name + " has eaten: " + ship.name);
+        lifeAmount -= 1;
+        if (lifeAmount == 0) { Die(); }
+    }
+
+    private void Die()
+    {
+        foreach (GameObject ship in eatenShips) {
+            GyrussGameManager.Instance.KillEnemy();
+            Destroy(ship);
+        }
+            
+        GyrussGameManager.Instance.KillEnemy();
+        GyrussGameManager.Instance.AddPointsToScore(800);
+        GyrussGameManager.Instance.CreateExplosion(transform.position);
+        GyrussGameManager.Instance.KillMiniBossModule(transform.gameObject);
+        Destroy(transform.gameObject);
     }
     
     private void OnTriggerEnter2D(Collider2D other)
     {
         switch (other.tag) {
             case "EnemyShip":
-                Debug.Log("ship arrived");
+                Debug.LogWarning("ship arrived");
                 myAnimator.SetBool(Open, true);
+                attack = false;
+                break;
+            
+            case "Rocket":
+                Die();
                 break;
             
             case "PlayerBullet":
+                if (myAnimator.GetBool(Hurt)) {
+                    myAnimator.SetBool(Hurt, false);
+                }
                 myAnimator.SetBool(Hurt, true);
+                GetHurt();
                 break;
         }
     }
-
+    
     private void OnTriggerExit2D(Collider2D other)
     {
         switch (other.tag) {
             case "EnemyShip":
                 myAnimator.SetBool(Open, false);
-                break;
-            
-            case "PlayerBullet":
-                
+                attack = true;
                 break;
         }
+    }
+    
+    public void EatEnemyShip(GameObject ship)
+    {
+        if (!eatenShips.Contains(ship)) {
+            eatenShips.Add(ship);
+        }
+        else {
+            Debug.LogError("Ship can't be eaten two times!!! " + transform.name);
+        }
+        
+    }
+
+    public void DeleteEatenShip(GameObject ship)
+    {
+        if (eatenShips.Contains(ship)) 
+            eatenShips.Remove(ship); 
     }
 }
