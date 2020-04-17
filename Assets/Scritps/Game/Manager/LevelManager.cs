@@ -48,6 +48,7 @@ public class LevelManager : MonoBehaviour
                     GyrussGameManager.Instance.SetLevelState(LevelState.change_view_to_stage);
                 }
                 
+                SetCurrentStageType();
                 GyrussGameManager.Instance.SetStageState(StageState.start);
                 break;
             
@@ -66,7 +67,7 @@ public class LevelManager : MonoBehaviour
                 GyrussGameManager.Instance.SetConditionInTimer("warpsTextDelay", true);
                 GyrussGameManager.Instance.SetConditionInTimer("readyTextDelay", true);
 
-                SetCurrentStageType();
+                
                 currentLevelState = LevelState.wait;
                 break;
             
@@ -170,6 +171,7 @@ public class LevelManager : MonoBehaviour
                break;
        }
 
+       Debug.Log(currentStageType);
        GyrussGameManager.Instance.SetCurrentStageType(currentStageType);
    }
 

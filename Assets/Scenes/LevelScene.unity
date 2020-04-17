@@ -3410,7 +3410,7 @@ MonoBehaviour:
   - {fileID: 321730045}
   mapCenterPoint: {fileID: 879739752}
   playerShip: {fileID: 944044111}
-  EnemyPool: {fileID: 844938576}
+  enemyPool: {fileID: 844938576}
 --- !u!1 &800776640
 GameObject:
   m_ObjectHideFlags: 0

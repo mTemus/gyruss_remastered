@@ -12,7 +12,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] private GameObject playerShip;
 
     [Header("Pools")] 
-    [SerializeField] private Transform EnemyPool;
+    [SerializeField] private Transform enemyPool;
 
     private int currentStage = 1;
     private int stages = 1;
@@ -79,9 +79,7 @@ public class StageManager : MonoBehaviour
                     
                     case StageType.mini_boss:
                         //TODO: prepare mini-boss here, especially show on timer or smth
-                        Debug.Log("miniboss");
 
-                        
                         PrepareAsteroidSpawning();
                         break;
                     
@@ -163,11 +161,10 @@ public class StageManager : MonoBehaviour
                 if (GyrussGameManager.Instance.MovePlayerShipToCenterPosition()) {
                     GyrussGameManager.Instance.ClearCurrentStage();
                     playerShip.SetActive(false);
+                    
                     GyrussGameManager.Instance.TogglePlayerSpawned();
-                    GyrussGameManager.Instance.SetCurrentWave(0);
+                    GyrussGameManager.Instance.SetCurrentWave(currentStageType == StageType.first_stage ? 0 : 1);
                     GyrussGameManager.Instance.SetLevelState(LevelState.start);
-                    
-                    
                     GyrussGameManager.Instance.SetStageState(StageState.wait);
                 }
                 else {
@@ -200,12 +197,15 @@ public class StageManager : MonoBehaviour
             Debug.LogError("You killed too much enemies!");
         }
 
-        if (currentStageType == StageType.first_stage || currentStageType == StageType.chance) {
-            if (enemiesAlive == 0 && currentWaveCounter == 4) {
+        if (currentStageType == StageType.boss) return;
+        
+        switch (enemiesAlive) {
+            case 0 when currentWaveCounter == 4:
                 GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true);
-            } else if (enemiesAlive == 0 && currentWaveCounter == 5) {
-                
-            }
+                break;
+            case 0 when currentWaveCounter == 5:
+                // Chance stage
+                break;
         }
     }
     
@@ -258,7 +258,7 @@ public class StageManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        GameObject enemy = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/" + currentWave.EnemyName), EnemyPool, true);
+        GameObject enemy = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/" + currentWave.EnemyName), enemyPool, true);
         enemy.transform.position = new Vector3(-100, -100, 0);
         enemy.GetComponent<PathFollow>().mapCenter = mapCenterPoint;
         EnemyController currentEnemyController = enemy.GetComponent<EnemyController>();
@@ -301,7 +301,7 @@ public class StageManager : MonoBehaviour
         int angle = 0;
         
         for (int i = 0; i < 4; i++) {
-            GameObject enemyModule = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/" + currentWave.EnemyName), EnemyPool, true);
+            GameObject enemyModule = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/" + currentWave.EnemyName), enemyPool, true);
             enemyModule.transform.position = new Vector3(0, 0.4f, 0);
             enemyModule.transform.RotateAround(Vector3.zero, Vector3.forward, angle);
             enemyModule.transform.name = "Mini_boss_module_" + i;
@@ -326,13 +326,13 @@ public class StageManager : MonoBehaviour
                 break;
             
             case StageType.mini_boss:
-                GyrussGameManager.Instance.SetPeriodInTimer("asteroidSpawn", 3);
+                GyrussGameManager.Instance.SetPeriodInTimer("asteroidSpawn", 5);
                 GyrussGameManager.Instance.SetConditionInTimer("asteroidSpawn", true);
                 break;
             
             case StageType.boss:
                 GyrussGameManager.Instance.ResetPeriodInTimer("asteroidSpawn");
-                GyrussGameManager.Instance.SetPeriodInTimer("asteroidSpawn", 7);
+                GyrussGameManager.Instance.SetPeriodInTimer("asteroidSpawn", 9);
                 GyrussGameManager.Instance.SetConditionInTimer("asteroidSpawn", true);
                 break;
             
@@ -347,7 +347,7 @@ public class StageManager : MonoBehaviour
     private void SpawnAsteroid()
     {
         if (currentStageState == StageState.wait || currentStageState == StageState.spawn_enemies) {
-            GameObject asteroid = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/Asteroid"), EnemyPool, true);
+            GameObject asteroid = Instantiate(Resources.Load<GameObject>("Prefabs/Enemies/Asteroid"), enemyPool, true);
             asteroid.transform.position = Vector3.zero;
 
             AsteroidController myAsteroidController = asteroid.GetComponent<AsteroidController>();
