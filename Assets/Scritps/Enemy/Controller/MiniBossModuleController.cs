@@ -111,7 +111,7 @@ public class MiniBossModuleController : MonoBehaviour
             
             case "PlayerBullet":
                 if (myAnimator.GetBool(Hurt)) {
-                    myAnimator.SetBool(Hurt, false);
+                    myAnimator.CrossFade(myAnimator.GetBool(Open) ? "open_hurt" : "closed_hurt", 0f, -1, 0f);
                 }
                 myAnimator.SetBool(Hurt, true);
                 GetHurt();
