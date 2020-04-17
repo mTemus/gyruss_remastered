@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7710749852460570904}
   - component: {fileID: 7065519184549643227}
   - component: {fileID: -2600337735977904903}
+  - component: {fileID: 1355898043765651271}
   m_Layer: 0
   m_Name: Enemy_L0_S4_T2
   m_TagString: EnemyShip
@@ -99,7 +100,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.0028281212}
+  m_Offset: {x: 0.0010496676, y: 0.0017784238}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -110,7 +111,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.55879164, y: 0.6888914}
+  m_Size: {x: 0.43493074, y: 0.4978515}
   m_EdgeRadius: 0
 --- !u!114 &7710749852460570904
 MonoBehaviour:
@@ -124,8 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801bb6572e3bc8c48a7d8d9dcda45ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageManager: {fileID: 0}
-  currentEnemyState: 0
   pathFollow: {fileID: 7065519184549643227}
   pathsDatabase: {fileID: 11400000, guid: 80dd15cc02e98a6428a2f3c4b2a78207, type: 2}
   timeToWait: 0
@@ -157,5 +156,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0f3b346d5ac6a94bb2fead6dc5875e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1355898043765651271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6718578167572102063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e37f445c8eb5524dba12d1bd2a01983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

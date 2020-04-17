@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 7710749852460570904}
   - component: {fileID: -3332085565018805019}
   - component: {fileID: -973755373655199011}
-  - component: {fileID: 8307355517914599060}
   - component: {fileID: -2785746793261336834}
   m_Layer: 0
   m_Name: Enemy_L0_S2_T1
@@ -101,7 +100,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.0028281212}
+  m_Offset: {x: 0, y: -0.0011293888}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -112,7 +111,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.55879164, y: 0.6888914}
+  m_Size: {x: 0.43742883, y: 0.49629402}
   m_EdgeRadius: 0
 --- !u!114 &7710749852460570904
 MonoBehaviour:
@@ -126,7 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801bb6572e3bc8c48a7d8d9dcda45ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentEnemyState: 0
   pathFollow: {fileID: -3332085565018805019}
   pathsDatabase: {fileID: 11400000, guid: 80dd15cc02e98a6428a2f3c4b2a78207, type: 2}
   timeToWait: 0
@@ -160,20 +158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f3b346d5ac6a94bb2fead6dc5875e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8307355517914599060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6718578167572102063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad12d1309a0643145b3d50e4e1416bab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.5
-  deathPeriod: 0.4
 --- !u!114 &-2785746793261336834
 MonoBehaviour:
   m_ObjectHideFlags: 0

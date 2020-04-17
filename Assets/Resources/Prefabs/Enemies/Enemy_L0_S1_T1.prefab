@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2516895222608609327}
   - component: {fileID: 4904522728625553535}
   - component: {fileID: 7710749852460570904}
-  - component: {fileID: 4331915311262868247}
   - component: {fileID: 478720627}
   - component: {fileID: -521093085363651897}
   - component: {fileID: 4472433666784072195}
@@ -100,7 +99,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.0028281212}
+  m_Offset: {x: 0, y: -0.0022194386}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -111,7 +110,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.55879164, y: 0.6888914}
+  m_Size: {x: 0.43764973, y: 0.4970832}
   m_EdgeRadius: 0
 --- !u!114 &7710749852460570904
 MonoBehaviour:
@@ -125,24 +124,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801bb6572e3bc8c48a7d8d9dcda45ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentEnemyState: 0
   pathFollow: {fileID: 478720627}
   pathsDatabase: {fileID: 11400000, guid: 80dd15cc02e98a6428a2f3c4b2a78207, type: 2}
   timeToWait: 0
---- !u!114 &4331915311262868247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6718578167572102063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad12d1309a0643145b3d50e4e1416bab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.5
-  deathPeriod: 0.4
 --- !u!114 &478720627
 MonoBehaviour:
   m_ObjectHideFlags: 0
