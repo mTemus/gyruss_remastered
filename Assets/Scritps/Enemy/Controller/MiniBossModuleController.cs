@@ -86,7 +86,6 @@ public class MiniBossModuleController : MonoBehaviour
     private void Die()
     {
         foreach (GameObject ship in eatenShips) {
-            GyrussGameManager.Instance.KillEnemy();
             Destroy(ship);
         }
             
