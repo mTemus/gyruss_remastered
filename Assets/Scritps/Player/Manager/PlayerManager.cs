@@ -27,8 +27,8 @@ public class PlayerManager : MonoBehaviour
     private bool spawned;
     private bool shootRocket;
 
-    private int lives = 3;
-    private int rockets = 1;
+    private int lives = 30;
+    private int rockets = 10;
     private int currentScore = 0;
 
     private Vector3 playerStartingPosition;

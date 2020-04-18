@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
     
     private int currentLevel = 0;
     private int currentWave = 1;
-    private int currentStage = 1;
+    private int currentStage = 3;
 
     private List<string> planetsInGame;
 

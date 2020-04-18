@@ -12,13 +12,24 @@ public class GyrussGUIEventManager : MonoBehaviour
     public static Action<int, string> WarpsTextSetupInitiated;
     public static Action LivesIconsIncreaseInitiated;
     public static Action RocketsIconsIncreaseInitiated;
-    public static Action GUIToggleInitiated;
     public static Action WarpsTextToggleInitiated;
     public static Action ReadyTextToggleInitiated;
     public static Action ScoreTextToggleInitiated;
     public static Action LifeIconsInitializeInitiated;
     public static Action RocketIconsInitializeInitiated;
+    public static Action GUIVisibilityIncreaseInitiated;
+    public static Action GUIVisibilityDecreaseInitiated;
 
+    public static void OnGUIVisibilityDecreaseInitiated()
+    {
+        GUIVisibilityDecreaseInitiated?.Invoke();
+    }
+    
+    public static void OnGUIVisibilityIncreaseInitiated()
+    {
+        GUIVisibilityIncreaseInitiated?.Invoke();
+    }
+    
     public static void OnWaveBonusTextShowInitiated(int score)
     {
         WaveBonusTextShowInitiated?.Invoke(score);
@@ -54,11 +65,6 @@ public class GyrussGUIEventManager : MonoBehaviour
         WarpsTextSetupInitiated?.Invoke(warps, planet);
     }
     
-    public static void OnGUIToggleInitiated()
-    {
-        GUIToggleInitiated?.Invoke();
-    }
-
     public static void OnRocketsIconsDecreaseInitiated(int rockets)
     {
         RocketsIconsDecreaseInitiated?.Invoke(rockets);
@@ -102,7 +108,6 @@ public class GyrussGUIEventManager : MonoBehaviour
         LivesIconsDecreaseInitiated = null;
         RocketsIconsIncreaseInitiated = null;
         RocketsIconsDecreaseInitiated = null;
-        GUIToggleInitiated = null;
         WarpsTextSetupInitiated = null;
         WarpsTextToggleInitiated = null;
         ReadyTextToggleInitiated = null;
@@ -111,6 +116,8 @@ public class GyrussGUIEventManager : MonoBehaviour
         RocketIconsInitializeInitiated = null;
         HiScoreTextSetupInitiated = null;
         WaveBonusTextShowInitiated = null;
+        GUIVisibilityIncreaseInitiated = null;
+        GUIVisibilityDecreaseInitiated = null;
     }
     
 }

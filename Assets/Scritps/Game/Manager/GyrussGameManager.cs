@@ -386,6 +386,16 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussEventManager.OnBossSpawnInitiated();
     }
+
+    public void IncreaseGUIVisibility()
+    {
+        GyrussGUIEventManager.OnGUIVisibilityIncreaseInitiated();
+    }
+
+    public void DecreaseGUIVisibility()
+    {
+        GyrussGUIEventManager.OnGUIVisibilityDecreaseInitiated();
+    }
     
     private void OnDestroy()
     {

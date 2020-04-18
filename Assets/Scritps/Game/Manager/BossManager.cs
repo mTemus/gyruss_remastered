@@ -11,11 +11,12 @@ public class BossManager : MonoBehaviour
     private int bossModulesLeft = 0;
     private int currentLevel = 0;
 
-    private int currentAlpha = 0;
+    private float currentAlpha = 0;
     
     private GameObject currentBoss;
     private SpriteRenderer currentBossBodyRenderer;
-    
+    private static readonly int Spawned = Animator.StringToHash("spawned");
+
     void Start()
     {
         SetDelegates();
@@ -37,6 +38,7 @@ public class BossManager : MonoBehaviour
     private void SpawnBoss()
     {
         GyrussGameManager.Instance.TogglePlayerSpawned();
+        GyrussGameManager.Instance.StopTimer("asteroidSpawn");
         
         switch (currentLevel) {
             case  0:
@@ -69,18 +71,21 @@ public class BossManager : MonoBehaviour
     private void IncreaseBossVisibility()
     {
         Color bossBodyColor = currentBossBodyRenderer.color;
-        bossBodyColor.a = currentAlpha++;
+        currentBossBodyRenderer.color = new Color(bossBodyColor.r, bossBodyColor.g, bossBodyColor.b, currentAlpha);
+        currentAlpha += 0.20f;
 
-        if (bossBodyColor.a == 51) {
-            // decrease visibility of gui
+        if (bossBodyColor.a == 0.20f) {
+            GyrussGameManager.Instance.DecreaseGUIVisibility();
         }
         
-        if (bossBodyColor.a == 255) {
+        if (bossBodyColor.a == 1) {
             currentAlpha = 0;
-            currentBoss.transform.GetChild(1).gameObject.SetActive(true);
-            currentBoss.transform.GetChild(2).gameObject.SetActive(true);
-            currentBoss.transform.GetChild(3).gameObject.SetActive(true);
-            currentBoss.transform.GetChild(4).gameObject.SetActive(true);
+
+            for (int i = 1; i <= bossModulesLeft; i++) {
+                currentBoss.transform.GetChild(i).gameObject.SetActive(true);
+            }
+
+            currentBoss.transform.GetChild(0).GetComponent<Animator>().SetBool(Spawned, true);
             GyrussGameManager.Instance.TogglePlayerSpawned();
         }
         else {
@@ -91,13 +96,17 @@ public class BossManager : MonoBehaviour
     private void DecreaseBossVisibility()
     {
         Color bossBodyColor = currentBossBodyRenderer.color;
-        bossBodyColor.a = 255 - currentAlpha++;
+        bossBodyColor.a = 1 - currentAlpha;
+        currentBossBodyRenderer.color = new Color(bossBodyColor.r, bossBodyColor.g, bossBodyColor.b, currentAlpha);
+        currentAlpha += 0.20f;
 
-        if (bossBodyColor.a == 204) {
-            // increase visibility of gui
+        if (bossBodyColor.a == 0.80f) {
+            GyrussGameManager.Instance.IncreaseGUIVisibility();
         }
 
         if (bossBodyColor.a == 0) {
+            currentAlpha = 0;
+            
             GyrussGameManager.Instance.TogglePlayerSpawned();
             Destroy(currentBoss);
             currentBoss = null;

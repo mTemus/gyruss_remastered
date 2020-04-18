@@ -25,6 +25,8 @@ public class GyrussGUIManager : MonoBehaviour
 
     [Header("Prefabs")] 
     [SerializeField] private GameObject bonusTextPrefab;
+
+    private float currentVisibility = 0.25f;
     
     private void Awake()
     {
@@ -39,7 +41,6 @@ public class GyrussGUIManager : MonoBehaviour
         GyrussGUIEventManager.LivesIconsDecreaseInitiated += DecreaseLives;
         GyrussGUIEventManager.RocketsIconsIncreaseInitiated += IncreaseRockets;
         GyrussGUIEventManager.RocketsIconsDecreaseInitiated += DecreaseRockets;
-        GyrussGUIEventManager.GUIToggleInitiated += ToggleGUI;
         GyrussGUIEventManager.WarpsTextSetupInitiated += SetWarpsText;
         GyrussGUIEventManager.WarpsTextToggleInitiated += ToggleWarpsText;
         GyrussGUIEventManager.ReadyTextToggleInitiated += ToggleReadyText;
@@ -48,6 +49,8 @@ public class GyrussGUIManager : MonoBehaviour
         GyrussGUIEventManager.RocketIconsInitializeInitiated += InitializeRocketIcons;
         GyrussGUIEventManager.HiScoreTextSetupInitiated += SetHiScoreText;
         GyrussGUIEventManager.WaveBonusTextShowInitiated += ShowWaveBonusText;
+        GyrussGUIEventManager.GUIVisibilityIncreaseInitiated += IncreaseGUIVisibility;
+        GyrussGUIEventManager.GUIVisibilityDecreaseInitiated += DecreaseGUIVisibility;
     }
     
     private void SetScoreText(int score)
@@ -128,11 +131,6 @@ public class GyrussGUIManager : MonoBehaviour
         scoreText.enabled = !scoreText.enabled;
         hiScoreText.enabled = !hiScoreText.enabled;
     }
-    
-    private void ToggleGUI()
-    {
-        GUI.SetActive(!GUI.activeSelf);
-    }
 
     private void InitializeLifeIcons()
     {
@@ -174,7 +172,38 @@ public class GyrussGUIManager : MonoBehaviour
         bonusText.transform.position = playerPos + textOffset;
         bonusText.transform.localScale = new Vector3(1,1,0);
     }
-    
+
+    private void DecreaseGUIVisibility()
+    {
+        CanvasGroup GUICG = GUI.GetComponent<CanvasGroup>();
+        
+        GUICG.alpha = 1 - currentVisibility;
+        currentVisibility += 0.25f;
+
+        if (GUICG.alpha != 0) {
+            GyrussGameManager.Instance.SetConditionInTimer("GUIVisibilityDecrease", true);
+        }
+        else {
+            currentVisibility = 0.25f;
+        }
+    }
+
+    private void IncreaseGUIVisibility()
+    {
+        CanvasGroup GUICG = GUI.GetComponent<CanvasGroup>();
+        GUICG.alpha = currentVisibility;
+        currentVisibility += 0.25f;
+
+        if (GUICG.alpha == 1) {
+            currentVisibility = 0.25f;
+            GyrussGameManager.Instance.TogglePlayerSpawned();
+            GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true);
+        }
+        else {
+            GyrussGameManager.Instance.SetConditionInTimer("GUIVisibilityIncrease", true);
+        }
+        
+    }
     
     private void OnDestroy()
     {
