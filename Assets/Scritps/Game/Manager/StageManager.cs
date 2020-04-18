@@ -197,12 +197,11 @@ public class StageManager : MonoBehaviour
             Debug.LogError("You killed too much enemies!");
         }
         
-        
         switch (enemiesAlive) {
             case 0 when currentWaveCounter == 4:
                 if (currentStageType == StageType.boss) 
                     GyrussGameManager.Instance.SpawnBoss(); 
-                else 
+                else if(currentStageType != StageType.chance)
                     GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true); 
                 break;
             
