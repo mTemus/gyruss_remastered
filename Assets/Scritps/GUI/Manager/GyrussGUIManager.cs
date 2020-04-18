@@ -25,8 +25,11 @@ public class GyrussGUIManager : MonoBehaviour
 
     [Header("Prefabs")] 
     [SerializeField] private GameObject bonusTextPrefab;
-
+    [SerializeField] private GameObject[] planetsTargets;
+    
     private float currentVisibility = 0.25f;
+
+    private GameObject currentPlanet;
     
     private void Awake()
     {
@@ -51,6 +54,8 @@ public class GyrussGUIManager : MonoBehaviour
         GyrussGUIEventManager.WaveBonusTextShowInitiated += ShowWaveBonusText;
         GyrussGUIEventManager.GUIVisibilityIncreaseInitiated += IncreaseGUIVisibility;
         GyrussGUIEventManager.GUIVisibilityDecreaseInitiated += DecreaseGUIVisibility;
+        GyrussGUIEventManager.PlanetDestroyInitiated += DestroyDisplayedPlanet;
+        GyrussGUIEventManager.PlanetDisplayInitiated += DisplayPlanet;
     }
     
     private void SetScoreText(int score)
@@ -196,13 +201,22 @@ public class GyrussGUIManager : MonoBehaviour
 
         if (GUICG.alpha == 1) {
             currentVisibility = 0.25f;
-            GyrussGameManager.Instance.TogglePlayerSpawned();
             GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true);
         }
         else {
             GyrussGameManager.Instance.SetConditionInTimer("GUIVisibilityIncrease", true);
         }
-        
+    }
+
+    private void DisplayPlanet(int planetId)
+    {
+        currentPlanet = Instantiate(planetsTargets[planetId]);
+        currentPlanet.transform.position = Vector3.zero;
+    }
+
+    private void DestroyDisplayedPlanet()
+    {
+        Destroy(currentPlanet);
     }
     
     private void OnDestroy()

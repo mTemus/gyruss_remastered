@@ -5553,6 +5553,8 @@ MonoBehaviour:
   livesTransform: {fileID: 2101045832}
   bonusTextPrefab: {fileID: 3499915280794086070, guid: 2243cb402c07c2c4bab8ae6d34cb7c6d,
     type: 3}
+  planetsTargets:
+  - {fileID: 6310197045621719584, guid: 6411da687da6f9941a077a98e58c8fdd, type: 3}
 --- !u!1 &1300365186
 GameObject:
   m_ObjectHideFlags: 0

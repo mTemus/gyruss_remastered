@@ -9,6 +9,7 @@ public class GyrussGUIEventManager : MonoBehaviour
     public static Action<int> LivesIconsDecreaseInitiated;
     public static Action<int> RocketsIconsDecreaseInitiated;
     public static Action<int> WaveBonusTextShowInitiated;
+    public static Action<int> PlanetDisplayInitiated;
     public static Action<int, string> WarpsTextSetupInitiated;
     public static Action LivesIconsIncreaseInitiated;
     public static Action RocketsIconsIncreaseInitiated;
@@ -19,7 +20,18 @@ public class GyrussGUIEventManager : MonoBehaviour
     public static Action RocketIconsInitializeInitiated;
     public static Action GUIVisibilityIncreaseInitiated;
     public static Action GUIVisibilityDecreaseInitiated;
+    public static Action PlanetDestroyInitiated;
 
+    public static void OnPlanetDestroyInitiated()
+    {
+        PlanetDestroyInitiated?.Invoke();
+    }
+    
+    public static void OnPlanetDisplayInitiated(int planetId)
+    {
+        PlanetDisplayInitiated?.Invoke(planetId);
+    }
+    
     public static void OnGUIVisibilityDecreaseInitiated()
     {
         GUIVisibilityDecreaseInitiated?.Invoke();
@@ -118,6 +130,8 @@ public class GyrussGUIEventManager : MonoBehaviour
         WaveBonusTextShowInitiated = null;
         GUIVisibilityIncreaseInitiated = null;
         GUIVisibilityDecreaseInitiated = null;
+        PlanetDisplayInitiated = null;
+        PlanetDestroyInitiated = null;
     }
     
 }

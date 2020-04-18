@@ -407,6 +407,16 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussEventManager.OnBossExplosionInitiated();
     }
+
+    public void DisplayPlanet(int planetId)
+    {
+        GyrussGUIEventManager.OnPlanetDisplayInitiated(planetId);
+    }
+
+    public void DestroyPlanet()
+    {
+        GyrussGUIEventManager.OnPlanetDestroyInitiated();
+    }
     
     private void OnDestroy()
     {

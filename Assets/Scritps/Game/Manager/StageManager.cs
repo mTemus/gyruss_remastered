@@ -164,6 +164,9 @@ public class StageManager : MonoBehaviour
                     
                     GyrussGameManager.Instance.TogglePlayerSpawned();
                     GyrussGameManager.Instance.SetCurrentWave(currentStageType == StageType.first_stage ? 0 : 1);
+
+                    if (currentStageType == StageType.boss) GyrussGameManager.Instance.DestroyPlanet(); 
+                    
                     GyrussGameManager.Instance.SetLevelState(LevelState.start);
                     GyrussGameManager.Instance.SetStageState(StageState.wait);
                 }

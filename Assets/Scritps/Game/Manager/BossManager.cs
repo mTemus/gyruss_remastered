@@ -103,6 +103,7 @@ public class BossManager : MonoBehaviour
             GyrussGameManager.Instance.AddPointsToScore(25000);
             Destroy(currentBoss);
             currentBoss = null;
+            GyrussGameManager.Instance.DisplayPlanet(currentLevel);
         }
         else {
             GyrussGameManager.Instance.SetConditionInTimer("bossVisibilityDecrease", true);
