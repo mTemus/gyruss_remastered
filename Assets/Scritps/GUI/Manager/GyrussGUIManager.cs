@@ -100,7 +100,7 @@ public class GyrussGUIManager : MonoBehaviour
     {
         int currentRockets = rocketsTransform.childCount;
         
-        if (currentRockets > 8) return;
+        if (currentRockets > 7) return;
         GameObject rocketGO = Instantiate(rocketIcon, rocketsTransform, true);
         rocketGO.transform.localScale = new Vector3(1.5f, 1.5f, 1);
     }
