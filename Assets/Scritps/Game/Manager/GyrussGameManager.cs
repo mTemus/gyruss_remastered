@@ -366,6 +366,26 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussEventManager.OnShipRemovalFromAwaitingListInitiated(module, ship);
     }
+
+    public void IncreaseBossVisibility()
+    {
+        GyrussEventManager.OnBossVisibilityIncreaseInitiated();
+    }
+
+    public void DecreaseBossVisibility()
+    {
+        GyrussEventManager.OnBossVisibilityDecreaseInitiated();
+    }
+
+    public void IncreaseCurrentLevel()
+    {
+        GyrussEventManager.OnCurrentLevelIncreaseInitiated();
+    }
+
+    public void SpawnBoss()
+    {
+        GyrussEventManager.OnBossSpawnInitiated();
+    }
     
     private void OnDestroy()
     {

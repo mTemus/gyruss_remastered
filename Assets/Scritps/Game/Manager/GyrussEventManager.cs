@@ -26,6 +26,10 @@ public class GyrussEventManager : MonoBehaviour
     public static Action RocketParticlesPreparationInitiated;
     public static Action LifeAddInitiated;
     public static Action StageClearInitiated;
+    public static Action BossVisibilityIncreaseInitiated;
+    public static Action BossVisibilityDecreaseInitiated;
+    public static Action CurrentLevelIncreaseInitiated;
+    public static Action BossSpawnInitiated;
     public static Action<StageType> StageTypeSetupInitiated;
     public static Action<StageState> StageStateSetupInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
@@ -46,6 +50,26 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<string, float> PeriodSetupInTimerInitiated;
     public static Action<GameObject, GameObject> ShipRemovalFromAwaitingListInitiated;
 
+    public static void OnBossSpawnInitiated()
+    {
+        BossSpawnInitiated?.Invoke();
+    }
+    
+    public static void OnCurrentLevelIncreaseInitiated()
+    {
+        CurrentLevelIncreaseInitiated?.Invoke();
+    }
+    
+    public static void OnBossVisibilityDecreaseInitiated()
+    {
+        BossVisibilityDecreaseInitiated?.Invoke();
+    }
+    
+    public static void OnBossVisibilityIncreaseInitiated()
+    {
+        BossVisibilityIncreaseInitiated?.Invoke();
+    }
+    
     public static void OnShipRemovalFromAwaitingListInitiated(GameObject module, GameObject ship)
     {
         ShipRemovalFromAwaitingListInitiated?.Invoke(module, ship);
@@ -141,7 +165,8 @@ public class GyrussEventManager : MonoBehaviour
         GoToNextStageInitiated?.Invoke();
     }
     
-    public static bool OnMovePlayerToCenterPointInitiated() => (bool) MovePlayerToCenterPointInitiated?.Invoke();
+    public static bool OnMovePlayerToCenterPointInitiated() => 
+        (bool) MovePlayerToCenterPointInitiated?.Invoke();
     
     public static void OnWarpingPlayerInitiated()
     {
@@ -153,7 +178,8 @@ public class GyrussEventManager : MonoBehaviour
         WarpingEffectsToggleInitiated?.Invoke();
     }
     
-    public static bool OnMovePlayerToWarpPositionInitiated() => (bool) MovePlayerToWarpPositionInitiated?.Invoke();
+    public static bool OnMovePlayerToWarpPositionInitiated() => 
+        (bool) MovePlayerToWarpPositionInitiated?.Invoke();
     
     public static void OnPlayerSpawnedToggleInitiated()
     {
@@ -165,9 +191,11 @@ public class GyrussEventManager : MonoBehaviour
         ExplosionCreationInitiated?.Invoke(explosionPosition, explosionType);
     }
     
-    public static int OnPlayerRocketsGetInitiated() => (int) PlayerRocketsGetInitiated?.Invoke();
+    public static int OnPlayerRocketsGetInitiated() => 
+        (int) PlayerRocketsGetInitiated?.Invoke();
     
-    public static int OnPlayerLivesGetInitiated() => (int) PlayerLivesGetInitiated?.Invoke();
+    public static int OnPlayerLivesGetInitiated() => 
+        (int) PlayerLivesGetInitiated?.Invoke();
 
     public static void OnConditionSetupInTimerInitiated(string timerName, bool timerCondition)
     {
@@ -184,7 +212,8 @@ public class GyrussEventManager : MonoBehaviour
         PlayerEnteredSetupInAnimatorInitiated?.Invoke(entered);
     }
     
-    public static Vector3 OnGetPlayerShipPositionInitiated() => (Vector3) GetPlayerShipPositionInitiated?.Invoke();
+    public static Vector3 OnGetPlayerShipPositionInitiated() => 
+        (Vector3) GetPlayerShipPositionInitiated?.Invoke();
     
     public static void OnReviveParticlesPreparationInitiated()
     {
@@ -216,7 +245,8 @@ public class GyrussEventManager : MonoBehaviour
         LevelStateSetupInitiated?.Invoke(newLevelState);
     }
     
-    public static Transform OnEnemySpotOccupationInitiated(int index) => (Transform) EnemySpotOccupationInitiated?.Invoke(index);
+    public static Transform OnEnemySpotOccupationInitiated(int index) => 
+        EnemySpotOccupationInitiated?.Invoke(index);
     
     public static void OnEnemyDeathInitiated()
     {
@@ -282,5 +312,9 @@ public class GyrussEventManager : MonoBehaviour
         CurrentStageSetupInitiated = null;
         MiniBossModuleKillInitiated = null;
         ShipRemovalFromAwaitingListInitiated = null;
+        BossVisibilityIncreaseInitiated = null;
+        BossVisibilityDecreaseInitiated = null;
+        CurrentLevelIncreaseInitiated = null;
+        BossSpawnInitiated = null;
     }
 }
