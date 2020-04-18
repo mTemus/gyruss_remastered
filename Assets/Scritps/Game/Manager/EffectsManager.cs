@@ -40,6 +40,7 @@ public class EffectsManager : MonoBehaviour
         GyrussEventManager.DeathParticlesPreparationInitiated += PrepareDeathParticles;
         GyrussEventManager.RocketParticlesOnPositionsSetupInitiated += SetRocketParticlesOnPositions;
         GyrussEventManager.RocketParticlesPreparationInitiated += PrepareRocketParticles;
+        GyrussEventManager.BossExplosionInitiated += CreateBossExplosions;
     }
     
     private void SetReviveParticlesOnPositions()
@@ -183,4 +184,15 @@ public class EffectsManager : MonoBehaviour
         explosion.GetComponent<DeathController>().Die();
     }
 
+    private void CreateBossExplosions()
+    {
+        for (int i = 0; i < 10; i++) {
+            float randomX = Random.Range(-1.5f, 1.5f);
+            float randomY = Random.Range(-1.5f, 1.5f);
+            Vector3 explosionPosition = new Vector3(randomX, randomY, 0);
+            CreateExplosion(explosionPosition, "miniBoss");
+        }
+        
+        GyrussGameManager.Instance.SetConditionInTimer("bossExplosion", true);
+    }
 }

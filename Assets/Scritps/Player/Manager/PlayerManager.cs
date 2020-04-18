@@ -252,7 +252,9 @@ public class PlayerManager : MonoBehaviour
     {
         Instantiate(rocketPrefab, shootingPointSingle.position, playerShip.transform.rotation, playerBulletPool);
         shootRocket = true;
-        GyrussGameManager.Instance.DecreasePlayerRockets(--rockets);
+        rockets--;
+        Debug.Log("rockets left:" + rockets);
+        GyrussGameManager.Instance.DecreasePlayerRockets(rockets);
         GyrussGameManager.Instance.SetConditionInTimer("rocketReload", true);
     }
 

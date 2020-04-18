@@ -21,18 +21,14 @@ public class BossManager : MonoBehaviour
     {
         SetDelegates();
     }
-
-    void Update()
-    {
-        
-    }
-
+    
     private void SetDelegates()
     {
         GyrussEventManager.BossVisibilityIncreaseInitiated += IncreaseBossVisibility;
         GyrussEventManager.BossVisibilityDecreaseInitiated += DecreaseBossVisibility;
         GyrussEventManager.CurrentLevelIncreaseInitiated += IncreaseCurrentLevel;
         GyrussEventManager.BossSpawnInitiated += SpawnBoss;
+        GyrussEventManager.BossModuleKillInitiated += KillBossModule;
     }
 
     private void SpawnBoss()
@@ -57,15 +53,11 @@ public class BossManager : MonoBehaviour
     {
         bossModulesLeft--;
 
-
-        if (bossModulesLeft == 0) {
-            // start spamming explosions
-            // start increasing gui visibility
-            // start decreasing boss visibility
-            
-            GyrussGameManager.Instance.TogglePlayerSpawned();
-            DecreaseBossVisibility();
-        }
+        if (bossModulesLeft != 0) return;
+        GyrussGameManager.Instance.CreateBossExplosion();
+        GyrussGameManager.Instance.TogglePlayerSpawned();
+        GyrussGameManager.Instance.DecreaseBossVisibility();
+        DecreaseBossVisibility();
     }
     
     private void IncreaseBossVisibility()
@@ -96,8 +88,7 @@ public class BossManager : MonoBehaviour
     private void DecreaseBossVisibility()
     {
         Color bossBodyColor = currentBossBodyRenderer.color;
-        bossBodyColor.a = 1 - currentAlpha;
-        currentBossBodyRenderer.color = new Color(bossBodyColor.r, bossBodyColor.g, bossBodyColor.b, currentAlpha);
+        currentBossBodyRenderer.color = new Color(bossBodyColor.r, bossBodyColor.g, bossBodyColor.b, 1 - currentAlpha);
         currentAlpha += 0.20f;
 
         if (bossBodyColor.a == 0.80f) {
@@ -108,9 +99,10 @@ public class BossManager : MonoBehaviour
             currentAlpha = 0;
             
             GyrussGameManager.Instance.TogglePlayerSpawned();
+            GyrussGameManager.Instance.StopTimer("bossExplosion");
+            GyrussGameManager.Instance.AddPointsToScore(25000);
             Destroy(currentBoss);
             currentBoss = null;
-            GyrussGameManager.Instance.AddPointsToScore(25000);
         }
         else {
             GyrussGameManager.Instance.SetConditionInTimer("bossVisibilityDecrease", true);

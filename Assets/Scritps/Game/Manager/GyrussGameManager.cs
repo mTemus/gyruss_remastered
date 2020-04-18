@@ -9,6 +9,7 @@ public class GyrussGameManager : MonoBehaviour
     [SerializeField] private MinimapManager minimapManager;
     [SerializeField] private EffectsManager effectsManager;
     [SerializeField] private ScoreManager scoreManager;
+    [SerializeField] private BossManager bossManager;
 
     private static GyrussGameManager instance;
 
@@ -396,6 +397,16 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussGUIEventManager.OnGUIVisibilityDecreaseInitiated();
     }
+
+    public void KillBossModule()
+    {
+        GyrussEventManager.OnBossModuleKillInitiated();
+    }
+
+    public void CreateBossExplosion()
+    {
+        GyrussEventManager.OnBossExplosionInitiated();
+    }
     
     private void OnDestroy()
     {
@@ -417,5 +428,7 @@ public class GyrussGameManager : MonoBehaviour
     public EffectsManager EffectsManager => effectsManager;
 
     public ScoreManager ScoreManager => scoreManager;
+
+    public BossManager BossManager => bossManager;
 }
 

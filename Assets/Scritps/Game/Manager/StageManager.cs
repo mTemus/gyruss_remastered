@@ -191,7 +191,6 @@ public class StageManager : MonoBehaviour
     private void KillEnemy()
     {
         enemiesAlive--;
-        Debug.LogWarning("Enemies left: " + enemiesAlive);
 
         if (enemiesAlive < 0) {
             Debug.LogError("You killed too much enemies!");

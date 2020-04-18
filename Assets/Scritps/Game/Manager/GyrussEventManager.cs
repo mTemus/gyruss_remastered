@@ -30,6 +30,8 @@ public class GyrussEventManager : MonoBehaviour
     public static Action BossVisibilityDecreaseInitiated;
     public static Action CurrentLevelIncreaseInitiated;
     public static Action BossSpawnInitiated;
+    public static Action BossModuleKillInitiated;
+    public static Action BossExplosionInitiated;
     public static Action<StageType> StageTypeSetupInitiated;
     public static Action<StageState> StageStateSetupInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
@@ -50,6 +52,16 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<string, float> PeriodSetupInTimerInitiated;
     public static Action<GameObject, GameObject> ShipRemovalFromAwaitingListInitiated;
 
+    public static void OnBossExplosionInitiated()
+    {
+        BossExplosionInitiated?.Invoke();
+    }
+    
+    public static void OnBossModuleKillInitiated()
+    {
+        BossModuleKillInitiated?.Invoke();
+    }
+    
     public static void OnBossSpawnInitiated()
     {
         BossSpawnInitiated?.Invoke();
@@ -316,5 +328,7 @@ public class GyrussEventManager : MonoBehaviour
         BossVisibilityDecreaseInitiated = null;
         CurrentLevelIncreaseInitiated = null;
         BossSpawnInitiated = null;
+        BossModuleKillInitiated = null;
+        BossExplosionInitiated = null;
     }
 }
