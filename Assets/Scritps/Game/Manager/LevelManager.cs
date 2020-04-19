@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
     
     private int currentLevel = 0;
     private int currentWave = 1;
-    private int currentStage = 4;
+    private int currentStage = 1;
 
     private List<string> planetsInGame;
 
@@ -59,8 +59,10 @@ public class LevelManager : MonoBehaviour
                 break;
             
             case LevelState.change_view_to_stage:
-
-                if (!StageView.activeSelf) ToggleViews();
+                if (!StageView.activeSelf) {
+                    ToggleViews(); 
+                    GyrussGameManager.Instance.ToggleStarParticles();
+                }
 
                 if (currentStage < 4) {
                     GyrussGameManager.Instance.SetWarpsText(4 - currentStage, planetsInGame[currentLevel]);
@@ -123,6 +125,7 @@ public class LevelManager : MonoBehaviour
             
             case LevelState.change_view_to_minimap:
                 ToggleViews();
+                GyrussGameManager.Instance.ToggleStarParticles();
                 GyrussGameManager.Instance.SetLevelState(LevelState.end);
                 break;
             

@@ -12,8 +12,9 @@ public class EffectsManager : MonoBehaviour
 
     [Header("Pools")] 
     [SerializeField] private Transform explosionPool;
-    
-    [Header("Particles")]
+
+    [Header("Particles")] 
+    [SerializeField] private ParticleSystem starParticles;
     [SerializeField] private GameObject[] reviveParticles;
     [SerializeField] private GameObject[] deathParticles;
     [SerializeField] private GameObject[] rocketParticles;
@@ -23,10 +24,13 @@ public class EffectsManager : MonoBehaviour
 
     private int rocketParticleId;
     private int rocketParticleCondition;
+
+    private bool starParticlesWorking = false;
     
     private void Start()
     {
         readyReviveParticles = new List<GameObject>();
+        starParticles.Stop();
         SetDelegates();
     }
 
@@ -41,6 +45,7 @@ public class EffectsManager : MonoBehaviour
         GyrussEventManager.RocketParticlesOnPositionsSetupInitiated += SetRocketParticlesOnPositions;
         GyrussEventManager.RocketParticlesPreparationInitiated += PrepareRocketParticles;
         GyrussEventManager.BossExplosionInitiated += CreateBossExplosions;
+        GyrussEventManager.StarParticlesToggleInitiated += ToggleStarParticles;
     }
     
     private void SetReviveParticlesOnPositions()
@@ -192,7 +197,18 @@ public class EffectsManager : MonoBehaviour
             Vector3 explosionPosition = new Vector3(randomX, randomY, 0);
             CreateExplosion(explosionPosition, "miniBoss");
         }
-        
         GyrussGameManager.Instance.SetConditionInTimer("bossExplosion", true);
+    }
+
+    private void ToggleStarParticles()
+    {
+        if (starParticlesWorking) {
+            starParticles.Stop();
+            starParticlesWorking = false;
+        }
+        else {
+            starParticles.Play();
+            starParticlesWorking = true;
+        }
     }
 }

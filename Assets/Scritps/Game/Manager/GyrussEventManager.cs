@@ -35,6 +35,7 @@ public class GyrussEventManager : MonoBehaviour
     public static Action ChanceBonusCountStartInitiated;
     public static Action EnemyInChanceStageKillInitiated;
     public static Action ChanceBonusPointsToScoreAddingInitiated;
+    public static Action StarParticlesToggleInitiated;
     public static Action<StageType> StageTypeSetupInitiated;
     public static Action<StageState> StageStateSetupInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
@@ -55,6 +56,11 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<string, float> PeriodSetupInTimerInitiated;
     public static Action<GameObject, GameObject> ShipRemovalFromAwaitingListInitiated;
 
+    public static void OnStarParticlesToggleInitiated()
+    {
+        StarParticlesToggleInitiated?.Invoke();
+    }
+    
     public static void OnChanceBonusPointsToScoreAddingInitiated()
     {
         ChanceBonusPointsToScoreAddingInitiated?.Invoke();
@@ -351,5 +357,6 @@ public class GyrussEventManager : MonoBehaviour
         EnemyInChanceStageKillInitiated = null;
         ChanceBonusCountStartInitiated = null;
         ChanceBonusPointsToScoreAddingInitiated = null;
+        StarParticlesToggleInitiated = null;
     }
 }

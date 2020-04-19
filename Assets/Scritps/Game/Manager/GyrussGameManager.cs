@@ -457,6 +457,11 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussGUIEventManager.OnToggleChanceBonusTryInitiated();
     }
+
+    public void ToggleStarParticles()
+    {
+        GyrussEventManager.OnStarParticlesToggleInitiated();
+    }
     
     private void OnDestroy()
     {
