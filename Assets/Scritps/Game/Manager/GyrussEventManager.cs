@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class GyrussEventManager : MonoBehaviour
 {
-    public static Func<Vector3> GetPlayerShipPositionInitiated;
     public static Func<int, Transform> EnemySpotOccupationInitiated;
+    public static Func<Vector3> GetPlayerShipPositionInitiated;
     public static Func<int> PlayerLivesGetInitiated;
     public static Func<int> PlayerRocketsGetInitiated;
     public static Func<bool> MovePlayerToWarpPositionInitiated;
@@ -32,6 +32,9 @@ public class GyrussEventManager : MonoBehaviour
     public static Action BossSpawnInitiated;
     public static Action BossModuleKillInitiated;
     public static Action BossExplosionInitiated;
+    public static Action ChanceBonusCountStartInitiated;
+    public static Action EnemyInChanceStageKillInitiated;
+    public static Action ChanceBonusPointsToScoreAddingInitiated;
     public static Action<StageType> StageTypeSetupInitiated;
     public static Action<StageState> StageStateSetupInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
@@ -52,6 +55,21 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<string, float> PeriodSetupInTimerInitiated;
     public static Action<GameObject, GameObject> ShipRemovalFromAwaitingListInitiated;
 
+    public static void OnChanceBonusPointsToScoreAddingInitiated()
+    {
+        ChanceBonusPointsToScoreAddingInitiated?.Invoke();
+    }
+    
+    public static void OnChanceBonusCountStartInitiated()
+    {
+        ChanceBonusCountStartInitiated?.Invoke();
+    }
+    
+    public static void OnEnemyInChanceStageKillInitiated()
+    {
+        EnemyInChanceStageKillInitiated?.Invoke();
+    }
+    
     public static void OnBossExplosionInitiated()
     {
         BossExplosionInitiated?.Invoke();
@@ -330,5 +348,8 @@ public class GyrussEventManager : MonoBehaviour
         BossSpawnInitiated = null;
         BossModuleKillInitiated = null;
         BossExplosionInitiated = null;
+        EnemyInChanceStageKillInitiated = null;
+        ChanceBonusCountStartInitiated = null;
+        ChanceBonusPointsToScoreAddingInitiated = null;
     }
 }

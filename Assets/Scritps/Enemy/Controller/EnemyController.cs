@@ -96,11 +96,16 @@ public class EnemyController : MonoBehaviour
                 break;
             
             case EnemyStates.die:
-                if (currentStageType == StageType.mini_boss) {
-                    myModule.GetComponent<MiniBossModuleController>().DeleteEatenShip(transform.gameObject);
-                    GyrussGameManager.Instance.RemoveShipFromAwaitingList(myModule, transform.gameObject);
+                switch (currentStageType) {
+                    case StageType.mini_boss:
+                        myModule.GetComponent<MiniBossModuleController>().DeleteEatenShip(transform.gameObject);
+                        GyrussGameManager.Instance.RemoveShipFromAwaitingList(myModule, transform.gameObject);
+                        break;
+                    case StageType.chance:
+                        GyrussGameManager.Instance.KillEnemyInChanceStage();
+                        break;
                 }
-                
+
                 GyrussGameManager.Instance.CreateExplosion(transform.position, "normal");
                 GyrussGameManager.Instance.AddPointsToScore(100);
                 GyrussGameManager.Instance.CheckBonusPointsForWaveKill(this);

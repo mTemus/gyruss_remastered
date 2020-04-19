@@ -7,11 +7,13 @@ public class ScoreManager : MonoBehaviour
     private int hiScore;
 
     private int livesGet;
+    private int shipsKilledInChance;
     
     private int rocketPointPeriod;
     private int lifePointPeriod;
     private int bonusPointsForWave = 1000;
 
+    private bool noChanceBonus;
 
     private List<EnemyController> enemiesKilledInWave;
 
@@ -30,6 +32,9 @@ public class ScoreManager : MonoBehaviour
         GyrussEventManager.ScorePointsIncreaseInitiated += AddPoints;
         GyrussEventManager.BonusPointsForWaveKillInitiated += CheckBonusForWave;
         GyrussEventManager.StageClearInitiated += ClearStage;
+        GyrussEventManager.EnemyInChanceStageKillInitiated += KillEnemyInChanceStage;
+        GyrussEventManager.ChanceBonusCountStartInitiated += StartCountingChanceBonus;
+        GyrussEventManager.ChanceBonusPointsToScoreAddingInitiated += AddBonusChancePointsToScore;
     }
 
     private void AddPoints(int additionalPoints)
@@ -101,9 +106,46 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    private void KillEnemyInChanceStage()
+    {
+        shipsKilledInChance++;
+    }
+
     private void ClearStage()
     {
         enemiesKilledInWave = new List<EnemyController>();
+    }
+
+    private void StartCountingChanceBonus()
+    {
+        GyrussGameManager.Instance.SetChanceBonusText(shipsKilledInChance);
+
+        if (shipsKilledInChance == 0) {
+            noChanceBonus = true;
+        }
+        
+    }
+
+    private void AddBonusChancePointsToScore()
+    {
+        switch (shipsKilledInChance) {
+            case 0 when !noChanceBonus:
+                GyrussGameManager.Instance.ToggleChanceBonusText();
+                return;
+            
+            case 0 when noChanceBonus:
+                GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true);
+                noChanceBonus = false;
+                return;
+            
+            case 10 when !noChanceBonus:
+                GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true);
+                break;
+        }
+
+        AddPoints(100);
+        shipsKilledInChance--;
+        GyrussGameManager.Instance.SetConditionInTimer("chanceBonusPointsCountingTimer", true);
     }
     
     private void OnDestroy()

@@ -427,6 +427,36 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussGUIEventManager.OnChanceStageTextDisplayInitiated();
     }
+
+    public void KillEnemyInChanceStage()
+    {
+        GyrussEventManager.OnEnemyInChanceStageKillInitiated();
+    }
+
+    public void StartCountingChanceBonusPoints()
+    {
+        GyrussEventManager.OnChanceBonusCountStartInitiated();
+    }
+
+    public void SetChanceBonusText(int shipsKilled)
+    {
+        GyrussGUIEventManager.OnChanceBonusScoreDisplayInitiated(shipsKilled);
+    }
+
+    public void AddChanceBonusPointsToScore()
+    {
+        GyrussEventManager.OnChanceBonusPointsToScoreAddingInitiated();
+    }
+
+    public void BlinkChanceBonusText()
+    {
+        GyrussGUIEventManager.OnChanceBonusTextBlinkInitiated();
+    }
+
+    public void ToggleChanceBonusText()
+    {
+        GyrussGUIEventManager.OnToggleChanceBonusTryInitiated();
+    }
     
     private void OnDestroy()
     {

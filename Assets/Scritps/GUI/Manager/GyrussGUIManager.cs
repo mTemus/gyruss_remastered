@@ -14,6 +14,7 @@ public class GyrussGUIManager : MonoBehaviour
     [SerializeField] private Text stageText;
     [SerializeField] private Text warpsLeftText;
     [SerializeField] private Text readyText;
+    [SerializeField] private Text chanceBonusText;
 
     [Header("Icons")] 
     [SerializeField] private GameObject lifeIcon;
@@ -30,6 +31,7 @@ public class GyrussGUIManager : MonoBehaviour
     private float currentVisibility = 0.25f;
 
     private int chanceTextBlinks;
+    private int chanceBonusTextBlinks;
     
     private GameObject currentPlanet;
     
@@ -60,6 +62,9 @@ public class GyrussGUIManager : MonoBehaviour
         GyrussGUIEventManager.PlanetDisplayInitiated += DisplayPlanet;
         GyrussGUIEventManager.ChanceTextBlinkInitiated += BlinkChanceStageText;
         GyrussGUIEventManager.ChanceStageTextDisplayInitiated += DisplayChanceStageText;
+        GyrussGUIEventManager.ChanceBonusScoreDisplayInitiated += SetChanceBonusText;
+        GyrussGUIEventManager.ChanceBonusTextBlinkInitiated += BlinkChanceBonusText;
+        GyrussGUIEventManager.ToggleChanceBonusTryInitiated += ToggleChanceBonusText;
     }
     
     private void SetScoreText(int score)
@@ -128,6 +133,7 @@ public class GyrussGUIManager : MonoBehaviour
     private void DisplayChanceStageText()
     {
         warpsLeftText.text = "CHANCE STAGE";
+        chanceTextBlinks = 0;
         ToggleWarpsText();
         BlinkChanceStageText();
     }
@@ -135,7 +141,7 @@ public class GyrussGUIManager : MonoBehaviour
     private void BlinkChanceStageText()
     {
         switch (chanceTextBlinks) {
-            case 10:
+            case 8:
                 GyrussGameManager.Instance.SetConditionInTimer("readyTextDelay", true);
                 break;
             case 30:
@@ -205,6 +211,40 @@ public class GyrussGUIManager : MonoBehaviour
         bonusText.GetComponent<Text>().text = score.ToString();
         bonusText.transform.position = playerPos + textOffset;
         bonusText.transform.localScale = new Vector3(1,1,0);
+    }
+
+    private void ToggleChanceBonusText()
+    {
+        chanceBonusText.enabled = !chanceBonusText.enabled;
+    }
+
+    private void SetChanceBonusText(int killedShips)
+    {
+        string killedShipsString = killedShips.ToString();
+        if (killedShips < 10) { killedShipsString = killedShipsString.Insert(0, "0"); }
+
+        string bonusForKilledShips = (killedShips * 100).ToString();
+
+        chanceBonusText.text = "BONUS\n" + killedShipsString + " x 100     " + bonusForKilledShips + " PTS";
+        ToggleChanceBonusText();
+        BlinkChanceBonusText();
+    }
+    
+    private void BlinkChanceBonusText()
+    {
+        switch (chanceBonusTextBlinks) {
+            case 10:
+                GyrussGameManager.Instance.AddChanceBonusPointsToScore();
+                break;
+            case 40:
+                chanceBonusTextBlinks = 0;
+                return;
+        }
+        
+        chanceBonusText.color = chanceBonusTextBlinks % 2 == 0 ? Color.white : new Color(252/255f, 164/255f, 75/255f, 1);
+        chanceBonusTextBlinks++;
+
+        GyrussGameManager.Instance.SetConditionInTimer("chanceBonusBlink", true);
     }
 
     private void DecreaseGUIVisibility()

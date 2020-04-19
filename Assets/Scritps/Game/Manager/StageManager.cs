@@ -207,11 +207,7 @@ public class StageManager : MonoBehaviour
                 break;
             
             case 0 when currentWaveCounter == 5:
-                // display bonus for killed enemies text
-                // block player movement
-                
-                
-                
+                GyrussGameManager.Instance.StartCountingChanceBonusPoints();
                 break;
         }
     }

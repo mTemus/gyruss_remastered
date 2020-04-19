@@ -10,6 +10,7 @@ public class GyrussGUIEventManager : MonoBehaviour
     public static Action<int> RocketsIconsDecreaseInitiated;
     public static Action<int> WaveBonusTextShowInitiated;
     public static Action<int> PlanetDisplayInitiated;
+    public static Action<int> ChanceBonusScoreDisplayInitiated;
     public static Action<int, string> WarpsTextSetupInitiated;
     public static Action LivesIconsIncreaseInitiated;
     public static Action RocketsIconsIncreaseInitiated;
@@ -22,8 +23,25 @@ public class GyrussGUIEventManager : MonoBehaviour
     public static Action GUIVisibilityDecreaseInitiated;
     public static Action PlanetDestroyInitiated;
     public static Action ChanceTextBlinkInitiated;
+    public static Action ChanceBonusTextBlinkInitiated;
     public static Action ChanceStageTextDisplayInitiated;
+    public static Action ToggleChanceBonusTryInitiated;
 
+    public static void OnToggleChanceBonusTryInitiated()
+    {
+        ToggleChanceBonusTryInitiated?.Invoke();
+    }
+    
+    public static void OnChanceBonusTextBlinkInitiated()
+    {
+        ChanceBonusTextBlinkInitiated?.Invoke();
+    }
+    
+    public static void OnChanceBonusScoreDisplayInitiated(int shipsKilled)
+    {
+        ChanceBonusScoreDisplayInitiated?.Invoke(shipsKilled);
+    }
+    
     public static void OnChanceStageTextDisplayInitiated()
     {
         ChanceStageTextDisplayInitiated?.Invoke();
@@ -146,6 +164,9 @@ public class GyrussGUIEventManager : MonoBehaviour
         PlanetDestroyInitiated = null;
         ChanceTextBlinkInitiated = null;
         ChanceStageTextDisplayInitiated = null;
+        ChanceBonusScoreDisplayInitiated = null;
+        ChanceBonusTextBlinkInitiated = null;
+        ToggleChanceBonusTryInitiated = null;
     }
     
 }
