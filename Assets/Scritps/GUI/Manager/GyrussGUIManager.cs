@@ -29,6 +29,8 @@ public class GyrussGUIManager : MonoBehaviour
     
     private float currentVisibility = 0.25f;
 
+    private int chanceTextBlinks;
+    
     private GameObject currentPlanet;
     
     private void Awake()
@@ -56,6 +58,8 @@ public class GyrussGUIManager : MonoBehaviour
         GyrussGUIEventManager.GUIVisibilityDecreaseInitiated += DecreaseGUIVisibility;
         GyrussGUIEventManager.PlanetDestroyInitiated += DestroyDisplayedPlanet;
         GyrussGUIEventManager.PlanetDisplayInitiated += DisplayPlanet;
+        GyrussGUIEventManager.ChanceTextBlinkInitiated += BlinkChanceStageText;
+        GyrussGUIEventManager.ChanceStageTextDisplayInitiated += DisplayChanceStageText;
     }
     
     private void SetScoreText(int score)
@@ -120,6 +124,31 @@ public class GyrussGUIManager : MonoBehaviour
     {
         warpsLeftText.text = warps + " WARPS TO " + planet.ToUpper(CultureInfo.CurrentCulture);
     }
+
+    private void DisplayChanceStageText()
+    {
+        warpsLeftText.text = "CHANCE STAGE";
+        ToggleWarpsText();
+        BlinkChanceStageText();
+    }
+
+    private void BlinkChanceStageText()
+    {
+        switch (chanceTextBlinks) {
+            case 10:
+                GyrussGameManager.Instance.SetConditionInTimer("readyTextDelay", true);
+                break;
+            case 30:
+                chanceTextBlinks = 0;
+                return;
+        }
+        
+        warpsLeftText.color = chanceTextBlinks % 2 == 0 ? Color.white : new Color(252/255f, 164/255f, 75/255f, 1);
+        chanceTextBlinks++;
+
+        GyrussGameManager.Instance.SetConditionInTimer("chanceBlink", true);
+    }
+    
 
     private void ToggleWarpsText()
     {

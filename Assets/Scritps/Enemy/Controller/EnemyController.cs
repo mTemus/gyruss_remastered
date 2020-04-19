@@ -58,17 +58,24 @@ public class EnemyController : MonoBehaviour
                 break;
             
             case EnemyStates.take_a_spot:
-                if (currentStageType == StageType.mini_boss) {
-                    transform.GetComponent<PositionsUpadator>().MyEnemyController = this;
-                }
-                else {
-                    Transform myCenterPoint = GyrussGameManager.Instance.OccupyEnemySpot(spotIndex);
+                switch (currentStageType) {
+                    case StageType.chance:
+                        myCurrentState = EnemyStates.entering;
+                        return;
                     
-                    PositionsUpadator myUpdator = transform.GetComponent<PositionsUpadator>();
-                    myUpdator.SetPointToUpdate(myCenterPoint);
-                    myUpdator.MyEnemyController = this;
+                    case StageType.mini_boss:
+                        transform.GetComponent<PositionsUpadator>().MyEnemyController = this;
+                        break;
+                    
+                    default:
+                        Transform myCenterPoint = GyrussGameManager.Instance.OccupyEnemySpot(spotIndex);
+                    
+                        PositionsUpadator myUpdator = transform.GetComponent<PositionsUpadator>();
+                        myUpdator.SetPointToUpdate(myCenterPoint);
+                        myUpdator.MyEnemyController = this;
                 
-                    centerPosition = myCenterPoint.position;
+                        centerPosition = myCenterPoint.position;
+                        break;
                 }
                 
                 myCurrentState = EnemyStates.entering;
@@ -107,10 +114,30 @@ public class EnemyController : MonoBehaviour
 
     private void enterScreen(){
         if(!pathFollow.endPathReached()) 
-            pathFollow.moveOnPath(); 
-        else 
-            myCurrentState = currentStageType == StageType.mini_boss ? 
-            EnemyStates.fly_to_mini_boss : EnemyStates.fly_to_spot; 
+            pathFollow.moveOnPath();
+        else {
+            switch (CurrentStageType) {
+                case StageType.first_stage:
+                    myCurrentState = EnemyStates.fly_to_spot;
+                    break;
+                
+                case StageType.mini_boss:
+                    myCurrentState = EnemyStates.fly_to_spot;
+                    break;
+                
+                case StageType.boss:
+                    myCurrentState = EnemyStates.fly_to_spot;
+                    break;
+                
+                case StageType.chance:
+                    transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, speed * Time.deltaTime);
+                    break;
+                
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        } 
+            
     }
 
     private void flyToSpot(){

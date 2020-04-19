@@ -417,6 +417,16 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussGUIEventManager.OnPlanetDestroyInitiated();
     }
+
+    public void BlinkChanceStageText()
+    {
+        GyrussGUIEventManager.OnChanceTextBlinkInitiated();
+    }
+
+    public void DisplayChanceStageText()
+    {
+        GyrussGUIEventManager.OnChanceStageTextDisplayInitiated();
+    }
     
     private void OnDestroy()
     {

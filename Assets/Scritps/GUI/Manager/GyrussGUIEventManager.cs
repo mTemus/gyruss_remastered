@@ -21,7 +21,19 @@ public class GyrussGUIEventManager : MonoBehaviour
     public static Action GUIVisibilityIncreaseInitiated;
     public static Action GUIVisibilityDecreaseInitiated;
     public static Action PlanetDestroyInitiated;
+    public static Action ChanceTextBlinkInitiated;
+    public static Action ChanceStageTextDisplayInitiated;
 
+    public static void OnChanceStageTextDisplayInitiated()
+    {
+        ChanceStageTextDisplayInitiated?.Invoke();
+    }
+    
+    public static void OnChanceTextBlinkInitiated()
+    {
+        ChanceTextBlinkInitiated?.Invoke();
+    }
+    
     public static void OnPlanetDestroyInitiated()
     {
         PlanetDestroyInitiated?.Invoke();
@@ -132,6 +144,8 @@ public class GyrussGUIEventManager : MonoBehaviour
         GUIVisibilityDecreaseInitiated = null;
         PlanetDisplayInitiated = null;
         PlanetDestroyInitiated = null;
+        ChanceTextBlinkInitiated = null;
+        ChanceStageTextDisplayInitiated = null;
     }
     
 }

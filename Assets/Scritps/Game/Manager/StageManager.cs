@@ -14,7 +14,7 @@ public class StageManager : MonoBehaviour
     [Header("Pools")] 
     [SerializeField] private Transform enemyPool;
 
-    private int currentStage = 3;
+    private int currentStage = 4;
     private int stages = 1;
     private int enemiesAlive;
 
@@ -78,16 +78,15 @@ public class StageManager : MonoBehaviour
                         break;
                     
                     case StageType.mini_boss:
-                        //TODO: prepare mini-boss here, especially show on timer or smth
-
                         PrepareAsteroidSpawning();
                         break;
                     
                     case StageType.boss:
                         PrepareAsteroidSpawning();
                         break;
-                    
+
                     case StageType.chance:
+                        // prepare bonuses spawning here
                         break;
                     
                     default:
@@ -208,7 +207,11 @@ public class StageManager : MonoBehaviour
                 break;
             
             case 0 when currentWaveCounter == 5:
-                // Chance stage
+                // display bonus for killed enemies text
+                // block player movement
+                
+                
+                
                 break;
         }
     }
@@ -251,9 +254,15 @@ public class StageManager : MonoBehaviour
         switch (currentWave) {
             case 5 when currentStageType != StageType.chance:
                 return;
+            
+            case 5 when currentStageType == StageType.chance:
+                currentWaveCounter = currentWave;
+                break;
+            
             case 0:
                 currentWaveCounter = 1;
                 break;
+            
             default:
                 currentWaveCounter = currentWave;
                 break;
@@ -282,15 +291,21 @@ public class StageManager : MonoBehaviour
         
         enemy.transform.name = currentWave.EnemyName + "_" + enemiesAlive;
 
-        if (currentStageType == StageType.mini_boss) {
-            if (modulesAmount == 0) {
-                Destroy(enemy);
-            }
-            modulesAwaitingForShips[miniBossModules[moduleId]].Add(enemy);
-            enemy.GetComponent<EnemyController>().MyModule = miniBossModules[moduleId];
-            enemy.GetComponent<PositionsUpadator>().SetModuleToUpdate(miniBossModules[moduleId]);
-            moduleId++;
-            if (moduleId > modulesAmount - 1) { moduleId = 0; }
+        switch (currentStageType) {
+            case StageType.mini_boss:
+                if (modulesAmount == 0) Destroy(enemy); 
+                
+                modulesAwaitingForShips[miniBossModules[moduleId]].Add(enemy);
+                enemy.GetComponent<EnemyController>().MyModule = miniBossModules[moduleId];
+                enemy.GetComponent<PositionsUpadator>().SetModuleToUpdate(miniBossModules[moduleId]);
+                moduleId++;
+                
+                if (moduleId > modulesAmount - 1) moduleId = 0;
+                break;
+            
+            case StageType.chance:
+                enemy.GetComponent<PositionsUpadator>().enabled = false;
+                break;
         }
 
         currentWave.EnemySpawned++;

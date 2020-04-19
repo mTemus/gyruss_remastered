@@ -9,8 +9,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject StageView;
     
     private int currentLevel = 0;
-    private int currentWave = 3;
-    private int currentStage = 3;
+    private int currentWave = 1;
+    private int currentStage = 4;
 
     private List<string> planetsInGame;
 
@@ -62,12 +62,16 @@ public class LevelManager : MonoBehaviour
 
                 if (!StageView.activeSelf) ToggleViews();
 
-                if (currentStage < 4)
+                if (currentStage < 4) {
                     GyrussGameManager.Instance.SetWarpsText(4 - currentStage, planetsInGame[currentLevel]);
-                
-                GyrussGameManager.Instance.SetConditionInTimer("warpsTextDelay", true);
-                GyrussGameManager.Instance.SetConditionInTimer("readyTextDelay", true);
-
+                                    
+                    GyrussGameManager.Instance.SetConditionInTimer("warpsTextDelay", true);
+                    GyrussGameManager.Instance.SetConditionInTimer("readyTextDelay", true);
+                } 
+                else if (currentStage == 4) {
+                    GyrussGameManager.Instance.DisplayChanceStageText();
+                    Debug.Log("here");
+                }
                 
                 currentLevelState = LevelState.wait;
                 break;
@@ -105,9 +109,14 @@ public class LevelManager : MonoBehaviour
                         break;
                         
                     case 5:
-                        //TODO: change this for chance stage
-                        currentWave = 1;
-                        GyrussGameManager.Instance.SetLevelState(LevelState.wait);
+                        if (currentStage == 4) {
+                            SetWaveToSpawn(2, false);
+                            GyrussGameManager.Instance.SetConditionInTimer("waveCreating", true);
+                        }
+                        else {
+                            currentWave = 1;
+                            GyrussGameManager.Instance.SetLevelState(LevelState.wait);
+                        }
                         break;
                 }
                 break;
