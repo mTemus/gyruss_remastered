@@ -34,7 +34,7 @@ public class LevelManager : MonoBehaviour
         GyrussEventManager.LevelStateSetupInitiated += SetLevelState;
         GyrussEventManager.CurrentStageSetupInitiated += SetCurrentStageNumber;
         GyrussEventManager.CurrentWaveSetupInitiated += SetCurrentWave;
-        GyrussEventManager.CurrentLevelIncreaseInitiated += IncreaseCurrentLevel;
+        GyrussEventManager.CurrentLevelIncreaseInitiated += GoToNextLevel;
     }
 
     private void ProcessOrdersInLevel()
@@ -122,14 +122,13 @@ public class LevelManager : MonoBehaviour
                 break;
             
             case LevelState.change_view_to_minimap:
+                ToggleViews();
+                GyrussGameManager.Instance.SetLevelState(LevelState.end);
                 break;
             
             case LevelState.end:
-                // move player ship to starting position
-                // activate warping
-                
-                
                 GyrussGameManager.Instance.IncreaseCurrentLevel();
+                GyrussGameManager.Instance.SetLevelState(LevelState.start);
                 break;
             
             default:
@@ -202,7 +201,7 @@ public class LevelManager : MonoBehaviour
         currentStage = stage;
     }
 
-    private void IncreaseCurrentLevel()
+    private void GoToNextLevel()
     {
         currentLevel++;
     }
