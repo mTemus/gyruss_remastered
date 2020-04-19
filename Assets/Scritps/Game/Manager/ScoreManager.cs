@@ -12,7 +12,9 @@ public class ScoreManager : MonoBehaviour
     private int rocketPointPeriod;
     private int lifePointPeriod;
     private int bonusPointsForWave = 1000;
-
+    private int perfectChanceBonus = 20000;
+    
+    
     private bool noChanceBonus;
 
     private List<EnemyController> enemiesKilledInWave;
@@ -128,24 +130,51 @@ public class ScoreManager : MonoBehaviour
 
     private void AddBonusChancePointsToScore()
     {
-        switch (shipsKilledInChance) {
-            case 0 when !noChanceBonus:
-                GyrussGameManager.Instance.ToggleChanceBonusText();
-                return;
+        if (shipsKilledInChance < 40) {
+            switch (shipsKilledInChance) {
+                case 0 when !noChanceBonus:
+                    GyrussGameManager.Instance.ToggleChanceBonusText();
+                    return;
             
-            case 0 when noChanceBonus:
-                GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true);
-                noChanceBonus = false;
-                return;
+                case 0 when noChanceBonus:
+                    GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true);
+                    noChanceBonus = false;
+                    return;
             
-            case 10 when !noChanceBonus:
-                GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true);
-                break;
+                case 10 when !noChanceBonus:
+                    GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true);
+                    break;
+            }
+            
+            AddPoints(100);
+            shipsKilledInChance--;
+            GyrussGameManager.Instance.SetConditionInTimer("chanceBonusPointsCountingTimer", true);
         }
-
-        AddPoints(100);
-        shipsKilledInChance--;
-        GyrussGameManager.Instance.SetConditionInTimer("chanceBonusPointsCountingTimer", true);
+        else {
+            switch (perfectChanceBonus) {
+                case 0 when !noChanceBonus:
+                    GyrussGameManager.Instance.ToggleChanceBonusText();
+                    perfectChanceBonus = 20000;
+                    return;
+            
+                case 0 when noChanceBonus:
+                    GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true);
+                    perfectChanceBonus = 20000;
+                    noChanceBonus = false;
+                    return;
+            
+                case 10000 when !noChanceBonus:
+                    GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true);
+                    break;
+            }
+            
+            AddPoints(100);
+            perfectChanceBonus -= 100;
+            GyrussGameManager.Instance.SetConditionInTimer("chanceBonusPointsCountingTimer", true);
+        }
+        
+        
+        
     }
     
     private void OnDestroy()

@@ -220,12 +220,17 @@ public class GyrussGUIManager : MonoBehaviour
 
     private void SetChanceBonusText(int killedShips)
     {
-        string killedShipsString = killedShips.ToString();
-        if (killedShips < 10) { killedShipsString = killedShipsString.Insert(0, "0"); }
+        if (killedShips < 40) {
+            string killedShipsString = killedShips.ToString();
+            if (killedShips < 10) { killedShipsString = killedShipsString.Insert(0, "0"); }
 
-        string bonusForKilledShips = (killedShips * 100).ToString();
+            string bonusForKilledShips = (killedShips * 100).ToString();
 
-        chanceBonusText.text = "BONUS\n" + killedShipsString + " x 100     " + bonusForKilledShips + " PTS";
+            chanceBonusText.text = "BONUS\n" + killedShipsString + " x 100     " + bonusForKilledShips + " PTS";
+        }
+        else {
+            chanceBonusText.text = "CONGRATULATIONS!\n PERFECT     20000 PTS";
+        }
         ToggleChanceBonusText();
         BlinkChanceBonusText();
     }

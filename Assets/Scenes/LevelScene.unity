@@ -430,6 +430,36 @@ Transform:
   m_Father: {fileID: 122992778}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &71277869
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 71277870}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &71277870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71277869}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1529139229}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &78132616
 GameObject:
   m_ObjectHideFlags: 0
@@ -1243,6 +1273,7 @@ MonoBehaviour:
   ExplosionBossPrefab: {fileID: 3335215528204796545, guid: 46103fcf207cfa449b0494160361e8b3,
     type: 3}
   explosionPool: {fileID: 1529828556}
+  starParticles: {fileID: 1722087801}
   reviveParticles:
   - {fileID: 363912026}
   - {fileID: 156119044}
@@ -6533,6 +6564,7 @@ Transform:
   - {fileID: 222823265}
   - {fileID: 519870403}
   - {fileID: 50006479}
+  - {fileID: 71277870}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
