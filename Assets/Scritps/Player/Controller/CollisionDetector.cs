@@ -13,11 +13,12 @@ public class CollisionDetector : MonoBehaviour
             
             case "Enemy":
                 if (other.GetComponent<EnemyController>().CurrentEnemyState == EnemyStates.attack) {
-                    
+                    GyrussGameManager.Instance.KillPlayer();
                 }
                 break;
             
             case "EnemyBullet":
+                GyrussGameManager.Instance.KillPlayer();
                 break;
         }
     }
