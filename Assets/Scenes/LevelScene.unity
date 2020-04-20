@@ -587,57 +587,57 @@ MonoBehaviour:
     loop: 1
   - name: beginning-normal
     clip: {fileID: 8300000, guid: e7b80e534489d3c43b4bc9c73b2d8204, type: 3}
-    volume: 0.3
+    volume: 1
     pitch: 1
     loop: 1
   - name: ending
     clip: {fileID: 8300000, guid: 7969be47d2e32484d96d261fa3ea8f38, type: 3}
-    volume: 0.3
+    volume: 1
     pitch: 1
     loop: 1
   - name: gameOver
     clip: {fileID: 8300000, guid: 699e9dc8e4ae2a54a83c207ddf034074, type: 3}
-    volume: 0.3
+    volume: 1
     pitch: 1
     loop: 0
   - name: intro
     clip: {fileID: 8300000, guid: cde25f7519283e641a92fe084c6cc5d3, type: 3}
-    volume: 0.3
+    volume: 1
     pitch: 1
     loop: 0
   - name: newPlanetIntro
     clip: {fileID: 8300000, guid: 5186911fc6854594986dfc10bfb8023c, type: 3}
-    volume: 0.3
+    volume: 1
     pitch: 1
     loop: 0
   - name: stage-1-bgm
     clip: {fileID: 8300000, guid: 6414f59b984e77c45ab20d8cf9357760, type: 3}
-    volume: 0.3
+    volume: 1
     pitch: 1
     loop: 1
   - name: stage-2-bgm
     clip: {fileID: 8300000, guid: d568f4a6174a0c949843b37fae3dcd9b, type: 3}
-    volume: 0.3
+    volume: 1
     pitch: 1
     loop: 1
   - name: stage-3-bgm
     clip: {fileID: 8300000, guid: 338dd87f476399741acdb64d5330454a, type: 3}
-    volume: 0.3
+    volume: 1
     pitch: 1
     loop: 1
   - name: stage-3-boss
     clip: {fileID: 8300000, guid: a299c846a02cf614092d9e2a5ac9c06b, type: 3}
-    volume: 0.3
+    volume: 1
     pitch: 1
     loop: 1
   - name: stage-4-bgm
     clip: {fileID: 8300000, guid: 679ed92f8596fef4c982e8bb3d949822, type: 3}
-    volume: 0.3
+    volume: 1
     pitch: 1
     loop: 1
   - name: stage-4-intro
     clip: {fileID: 8300000, guid: 33c48455326a2e243966bc87149cbc18, type: 3}
-    volume: 0.3
+    volume: 1
     pitch: 1
     loop: 0
 --- !u!1 &78132616
