@@ -439,6 +439,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 71277870}
+  - component: {fileID: 71277871}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -460,6 +461,185 @@ Transform:
   m_Father: {fileID: 1529139229}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &71277871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71277869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a24796a674c7149a016b80fca828dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEffects:
+  - name: additionalLife
+    clip: {fileID: 8300000, guid: 937d472a8e14e2049b6207f21e66b3b9, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: additionalRocket
+    clip: {fileID: 8300000, guid: e7aae054d9ed83c4886607aa7c8954ce, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: asteroid-notHurt
+    clip: {fileID: 8300000, guid: b342c8017cb66e645935d615c8768305, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: bonusScoreCount
+    clip: {fileID: 8300000, guid: 03f62df2aad342a49bd0c353583ae3ae, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: boss-defeated
+    clip: {fileID: 8300000, guid: c6da821d76525604ebf89ea62c0b507c, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: enemyShipDeath-center
+    clip: {fileID: 8300000, guid: c0628fc58a09a7649a7caeea8a5f5928, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: enemyShipDeath-inFly
+    clip: {fileID: 8300000, guid: f9a30da9ffc8672489be6f800ccdfb6f, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: lifeIcon-initialize
+    clip: {fileID: 8300000, guid: fe53a98d931050d4687f450144bd1e78, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: module-explosion
+    clip: {fileID: 8300000, guid: 70b00b098932bf84baadc07d43e9eff4, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: module-hurt
+    clip: {fileID: 8300000, guid: 61ea1457c5a2ba0449b4050d7dac4f55, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: module-notHurt
+    clip: {fileID: 8300000, guid: 72e17fddb2b0ba447b61e9ade25f251e, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: particleWeapon-firstCollision
+    clip: {fileID: 8300000, guid: cd8a3cae2fbea944fa5bbaf8e7546867, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: particleWeapon-secondCollision
+    clip: {fileID: 8300000, guid: fc0d415ef78b4014bbd0437492c7d2c0, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: player-death
+    clip: {fileID: 8300000, guid: 22a686071a6bc29499814f2f39dc5663, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: player-spawn
+    clip: {fileID: 8300000, guid: 0fb2801c293dac8449bc96f71b9e1b90, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: rocket-startedShooting
+    clip: {fileID: 8300000, guid: d32e287d1170ebc41a4fa68a28bfcfc8, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: rocketIcon-initialize
+    clip: {fileID: 8300000, guid: 9eeeae6fb4fc87c499e4320a757e3bd4, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: warp-mnimap
+    clip: {fileID: 8300000, guid: 9eeeae6fb4fc87c499e4320a757e3bd4, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: warp-stage
+    clip: {fileID: 8300000, guid: d48434d5af4cccb47932bf459e188aae, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: weaponBonusSpawn
+    clip: {fileID: 8300000, guid: f34d3ca90403c5d45bfc6010c0a90ac7, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: pause
+    clip: {fileID: 8300000, guid: 3281fd096d2ea6e49a7ce78445b9742a, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  soundMusic:
+  - name: beginning-metal
+    clip: {fileID: 8300000, guid: a745f193cc3a1ff4daf2bc65c940113a, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 1
+  - name: beginning-normal
+    clip: {fileID: 8300000, guid: e7b80e534489d3c43b4bc9c73b2d8204, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 1
+  - name: ending
+    clip: {fileID: 8300000, guid: 7969be47d2e32484d96d261fa3ea8f38, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 1
+  - name: gameOver
+    clip: {fileID: 8300000, guid: 699e9dc8e4ae2a54a83c207ddf034074, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: intro
+    clip: {fileID: 8300000, guid: cde25f7519283e641a92fe084c6cc5d3, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: newPlanetIntro
+    clip: {fileID: 8300000, guid: 5186911fc6854594986dfc10bfb8023c, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+  - name: stage-1-bgm
+    clip: {fileID: 8300000, guid: 6414f59b984e77c45ab20d8cf9357760, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 1
+  - name: stage-2-bgm
+    clip: {fileID: 8300000, guid: d568f4a6174a0c949843b37fae3dcd9b, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 1
+  - name: stage-3-bgm
+    clip: {fileID: 8300000, guid: 338dd87f476399741acdb64d5330454a, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 1
+  - name: stage-3-boss
+    clip: {fileID: 8300000, guid: a299c846a02cf614092d9e2a5ac9c06b, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 1
+  - name: stage-4-bgm
+    clip: {fileID: 8300000, guid: 679ed92f8596fef4c982e8bb3d949822, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 1
+  - name: stage-4-intro
+    clip: {fileID: 8300000, guid: 33c48455326a2e243966bc87149cbc18, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
 --- !u!1 &78132616
 GameObject:
   m_ObjectHideFlags: 0
