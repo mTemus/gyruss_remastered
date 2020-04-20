@@ -246,6 +246,7 @@ public class PlayerManager : MonoBehaviour
         ToggleWarpingEffects();
         GyrussGameManager.Instance.TogglePlayerSpawned();
         GyrussGameManager.Instance.SetConditionInTimer("warping", true);
+        GyrussGameManager.Instance.PlaySoundEffect("warp-stage");
     }
 
     private void ShootRocket()
@@ -261,6 +262,7 @@ public class PlayerManager : MonoBehaviour
     private void AddLife()
     {
         lives++;
+        GyrussGameManager.Instance.PlaySoundEffect("additionalLife");
         GyrussGameManager.Instance.IncreaseLifeIcons();
     }
 

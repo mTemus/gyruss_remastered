@@ -141,7 +141,7 @@ public class GyrussGUIManager : MonoBehaviour
     private void BlinkChanceStageText()
     {
         switch (chanceTextBlinks) {
-            case 8:
+            case 4:
                 GyrussGameManager.Instance.SetConditionInTimer("readyTextDelay", true);
                 break;
             case 30:
@@ -180,6 +180,7 @@ public class GyrussGUIManager : MonoBehaviour
         if (initializedLives >= playerLives) return;
         
         IncreaseLives();
+        GyrussGameManager.Instance.PlaySoundEffect("lifeIcon-initialize");
         GyrussGameManager.Instance.SetConditionInTimer("lifeIconsInitialization", true);
     }
     
@@ -191,6 +192,7 @@ public class GyrussGUIManager : MonoBehaviour
         if (initializedRockets >= playerRockets) return;
         
         IncreaseRockets();
+        GyrussGameManager.Instance.PlaySoundEffect("rocketIcon-initialize");
         GyrussGameManager.Instance.SetConditionInTimer("rocketIconsInitialization", true);
     }
 

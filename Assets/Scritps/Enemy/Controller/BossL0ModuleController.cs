@@ -66,6 +66,7 @@ public class BossL0ModuleController : MonoBehaviour
     private void GetHurt()
     {
         life--;
+        GyrussGameManager.Instance.PlaySoundEffect("module-hurt");
         
         if (life != 0) return;
         Die();
@@ -75,13 +76,12 @@ public class BossL0ModuleController : MonoBehaviour
     {
         GyrussGameManager.Instance.CreateExplosion(transform.position, "miniBoss");
         GyrussGameManager.Instance.KillBossModule();
+        GyrussGameManager.Instance.PlaySoundEffect("module-explosion");
         Destroy(transform.gameObject);
     }
 
-    public void Shoot()
+    private void Shoot()
     {
-        Debug.LogError("shoot");
-        
         ModuleShootingDirection direction = CalculateShootingDirection();
         
         SpawnBullet(CalculateBulletTargetPosition(-0.8f, direction));
@@ -95,8 +95,6 @@ public class BossL0ModuleController : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, moduleTransform.position, Quaternion.identity, moduleTransform);
         bullet.transform.position = transform.position;
         bullet.GetComponent<EnemyBulletController>().StartBullet(bulletPosition);
-        
-        Debug.LogWarning("Spawned bullet for pos: " + bulletPosition);
     }
 
     private ModuleShootingDirection CalculateShootingDirection()
@@ -159,6 +157,7 @@ public class BossL0ModuleController : MonoBehaviour
             
             case "PlayerBullet":
                 if (!myAnimator.GetBool(Open)) {
+                    GyrussGameManager.Instance.PlaySoundEffect("module-notHurt");
                     Destroy(other.gameObject);
                     return;
                 }

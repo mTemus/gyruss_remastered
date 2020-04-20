@@ -10,8 +10,8 @@ public class SingleSound
     [SerializeField] private AudioClip clip;
 
     [Header("Sound properties")]
-    [SerializeField] [Range(0f, 1f)] private float volume = 1;
-    [SerializeField] [Range(0.1f, 3f)]private float pitch = 0.1f;
+    [SerializeField] [Range(0f, 1f)] private float volume = 1f;
+    [SerializeField] [Range(-3f, 3f)]private float pitch = 1f;
     [SerializeField] private bool loop;
     
     

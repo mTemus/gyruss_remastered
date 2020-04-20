@@ -80,6 +80,7 @@ public class MiniBossModuleController : MonoBehaviour
     private void GetHurt()
     {
         lifeAmount -= 1;
+        GyrussGameManager.Instance.PlaySoundEffect("module-hurt");
         if (lifeAmount == 0) { Die(); }
     }
 
@@ -88,11 +89,12 @@ public class MiniBossModuleController : MonoBehaviour
         foreach (GameObject ship in eatenShips) {
             Destroy(ship);
         }
-            
+        
         GyrussGameManager.Instance.KillEnemy();
         GyrussGameManager.Instance.AddPointsToScore(800);
         GyrussGameManager.Instance.CreateExplosion(transform.position, "miniBoss");
         GyrussGameManager.Instance.KillMiniBossModule(transform.gameObject);
+        GyrussGameManager.Instance.PlaySoundEffect("module-explosion");
         Destroy(transform.gameObject);
     }
     

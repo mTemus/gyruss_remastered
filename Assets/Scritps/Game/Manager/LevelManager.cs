@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
     
     private int currentLevel = 0;
     private int currentWave = 1;
-    private int currentStage = 1;
+    private int currentStage = 3;
 
     private List<string> planetsInGame;
 
@@ -42,6 +42,8 @@ public class LevelManager : MonoBehaviour
         switch (currentLevelState) {
             case LevelState.start:
                 if (MinimapView.activeSelf) {
+                    if (currentLevel == 0) GyrussGameManager.Instance.PlayBGM("beginning-metal");
+
                     GyrussGameManager.Instance.SetConditionInTimer("playerDelayOnMinimap", true);
                     currentLevelState = LevelState.wait;
                 }
@@ -65,6 +67,9 @@ public class LevelManager : MonoBehaviour
                 }
 
                 if (currentStage < 4) {
+                    if (currentStage == 1 && currentLevel > 0) 
+                        GyrussGameManager.Instance.PlayBGM("newPlanetIntro");
+                    
                     GyrussGameManager.Instance.SetWarpsText(4 - currentStage, planetsInGame[currentLevel]);
                                     
                     GyrussGameManager.Instance.SetConditionInTimer("warpsTextDelay", true);
@@ -72,7 +77,7 @@ public class LevelManager : MonoBehaviour
                 } 
                 else if (currentStage == 4) {
                     GyrussGameManager.Instance.DisplayChanceStageText();
-                    Debug.Log("here");
+                    GyrussGameManager.Instance.PlayBGM("stage-4-intro");
                 }
                 
                 currentLevelState = LevelState.wait;

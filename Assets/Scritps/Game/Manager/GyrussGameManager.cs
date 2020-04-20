@@ -462,6 +462,29 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussEventManager.OnStarParticlesToggleInitiated();
     }
+
+    public void PlaySoundEffect(string effectName)
+    {
+        GyrussEventManager.OnSoundEffectPlayInitiated(effectName);
+    }
+
+    public void PlayBGM(string BGMName)
+    {
+        GyrussEventManager.OnSoundBGMPlayInitiated(BGMName);
+    }
+
+    public void StopBGM(string BGMName)
+    {
+        GyrussEventManager.OnSoundBGMStopInitiated(BGMName);
+    }
+
+    public void StopCurrentPlayingBGM()
+    {
+        GyrussEventManager.OnCurrentSoundBGMStopInitiated();
+    }
+
+    public bool IsBGMPlaying() =>
+        GyrussEventManager.OnIsBGMPlayingInitiated();
     
     private void OnDestroy()
     {

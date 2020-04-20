@@ -26,12 +26,14 @@ public class AsteroidController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("PlayerBullet")) {
+            GyrussGameManager.Instance.PlaySoundEffect("asteroid-notHurt");
             Destroy(other.transform.gameObject);
         }
         else if (other.CompareTag("Rocket")) {
+            GyrussGameManager.Instance.PlaySoundEffect("module-explosion");
+            GyrussGameManager.Instance.CreateExplosion(transform.position, "normal");
             Destroy(other.transform.gameObject);
             Destroy(transform.gameObject);
-            GyrussGameManager.Instance.CreateExplosion(transform.position, "normal");
         }
     }
 

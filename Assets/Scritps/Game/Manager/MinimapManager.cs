@@ -21,18 +21,18 @@ public class MinimapManager : MonoBehaviour
 
     private void Update()
     {
-        if (move) {
-            if (!(playerShipIcon.transform.position == currentLevelPosition)) {
-                playerShipIcon.transform.position =
-                    Vector3.MoveTowards(playerShipIcon.transform.position, currentLevelPosition, speed * Time.deltaTime);
-                playerShipAnimator.SetFloat(Speed, speed);
-            }
-            else {
-                playerShipAnimator.SetFloat(Speed, 0);
+        if (!move) return;
+        
+        if (!(playerShipIcon.transform.position == currentLevelPosition)) {
+            playerShipIcon.transform.position =
+                Vector3.MoveTowards(playerShipIcon.transform.position, currentLevelPosition, speed * Time.deltaTime);
+            playerShipAnimator.SetFloat(Speed, speed);
+        }
+        else {
+            playerShipAnimator.SetFloat(Speed, 0);
                 
-                GyrussGameManager.Instance.SetConditionInTimer("minimapArrivalAtPlanet", true);
-                move = false;
-            }
+            GyrussGameManager.Instance.SetConditionInTimer("minimapArrivalAtPlanet", true);
+            move = false;
         }
     }
 
@@ -43,6 +43,9 @@ public class MinimapManager : MonoBehaviour
 
     private void MoveToLevel(int levelIndex)
     {
+        if (levelIndex > 0) 
+            GyrussGameManager.Instance.PlaySoundEffect("warp-minimap");
+        
         currentLevelPosition = minimapPoints[levelIndex].position;
         move = true;
     }

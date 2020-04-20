@@ -4,8 +4,6 @@ public class CollisionDetector : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
-        
         switch (other.tag) {
             case "Asteroid":
                 GyrussGameManager.Instance.KillPlayer();
@@ -27,10 +25,12 @@ public class CollisionDetector : MonoBehaviour
     {
         GyrussGameManager.Instance.ToggleReadyText();
         GyrussGameManager.Instance.TogglePlayerSpawned();
+        GyrussGameManager.Instance.PlaySoundEffect("player-spawn");
     }
 
     private void OnDisable()
     {
         GyrussGameManager.Instance.TogglePlayerSpawned();
+        GyrussGameManager.Instance.PlaySoundEffect("player-death");
     }
 }

@@ -106,6 +106,9 @@ public class EnemyController : MonoBehaviour
                         break;
                 }
 
+                bool enemyInCenter = transform.GetComponent<ScalingController>().EnemyIsInCenterPosition;
+                GyrussGameManager.Instance.PlaySoundEffect(!enemyInCenter ? "enemyShipDeath-inFly" : "enemyShipDeath-center");
+                
                 GyrussGameManager.Instance.CreateExplosion(transform.position, "normal");
                 GyrussGameManager.Instance.AddPointsToScore(100);
                 GyrussGameManager.Instance.CheckBonusPointsForWaveKill(this);

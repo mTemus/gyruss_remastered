@@ -146,6 +146,7 @@ public class ScoreManager : MonoBehaviour
                     break;
             }
             
+            GyrussGameManager.Instance.PlaySoundEffect("bonusScoreCount");
             AddPoints(100);
             shipsKilledInChance--;
             GyrussGameManager.Instance.SetConditionInTimer("chanceBonusPointsCountingTimer", true);

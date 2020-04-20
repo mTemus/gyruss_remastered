@@ -14,7 +14,7 @@ public class StageManager : MonoBehaviour
     [Header("Pools")] 
     [SerializeField] private Transform enemyPool;
 
-    private int currentStage = 1;
+    private int currentStage = 3;
     private int stages = 1;
     private int enemiesAlive;
 
@@ -87,6 +87,7 @@ public class StageManager : MonoBehaviour
 
                     case StageType.chance:
                         // prepare bonuses spawning here
+                        
                         break;
                     
                     default:
@@ -116,9 +117,6 @@ public class StageManager : MonoBehaviour
                 break;
             
             case StageState.spawn_enemies:
-                if (currentWave == null) {
-                    Debug.LogError("kurwa jebana");
-                }
                 if (currentWave.MiniBoss) {
                     SpawnMiniBoss();
                 }
@@ -132,9 +130,10 @@ public class StageManager : MonoBehaviour
 
             case StageState.get_ready:
                 if (playerShip.activeSelf) {
-                    if (currentStageType == StageType.first_stage) 
+                    if (currentStageType == StageType.first_stage) {
                         GyrussGameManager.Instance.ToggleScoreText();
-
+                    }
+                    
                     GyrussGameManager.Instance.SetLevelState(LevelState.create_wave);
                 }
                 break;
@@ -149,6 +148,7 @@ public class StageManager : MonoBehaviour
                 break;
             
             case StageState.spawn_player:
+                PlayStageBGM();
                 GyrussGameManager.Instance.PrepareReviveParticles();
                 GyrussGameManager.Instance.SetStagesText(stages);
                 GyrussGameManager.Instance.SetStageState(StageState.initialize_GUI);
@@ -187,6 +187,28 @@ public class StageManager : MonoBehaviour
         enemiesAlive++;
     }
 
+    private void PlayStageBGM()
+    {
+        switch (currentStageType) {
+            case StageType.first_stage:
+                if (!GyrussGameManager.Instance.IsBGMPlaying()) 
+                    GyrussGameManager.Instance.PlayBGM("stage-1-bgm");
+                break;
+                        
+            case StageType.mini_boss:
+                GyrussGameManager.Instance.PlayBGM("stage-2-bgm");
+                break;
+                        
+            case StageType.boss:
+                GyrussGameManager.Instance.PlayBGM("stage-3-bgm");
+                break;
+                        
+            case StageType.chance:
+                GyrussGameManager.Instance.PlayBGM("stage-4-bgm");
+                break;
+        }
+    }
+    
     private void ClearStage()
     {
         evenSpotId = 0;
@@ -203,13 +225,20 @@ public class StageManager : MonoBehaviour
         
         switch (enemiesAlive) {
             case 0 when currentWaveCounter == 4:
-                if (currentStageType == StageType.boss) 
+                if (currentStageType == StageType.boss) {
+                    GyrussGameManager.Instance.StopCurrentPlayingBGM();
+                    GyrussGameManager.Instance.PlayBGM("stage-3-boss");
                     GyrussGameManager.Instance.SpawnBoss(); 
-                else if(currentStageType != StageType.chance)
-                    GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true); 
+                }
+                    
+                else if(currentStageType != StageType.chance) {
+                    GyrussGameManager.Instance.StopCurrentPlayingBGM();
+                    GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true);
+                }
                 break;
             
             case 0 when currentWaveCounter == 5:
+                GyrussGameManager.Instance.StopCurrentPlayingBGM();
                 GyrussGameManager.Instance.StartCountingChanceBonusPoints();
                 break;
         }

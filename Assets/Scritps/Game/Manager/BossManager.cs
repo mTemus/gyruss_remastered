@@ -54,6 +54,8 @@ public class BossManager : MonoBehaviour
         bossModulesLeft--;
 
         if (bossModulesLeft != 0) return;
+        GyrussGameManager.Instance.StopCurrentPlayingBGM();
+        GyrussGameManager.Instance.PlaySoundEffect("boss-defeated");
         GyrussGameManager.Instance.CreateBossExplosion();
         GyrussGameManager.Instance.TogglePlayerSpawned();
         GyrussGameManager.Instance.DecreaseBossVisibility();

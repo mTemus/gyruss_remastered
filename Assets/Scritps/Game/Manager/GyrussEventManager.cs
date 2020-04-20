@@ -9,6 +9,7 @@ public class GyrussEventManager : MonoBehaviour
     public static Func<int> PlayerRocketsGetInitiated;
     public static Func<bool> MovePlayerToWarpPositionInitiated;
     public static Func<bool> MovePlayerToCenterPointInitiated;
+    public static Func<bool> IsBGMPlayingInitiated;
     public static Action EnemyDeathInitiated;
     public static Action ReviveParticlesPreparationInitiated;
     public static Action PlayerShipSpawnInitiated;
@@ -36,6 +37,7 @@ public class GyrussEventManager : MonoBehaviour
     public static Action EnemyInChanceStageKillInitiated;
     public static Action ChanceBonusPointsToScoreAddingInitiated;
     public static Action StarParticlesToggleInitiated;
+    public static Action CurrentSoundBGMStopInitiated;
     public static Action<StageType> StageTypeSetupInitiated;
     public static Action<StageState> StageStateSetupInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
@@ -52,10 +54,36 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<bool> PlayerEnteredSetupInAnimatorInitiated;
     public static Action<string> TimerStopInitiated;
     public static Action<string> PeriodResetInTimerInitiated;
+    public static Action<string> SoundEffectPlayInitiated;
+    public static Action<string> SoundBGMPlayInitiated;
+    public static Action<string> SoundBGMStopInitiated;
     public static Action<string, bool> ConditionSetupInTimerInitiated;
     public static Action<string, float> PeriodSetupInTimerInitiated;
     public static Action<GameObject, GameObject> ShipRemovalFromAwaitingListInitiated;
 
+    public static bool OnIsBGMPlayingInitiated() => 
+        IsBGMPlayingInitiated.Invoke();
+    
+    public static void OnCurrentSoundBGMStopInitiated()
+    {
+        CurrentSoundBGMStopInitiated?.Invoke();
+    }
+    
+    public static void OnSoundBGMStopInitiated(string name)
+    {
+        SoundBGMStopInitiated?.Invoke(name);
+    }
+    
+    public static void OnSoundBGMPlayInitiated(string name)
+    {
+        SoundBGMPlayInitiated?.Invoke(name);
+    } 
+    
+    public static void OnSoundEffectPlayInitiated(string name)
+    {
+        SoundEffectPlayInitiated?.Invoke(name);
+    }
+    
     public static void OnStarParticlesToggleInitiated()
     {
         StarParticlesToggleInitiated?.Invoke();
@@ -358,5 +386,10 @@ public class GyrussEventManager : MonoBehaviour
         ChanceBonusCountStartInitiated = null;
         ChanceBonusPointsToScoreAddingInitiated = null;
         StarParticlesToggleInitiated = null;
+        SoundEffectPlayInitiated = null;
+        SoundBGMPlayInitiated = null;
+        SoundBGMStopInitiated = null;
+        CurrentSoundBGMStopInitiated = null;
+        IsBGMPlayingInitiated = null;
     }
 }
