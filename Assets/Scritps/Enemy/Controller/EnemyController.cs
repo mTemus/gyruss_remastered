@@ -5,18 +5,13 @@ public class EnemyController : MonoBehaviour
 {
     public PathFollow pathFollow;
     public PathsDatabase pathsDatabase;
-    public float timeToWait = 0;
-    
-    private bool pathAssignedIn = false;
     private bool pathAssignedBack = false;
     
     private int spotIndex;
     private int waveId;
-    
     private float speed;
 
     private GameObject myModule;
-    
     private EnemyStates myCurrentState = EnemyStates.no_state;
     private StageType currentStageType = StageType.no_type;
     
@@ -26,12 +21,12 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         speed = pathFollow.speed;
+        pathFollow.pathCreator = GyrussGameManager.Instance.GetCurrentEnemyPath();
     }
 
     private void Update() {
         switch(myCurrentState){
             case EnemyStates.entering:
-                randomizePath();
                 enterScreen();
                 break;
 
@@ -40,13 +35,10 @@ public class EnemyController : MonoBehaviour
                 break;
             
             case EnemyStates.wait:
-                // waitInTheMiddle();
-
                 UpdateCenterPosition();
                 break;
             
             case EnemyStates.attack:
-                randomizePathBack();
                 attackPlayer();
                 break;
             
@@ -149,20 +141,10 @@ public class EnemyController : MonoBehaviour
     }
 
     private void flyToSpot(){
-        // if (!pathFollow.endPathReached()) return; <- to blokuje latanie do punktu
-
         transform.position = Vector3.MoveTowards(transform.position, centerPosition, Time.deltaTime * speed);
 
         if (transform.position == centerPosition) {
             myCurrentState = EnemyStates.wait;
-        }
-    }
-
-    private void waitInTheMiddle(){
-        if(timeToWait >= 5f){
-            myCurrentState = EnemyStates.attack;
-        }else{
-            timeToWait+=Time.deltaTime;
         }
     }
 
@@ -174,22 +156,6 @@ public class EnemyController : MonoBehaviour
 
     private void flyAway(){
 
-    }
-
-    private void randomizePath(){
-        if(pathAssignedIn == false){
-            pathFollow.pathCreator = pathsDatabase.getRandomPathIn();
-            pathFollow.distanceTravelled = 0f;
-            pathAssignedIn = true;
-        }
-    }
-
-    private void randomizePathBack(){
-        if(pathAssignedBack == false){
-            pathFollow.pathCreator = pathsDatabase.getRandomPathBack();
-            pathFollow.distanceTravelled = 0f;
-            pathAssignedBack = true;
-        }
     }
     
     private void OnDestroy()

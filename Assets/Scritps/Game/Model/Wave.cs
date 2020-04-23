@@ -2,7 +2,6 @@
 {
    private int enemyAmount;
    private int enemySpawned;
-
    private bool isWaveEven;
    private bool miniBoss;
    
@@ -39,5 +38,9 @@
    {
       get => enemySpawned;
       set => enemySpawned = value;
+   }
+
+   public PathFollow PathFollow{
+      get; set;
    }
 }

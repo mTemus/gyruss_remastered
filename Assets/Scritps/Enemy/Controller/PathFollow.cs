@@ -10,6 +10,9 @@ public class PathFollow : MonoBehaviour
     public float distanceTravelled;
     public float turningRate = 90f; 
 
+    public PathFollow(){
+    }
+
     private void Start() {
         if (pathCreator != null)
         {
@@ -17,7 +20,7 @@ public class PathFollow : MonoBehaviour
         }   
     }
 
-    void OnPathChanged() {
+    private void OnPathChanged() {
         distanceTravelled = pathCreator.path.GetClosestDistanceAlongPath(transform.position);
     }
 

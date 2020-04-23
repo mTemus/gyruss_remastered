@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using PathCreation;
 
 public class GyrussGameManager : MonoBehaviour
 {
@@ -9,8 +10,9 @@ public class GyrussGameManager : MonoBehaviour
     [SerializeField] private MinimapManager minimapManager;
     [SerializeField] private EffectsManager effectsManager;
     [SerializeField] private ScoreManager scoreManager;
+    [SerializeField] private EnemyManager enemyManager;
     [SerializeField] private BossManager bossManager;
-
+    
     private static GyrussGameManager instance;
 
     private void Awake()
@@ -491,6 +493,14 @@ public class GyrussGameManager : MonoBehaviour
         GyrussEventManager.ClearDelegates();
     }
 
+    public void SetEnemyPath(){
+        EnemyManager.setPathForWave();
+    }
+
+    public PathCreator GetCurrentEnemyPath(){
+        return EnemyManager.getCurrentPath();
+    }
+
     public static GyrussGameManager Instance => instance;
     
     public PlayerManager PlayerManager => playerManager;
@@ -508,5 +518,7 @@ public class GyrussGameManager : MonoBehaviour
     public ScoreManager ScoreManager => scoreManager;
 
     public BossManager BossManager => bossManager;
+
+    public EnemyManager EnemyManager => enemyManager;
 }
 
