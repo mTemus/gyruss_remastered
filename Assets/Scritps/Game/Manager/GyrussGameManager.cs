@@ -493,12 +493,19 @@ public class GyrussGameManager : MonoBehaviour
         GyrussEventManager.ClearDelegates();
     }
 
-    public void SetEnemyPath(){
-        EnemyManager.setPathForWave();
+    public void SetEnemyPathIn(){
+        EnemyManager.setPathIn();
     }
 
-    public PathCreator GetCurrentEnemyPath(){
+    public PathCreator GetCurrentEnemyPathIn(){
         return EnemyManager.getCurrentPath();
+    }
+    public void SetEnemyPathOut(){
+        EnemyManager.setPathOut();
+    }
+
+    public PathCreator GetCurrentEnemyPathOut(){
+        return EnemyManager.getCurrentPathOut();
     }
 
     public static GyrussGameManager Instance => instance;

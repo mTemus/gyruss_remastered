@@ -12,7 +12,7 @@ public class PathsDatabase : ScriptableObject {
         return normalLevelPaths[Random.Range(0,normalLevelPaths.Count)];
     }
 
-    public PathCreator getRandomPathBack(){
+    public PathCreator getRandomPathOut(){
         return backLevelPaths[Random.Range(0,backLevelPaths.Count)];
     }
 

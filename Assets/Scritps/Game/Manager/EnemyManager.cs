@@ -4,17 +4,28 @@ using PathCreation;
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private PathsDatabase pathsDatabase;
-    [SerializeField] private PathCreator pathCreator;
+    private PathCreator pathIn;
+    private PathCreator pathOut;
 
     private void Start() {
-        setPathForWave();
+        setPathIn();
+        setPathOut();
     }
 
-    public void setPathForWave(){
-        pathCreator = pathsDatabase.getRandomPathIn();
+    public void setPathIn(){
+        pathIn = pathsDatabase.getRandomPathIn();
     }
 
     public PathCreator getCurrentPath(){
-        return pathCreator;
+        return pathIn;
+    }
+
+    public void setPathOut(){
+        pathOut = pathsDatabase.getRandomPathOut();
+    }
+
+    public PathCreator getCurrentPathOut(){
+        setPathOut();
+        return pathOut;
     }
 }

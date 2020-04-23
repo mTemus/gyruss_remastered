@@ -3,14 +3,12 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public PathFollow pathFollow;
-    public PathsDatabase pathsDatabase;
-    private bool pathAssignedBack = false;
-    
     private int spotIndex;
     private int waveId;
     private float speed;
+    private bool pathBackAssigned = false;
 
+    public PathFollow pathFollow;
     private GameObject myModule;
     private EnemyStates myCurrentState = EnemyStates.no_state;
     private StageType currentStageType = StageType.no_type;
@@ -21,7 +19,7 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         speed = pathFollow.speed;
-        pathFollow.pathCreator = GyrussGameManager.Instance.GetCurrentEnemyPath();
+        pathFollow.pathCreator = GyrussGameManager.Instance.GetCurrentEnemyPathIn();
     }
 
     private void Update() {
@@ -136,8 +134,7 @@ public class EnemyController : MonoBehaviour
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        } 
-            
+        }      
     }
 
     private void flyToSpot(){
@@ -149,13 +146,21 @@ public class EnemyController : MonoBehaviour
     }
 
     private void attackPlayer(){
-        if(!pathFollow.endPathReached()){
-            pathFollow.moveOnPath();
-        }
+
     }
 
     private void flyAway(){
-
+        if(pathBackAssigned == false){
+            pathBackAssigned = true;
+            pathFollow.pathCreator = GyrussGameManager.Instance.GetCurrentEnemyPathOut();
+            pathFollow.distanceTravelled = 0;
+        }else{
+            if(!pathFollow.endPathReached()){
+                pathFollow.moveOnPath();
+            }else{
+                Destroy(transform.gameObject);
+            }
+        }
     }
     
     private void OnDestroy()
