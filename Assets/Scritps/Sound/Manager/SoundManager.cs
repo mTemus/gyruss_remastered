@@ -7,6 +7,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private SingleSound[] soundEffects;
     [SerializeField] private SingleSound[] soundMusic;
 
+
+    private SingleSound currentPlayingBGM;
+    
     private void Awake()
     {
         foreach (SingleSound sound in soundEffects) {
@@ -42,6 +45,7 @@ public class SoundManager : MonoBehaviour
         GyrussEventManager.SoundBGMStopInitiated += StopBGM;
         GyrussEventManager.CurrentSoundBGMStopInitiated += StopCurrentPlayingBGM;
         GyrussEventManager.IsBGMPlayingInitiated += IsBGMPlaying;
+        GyrussEventManager.CurrentPlayingBGMSilencingInitiated += SilencePlayingBGM;
     }
 
     private void PlaySoundEffect(string effectName)
@@ -57,7 +61,8 @@ public class SoundManager : MonoBehaviour
     private void PlayBGM(string BGMName)
     {
         if (soundMusic.Any(s => s.Name == BGMName)) {
-            Array.Find(soundMusic, sound => sound.Name == BGMName).Source.Play();
+            currentPlayingBGM = Array.Find(soundMusic, sound => sound.Name == BGMName);
+            currentPlayingBGM.Source.Play();
         }
         else {
             Debug.LogError("No music with name: " + BGMName + " to play!");
@@ -74,20 +79,30 @@ public class SoundManager : MonoBehaviour
         }
     }
     
-    //TODO: add silencing method to 0 to silence before warping
+    private void SilencePlayingBGM()
+    {
+        currentPlayingBGM.Source.volume -= 0.1f;
 
+        if (currentPlayingBGM.Source.volume == 0) {
+            currentPlayingBGM.Source.Stop();
+            currentPlayingBGM = null;
+        }
+        else {
+            GyrussGameManager.Instance.SetConditionInTimer("BGMSilencing", true);
+        }
+    }
+    
+    
     private void StopCurrentPlayingBGM()
     {
-        foreach (SingleSound sound in soundMusic) {
-            if (sound.Source.isPlaying) {
-                sound.Source.Stop();
-            }
-        }
+        currentPlayingBGM.Source.Stop();
+        currentPlayingBGM = null;
     }
 
     private bool IsBGMPlaying()
     {
-        return soundMusic.Any(sound => sound.Source.isPlaying);
+        return soundMusic.Any(sound => sound.Source.isPlaying) || 
+               (currentPlayingBGM != null && currentPlayingBGM.Source.isPlaying);
     }
     
     

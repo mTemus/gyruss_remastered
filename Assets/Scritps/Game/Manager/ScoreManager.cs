@@ -146,7 +146,6 @@ public class ScoreManager : MonoBehaviour
                     break;
             }
             
-            GyrussGameManager.Instance.PlaySoundEffect("bonusScoreCount");
             AddPoints(100);
             shipsKilledInChance--;
             GyrussGameManager.Instance.SetConditionInTimer("chanceBonusPointsCountingTimer", true);
@@ -164,13 +163,21 @@ public class ScoreManager : MonoBehaviour
                     noChanceBonus = false;
                     return;
             
-                case 10000 when !noChanceBonus:
+                case 10100 when !noChanceBonus:
                     GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true);
                     break;
             }
+
+            if (perfectChanceBonus > 500) {
+                AddPoints(300);
+                perfectChanceBonus -= 300;
+            }
+            else {
+                AddPoints(100);
+                perfectChanceBonus -= 100;
+            }
             
-            AddPoints(100);
-            perfectChanceBonus -= 100;
+            GyrussGameManager.Instance.PlaySoundEffect("bonusScoreCount");
             GyrussGameManager.Instance.SetConditionInTimer("chanceBonusPointsCountingTimer", true);
         }
     }

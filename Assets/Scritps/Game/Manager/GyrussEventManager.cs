@@ -38,6 +38,7 @@ public class GyrussEventManager : MonoBehaviour
     public static Action ChanceBonusPointsToScoreAddingInitiated;
     public static Action StarParticlesToggleInitiated;
     public static Action CurrentSoundBGMStopInitiated;
+    public static Action CurrentPlayingBGMSilencingInitiated;
     public static Action<StageType> StageTypeSetupInitiated;
     public static Action<StageState> StageStateSetupInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
@@ -61,6 +62,11 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<string, float> PeriodSetupInTimerInitiated;
     public static Action<GameObject, GameObject> ShipRemovalFromAwaitingListInitiated;
 
+    public static void OnCurrentPlayingBGMSilencingInitiated()
+    {
+        CurrentPlayingBGMSilencingInitiated?.Invoke();
+    }
+    
     public static bool OnIsBGMPlayingInitiated() => 
         IsBGMPlayingInitiated.Invoke();
     
@@ -391,5 +397,6 @@ public class GyrussEventManager : MonoBehaviour
         SoundBGMStopInitiated = null;
         CurrentSoundBGMStopInitiated = null;
         IsBGMPlayingInitiated = null;
+        CurrentPlayingBGMSilencingInitiated = null;
     }
 }

@@ -485,6 +485,13 @@ public class GyrussGameManager : MonoBehaviour
 
     public bool IsBGMPlaying() =>
         GyrussEventManager.OnIsBGMPlayingInitiated();
+
+    public void SilenceCurrentPlayingBGM()
+    {
+        GyrussEventManager.OnCurrentPlayingBGMSilencingInitiated();
+    }
+    
+    
     
     private void OnDestroy()
     {
