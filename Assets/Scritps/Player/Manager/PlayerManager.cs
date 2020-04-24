@@ -188,17 +188,18 @@ public class PlayerManager : MonoBehaviour
     private bool MoveShipToWarpingPosition()
     {
         if (playerAnimator.GetBool(Warping)) return true;
-        
-        RotateShip(Vector3.forward);
-        
-        Vector3 currPos = playerShip.transform.position;
 
+        Transform playerTransform = playerShip.transform;
+        Vector3 currPos = playerTransform.position;
+        
+        RotateShip(currPos.x < 0 ? Vector3.forward : Vector3.back);
+        
         float condition = currPos.y - playerStartingPosition.y;
 
         if (!(condition < 0.01)) return false;
         
-        playerShip.transform.position = playerStartingPosition;
-        playerShip.transform.rotation = Quaternion.identity;
+        playerTransform.position = playerStartingPosition;
+        playerTransform.rotation = Quaternion.identity;
         return true;
     }
 
