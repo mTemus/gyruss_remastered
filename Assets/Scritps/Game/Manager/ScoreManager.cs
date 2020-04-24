@@ -173,9 +173,6 @@ public class ScoreManager : MonoBehaviour
             perfectChanceBonus -= 100;
             GyrussGameManager.Instance.SetConditionInTimer("chanceBonusPointsCountingTimer", true);
         }
-        
-        
-        
     }
     
     private void OnDestroy()
