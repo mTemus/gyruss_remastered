@@ -228,6 +228,7 @@ public class PlayerManager : MonoBehaviour
         
         GyrussGameManager.Instance.SetDeathParticlesOnPosition();
         playerShip.SetActive(false);
+        GyrussGameManager.Instance.PlaySoundEffect("player-death");
         GyrussGameManager.Instance.PrepareDeathParticles();
         
         if (lives < 0) {

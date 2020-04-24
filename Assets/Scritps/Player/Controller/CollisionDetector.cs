@@ -31,6 +31,5 @@ public class CollisionDetector : MonoBehaviour
     private void OnDisable()
     {
         GyrussGameManager.Instance.TogglePlayerSpawned();
-        GyrussGameManager.Instance.PlaySoundEffect("player-death");
     }
 }

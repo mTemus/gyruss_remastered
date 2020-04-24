@@ -14,7 +14,7 @@ public class StageManager : MonoBehaviour
     [Header("Pools")] 
     [SerializeField] private Transform enemyPool;
 
-    private int currentStage = 4;
+    private int currentStage = 3;
     private int stages = 1;
     private int enemiesAlive;
 
