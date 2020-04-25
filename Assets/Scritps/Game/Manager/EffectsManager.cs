@@ -114,6 +114,8 @@ public class EffectsManager : MonoBehaviour
 
     private void PrepareReviveParticles()
     {
+        GyrussGameManager.Instance.PlaySoundEffect("player-spawn");
+
         foreach (GameObject reviveParticle in reviveParticles) {
             reviveParticle.SetActive(true);
             reviveParticle.GetComponent<ReviveParticleController>().PrepareMovement(playerShipPosition);

@@ -25,7 +25,6 @@ public class CollisionDetector : MonoBehaviour
     {
         GyrussGameManager.Instance.ToggleReadyText();
         GyrussGameManager.Instance.TogglePlayerSpawned();
-        GyrussGameManager.Instance.PlaySoundEffect("player-spawn");
     }
 
     private void OnDisable()
