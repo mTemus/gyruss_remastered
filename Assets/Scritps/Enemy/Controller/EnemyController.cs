@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour
     private int waveId;
     private float speed;
     private float internalTimer;
-    private float randomTime;
+    private float randomWaitTime;
     private float attackChance;
     private bool pathBackAssigned = false;
     public bool pathAttackAssigned = false;
@@ -26,7 +26,7 @@ public class EnemyController : MonoBehaviour
     {
         speed = pathFollow.speed;
         pathFollow.pathCreator = GyrussGameManager.Instance.GetCurrentEnemyPathIn();
-        randomTime = UnityEngine.Random.Range(2,20);
+        randomWaitTime = UnityEngine.Random.Range(2,20);
         attackChance = UnityEngine.Random.Range(0,100);
     }
 
@@ -48,7 +48,7 @@ public class EnemyController : MonoBehaviour
             
             case EnemyStates.wait:
                 UpdateCenterPosition();
-                if(internalTimer >= randomTime){
+                if(internalTimer >= randomWaitTime){
                     myCurrentState = EnemyStates.attack;
                     waitReached = false;
                 }

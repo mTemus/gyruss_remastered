@@ -17,7 +17,7 @@ public class PathFollow : MonoBehaviour
         if (pathCreator != null)
         {
             pathCreator.pathUpdated += OnPathChanged;
-            speed = pathCreator.path.length/20 + 5;
+            speed = pathCreator.path.length/22.5f + 5;
         }   
     }
 
