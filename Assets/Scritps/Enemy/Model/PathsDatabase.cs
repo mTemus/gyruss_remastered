@@ -22,11 +22,18 @@ public class PathsDatabase : ScriptableObject {
 
     public PathCreator getClosestPathToPlayer(){
         Vector3 playerPos = GyrussGameManager.Instance.GetPlayerShipPosition();
+        PathCreator closestPath = null;
+        float smallestDistance = 10;
         foreach(var pathOut in backLevelPaths){
-            if(Vector3.Distance(pathOut.path.GetClosestPointOnPath(playerPos), playerPos) <= 1){
-                return pathOut;
+            if(Vector3.Distance(pathOut.path.GetClosestPointOnPath(playerPos), playerPos) < smallestDistance){
+                smallestDistance = Vector3.Distance(pathOut.path.GetClosestPointOnPath(playerPos), playerPos);
+                closestPath = pathOut;
             }
         }
-        return backLevelPaths[Random.Range(0,normalLevelPaths.Count)];
+        if(closestPath != null){
+            return closestPath;
+        }else{
+            return backLevelPaths[Random.Range(0,backLevelPaths.Count)];
+        }
     }
 }
