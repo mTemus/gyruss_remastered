@@ -233,7 +233,8 @@ public class PlayerManager : MonoBehaviour
         GyrussGameManager.Instance.PrepareDeathParticles();
         
         if (lives < 0) {
-            Debug.LogError("game ends here");
+            GyrussGameManager.Instance.SetConditionInTimer("gameOver", true);
+            Destroy(playerShip);
         }
         else { 
             GyrussGameManager.Instance.DecreaseGUILives(lives);

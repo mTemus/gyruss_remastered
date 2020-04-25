@@ -39,6 +39,7 @@ public class GyrussEventManager : MonoBehaviour
     public static Action StarParticlesToggleInitiated;
     public static Action CurrentSoundBGMStopInitiated;
     public static Action CurrentPlayingBGMSilencingInitiated;
+    public static Action AllEnemiesDeleteInitiated;
     public static Action<StageType> StageTypeSetupInitiated;
     public static Action<StageState> StageStateSetupInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
@@ -62,6 +63,11 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<string, float> PeriodSetupInTimerInitiated;
     public static Action<GameObject, GameObject> ShipRemovalFromAwaitingListInitiated;
 
+    public static void OnAllEnemiesDeleteInitiated()
+    {
+        AllEnemiesDeleteInitiated?.Invoke();
+    }
+    
     public static void OnCurrentPlayingBGMSilencingInitiated()
     {
         CurrentPlayingBGMSilencingInitiated?.Invoke();
@@ -398,5 +404,6 @@ public class GyrussEventManager : MonoBehaviour
         CurrentSoundBGMStopInitiated = null;
         IsBGMPlayingInitiated = null;
         CurrentPlayingBGMSilencingInitiated = null;
+        AllEnemiesDeleteInitiated = null;
     }
 }

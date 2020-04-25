@@ -14,7 +14,7 @@ public class StageManager : MonoBehaviour
     [Header("Pools")] 
     [SerializeField] private Transform enemyPool;
 
-    private int currentStage = 3;
+    private int currentStage = 1;
     private int stages = 1;
     private int enemiesAlive;
 
@@ -63,6 +63,7 @@ public class StageManager : MonoBehaviour
         GyrussEventManager.StageClearInitiated += ClearStage;
         GyrussEventManager.MiniBossModuleKillInitiated += DestroyMiniBossModule;
         GyrussEventManager.ShipRemovalFromAwaitingListInitiated += RemoveShipFromModule;
+        GyrussEventManager.AllEnemiesDeleteInitiated += DeleteAllEnemies;
     }
     
     private void ProcessOrdersInStage()
@@ -217,6 +218,8 @@ public class StageManager : MonoBehaviour
 
     private void KillEnemy()
     {
+        if (playerShip == null) return; 
+        
         enemiesAlive--;
 
         if (enemiesAlive < 0) {
@@ -449,7 +452,13 @@ public class StageManager : MonoBehaviour
         if (!modulesAwaitingForShips[module].Contains(ship)) return; 
         modulesAwaitingForShips[module].Remove(ship);
     }
-    
+
+    private void DeleteAllEnemies()
+    {
+        foreach (Transform enemy in enemyPool) {
+            Destroy(enemy.gameObject);
+        }
+    }
     
     public int CurrentStage => currentStage; 
 }

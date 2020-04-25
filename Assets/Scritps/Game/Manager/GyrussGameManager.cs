@@ -18,6 +18,20 @@ public class GyrussGameManager : MonoBehaviour
         instance = this;
     }
 
+    public void SetGameStatusGameOver()
+    {
+        StopTimer("asteroidSpawn");
+        SetLevelState(LevelState.wait);
+        SetStageState(StageState.wait);
+        DeleteAllEnemies();
+        StopCurrentPlayingBGM();
+        PlayBGM("gameOver");
+        DisplayGameOverText();
+            
+        //TODO: add timer for loading starting scene
+    }
+    
+    
     public void SetCurrentStageType(StageType newStageType)
     {
         GyrussEventManager.OnStageTypeSetupInitiated(newStageType);
@@ -490,7 +504,16 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussEventManager.OnCurrentPlayingBGMSilencingInitiated();
     }
-    
+
+    public void DisplayGameOverText()
+    {
+        GyrussGUIEventManager.OnGameOverTextDisplayInitiated();
+    }
+
+    public void DeleteAllEnemies()
+    {
+        GyrussEventManager.OnAllEnemiesDeleteInitiated();
+    }
     
     
     private void OnDestroy()

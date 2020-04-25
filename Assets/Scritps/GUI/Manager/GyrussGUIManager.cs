@@ -65,6 +65,7 @@ public class GyrussGUIManager : MonoBehaviour
         GyrussGUIEventManager.ChanceBonusScoreDisplayInitiated += SetChanceBonusText;
         GyrussGUIEventManager.ChanceBonusTextBlinkInitiated += BlinkChanceBonusText;
         GyrussGUIEventManager.ToggleChanceBonusTryInitiated += ToggleChanceBonusText;
+        GyrussGUIEventManager.GameOverTextDisplayInitiated += DisplayGameOverText;
     }
     
     private void SetScoreText(int score)
@@ -136,6 +137,12 @@ public class GyrussGUIManager : MonoBehaviour
         chanceTextBlinks = 0;
         ToggleWarpsText();
         BlinkChanceStageText();
+    }
+
+    private void DisplayGameOverText()
+    {
+        warpsLeftText.text = "GAME OVER";
+        ToggleWarpsText();
     }
 
     private void BlinkChanceStageText()
