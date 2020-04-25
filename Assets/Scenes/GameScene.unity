@@ -666,7 +666,7 @@ MonoBehaviour:
     loop: 0
   - name: newPlanetIntro
     clip: {fileID: 8300000, guid: 5186911fc6854594986dfc10bfb8023c, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
   - name: stage-1-bgm
@@ -696,7 +696,7 @@ MonoBehaviour:
     loop: 1
   - name: stage-4-intro
     clip: {fileID: 8300000, guid: 33c48455326a2e243966bc87149cbc18, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
 --- !u!1 &78132616
@@ -12784,7 +12784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerName: readyTextDelay
-  timerPeriod: 3
+  timerPeriod: 4.4
   timerEvent:
     m_PersistentCalls:
       m_Calls:
@@ -13411,7 +13411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerName: playerEnteredStage
-  timerPeriod: 1
+  timerPeriod: 3
   timerEvent:
     m_PersistentCalls:
       m_Calls:
