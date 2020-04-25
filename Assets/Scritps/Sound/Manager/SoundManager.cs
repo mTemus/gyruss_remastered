@@ -104,8 +104,7 @@ public class SoundManager : MonoBehaviour
 
     private bool IsBGMPlaying()
     {
-        return soundMusic.Any(sound => sound.Source.isPlaying) || 
-               (currentPlayingBGM != null && currentPlayingBGM.Source.isPlaying);
+        return currentPlayingBGM != null && currentPlayingBGM.Source.isPlaying;
     }
     
     
