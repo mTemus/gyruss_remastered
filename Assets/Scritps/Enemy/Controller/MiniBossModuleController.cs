@@ -28,6 +28,7 @@ public class MiniBossModuleController : MonoBehaviour
         myAnimator = transform.GetComponent<Animator>();
         closeTime = Random.Range(7, 20);
         period = closeTime;
+        transform.rotation = Quaternion.identity;
     }
 
     void Update()

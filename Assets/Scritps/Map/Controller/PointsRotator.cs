@@ -6,6 +6,8 @@ public class PointsRotator : MonoBehaviour
     
     void Update()
     {
-        transform.RotateAround(Vector3.zero, Vector3.back, speed * Time.deltaTime);
+        Transform pointTransform;
+        (pointTransform = transform).RotateAround(Vector3.zero, Vector3.back, speed * Time.deltaTime);
+        pointTransform.rotation = Quaternion.identity;
     }
 }
