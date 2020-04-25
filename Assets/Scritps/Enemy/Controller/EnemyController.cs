@@ -6,7 +6,13 @@ public class EnemyController : MonoBehaviour
     private int spotIndex;
     private int waveId;
     private float speed;
+    private float internalTimer;
+    private float randomTime;
+    private float attackChance;
     private bool pathBackAssigned = false;
+    public bool pathAttackAssigned = false;
+    private bool waitReached = false;
+    private bool attacked = false;
 
     public PathFollow pathFollow;
     private GameObject myModule;
@@ -20,6 +26,14 @@ public class EnemyController : MonoBehaviour
     {
         speed = pathFollow.speed;
         pathFollow.pathCreator = GyrussGameManager.Instance.GetCurrentEnemyPathIn();
+        randomTime = UnityEngine.Random.Range(2,20);
+        attackChance = UnityEngine.Random.Range(0,100);
+    }
+
+    private void FixedUpdate() {
+        if(waitReached){
+            internalTimer += Time.deltaTime;
+        }
     }
 
     private void Update() {
@@ -34,6 +48,10 @@ public class EnemyController : MonoBehaviour
             
             case EnemyStates.wait:
                 UpdateCenterPosition();
+                if(internalTimer >= randomTime){
+                    myCurrentState = EnemyStates.attack;
+                    waitReached = false;
+                }
                 break;
             
             case EnemyStates.attack:
@@ -142,11 +160,24 @@ public class EnemyController : MonoBehaviour
 
         if (transform.position == centerPosition) {
             myCurrentState = EnemyStates.wait;
+            waitReached = true;
         }
     }
 
     private void attackPlayer(){
-
+        if(attackChance > 30 && pathAttackAssigned == false){
+            pathAttackAssigned = true;
+            pathFollow.pathCreator = GyrussGameManager.Instance.getClosestPathOut();
+            pathFollow.distanceTravelled = 0;
+        }else if(attackChance <= 30){
+            myCurrentState = EnemyStates.fly_away;
+        }else{
+            if(!pathFollow.endPathReached()){
+                pathFollow.moveOnPath();
+            }else{
+                Destroy(transform.gameObject);
+            }
+        }
     }
 
     private void flyAway(){
@@ -180,6 +211,11 @@ public class EnemyController : MonoBehaviour
 
         if (other.CompareTag("Rocket")) {
             myCurrentState = EnemyStates.die;
+        }
+
+        if(other.CompareTag("Player") && pathAttackAssigned){
+            Destroy(transform.gameObject);
+            GyrussGameManager.Instance.KillPlayer();
         }
     }
 

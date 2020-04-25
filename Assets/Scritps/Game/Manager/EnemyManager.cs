@@ -6,6 +6,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private PathsDatabase pathsDatabase;
     private PathCreator pathIn;
     private PathCreator pathOut;
+    private PathCreator closestPathOut;
 
     private void Start() {
         setPathIn();
@@ -27,5 +28,14 @@ public class EnemyManager : MonoBehaviour
     public PathCreator getCurrentPathOut(){
         setPathOut();
         return pathOut;
+    }
+
+    public void setClosestPathOut(){
+        closestPathOut = pathsDatabase.getClosestPathToPlayer();
+    }
+
+    public PathCreator getClosestPathOut(){
+        setClosestPathOut();
+        return closestPathOut;
     }
 }

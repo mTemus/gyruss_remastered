@@ -508,6 +508,14 @@ public class GyrussGameManager : MonoBehaviour
         return EnemyManager.getCurrentPathOut();
     }
 
+    public void setClosestPathOut(){
+        EnemyManager.setClosestPathOut();
+    }
+
+    public PathCreator getClosestPathOut(){
+        return EnemyManager.getClosestPathOut();
+    }
+
     public static GyrussGameManager Instance => instance;
     
     public PlayerManager PlayerManager => playerManager;

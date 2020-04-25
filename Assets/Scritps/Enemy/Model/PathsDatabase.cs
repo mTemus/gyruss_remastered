@@ -19,4 +19,14 @@ public class PathsDatabase : ScriptableObject {
     public PathCreator getRandomPathInChanceStage(){
         return chanceLevelPaths[Random.Range(0,chanceLevelPaths.Count)];
     }
+
+    public PathCreator getClosestPathToPlayer(){
+        Vector3 playerPos = GyrussGameManager.Instance.GetPlayerShipPosition();
+        foreach(var pathOut in backLevelPaths){
+            if(Vector3.Distance(pathOut.path.GetClosestPointOnPath(playerPos), playerPos) <= 1){
+                return pathOut;
+            }
+        }
+        return backLevelPaths[Random.Range(0,normalLevelPaths.Count)];
+    }
 }
