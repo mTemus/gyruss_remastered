@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d315f7a3834f64f4fb1027efd11aafbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 1
+  life: 70
   openTime: 2
   bulletPrefab: {fileID: 8881751057914014261, guid: cae934cb9c1b7ad479181a04553a132b,
     type: 3}
@@ -355,7 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d315f7a3834f64f4fb1027efd11aafbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 1
+  life: 70
   openTime: 2
   bulletPrefab: {fileID: 8881751057914014261, guid: cae934cb9c1b7ad479181a04553a132b,
     type: 3}
@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d315f7a3834f64f4fb1027efd11aafbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 1
+  life: 70
   openTime: 2
   bulletPrefab: {fileID: 8881751057914014261, guid: cae934cb9c1b7ad479181a04553a132b,
     type: 3}
@@ -669,7 +669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d315f7a3834f64f4fb1027efd11aafbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 1
+  life: 70
   openTime: 2
   bulletPrefab: {fileID: 8881751057914014261, guid: cae934cb9c1b7ad479181a04553a132b,
     type: 3}
@@ -739,7 +739,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2664237375177657302}
   m_Layer: 0
-  m_Name: Boss_l0
+  m_Name: Boss_L0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
