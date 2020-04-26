@@ -27,7 +27,19 @@ public class GyrussGUIEventManager : MonoBehaviour
     public static Action ChanceStageTextDisplayInitiated;
     public static Action ToggleChanceBonusTryInitiated;
     public static Action GameOverTextDisplayInitiated;
+    public static Action GameRestartCountInitiated;
+    public static Action GameEndingDisplayInitiated;
 
+    public static void OnGameEndingDisplayInitiated()
+    {
+        GameEndingDisplayInitiated?.Invoke();
+    }
+
+    public static void OnGameRestartCountInitiated()
+    {
+        GameRestartCountInitiated?.Invoke();
+    }
+    
     public static void OnGameOverTextDisplayInitiated()
     {
         GameOverTextDisplayInitiated?.Invoke();
@@ -174,6 +186,8 @@ public class GyrussGUIEventManager : MonoBehaviour
         ChanceBonusTextBlinkInitiated = null;
         ToggleChanceBonusTryInitiated = null;
         GameOverTextDisplayInitiated = null;
+        GameRestartCountInitiated = null;
+        GameEndingDisplayInitiated = null;
     }
     
 }

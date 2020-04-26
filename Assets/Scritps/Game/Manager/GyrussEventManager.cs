@@ -7,6 +7,7 @@ public class GyrussEventManager : MonoBehaviour
     public static Func<Vector3> GetPlayerShipPositionInitiated;
     public static Func<int> PlayerLivesGetInitiated;
     public static Func<int> PlayerRocketsGetInitiated;
+    public static Func<int> CurrentLevelGetInitiated;
     public static Func<bool> MovePlayerToWarpPositionInitiated;
     public static Func<bool> MovePlayerToCenterPointInitiated;
     public static Func<bool> IsBGMPlayingInitiated;
@@ -63,6 +64,9 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<string, float> PeriodSetupInTimerInitiated;
     public static Action<GameObject, GameObject> ShipRemovalFromAwaitingListInitiated;
 
+    public static void OnCurrentLevelGetInitiated() => 
+        CurrentLevelGetInitiated?.Invoke();
+    
     public static void OnAllEnemiesDeleteInitiated()
     {
         AllEnemiesDeleteInitiated?.Invoke();
@@ -405,5 +409,6 @@ public class GyrussEventManager : MonoBehaviour
         IsBGMPlayingInitiated = null;
         CurrentPlayingBGMSilencingInitiated = null;
         AllEnemiesDeleteInitiated = null;
+        CurrentLevelGetInitiated = null;
     }
 }

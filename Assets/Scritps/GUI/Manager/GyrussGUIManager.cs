@@ -15,6 +15,7 @@ public class GyrussGUIManager : MonoBehaviour
     [SerializeField] private Text warpsLeftText;
     [SerializeField] private Text readyText;
     [SerializeField] private Text chanceBonusText;
+    [SerializeField] private Text gameRestartText;
 
     [Header("Icons")] 
     [SerializeField] private GameObject lifeIcon;
@@ -32,6 +33,7 @@ public class GyrussGUIManager : MonoBehaviour
 
     private int chanceTextBlinks;
     private int chanceBonusTextBlinks;
+    private int restartCount = 20;
     
     private GameObject currentPlanet;
     
@@ -66,6 +68,8 @@ public class GyrussGUIManager : MonoBehaviour
         GyrussGUIEventManager.ChanceBonusTextBlinkInitiated += BlinkChanceBonusText;
         GyrussGUIEventManager.ToggleChanceBonusTryInitiated += ToggleChanceBonusText;
         GyrussGUIEventManager.GameOverTextDisplayInitiated += DisplayGameOverText;
+        GyrussGUIEventManager.GameRestartCountInitiated += CountToRestart;
+        GyrussGUIEventManager.GameEndingDisplayInitiated += DisplayGameEnding;
     }
     
     private void SetScoreText(int score)
@@ -142,7 +146,9 @@ public class GyrussGUIManager : MonoBehaviour
     private void DisplayGameOverText()
     {
         warpsLeftText.text = "GAME OVER";
+        gameRestartText.enabled = true;
         ToggleWarpsText();
+        CountToRestart();
     }
 
     private void BlinkChanceStageText()
@@ -301,6 +307,32 @@ public class GyrussGUIManager : MonoBehaviour
     {
         Destroy(currentPlanet);
     }
+
+    private void DisplayGameEnding()
+    {
+        warpsLeftText.fontSize = 12;
+        warpsLeftText.text = "KONIEC DEMA STWORZONEGO NA PROJEKT Z PROGRAMOWANIA APLIKACJI MOBILNYCH\n" +
+                             "MARCIN WOJCIK & MATEUSZ MAJEWSKI \n" +
+                             "GRUPA 4, INFORMATYKA STOSOWANA SEMESTR 6";
+        ToggleWarpsText();
+        
+        gameRestartText.enabled = true;
+        CountToRestart();
+    }
+
+    private void CountToRestart()
+    {
+        gameRestartText.text = "GAME WILL RESTART IN: " + restartCount--;
+
+        if (restartCount > 0) {
+            GyrussGameManager.Instance.SetConditionInTimer("gameRestart", true);
+        }
+        else {
+            //TODO: load menu scene
+        }
+    }
+    
+    
     
     private void OnDestroy()
     {

@@ -514,7 +514,16 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussEventManager.OnAllEnemiesDeleteInitiated();
     }
-    
+
+    public void CountToRestartGame()
+    {
+        GyrussGUIEventManager.OnGameRestartCountInitiated();
+    }
+
+    public void DisplayGameEnding()
+    {
+        GyrussGUIEventManager.OnGameEndingDisplayInitiated();
+    }
     
     private void OnDestroy()
     {

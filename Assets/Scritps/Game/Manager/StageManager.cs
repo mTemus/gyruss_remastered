@@ -229,9 +229,18 @@ public class StageManager : MonoBehaviour
         switch (enemiesAlive) {
             case 0 when currentWaveCounter == 4:
                 if (currentStageType == StageType.boss) {
-                    GyrussGameManager.Instance.StopCurrentPlayingBGM();
-                    GyrussGameManager.Instance.PlayBGM("stage-3-boss");
-                    GyrussGameManager.Instance.SpawnBoss(); 
+                    if (GyrussGameManager.Instance.LevelManager.CurrentLevel == 0) {
+                        GyrussGameManager.Instance.StopCurrentPlayingBGM();
+                        GyrussGameManager.Instance.PlayBGM("stage-3-boss");
+                        GyrussGameManager.Instance.SpawnBoss(); 
+                    }
+                    else {
+                        GyrussGameManager.Instance.SetStageState(StageState.wait);
+                        GyrussGameManager.Instance.SetLevelState(LevelState.wait);
+                        GyrussGameManager.Instance.StopTimer("asteroidSpawn");
+                        GyrussGameManager.Instance.SilenceCurrentPlayingBGM();
+                        GyrussGameManager.Instance.SetConditionInTimer("startEnding", true);
+                    }
                 }
                     
                 else if(currentStageType != StageType.chance) {
