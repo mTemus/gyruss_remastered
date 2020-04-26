@@ -108,12 +108,15 @@ public class MiniBossModuleController : MonoBehaviour
             
             case "Rocket":
                 Die();
+                Destroy(other.gameObject);
                 break;
             
             case "PlayerBullet":
                 if (myAnimator.GetBool(Hurt)) {
                     myAnimator.CrossFade(myAnimator.GetBool(Open) ? "open_hurt" : "closed_hurt", 0f, -1, 0f);
                 }
+                
+                Destroy(other.gameObject);
                 myAnimator.SetBool(Hurt, true);
                 GetHurt();
                 break;
@@ -134,6 +137,7 @@ public class MiniBossModuleController : MonoBehaviour
     {
         if (!eatenShips.Contains(ship)) {
             eatenShips.Add(ship);
+            ship.transform.position = new Vector3(100, 100, 0);
         }
         else {
             Debug.LogError("Ship can't be eaten two times!!! " + transform.name);

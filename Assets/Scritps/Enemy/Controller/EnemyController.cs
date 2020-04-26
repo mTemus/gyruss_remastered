@@ -86,7 +86,6 @@ public class EnemyController : MonoBehaviour
 
                 if (transform.position == modulePosition) {
                     GyrussGameManager.Instance.RemoveShipFromAwaitingList(myModule, transform.gameObject);
-                    transform.position = new Vector3(100, 100, 0);
                     myModule.GetComponent<MiniBossModuleController>().EatEnemyShip(transform.gameObject);
                     myCurrentState = EnemyStates.no_state;
                 }
@@ -117,7 +116,7 @@ public class EnemyController : MonoBehaviour
             
             default:
                 throw new ArgumentOutOfRangeException();
-        }   
+        }
     }
 
     private void enterScreen(){

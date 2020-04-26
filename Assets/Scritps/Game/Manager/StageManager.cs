@@ -327,8 +327,9 @@ public class StageManager : MonoBehaviour
                 if (modulesAmount == 0) Destroy(enemy); 
                 
                 modulesAwaitingForShips[miniBossModules[moduleId]].Add(enemy);
+                enemy.transform.SetParent(miniBossModules[moduleId].transform);
                 enemy.GetComponent<EnemyController>().MyModule = miniBossModules[moduleId];
-                enemy.GetComponent<PositionsUpadator>().SetModuleToUpdate(miniBossModules[moduleId]);
+                enemy.GetComponent<PositionsUpadator>().SetModuleToUpdate(miniBossModules[moduleId].transform);
                 moduleId++;
                 
                 if (moduleId > modulesAmount - 1) moduleId = 0;
@@ -428,7 +429,7 @@ public class StageManager : MonoBehaviour
             }
             else {
                 ship.GetComponent<EnemyController>().MyModule = newModule;
-                ship.GetComponent<PositionsUpadator>().SetModuleToUpdate(newModule);
+                ship.GetComponent<PositionsUpadator>().SetModuleToUpdate(newModule.transform);
             }
         }
     }
