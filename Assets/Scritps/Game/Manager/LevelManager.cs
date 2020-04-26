@@ -42,7 +42,7 @@ public class LevelManager : MonoBehaviour
         switch (currentLevelState) {
             case LevelState.start:
                 if (MinimapView.activeSelf) {
-                    if (currentLevel == 0) GyrussGameManager.Instance.PlayBGM("beginning-metal");
+                    if (currentLevel == 0) GyrussGameManager.Instance.PlayBGM("beginning-normal");
 
                     GyrussGameManager.Instance.SetConditionInTimer("playerDelayOnMinimap", true);
                     currentLevelState = LevelState.wait;

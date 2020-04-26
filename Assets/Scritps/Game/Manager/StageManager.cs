@@ -235,13 +235,13 @@ public class StageManager : MonoBehaviour
                 }
                     
                 else if(currentStageType != StageType.chance) {
-                    GyrussGameManager.Instance.StopCurrentPlayingBGM();
+                    GyrussGameManager.Instance.SilenceCurrentPlayingBGM();
                     GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true);
                 }
                 break;
             
             case 0 when currentWaveCounter == 5:
-                GyrussGameManager.Instance.StopCurrentPlayingBGM();
+                GyrussGameManager.Instance.SilenceCurrentPlayingBGM();
                 GyrussGameManager.Instance.StartCountingChanceBonusPoints();
                 break;
         }

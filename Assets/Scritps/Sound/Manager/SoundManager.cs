@@ -84,9 +84,9 @@ public class SoundManager : MonoBehaviour
     
     private void SilencePlayingBGM()
     {
-        currentPlayingBGM.Source.volume -= 0.1f;
+        currentPlayingBGM.Source.volume -= 0.05f;
 
-        if (currentPlayingBGM.Source.volume == 0) {
+        if (currentPlayingBGM.Source.volume <= 0) {
             currentPlayingBGM.Source.Stop();
             currentPlayingBGM = null;
         }

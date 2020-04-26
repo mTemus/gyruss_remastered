@@ -646,7 +646,7 @@ MonoBehaviour:
     loop: 1
   - name: beginning-normal
     clip: {fileID: 8300000, guid: e7b80e534489d3c43b4bc9c73b2d8204, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 1
   - name: ending
@@ -2504,7 +2504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerName: BGMSilencing
-  timerPeriod: 0.12
+  timerPeriod: 0.28
   timerEvent:
     m_PersistentCalls:
       m_Calls:
@@ -2755,7 +2755,7 @@ MonoBehaviour:
   minimapManager: {fileID: 410104488}
   effectsManager: {fileID: 222823266}
   scoreManager: {fileID: 519870404}
-  bossManager: {fileID: 0}
+  bossManager: {fileID: 50006480}
 --- !u!1 &452709662
 GameObject:
   m_ObjectHideFlags: 0
