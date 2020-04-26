@@ -60,9 +60,6 @@ public class SoundManager : MonoBehaviour
 
     private void PlayBGM(string BGMName)
     {
-        Debug.LogWarning("Current playing BGM: " + BGMName);
-        
-        
         if (soundMusic.Any(s => s.Name == BGMName)) {
             currentPlayingBGM = Array.Find(soundMusic, sound => sound.Name == BGMName);
             currentPlayingBGM.Source.Play();
@@ -106,6 +103,4 @@ public class SoundManager : MonoBehaviour
     {
         return currentPlayingBGM != null && currentPlayingBGM.Source.isPlaying;
     }
-    
-    
 }

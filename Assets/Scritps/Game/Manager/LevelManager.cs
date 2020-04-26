@@ -189,8 +189,7 @@ public class LevelManager : MonoBehaviour
                currentStageType = StageType.chance;
                break;
        }
-
-       Debug.Log(currentStageType);
+       
        GyrussGameManager.Instance.SetCurrentStageType(currentStageType);
    }
 

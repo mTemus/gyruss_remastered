@@ -102,7 +102,6 @@ public class MiniBossModuleController : MonoBehaviour
     {
         switch (other.tag) {
             case "EnemyShip":
-                Debug.LogWarning("ship arrived");
                 myAnimator.SetBool(Open, true);
                 attack = false;
                 break;
