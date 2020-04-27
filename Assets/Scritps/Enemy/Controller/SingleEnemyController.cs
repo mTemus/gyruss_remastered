@@ -5,6 +5,8 @@ public class SingleEnemyController : MonoBehaviour
     [Header("Bonus properties")]
     [SerializeField] private string enemyType;
 
+    private bool bonusAdded;
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("PlayerBullet")) return;
@@ -12,7 +14,9 @@ public class SingleEnemyController : MonoBehaviour
         if (enemyType.Equals("weaponBonus")) {
             GyrussGameManager.Instance.ToggleShootingMode();
         } else if (enemyType.Equals("rocketBonus")) {
+            if (bonusAdded) return; 
             GyrussGameManager.Instance.AddRocket();
+            bonusAdded = true;
         }
 
         GyrussGameManager.Instance.PlaySoundEffect("enemyShipDeath-center");

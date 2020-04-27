@@ -81,19 +81,22 @@ public class StageManager : MonoBehaviour
                     
                     case StageType.first_stage:
                         PrepareAsteroidSpawning();
+                        GyrussGameManager.Instance.SetConditionInTimer("rocketBonusSpawn", true);
                         break;
                     
                     case StageType.mini_boss:
                         PrepareAsteroidSpawning();
+                        GyrussGameManager.Instance.SetConditionInTimer("rocketBonusSpawn", true);
                         break;
                     
                     case StageType.boss:
                         PrepareAsteroidSpawning();
+                        GyrussGameManager.Instance.SetPeriodInTimer("rocketBonusSpawn", 20f);
+                        GyrussGameManager.Instance.SetConditionInTimer("rocketBonusSpawn", true);
                         break;
 
                     case StageType.chance:
-                        // prepare bonuses spawning here
-                        
+                        GyrussGameManager.Instance.SetConditionInTimer("rocketBonusSpawn", true);
                         break;
                     
                     default:
