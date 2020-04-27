@@ -47,9 +47,13 @@ public class BonusEnemyController : MonoBehaviour
             }
             
             blinkTime -= Time.deltaTime;
+            
+            if (blinkAmount != 10) return;
+            foreach (Transform child in transform) {
+                child.GetComponent<CircleCollider2D>().enabled = true;
+            }
         }
         else {
-            
             // move bonus
             transform.RotateAround(originPoint, Vector3.forward, speed * Time.deltaTime);
             rotationAngle += Time.deltaTime;
