@@ -524,6 +524,24 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussGUIEventManager.OnGameEndingDisplayInitiated();
     }
+
+    public void ToggleShootingMode()
+    {
+        GyrussEventManager.OnShootingModeToggleInitiated();
+    }
+
+    public void AddRocket()
+    {
+        GyrussEventManager.OnRocketAddInitialized();
+    }
+
+    public void SpawnBonus(string bonusType)
+    {
+        GyrussEventManager.OnBonusSpawnInitiated(bonusType);
+    }
+
+    public Vector3 GetPlayerStartingPosition() => 
+        GyrussEventManager.OnGetPlayerShipStartingPositionInitiated();
     
     private void OnDestroy()
     {

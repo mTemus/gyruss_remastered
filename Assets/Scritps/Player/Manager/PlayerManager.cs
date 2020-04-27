@@ -55,9 +55,6 @@ public class PlayerManager : MonoBehaviour
         shootingPointSingle = shootingPointSingleGO.transform;
         shootingPointDoubleOne = shootingPointDoubleGO.transform.GetChild(0);
         shootingPointDoubleTwo = shootingPointDoubleGO.transform.GetChild(1);
-        
-        // TODO: Remove this after weapon upgrade implementation
-        ToggleShootingMode();
     }
 
     private void Update()
@@ -105,6 +102,9 @@ public class PlayerManager : MonoBehaviour
         GyrussEventManager.RocketShootInitiated += ShootRocket;
         GyrussEventManager.RocketReloadInitiated += ReloadRocket;
         GyrussEventManager.LifeAddInitiated += AddLife;
+        GyrussEventManager.ShootingModeToggleInitiated += ToggleShootingMode;
+        GyrussEventManager.RocketAddInitialized += AddRocket;
+        GyrussEventManager.GetPlayerShipStartingPositionInitiated += GetPlayerStartingPosition;
     }
 
     private void RotateShip(Vector3 rotateAxis)
@@ -160,6 +160,11 @@ public class PlayerManager : MonoBehaviour
     private Vector3 GetPlayerPosition()
     {
         return playerShip.transform.position;
+    }
+
+    private Vector3 GetPlayerStartingPosition()
+    {
+        return playerStartingPosition;
     }
 
     private int GetPlayerLives()
@@ -240,6 +245,13 @@ public class PlayerManager : MonoBehaviour
             GyrussGameManager.Instance.DecreaseGUILives(lives);
             GyrussGameManager.Instance.SetConditionInTimer("playerRespawn", true);
         }
+
+        if (!doubleBulletMode) return;
+        ToggleShootingMode();
+
+        float randomRespawn = Random.Range(10, 20);
+        GyrussGameManager.Instance.SetPeriodInTimer("weaponBonusSpawn", randomRespawn);
+        GyrussGameManager.Instance.SetConditionInTimer("weaponBonusSpawn", true);
     }
 
     private void WarpPlayer()
@@ -271,12 +283,15 @@ public class PlayerManager : MonoBehaviour
 
     private void AddRocket()
     {
-        
+        rockets++;
+        GyrussGameManager.Instance.PlaySoundEffect("rocketIcon-initialize");
+        GyrussGUIEventManager.OnRocketsIconsIncreaseInitiated();
     }
 
     private void ReloadRocket()
     {
         shootRocket = false;
     }
-    
+
+    public bool DoubleBulletMode => doubleBulletMode;
 }
