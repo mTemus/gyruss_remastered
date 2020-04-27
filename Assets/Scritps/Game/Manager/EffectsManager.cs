@@ -7,8 +7,8 @@ public class EffectsManager : MonoBehaviour
     [SerializeField] private GameObject playerShip;
     
     [Header("Effects Prefabs")]
-    [SerializeField] private GameObject ExplosionPrefab;
-    [SerializeField] private GameObject ExplosionBossPrefab;
+    [SerializeField] private GameObject explosionPrefab;
+    [SerializeField] private GameObject explosionBossPrefab;
 
     [Header("Pools")] 
     [SerializeField] private Transform explosionPool;
@@ -177,11 +177,11 @@ public class EffectsManager : MonoBehaviour
 
         switch (explosionType) {
             case "normal":
-                explosion = Instantiate(ExplosionPrefab, explosionPool, true);
+                explosion = Instantiate(explosionPrefab, explosionPool, true);
                 break;
             
             case "miniBoss":
-                explosion = Instantiate(ExplosionBossPrefab, explosionPool, true);
+                explosion = Instantiate(explosionBossPrefab, explosionPool, true);
                 break;
         }
 

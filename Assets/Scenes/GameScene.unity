@@ -1507,9 +1507,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerShip: {fileID: 944044111}
-  ExplosionPrefab: {fileID: 3335215528204796545, guid: 091c84e6c0770b04f835640dc92f0007,
+  explosionPrefab: {fileID: 3335215528204796545, guid: 091c84e6c0770b04f835640dc92f0007,
     type: 3}
-  ExplosionBossPrefab: {fileID: 3335215528204796545, guid: 46103fcf207cfa449b0494160361e8b3,
+  explosionBossPrefab: {fileID: 3335215528204796545, guid: 46103fcf207cfa449b0494160361e8b3,
     type: 3}
   explosionPool: {fileID: 1529828556}
   starParticles: {fileID: 1722087801}
@@ -4078,6 +4078,10 @@ MonoBehaviour:
   mapCenterPoint: {fileID: 879739752}
   playerShip: {fileID: 944044111}
   enemyPool: {fileID: 844938576}
+  weaponBonus: {fileID: 8566173833361991028, guid: 0a526ddb516cab1499c9ff7998f81c14,
+    type: 3}
+  rocketBonus: {fileID: 8566173833361991028, guid: 7b2d045c47623c6429d4b412f32e2006,
+    type: 3}
 --- !u!1 &800776640
 GameObject:
   m_ObjectHideFlags: 0
@@ -4192,6 +4196,7 @@ Transform:
   - {fileID: 35944289}
   - {fileID: 2116214829}
   - {fileID: 666339098}
+  - {fileID: 1767924185}
   m_Father: {fileID: 1529139229}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12983,6 +12988,76 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &1767924184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1767924185}
+  - component: {fileID: 1767924186}
+  m_Layer: 0
+  m_Name: WeaponBonusSpawnTimer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1767924185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767924184}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 832122677}
+  m_RootOrder: 27
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1767924186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767924184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf502923a14f324ea01d384a941eb45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerName: weaponBonusSpawn
+  timerPeriod: 7
+  timerEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 450874486}
+        m_MethodName: SpawnBonus
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: weapon
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 450874486}
+        m_MethodName: ResetPeriodInTimer
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: weaponBonusSpawn
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1788482336
 GameObject:
   m_ObjectHideFlags: 0
@@ -14243,6 +14318,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2131011261}
     m_Modifications:
+    - target: {fileID: 78177766922498227, guid: bea6cd027b3fc8a4e9b3120deae8c44c,
+        type: 3}
+      propertyPath: m_TagString
+      value: PlayerBullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 3050815592306454248, guid: bea6cd027b3fc8a4e9b3120deae8c44c,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 7484981641670123532, guid: bea6cd027b3fc8a4e9b3120deae8c44c,
         type: 3}
       propertyPath: m_Name
