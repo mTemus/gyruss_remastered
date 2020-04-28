@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -149,12 +149,13 @@ public class PlayerManager : MonoBehaviour
 
     private void SetPlayerEnteredInAnimator(bool entered)
     {
+        if (playerAnimator == null) { return; }
         playerAnimator.SetBool(Entered, entered);
     }
     
     private Vector3 GetPlayerPosition()
     {
-        return playerShip.transform.position;
+        return playerShip == null ? Vector3.zero : playerShip.transform.position;
     }
 
     private Vector3 GetPlayerStartingPosition()
