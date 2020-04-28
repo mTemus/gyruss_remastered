@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -109,7 +109,7 @@ public class PlayerManager : MonoBehaviour
 
     private void ShootBullet()
     {
-        if (!(reload >= 0.3f)) {
+        if (!(reload >= 0.25f)) {
             if (shootingPointSingleGO.GetComponent<SpriteRenderer>().enabled) {
                 shootingPointSingleGO.GetComponent<SpriteRenderer>().enabled = false;
             }
