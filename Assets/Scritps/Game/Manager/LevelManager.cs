@@ -214,6 +214,5 @@ public class LevelManager : MonoBehaviour
     }
 
     public int CurrentLevel => currentLevel;
-
-    //TODO: method to go to another level, should be added to event (delegate)
+    
 }
