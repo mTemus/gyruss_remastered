@@ -146,6 +146,9 @@ public class GyrussGUIManager : MonoBehaviour
 
     private void DisplayGameOverText()
     {
+        rocketsTransform.gameObject.SetActive(false);
+        livesTransform.gameObject.SetActive(false);
+        
         warpsLeftText.text = "GAME OVER";
         gameRestartText.enabled = true;
         ToggleWarpsText();
