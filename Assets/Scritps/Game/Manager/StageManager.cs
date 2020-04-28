@@ -239,6 +239,7 @@ public class StageManager : MonoBehaviour
                 if (currentStageType == StageType.boss) {
                     if (GyrussGameManager.Instance.LevelManager.CurrentLevel == 0) {
                         GyrussGameManager.Instance.StopCurrentPlayingBGM();
+                        GyrussGameManager.Instance.StopTimer("rocketBonusSpawn");
                         GyrussGameManager.Instance.PlayBGM("stage-3-boss");
                         GyrussGameManager.Instance.SpawnBoss(); 
                     }
@@ -246,6 +247,7 @@ public class StageManager : MonoBehaviour
                         GyrussGameManager.Instance.SetStageState(StageState.wait);
                         GyrussGameManager.Instance.SetLevelState(LevelState.wait);
                         GyrussGameManager.Instance.StopTimer("asteroidSpawn");
+                        GyrussGameManager.Instance.StopTimer("rocketBonusSpawn");
                         GyrussGameManager.Instance.StopTimer("weaponBonusSpawn");
                         GyrussGameManager.Instance.SilenceCurrentPlayingBGM();
                         GyrussGameManager.Instance.SetConditionInTimer("startEnding", true);
@@ -254,12 +256,15 @@ public class StageManager : MonoBehaviour
                     
                 else if(currentStageType != StageType.chance) {
                     GyrussGameManager.Instance.SilenceCurrentPlayingBGM();
+                    GyrussGameManager.Instance.StopTimer("rocketBonusSpawn");
+                    GyrussGameManager.Instance.StopTimer("weaponBonusSpawn");
                     GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true);
                 }
                 break;
             
             case 0 when currentWaveCounter == 5:
                 GyrussGameManager.Instance.StopTimer("weaponBonusSpawn");
+                GyrussGameManager.Instance.StopTimer("rocketBonusSpawn");
                 GyrussGameManager.Instance.SilenceCurrentPlayingBGM();
                 GyrussGameManager.Instance.StartCountingChanceBonusPoints();
                 break;
@@ -343,7 +348,7 @@ public class StageManager : MonoBehaviour
 
         switch (currentStageType) {
             case StageType.mini_boss:
-                if (modulesAmount == 0) Destroy(enemy); 
+                if (modulesAwaitingForShips.Count == 0) Destroy(enemy); 
                 
                 modulesAwaitingForShips[miniBossModules[moduleId]].Add(enemy);
                 enemy.GetComponent<EnemyController>().MyModule = miniBossModules[moduleId];
