@@ -14,6 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalLevelPaths:
   - {fileID: 7656114945859314376, guid: 7c30eeda6f633054cada86cb8c4a1e23, type: 3}
+  - {fileID: 6065156389757781354, guid: 10417d40dd72c8b47b9237a73aee0ffc, type: 3}
+  - {fileID: 1584894874136198056, guid: 2706b462a7576fb4e9bae73886268a36, type: 3}
+  - {fileID: 2540448711686062804, guid: 6cb80ff4e18e2c84baf5aced8fd67dbd, type: 3}
+  - {fileID: 6565375538883211614, guid: 41170020687b92340b7bdb50a547e56b, type: 3}
+  - {fileID: 6217931039467262503, guid: be974d2ba4b257d439a6be7d2c4c3a5a, type: 3}
+  - {fileID: 4930146633190042389, guid: 7634628873863564ba607d4e2acd4e0e, type: 3}
+  - {fileID: 3209935739771712031, guid: a5cd8108a6ea7da4ba7ce70206195dc9, type: 3}
   chanceLevelPaths:
   - {fileID: 2540448711686062804, guid: 6cb80ff4e18e2c84baf5aced8fd67dbd, type: 3}
   - {fileID: 1584894874136198056, guid: 2706b462a7576fb4e9bae73886268a36, type: 3}

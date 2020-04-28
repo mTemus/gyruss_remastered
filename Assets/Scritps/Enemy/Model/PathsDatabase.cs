@@ -12,11 +12,28 @@ public class PathsDatabase : ScriptableObject {
         return normalLevelPaths[Random.Range(0,normalLevelPaths.Count)];
     }
 
-    public PathCreator getRandomPathBack(){
+    public PathCreator getRandomPathOut(){
         return backLevelPaths[Random.Range(0,backLevelPaths.Count)];
     }
 
     public PathCreator getRandomPathInChanceStage(){
         return chanceLevelPaths[Random.Range(0,chanceLevelPaths.Count)];
+    }
+
+    public PathCreator getClosestPathToPlayer(){
+        Vector3 playerPos = GyrussGameManager.Instance.GetPlayerShipPosition();
+        PathCreator closestPath = null;
+        float smallestDistance = 10;
+        foreach(var pathOut in backLevelPaths){
+            if(Vector3.Distance(pathOut.path.GetClosestPointOnPath(playerPos), playerPos) < smallestDistance){
+                smallestDistance = Vector3.Distance(pathOut.path.GetClosestPointOnPath(playerPos), playerPos);
+                closestPath = pathOut;
+            }
+        }
+        if(closestPath != null){
+            return closestPath;
+        }else{
+            return backLevelPaths[Random.Range(0,backLevelPaths.Count)];
+        }
     }
 }

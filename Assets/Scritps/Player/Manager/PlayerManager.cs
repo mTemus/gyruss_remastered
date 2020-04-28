@@ -20,6 +20,9 @@ public class PlayerManager : MonoBehaviour
     [Header("Pools")] 
     [SerializeField] private Transform playerBulletPool;
     
+    [SerializeField] private FixedJoystick fixedJoystick;
+    [SerializeField] private FixedButton fixedButtonBullet;
+    [SerializeField] private FixedButton fixedButtonRocket;
     private float speed = 150f;
     private float reload = 1;
     
@@ -64,21 +67,14 @@ public class PlayerManager : MonoBehaviour
         // TODO: Change input for android to be like in original, when left, go only left, when top, only top etc.
 
         reload += Time.deltaTime;
-        
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            RotateShip(Vector3.forward);
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            RotateShip(Vector3.back);
-        }
 
-        if (Input.GetKey(KeyCode.Space)) {
+        RotateShip(Vector3.forward * fixedJoystick.Horizontal * speed);
+
+        if (fixedButtonBullet.Pressed) {
             ShootBullet();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftControl)) {
+        if (fixedButtonRocket.Pressed) {
             if (shootRocket) return;
             if (rockets <= 0) return;
             
