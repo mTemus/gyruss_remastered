@@ -2,8 +2,8 @@
 
 public class CameraScaling : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer background;
-    // Start is called before the first frame update
+    [SerializeField] private SpriteRenderer background = null;
+
     void Start()
     {
         Bounds backgroundBounds = background.bounds;

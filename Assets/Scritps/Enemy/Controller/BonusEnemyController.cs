@@ -3,8 +3,8 @@
 public class BonusEnemyController : MonoBehaviour
 {
     [Header("Bonus properties")]
-    [SerializeField] private string bonusType;
-    [SerializeField] private float speed;
+    [SerializeField] private string bonusType = null;
+    [SerializeField] private float speed = 0;
 
     private float rotationAngle;
     private float rotationDirection;

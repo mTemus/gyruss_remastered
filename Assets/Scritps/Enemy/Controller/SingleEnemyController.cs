@@ -3,7 +3,7 @@
 public class SingleEnemyController : MonoBehaviour
 {
     [Header("Bonus properties")]
-    [SerializeField] private string enemyType;
+    [SerializeField] private string enemyType = null;
 
     private bool bonusAdded;
     

@@ -5,13 +5,13 @@ using UnityEngine;
 public class SingleSound
 {
     [Header("Sound data")] 
-    [SerializeField] private string name;
-    [SerializeField] private AudioClip clip;
+    [SerializeField] private string name = null;
+    [SerializeField] private AudioClip clip = null;
 
     [Header("Sound properties")]
     [SerializeField] [Range(0f, 1f)] private float volume = 1f;
     [SerializeField] [Range(-3f, 3f)]private float pitch = 1f;
-    [SerializeField] private bool loop;
+    [SerializeField] private bool loop = false;
     
     
     private AudioSource source;

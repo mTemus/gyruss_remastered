@@ -5,8 +5,8 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     [Header("Game views")] 
-    [SerializeField] private GameObject MinimapView;
-    [SerializeField] private GameObject StageView;
+    [SerializeField] private GameObject MinimapView = null;
+    [SerializeField] private GameObject StageView = null;
     
     private int currentLevel = 0;
     private int currentWave = 1;

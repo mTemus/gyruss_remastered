@@ -3,7 +3,7 @@ using PathCreation;
 
 public class EnemyManager : MonoBehaviour
 {
-    [SerializeField] private PathsDatabase pathsDatabase;
+    [SerializeField] private PathsDatabase pathsDatabase = null;
     private PathCreator pathIn;
     private PathCreator pathOut;
     private PathCreator closestPathOut;

@@ -3,15 +3,15 @@ using PathCreation;
 
 public class GyrussGameManager : MonoBehaviour
 {
-    [SerializeField] private PlayerManager playerManager;
-    [SerializeField] private LevelManager levelManager;
-    [SerializeField] private StageManager stageManager;
-    [SerializeField] private TimeManager timeManager;
-    [SerializeField] private MinimapManager minimapManager;
-    [SerializeField] private EffectsManager effectsManager;
-    [SerializeField] private ScoreManager scoreManager;
-    [SerializeField] private EnemyManager enemyManager;
-    [SerializeField] private BossManager bossManager;
+    [SerializeField] private PlayerManager playerManager = null;
+    [SerializeField] private LevelManager levelManager = null;
+    [SerializeField] private StageManager stageManager = null;
+    [SerializeField] private TimeManager timeManager = null;
+    [SerializeField] private MinimapManager minimapManager = null;
+    [SerializeField] private EffectsManager effectsManager = null;
+    [SerializeField] private ScoreManager scoreManager = null;
+    [SerializeField] private EnemyManager enemyManager = null;
+    [SerializeField] private BossManager bossManager = null;
     
     private static GyrussGameManager instance;
 

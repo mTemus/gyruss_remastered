@@ -3,8 +3,7 @@
 public class BossManager : MonoBehaviour
 {
     [Header("Prefabs")]
-    [SerializeField] private GameObject BossPrefabL0;
-    [SerializeField] private GameObject BossPrefabL1;
+    [SerializeField] private GameObject BossPrefabL0 = null;
 
     private int bossModulesLeft = 0;
     private int currentLevel = 0;

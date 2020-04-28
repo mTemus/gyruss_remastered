@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] private SingleSound[] soundEffects;
-    [SerializeField] private SingleSound[] soundMusic;
+    [SerializeField] private SingleSound[] soundEffects = null;
+    [SerializeField] private SingleSound[] soundMusic = null;
 
 
     private SingleSound currentPlayingBGM;

@@ -4,20 +4,20 @@ using UnityEngine;
 public class EffectsManager : MonoBehaviour
 {
     [Header("Player Ship")]
-    [SerializeField] private GameObject playerShip;
+    [SerializeField] private GameObject playerShip = null;
     
     [Header("Effects Prefabs")]
-    [SerializeField] private GameObject explosionPrefab;
-    [SerializeField] private GameObject explosionBossPrefab;
+    [SerializeField] private GameObject explosionPrefab = null;
+    [SerializeField] private GameObject explosionBossPrefab = null;
 
     [Header("Pools")] 
-    [SerializeField] private Transform explosionPool;
+    [SerializeField] private Transform explosionPool = null;
 
     [Header("Particles")] 
-    [SerializeField] private ParticleSystem starParticles;
-    [SerializeField] private GameObject[] reviveParticles;
-    [SerializeField] private GameObject[] deathParticles;
-    [SerializeField] private GameObject[] rocketParticles;
+    [SerializeField] private ParticleSystem starParticles = null;
+    [SerializeField] private GameObject[] reviveParticles = null;
+    [SerializeField] private GameObject[] deathParticles = null;
+    [SerializeField] private GameObject[] rocketParticles = null;
     
     private List<GameObject> readyReviveParticles;
     private Vector3 playerShipPosition;

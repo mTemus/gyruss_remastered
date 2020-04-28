@@ -5,18 +5,18 @@ using UnityEngine;
 public class StageManager : MonoBehaviour
 {
     [Header("StageView")] 
-    [SerializeField] private Transform[] enemySpots;
-    [SerializeField] private Transform mapCenterPoint;
+    [SerializeField] private Transform[] enemySpots = null;
+    [SerializeField] private Transform mapCenterPoint = null;
 
     [Header("PlayerShip")] 
-    [SerializeField] private GameObject playerShip;
+    [SerializeField] private GameObject playerShip = null;
 
     [Header("Pools")] 
-    [SerializeField] private Transform enemyPool;
+    [SerializeField] private Transform enemyPool = null;
 
     [Header("Prefabs")] 
-    [SerializeField] private GameObject weaponBonus;
-    [SerializeField] private GameObject rocketBonus;
+    [SerializeField] private GameObject weaponBonus = null;
+    [SerializeField] private GameObject rocketBonus = null;
 
     private int currentStage = 1;
     private int stages = 1;

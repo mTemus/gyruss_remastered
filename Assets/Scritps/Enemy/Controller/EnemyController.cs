@@ -12,7 +12,6 @@ public class EnemyController : MonoBehaviour
     private bool pathBackAssigned = false;
     public bool pathAttackAssigned = false;
     private bool waitReached = false;
-    private bool attacked = false;
 
     public PathFollow pathFollow;
     private GameObject myModule;

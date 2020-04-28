@@ -3,9 +3,9 @@ using UnityEngine.Events;
 
 public class SingleTimer : MonoBehaviour
 {
-    [SerializeField] private string timerName;
-    [SerializeField] private float timerPeriod;
-    [SerializeField] private UnityEvent timerEvent;
+    [SerializeField] private string timerName = null;
+    [SerializeField] private float timerPeriod = 0;
+    [SerializeField] private UnityEvent timerEvent = null;
     
     private float timer;
     private float initialPeriod;

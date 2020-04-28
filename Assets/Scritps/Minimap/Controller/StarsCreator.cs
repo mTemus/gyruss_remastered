@@ -2,14 +2,12 @@
 
 public class StarsCreator : MonoBehaviour
 {
-    [SerializeField] private GameObject starPrefab;
-    [SerializeField] private GameObject starsBackground;
+    [SerializeField] private GameObject starPrefab = null;
+    [SerializeField] private GameObject starsBackground = null;
     [SerializeField] private int starsAmount = 100;
     
     private float sizeX;
     private float sizeY;
-    
-    
     
     void Start()
     {

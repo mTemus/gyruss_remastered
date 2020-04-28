@@ -3,26 +3,29 @@
 public class PlayerManager : MonoBehaviour
 {
     [Header("Ship parts")]
-    [SerializeField] private GameObject playerShip;
-    [SerializeField] private GameObject shootingPointSingleGO;
-    [SerializeField] private GameObject shootingPointDoubleGO;
-    [SerializeField] private Animator playerAnimator;
-    [SerializeField] private GameObject warpingEffects;
+    [SerializeField] private GameObject playerShip = null;
+    [SerializeField] private GameObject shootingPointSingleGO = null;
+    [SerializeField] private GameObject shootingPointDoubleGO = null;
+    [SerializeField] private Animator playerAnimator = null;
+    [SerializeField] private GameObject warpingEffects = null;
     
     [Header("Prefabs")] 
-    [SerializeField] private GameObject bulletPrefabSingle;
-    [SerializeField] private GameObject bulletPrefabDouble;
-    [SerializeField] private GameObject rocketPrefab;
+    [SerializeField] private GameObject bulletPrefabSingle = null;
+    [SerializeField] private GameObject bulletPrefabDouble = null;
+    [SerializeField] private GameObject rocketPrefab = null;
     
     [Header("Map")]
-    [SerializeField] private SpriteRenderer background;
+    [SerializeField] private SpriteRenderer background = null;
 
     [Header("Pools")] 
-    [SerializeField] private Transform playerBulletPool;
+    [SerializeField] private Transform playerBulletPool = null;
     
-    [SerializeField] private FixedJoystick fixedJoystick;
-    [SerializeField] private FixedButton fixedButtonBullet;
-    [SerializeField] private FixedButton fixedButtonRocket;
+    [Header("Android input")]
+    [SerializeField] private FixedJoystick fixedJoystick = null;
+    [SerializeField] private FixedButton fixedButtonBullet = null;
+    [SerializeField] private FixedButton fixedButtonRocket = null;
+    
+    
     private float speed = 150f;
     private float reload = 1;
     
@@ -32,7 +35,6 @@ public class PlayerManager : MonoBehaviour
 
     private int lives = 3;
     private int rockets = 1;
-    private int currentScore = 0;
 
     private Vector3 playerStartingPosition;
     

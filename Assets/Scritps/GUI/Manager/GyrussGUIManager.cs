@@ -6,28 +6,28 @@ using Random = UnityEngine.Random;
 public class GyrussGUIManager : MonoBehaviour
 {
     [Header("Main GUI")]
-    [SerializeField] private GameObject GUI;
+    [SerializeField] private GameObject GUI = null;
     
     [Header("Text fields")] 
-    [SerializeField] private Text scoreText;
-    [SerializeField] private Text hiScoreText;
-    [SerializeField] private Text stageText;
-    [SerializeField] private Text warpsLeftText;
-    [SerializeField] private Text readyText;
-    [SerializeField] private Text chanceBonusText;
-    [SerializeField] private Text gameRestartText;
+    [SerializeField] private Text scoreText = null;
+    [SerializeField] private Text hiScoreText = null;
+    [SerializeField] private Text stageText = null;
+    [SerializeField] private Text warpsLeftText = null;
+    [SerializeField] private Text readyText = null;
+    [SerializeField] private Text chanceBonusText = null;
+    [SerializeField] private Text gameRestartText = null;
 
     [Header("Icons")] 
-    [SerializeField] private GameObject lifeIcon;
-    [SerializeField] private GameObject rocketIcon;
+    [SerializeField] private GameObject lifeIcon = null;
+    [SerializeField] private GameObject rocketIcon = null;
 
     [Header("Groups")] 
-    [SerializeField] private Transform rocketsTransform;
-    [SerializeField] private Transform livesTransform;
+    [SerializeField] private Transform rocketsTransform = null;
+    [SerializeField] private Transform livesTransform = null;
 
     [Header("Prefabs")] 
-    [SerializeField] private GameObject bonusTextPrefab;
-    [SerializeField] private GameObject[] planetsTargets;
+    [SerializeField] private GameObject bonusTextPrefab = null;
+    [SerializeField] private GameObject[] planetsTargets = null;
     
     private float currentVisibility = 0.25f;
 
