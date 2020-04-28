@@ -65,9 +65,6 @@ public class PlayerManager : MonoBehaviour
     private void Update()
     {
         if (!spawned) return;
-
-        // TODO: Change input for android to be like in original, when left, go only left, when top, only top etc.
-
         reload += Time.deltaTime;
 
         RotateShip(Vector3.forward * fixedJoystick.Horizontal * speed);
@@ -236,20 +233,23 @@ public class PlayerManager : MonoBehaviour
         GyrussGameManager.Instance.PrepareDeathParticles();
         
         if (lives < 0) {
+            GyrussGameManager.Instance.StopTimer("weaponBonusSpawn");
+            GyrussGameManager.Instance.StopTimer("rocketBonusSpawn");
+            GyrussGameManager.Instance.StopTimer("asteroidSpawn");
             GyrussGameManager.Instance.SetConditionInTimer("gameOver", true);
             Destroy(playerShip);
         }
         else { 
             GyrussGameManager.Instance.DecreaseGUILives(lives);
             GyrussGameManager.Instance.SetConditionInTimer("playerRespawn", true);
+            
+            float randomRespawn = Random.Range(20, 30);
+            GyrussGameManager.Instance.SetPeriodInTimer("weaponBonusSpawn", randomRespawn);
+            GyrussGameManager.Instance.SetConditionInTimer("weaponBonusSpawn", true);
         }
 
         if (!doubleBulletMode) return;
         ToggleShootingMode();
-
-        float randomRespawn = Random.Range(10, 20);
-        GyrussGameManager.Instance.SetPeriodInTimer("weaponBonusSpawn", randomRespawn);
-        GyrussGameManager.Instance.SetConditionInTimer("weaponBonusSpawn", true);
     }
 
     private void WarpPlayer()
