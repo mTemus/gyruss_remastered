@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bonusType: weapon
-  speed: 30
+  speed: 60
 --- !u!1 &8566173833405092697
 GameObject:
   m_ObjectHideFlags: 0
