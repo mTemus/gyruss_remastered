@@ -129,7 +129,7 @@ public class EnemyController : MonoBehaviour
                     break;
                 
                 case StageType.mini_boss:
-                    myCurrentState = EnemyStates.fly_to_spot;
+                    myCurrentState = EnemyStates.fly_to_mini_boss;
                     break;
                 
                 case StageType.boss:
@@ -148,8 +148,6 @@ public class EnemyController : MonoBehaviour
     }
 
     private void flyToSpot(){
-        // if (!pathFollow.endPathReached()) return; <- to blokuje latanie do punktu
-
         transform.position = Vector3.MoveTowards(transform.position, centerPosition, Time.deltaTime * speed);
 
         if (transform.position == centerPosition) {
