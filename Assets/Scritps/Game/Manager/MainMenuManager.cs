@@ -5,10 +5,10 @@ using UnityEngine.UI;
 public class MainMenuManager : MonoBehaviour
 {
     [Header("Main menu parts")] 
-    [SerializeField] private GameObject startGameText;
-    [SerializeField] private GameObject exitGameText;
-    [SerializeField] private Text hiScoreText;
-    [SerializeField] private GameObject playerShip;
+    [SerializeField] private GameObject startGameText = null;
+    [SerializeField] private GameObject exitGameText = null;
+    [SerializeField] private Text hiScoreText = null;
+    [SerializeField] private GameObject playerShip = null;
 
     private FixedButton startGameButton;
     private FixedButton exitGameButton;

@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -33,7 +34,7 @@ public class GyrussGUIManager : MonoBehaviour
 
     private int chanceTextBlinks;
     private int chanceBonusTextBlinks;
-    private int restartCount = 20;
+    private int restartCount = 10;
     
     private GameObject currentPlanet;
     
@@ -324,11 +325,11 @@ public class GyrussGUIManager : MonoBehaviour
     {
         gameRestartText.text = "GAME WILL RESTART IN: " + restartCount--;
 
-        if (restartCount > 0) {
+        if (restartCount >= 0) {
             GyrussGameManager.Instance.SetConditionInTimer("gameRestart", true);
         }
         else {
-            //TODO: load menu scene
+            SceneManager.LoadScene("MainMenuScene");
         }
     }
     
