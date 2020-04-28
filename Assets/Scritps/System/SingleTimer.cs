@@ -14,6 +14,7 @@ public class SingleTimer : MonoBehaviour
     void Start()
     {
         timer = timerPeriod;
+        initialPeriod = timerPeriod;
     }
 
     void Update()
@@ -41,14 +42,12 @@ public class SingleTimer : MonoBehaviour
 
     public void SetTimerPeriod(float newPeriod)
     {
-        if (initialPeriod == 0) initialPeriod = timerPeriod;
         timerPeriod = newPeriod;
     }
 
     public void ResetTimerPeriod()
     {
         timerPeriod = initialPeriod;
-        initialPeriod = 0;
     }
     
     public string TimerName => timerName;
