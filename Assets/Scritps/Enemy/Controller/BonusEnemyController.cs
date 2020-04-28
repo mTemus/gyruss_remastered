@@ -79,7 +79,7 @@ public class BonusEnemyController : MonoBehaviour
             // destroy object
             if (!(originPoint.y >= 5)) return;
             if (bonusType.Equals("weapon")) {
-                float randomRespawn = Random.Range(8, 15);
+                float randomRespawn = Random.Range(15, 25);
                 GyrussGameManager.Instance.SetPeriodInTimer("weaponBonusSpawn", randomRespawn);
                 GyrussGameManager.Instance.SetConditionInTimer("weaponBonusSpawn", true);
             }
