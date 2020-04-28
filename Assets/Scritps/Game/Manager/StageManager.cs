@@ -21,9 +21,7 @@ public class StageManager : MonoBehaviour
     private int currentStage = 1;
     private int stages = 1;
     private int enemiesAlive;
-
-    private int randomOfPath; // ???????????????????????????????
-
+    
     private int evenSpotId = 0;
     private int unevenSpotId = 1;
     private int currentWaveCounter;
