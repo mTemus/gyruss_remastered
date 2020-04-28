@@ -12,7 +12,7 @@ public class BonusEnemyController : MonoBehaviour
     private float blinkTime;
     
     private int blinkAmount;
-    private int enemiesLeft;
+    private int enemiesLeft = 3;
     
     private Vector3 originPoint = Vector3.zero;
 
