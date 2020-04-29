@@ -9,8 +9,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject StageView = null;
     
     private int currentLevel = 0;
-    private int currentWave = 1;
     private int currentStage = 1;
+    private int currentWave = 1;
 
     private List<string> planetsInGame;
 
