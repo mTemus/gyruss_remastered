@@ -108,7 +108,7 @@ public class SoundManager : MonoBehaviour
     {
         if (currentPlayingBGM == null) return; 
         
-        if (IsBGMPlaying()) currentPlayingBGM.Source.Stop(); 
-        else currentPlayingBGM.Source.Play();
+        if (IsBGMPlaying()) currentPlayingBGM.Source.Pause(); 
+        else currentPlayingBGM.Source.UnPause();
     }
 }
