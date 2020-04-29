@@ -544,11 +544,6 @@ public class GyrussGameManager : MonoBehaviour
 
     public Vector3 GetPlayerStartingPosition() => 
         GyrussEventManager.OnGetPlayerShipStartingPositionInitiated();
-    
-    private void OnDestroy()
-    {
-        GyrussEventManager.ClearDelegates();
-    }
 
     public void SetEnemyPathIn(){
         EnemyManager.setPathIn();
@@ -573,6 +568,16 @@ public class GyrussGameManager : MonoBehaviour
         return EnemyManager.getClosestPathOut();
     }
 
+    public void KillWeaponBonus()
+    {
+        GyrussEventManager.OnWeaponBonusKillInitiated();
+    }
+    
+    
+    private void OnDestroy()
+    { 
+        GyrussEventManager.ClearDelegates();
+    }
     public static GyrussGameManager Instance => instance;
     
     public PlayerManager PlayerManager => playerManager;

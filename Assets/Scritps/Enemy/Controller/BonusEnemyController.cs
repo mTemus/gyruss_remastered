@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BonusEnemyController : MonoBehaviour
 {
@@ -95,5 +97,10 @@ public class BonusEnemyController : MonoBehaviour
         if (enemiesLeft == 0) {
             Destroy(gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        GyrussGameManager.Instance.KillWeaponBonus();
     }
 }

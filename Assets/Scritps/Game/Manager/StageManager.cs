@@ -27,6 +27,8 @@ public class StageManager : MonoBehaviour
     private int currentWaveCounter;
     private int modulesAmount = 4;
     private int moduleId;
+
+    private bool weaponBonusSpawned;
     
     private StageState currentStageState;
     private StageType currentStageType;
@@ -67,6 +69,7 @@ public class StageManager : MonoBehaviour
         GyrussEventManager.ShipRemovalFromAwaitingListInitiated += RemoveShipFromModule;
         GyrussEventManager.AllEnemiesDeleteInitiated += DeleteAllEnemies;
         GyrussEventManager.BonusSpawnInitiated += SpawnBonus;
+        GyrussEventManager.WeaponBonusKillInitiated += KillWeaponBonus;
     }
     
     private void ProcessOrdersInStage()
@@ -490,6 +493,7 @@ public class StageManager : MonoBehaviour
         
         switch (type) {
             case "weapon":
+                if (weaponBonusSpawned) return; 
                 if (GyrussGameManager.Instance.PlayerManager.DoubleBulletMode) return;
                 Instantiate(weaponBonus, enemyPool, true);
                 break;
@@ -502,6 +506,11 @@ public class StageManager : MonoBehaviour
         IncreaseEnemyAlive();
         IncreaseEnemyAlive();
         IncreaseEnemyAlive();
+    }
+
+    private void KillWeaponBonus()
+    {
+        weaponBonusSpawned = false;
     }
 
     public int CurrentStage => currentStage; 
