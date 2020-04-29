@@ -46,6 +46,7 @@ public class SoundManager : MonoBehaviour
         GyrussEventManager.CurrentSoundBGMStopInitiated += StopCurrentPlayingBGM;
         GyrussEventManager.IsBGMPlayingInitiated += IsBGMPlaying;
         GyrussEventManager.CurrentPlayingBGMSilencingInitiated += SilencePlayingBGM;
+        GyrussEventManager.CurrentBGMToggleInitiated += ToggleCurrentPlayingBGM;
     }
 
     private void PlaySoundEffect(string effectName)
@@ -91,8 +92,7 @@ public class SoundManager : MonoBehaviour
             GyrussGameManager.Instance.SetConditionInTimer("BGMSilencing", true);
         }
     }
-    
-    
+
     private void StopCurrentPlayingBGM()
     {
         currentPlayingBGM.Source.Stop();
@@ -102,5 +102,13 @@ public class SoundManager : MonoBehaviour
     private bool IsBGMPlaying()
     {
         return currentPlayingBGM != null && currentPlayingBGM.Source.isPlaying;
+    }
+
+    private void ToggleCurrentPlayingBGM()
+    {
+        if (currentPlayingBGM == null) return; 
+        
+        if (IsBGMPlaying()) currentPlayingBGM.Source.Stop(); 
+        else currentPlayingBGM.Source.Play();
     }
 }

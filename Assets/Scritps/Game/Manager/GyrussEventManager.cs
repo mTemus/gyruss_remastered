@@ -44,6 +44,7 @@ public class GyrussEventManager : MonoBehaviour
     public static Action ShootingModeToggleInitiated;
     public static Action RocketAddInitialized;
     public static Action WeaponBonusKillInitiated;
+    public static Action CurrentBGMToggleInitiated;
     public static Action<StageType> StageTypeSetupInitiated;
     public static Action<StageState> StageStateSetupInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
@@ -68,6 +69,11 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<string, float> PeriodSetupInTimerInitiated;
     public static Action<GameObject, GameObject> ShipRemovalFromAwaitingListInitiated;
 
+    public static void OnCurrentBGMToggleInitiated()
+    {
+        CurrentBGMToggleInitiated?.Invoke();
+    }
+    
     public static void OnWeaponBonusKillInitiated()
     {
         WeaponBonusKillInitiated?.Invoke();
@@ -438,5 +444,6 @@ public class GyrussEventManager : MonoBehaviour
         BonusSpawnInitiated = null;
         GetPlayerShipStartingPositionInitiated = null;
         WeaponBonusKillInitiated = null;
+        CurrentBGMToggleInitiated = null;
     }
 }

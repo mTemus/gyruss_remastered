@@ -42,13 +42,14 @@ public class GyrussGameManager : MonoBehaviour
 
     public void PauseGame()
     {
-        PlayBGM("pause");
+        ToggleCurrentPlayingBGM();
         TogglePauseText();
         ToggleEngineTime();
     }
 
     public void AskIfExitGame()
     {
+        ToggleCurrentPlayingBGM();
         ToggleExitPanel();
         ToggleEngineTime();
     }
@@ -607,6 +608,11 @@ public class GyrussGameManager : MonoBehaviour
         GyrussGUIEventManager.OnExitPanelToggleInitiated();
     }
 
+    public void ToggleCurrentPlayingBGM()
+    {
+        GyrussEventManager.OnCurrentBGMToggleInitiated();
+    }
+    
     private void OnDestroy()
     { 
         GyrussEventManager.ClearDelegates();
