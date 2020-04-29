@@ -29,7 +29,19 @@ public class GyrussGUIEventManager : MonoBehaviour
     public static Action GameOverTextDisplayInitiated;
     public static Action GameRestartCountInitiated;
     public static Action GameEndingDisplayInitiated;
+    public static Action PausedTextToggleInitiated;
+    public static Action ExitPanelToggleInitiated;
 
+    public static void OnExitPanelToggleInitiated()
+    {
+        ExitPanelToggleInitiated?.Invoke();
+    }
+    
+    public static void OnPausedTextToggleInitiated()
+    {
+        PausedTextToggleInitiated?.Invoke();
+    }
+    
     public static void OnGameEndingDisplayInitiated()
     {
         GameEndingDisplayInitiated?.Invoke();
@@ -188,6 +200,8 @@ public class GyrussGUIEventManager : MonoBehaviour
         GameOverTextDisplayInitiated = null;
         GameRestartCountInitiated = null;
         GameEndingDisplayInitiated = null;
+        PausedTextToggleInitiated = null;
+        ExitPanelToggleInitiated = null;
     }
     
 }

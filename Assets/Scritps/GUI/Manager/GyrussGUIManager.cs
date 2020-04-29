@@ -8,6 +8,7 @@ public class GyrussGUIManager : MonoBehaviour
 {
     [Header("Main GUI")]
     [SerializeField] private GameObject GUI = null;
+    [SerializeField] private GameObject exitGamePanel = null;
     
     [Header("Text fields")] 
     [SerializeField] private Text scoreText = null;
@@ -17,6 +18,7 @@ public class GyrussGUIManager : MonoBehaviour
     [SerializeField] private Text readyText = null;
     [SerializeField] private Text chanceBonusText = null;
     [SerializeField] private Text gameRestartText = null;
+    [SerializeField] private Text pausedText = null;
 
     [Header("Icons")] 
     [SerializeField] private GameObject lifeIcon = null;
@@ -71,6 +73,8 @@ public class GyrussGUIManager : MonoBehaviour
         GyrussGUIEventManager.GameOverTextDisplayInitiated += DisplayGameOverText;
         GyrussGUIEventManager.GameRestartCountInitiated += CountToRestart;
         GyrussGUIEventManager.GameEndingDisplayInitiated += DisplayGameEnding;
+        GyrussGUIEventManager.PausedTextToggleInitiated += TogglePausedText;
+        GyrussGUIEventManager.ExitPanelToggleInitiated += ToggleExitPanel;
     }
     
     private void SetScoreText(int score)
@@ -335,8 +339,16 @@ public class GyrussGUIManager : MonoBehaviour
             SceneManager.LoadScene("MainMenuScene");
         }
     }
-    
-    
+
+    private void TogglePausedText()
+    {
+        pausedText.enabled = !pausedText.enabled;
+    }
+
+    private void ToggleExitPanel()
+    {
+        exitGamePanel.SetActive(!exitGamePanel.activeSelf);
+    }
     
     private void OnDestroy()
     {

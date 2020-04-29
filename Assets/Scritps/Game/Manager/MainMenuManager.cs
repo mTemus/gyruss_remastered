@@ -52,4 +52,9 @@ public class MainMenuManager : MonoBehaviour
         for (int i = 0; i < neededZeros; i++) { hiScoreString = hiScoreString.Insert(0, "0"); }
         hiScoreText.text = hiScoreString;
     }
+
+    public void ExitApplication()
+    {
+        Application.Quit();
+    }
 }

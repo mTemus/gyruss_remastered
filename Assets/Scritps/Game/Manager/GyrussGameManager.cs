@@ -20,17 +20,44 @@ public class GyrussGameManager : MonoBehaviour
         instance = this;
     }
 
+    private void ToggleEngineTime()
+    {
+        switch (Time.timeScale) {
+            case 1:
+                Time.timeScale = 0;
+                break;
+            case 0:
+                Time.timeScale = 1;
+                break;
+        }
+    }
+    
     public void SetGameStatusGameOver()
     {
         DeleteAllEnemies();
         StopCurrentPlayingBGM();
         PlayBGM("gameOver");
         DisplayGameOverText();
-            
-        //TODO: add timer for loading starting scene
     }
-    
-    
+
+    public void PauseGame()
+    {
+        PlayBGM("pause");
+        TogglePauseText();
+        ToggleEngineTime();
+    }
+
+    public void AskIfExitGame()
+    {
+        ToggleExitPanel();
+        ToggleEngineTime();
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     public void SetCurrentStageType(StageType newStageType)
     {
         GyrussEventManager.OnStageTypeSetupInitiated(newStageType);
@@ -568,6 +595,16 @@ public class GyrussGameManager : MonoBehaviour
     public void KillWeaponBonus()
     {
         GyrussEventManager.OnWeaponBonusKillInitiated();
+    }
+
+    public void TogglePauseText()
+    {
+        GyrussGUIEventManager.OnPausedTextToggleInitiated();
+    }
+
+    public void ToggleExitPanel()
+    {
+        GyrussGUIEventManager.OnExitPanelToggleInitiated();
     }
 
     private void OnDestroy()
