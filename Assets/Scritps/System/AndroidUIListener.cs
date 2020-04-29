@@ -8,6 +8,8 @@ public class AndroidUIListener : MonoBehaviour
     
     void Update()
     {
-        if (myButton.Pressed) { myEvent?.Invoke(); }
+        if (!myButton.Pressed) return;
+        myEvent?.Invoke();
+        myButton.Pressed = false;
     }
 }
