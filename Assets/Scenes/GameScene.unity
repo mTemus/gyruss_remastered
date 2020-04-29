@@ -383,7 +383,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BossPrefabL0: {fileID: 9148194959245004628, guid: 55b957eec645e9c48a7c513ee98c7a49,
     type: 3}
-  BossPrefabL1: {fileID: 0}
 --- !u!1 &52308865
 GameObject:
   m_ObjectHideFlags: 0
@@ -3755,7 +3754,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3a74f678ee8f3bd49aacf3de1ae4bcaa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b742e49bf19d6a44eb3ee77c84fdddb4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13812,7 +13811,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3a74f678ee8f3bd49aacf3de1ae4bcaa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 272ea5e3cd959f144b826881c114e9fc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
