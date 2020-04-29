@@ -498,6 +498,7 @@ public class StageManager : MonoBehaviour
                 if (weaponBonusSpawned) return; 
                 if (GyrussGameManager.Instance.PlayerManager.DoubleBulletMode) return;
                 Instantiate(weaponBonus, enemyPool, true);
+                weaponBonusSpawned = true;
                 break;
             
             case "rocket":
