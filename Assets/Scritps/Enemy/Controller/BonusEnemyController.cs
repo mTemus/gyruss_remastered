@@ -27,11 +27,8 @@ public class BonusEnemyController : MonoBehaviour
 
         float angle = Random.Range(-180f, 180f);
 
-        foreach (Transform child in transform) {
-            child.position = referencePos;
-            child.RotateAround(originPoint, Vector3.forward, angle);
-            angle += 20f;
-        }
+        transform.position = referencePos;
+        transform.RotateAround(Vector3.zero, Vector3.forward, angle);
     }
 
     // Update is called once per frame
