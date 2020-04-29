@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -240,12 +240,14 @@ public class StageManager : MonoBehaviour
         switch (enemiesAlive) {
             case 0 when currentWaveCounter == 4:
                 if (currentStageType == StageType.boss) {
+                    // first boss
                     if (GyrussGameManager.Instance.LevelManager.CurrentLevel == 0) {
                         GyrussGameManager.Instance.StopCurrentPlayingBGM();
                         GyrussGameManager.Instance.StopTimer("rocketBonusSpawn");
                         GyrussGameManager.Instance.PlayBGM("stage-3-boss");
                         GyrussGameManager.Instance.SpawnBoss(); 
                     }
+                    // no second boss, bcs it's demo, ending
                     else {
                         GyrussGameManager.Instance.SetStageState(StageState.wait);
                         GyrussGameManager.Instance.SetLevelState(LevelState.wait);
@@ -256,7 +258,7 @@ public class StageManager : MonoBehaviour
                         GyrussGameManager.Instance.SetConditionInTimer("startEnding", true);
                     }
                 }
-                    
+                // normal next stage    
                 else if(currentStageType != StageType.chance) {
                     GyrussGameManager.Instance.SilenceCurrentPlayingBGM();
                     GyrussGameManager.Instance.StopTimer("rocketBonusSpawn");
@@ -264,7 +266,7 @@ public class StageManager : MonoBehaviour
                     GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true);
                 }
                 break;
-            
+            // end of chance stage
             case 0 when currentWaveCounter == 5:
                 GyrussGameManager.Instance.StopTimer("weaponBonusSpawn");
                 GyrussGameManager.Instance.StopTimer("rocketBonusSpawn");
