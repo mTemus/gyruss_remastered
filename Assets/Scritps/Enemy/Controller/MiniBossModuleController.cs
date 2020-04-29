@@ -46,7 +46,7 @@ public class MiniBossModuleController : MonoBehaviour
             timer = 0;
             period = openTime;
             
-            // SpitEnemyShip();
+            SpitEnemyShip();
         }
 
         timer += Time.deltaTime;

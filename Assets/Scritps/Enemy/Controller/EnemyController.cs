@@ -99,6 +99,7 @@ public class EnemyController : MonoBehaviour
                 break;
             
             case EnemyStates.fly_from_mini_boss:
+                    attackPlayer();
                 break;
             
             case EnemyStates.die:
