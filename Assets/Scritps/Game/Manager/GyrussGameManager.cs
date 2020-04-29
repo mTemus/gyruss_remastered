@@ -22,9 +22,6 @@ public class GyrussGameManager : MonoBehaviour
 
     public void SetGameStatusGameOver()
     {
-        StopTimer("asteroidSpawn");
-        SetLevelState(LevelState.wait);
-        SetStageState(StageState.wait);
         DeleteAllEnemies();
         StopCurrentPlayingBGM();
         PlayBGM("gameOver");
@@ -572,8 +569,7 @@ public class GyrussGameManager : MonoBehaviour
     {
         GyrussEventManager.OnWeaponBonusKillInitiated();
     }
-    
-    
+
     private void OnDestroy()
     { 
         GyrussEventManager.ClearDelegates();

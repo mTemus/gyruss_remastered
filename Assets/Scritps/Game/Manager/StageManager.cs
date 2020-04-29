@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -353,11 +353,21 @@ public class StageManager : MonoBehaviour
 
         switch (currentStageType) {
             case StageType.mini_boss:
-                if (modulesAwaitingForShips.Count == 0) Destroy(enemy); 
+                if (modulesAwaitingForShips.Count == 0) {
+                    Destroy(enemy);
+                    return;
+                }
+
+                GameObject miniBossModule = miniBossModules[moduleId];
+                if (miniBossModule == null) {
+                    Destroy(enemy); 
+                    return;
+                }
                 
-                modulesAwaitingForShips[miniBossModules[moduleId]].Add(enemy);
-                enemy.GetComponent<EnemyController>().MyModule = miniBossModules[moduleId];
-                enemy.GetComponent<PositionsUpadator>().SetModuleToUpdate(miniBossModules[moduleId].transform);
+                
+                modulesAwaitingForShips[miniBossModule].Add(enemy);
+                enemy.GetComponent<EnemyController>().MyModule = miniBossModule;
+                enemy.GetComponent<PositionsUpadator>().SetModuleToUpdate(miniBossModule.transform);
                 moduleId++;
                 
                 if (moduleId > modulesAmount - 1) moduleId = 0;

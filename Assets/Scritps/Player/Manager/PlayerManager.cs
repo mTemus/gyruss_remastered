@@ -237,6 +237,9 @@ public class PlayerManager : MonoBehaviour
             GyrussGameManager.Instance.StopTimer("weaponBonusSpawn");
             GyrussGameManager.Instance.StopTimer("rocketBonusSpawn");
             GyrussGameManager.Instance.StopTimer("asteroidSpawn");
+            GyrussGameManager.Instance.SetLevelState(LevelState.wait);
+            GyrussGameManager.Instance.SetStageState(StageState.wait);
+
             GyrussGameManager.Instance.SetConditionInTimer("gameOver", true);
             Destroy(playerShip);
         }
