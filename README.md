@@ -1,7 +1,10 @@
 # Gyruss (NES)
 ![Gyruss logo][logo]
 
-This project was about remaking [Gyruss](https://en.wikipedia.org/wiki/Gyruss) NES console version to an android version. Project was done to pass "Mobile Applications" subject at university. Main objective of this project was to reproduce original game as accurately as possible.
+This project was about remaking [Gyruss](https://en.wikipedia.org/wiki/Gyruss) NES console version to an android version. Project was done to pass "Mobile Applications" class at university. Main objective of this project was to reproduce original game as accurately as possible.
+
+### Gameplay
+[Click here to open youtube video](https://www.youtube.com/watch?v=szCh0nvmCkA)
 
 ### Original content
 To stand original, to create this game we used original sprites and we had handly re-drawn some of them, because they were not able to be found in the Internet. We also used original soundtrack and sound effects.
