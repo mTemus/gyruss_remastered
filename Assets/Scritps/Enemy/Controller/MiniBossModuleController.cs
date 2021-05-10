@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -28,6 +27,7 @@ public class MiniBossModuleController : MonoBehaviour
         myAnimator = transform.GetComponent<Animator>();
         closeTime = Random.Range(7, 20);
         period = closeTime;
+        transform.rotation = Quaternion.identity;
     }
 
     void Update()
@@ -46,7 +46,7 @@ public class MiniBossModuleController : MonoBehaviour
             timer = 0;
             period = openTime;
             
-            // SpitEnemyShip();
+            SpitEnemyShip();
         }
 
         timer += Time.deltaTime;
@@ -102,19 +102,21 @@ public class MiniBossModuleController : MonoBehaviour
     {
         switch (other.tag) {
             case "EnemyShip":
-                Debug.LogWarning("ship arrived");
                 myAnimator.SetBool(Open, true);
                 attack = false;
                 break;
             
             case "Rocket":
                 Die();
+                Destroy(other.gameObject);
                 break;
             
             case "PlayerBullet":
                 if (myAnimator.GetBool(Hurt)) {
                     myAnimator.CrossFade(myAnimator.GetBool(Open) ? "open_hurt" : "closed_hurt", 0f, -1, 0f);
                 }
+                
+                Destroy(other.gameObject);
                 myAnimator.SetBool(Hurt, true);
                 GetHurt();
                 break;
@@ -135,6 +137,7 @@ public class MiniBossModuleController : MonoBehaviour
     {
         if (!eatenShips.Contains(ship)) {
             eatenShips.Add(ship);
+            ship.transform.position = new Vector3(100, 100, 0);
         }
         else {
             Debug.LogError("Ship can't be eaten two times!!! " + transform.name);

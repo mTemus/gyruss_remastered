@@ -2,13 +2,12 @@
 
 public class MinimapManager : MonoBehaviour
 {
-    [SerializeField] private Transform[] minimapPoints;
+    [SerializeField] private Transform[] minimapPoints = null;
     [Header("Player")]
-    [SerializeField] private GameObject playerShipIcon;
-    [SerializeField] private Animator playerShipAnimator;
+    [SerializeField] private GameObject playerShipIcon = null;
+    [SerializeField] private Animator playerShipAnimator = null;
 
     private float speed = 1f;
-    private int currentPointIndex = 0;
     private Vector3 currentLevelPosition;
 
     private bool move;

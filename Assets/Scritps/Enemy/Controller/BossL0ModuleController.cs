@@ -9,11 +9,11 @@ public class BossL0ModuleController : MonoBehaviour
 
     [Header("Module timers")] 
     [SerializeField] private float openTime = 2f;
-     private float closeTime;
-
+    
     [Header("Prefabs")] 
-    [SerializeField] private GameObject bulletPrefab;
-
+    [SerializeField] private GameObject bulletPrefab = null;
+ 
+    private float closeTime;
     private float periodTimer;
     private float counterTimer;
     private bool opened;

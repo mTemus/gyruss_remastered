@@ -5,26 +5,30 @@ using UnityEngine;
 public class StageManager : MonoBehaviour
 {
     [Header("StageView")] 
-    [SerializeField] private Transform[] enemySpots;
-    [SerializeField] private Transform mapCenterPoint;
+    [SerializeField] private Transform[] enemySpots = null;
+    [SerializeField] private Transform mapCenterPoint = null;
 
     [Header("PlayerShip")] 
-    [SerializeField] private GameObject playerShip;
+    [SerializeField] private GameObject playerShip = null;
 
     [Header("Pools")] 
-    [SerializeField] private Transform enemyPool;
+    [SerializeField] private Transform enemyPool = null;
+
+    [Header("Prefabs")] 
+    [SerializeField] private GameObject weaponBonus = null;
+    [SerializeField] private GameObject rocketBonus = null;
 
     private int currentStage = 1;
     private int stages = 1;
     private int enemiesAlive;
-
-    private int randomOfPath; // ???????????????????????????????
-
+    
     private int evenSpotId = 0;
     private int unevenSpotId = 1;
     private int currentWaveCounter;
     private int modulesAmount = 4;
     private int moduleId;
+
+    private bool weaponBonusSpawned;
     
     private StageState currentStageState;
     private StageType currentStageType;
@@ -63,6 +67,9 @@ public class StageManager : MonoBehaviour
         GyrussEventManager.StageClearInitiated += ClearStage;
         GyrussEventManager.MiniBossModuleKillInitiated += DestroyMiniBossModule;
         GyrussEventManager.ShipRemovalFromAwaitingListInitiated += RemoveShipFromModule;
+        GyrussEventManager.AllEnemiesDeleteInitiated += DeleteAllEnemies;
+        GyrussEventManager.BonusSpawnInitiated += SpawnBonus;
+        GyrussEventManager.WeaponBonusKillInitiated += KillWeaponBonus;
     }
     
     private void ProcessOrdersInStage()
@@ -75,19 +82,22 @@ public class StageManager : MonoBehaviour
                     
                     case StageType.first_stage:
                         PrepareAsteroidSpawning();
+                        GyrussGameManager.Instance.SetConditionInTimer("rocketBonusSpawn", true);
                         break;
                     
                     case StageType.mini_boss:
                         PrepareAsteroidSpawning();
+                        GyrussGameManager.Instance.SetConditionInTimer("rocketBonusSpawn", true);
                         break;
                     
                     case StageType.boss:
                         PrepareAsteroidSpawning();
+                        GyrussGameManager.Instance.SetPeriodInTimer("rocketBonusSpawn", 20f);
+                        GyrussGameManager.Instance.SetConditionInTimer("rocketBonusSpawn", true);
                         break;
 
                     case StageType.chance:
-                        // prepare bonuses spawning here
-                        
+                        GyrussGameManager.Instance.SetConditionInTimer("rocketBonusSpawn", true);
                         break;
                     
                     default:
@@ -149,6 +159,7 @@ public class StageManager : MonoBehaviour
             
             case StageState.spawn_player:
                 PlayStageBGM();
+                GyrussGameManager.Instance.SetConditionInTimer("weaponBonusSpawn", true);
                 GyrussGameManager.Instance.PrepareReviveParticles();
                 GyrussGameManager.Instance.SetStagesText(stages);
                 GyrussGameManager.Instance.SetStageState(StageState.initialize_GUI);
@@ -158,6 +169,7 @@ public class StageManager : MonoBehaviour
                 if (!GyrussGameManager.Instance.MovePlayerShipToWarpingPosition()) return;
 
                 if (GyrussGameManager.Instance.MovePlayerShipToCenterPosition()) {
+                    GyrussGameManager.Instance.StopTimer("weaponBonusSpawn");
                     GyrussGameManager.Instance.ClearCurrentStage();
                     playerShip.SetActive(false);
                     
@@ -217,6 +229,8 @@ public class StageManager : MonoBehaviour
 
     private void KillEnemy()
     {
+        if (playerShip == null) return; 
+        
         enemiesAlive--;
 
         if (enemiesAlive < 0) {
@@ -226,19 +240,37 @@ public class StageManager : MonoBehaviour
         switch (enemiesAlive) {
             case 0 when currentWaveCounter == 4:
                 if (currentStageType == StageType.boss) {
-                    GyrussGameManager.Instance.StopCurrentPlayingBGM();
-                    GyrussGameManager.Instance.PlayBGM("stage-3-boss");
-                    GyrussGameManager.Instance.SpawnBoss(); 
+                    // first boss
+                    if (GyrussGameManager.Instance.LevelManager.CurrentLevel == 0) {
+                        GyrussGameManager.Instance.StopCurrentPlayingBGM();
+                        GyrussGameManager.Instance.StopTimer("rocketBonusSpawn");
+                        GyrussGameManager.Instance.PlayBGM("stage-3-boss");
+                        GyrussGameManager.Instance.SpawnBoss(); 
+                    }
+                    // no second boss, bcs it's demo, ending
+                    else {
+                        GyrussGameManager.Instance.SetStageState(StageState.wait);
+                        GyrussGameManager.Instance.SetLevelState(LevelState.wait);
+                        GyrussGameManager.Instance.StopTimer("asteroidSpawn");
+                        GyrussGameManager.Instance.StopTimer("rocketBonusSpawn");
+                        GyrussGameManager.Instance.StopTimer("weaponBonusSpawn");
+                        GyrussGameManager.Instance.SilenceCurrentPlayingBGM();
+                        GyrussGameManager.Instance.SetConditionInTimer("startEnding", true);
+                    }
                 }
-                    
+                // normal next stage    
                 else if(currentStageType != StageType.chance) {
-                    GyrussGameManager.Instance.StopCurrentPlayingBGM();
+                    GyrussGameManager.Instance.SilenceCurrentPlayingBGM();
+                    GyrussGameManager.Instance.StopTimer("rocketBonusSpawn");
+                    GyrussGameManager.Instance.StopTimer("weaponBonusSpawn");
                     GyrussGameManager.Instance.SetConditionInTimer("nextStageDelay", true);
                 }
                 break;
-            
+            // end of chance stage
             case 0 when currentWaveCounter == 5:
-                GyrussGameManager.Instance.StopCurrentPlayingBGM();
+                GyrussGameManager.Instance.StopTimer("weaponBonusSpawn");
+                GyrussGameManager.Instance.StopTimer("rocketBonusSpawn");
+                GyrussGameManager.Instance.SilenceCurrentPlayingBGM();
                 GyrussGameManager.Instance.StartCountingChanceBonusPoints();
                 break;
         }
@@ -321,11 +353,21 @@ public class StageManager : MonoBehaviour
 
         switch (currentStageType) {
             case StageType.mini_boss:
-                if (modulesAmount == 0) Destroy(enemy); 
+                if (modulesAwaitingForShips.Count == 0) {
+                    Destroy(enemy);
+                    return;
+                }
+
+                GameObject miniBossModule = miniBossModules[moduleId];
+                if (miniBossModule == null) {
+                    Destroy(enemy); 
+                    return;
+                }
                 
-                modulesAwaitingForShips[miniBossModules[moduleId]].Add(enemy);
-                enemy.GetComponent<EnemyController>().MyModule = miniBossModules[moduleId];
-                enemy.GetComponent<PositionsUpadator>().SetModuleToUpdate(miniBossModules[moduleId]);
+                
+                modulesAwaitingForShips[miniBossModule].Add(enemy);
+                enemy.GetComponent<EnemyController>().MyModule = miniBossModule;
+                enemy.GetComponent<PositionsUpadator>().SetModuleToUpdate(miniBossModule.transform);
                 moduleId++;
                 
                 if (moduleId > modulesAmount - 1) moduleId = 0;
@@ -425,7 +467,7 @@ public class StageManager : MonoBehaviour
             }
             else {
                 ship.GetComponent<EnemyController>().MyModule = newModule;
-                ship.GetComponent<PositionsUpadator>().SetModuleToUpdate(newModule);
+                ship.GetComponent<PositionsUpadator>().SetModuleToUpdate(newModule.transform);
             }
         }
     }
@@ -449,7 +491,40 @@ public class StageManager : MonoBehaviour
         if (!modulesAwaitingForShips[module].Contains(ship)) return; 
         modulesAwaitingForShips[module].Remove(ship);
     }
-    
-    
+
+    private void DeleteAllEnemies()
+    {
+        foreach (Transform enemy in enemyPool) {
+            Destroy(enemy.gameObject);
+        }
+    }
+
+    private void SpawnBonus(string type)
+    {
+        GyrussGameManager.Instance.PlaySoundEffect("weaponBonusSpawn");
+        
+        switch (type) {
+            case "weapon":
+                if (weaponBonusSpawned) return; 
+                if (GyrussGameManager.Instance.PlayerManager.DoubleBulletMode) return;
+                Instantiate(weaponBonus, enemyPool, true);
+                weaponBonusSpawned = true;
+                break;
+            
+            case "rocket":
+                Instantiate(rocketBonus, enemyPool, true);
+                break;
+        }
+        
+        IncreaseEnemyAlive();
+        IncreaseEnemyAlive();
+        IncreaseEnemyAlive();
+    }
+
+    private void KillWeaponBonus()
+    {
+        weaponBonusSpawned = false;
+    }
+
     public int CurrentStage => currentStage; 
 }

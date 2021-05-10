@@ -3,20 +3,18 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public PathFollow pathFollow;
-    public PathsDatabase pathsDatabase;
-    public float timeToWait = 0;
-    
-    private bool pathAssignedIn = false;
-    private bool pathAssignedBack = false;
-    
     private int spotIndex;
     private int waveId;
-    
     private float speed;
+    private float internalTimer;
+    private float randomWaitTime;
+    private float attackChance;
+    private bool pathBackAssigned = false;
+    public bool pathAttackAssigned = false;
+    private bool waitReached = false;
 
+    public PathFollow pathFollow;
     private GameObject myModule;
-    
     private EnemyStates myCurrentState = EnemyStates.no_state;
     private StageType currentStageType = StageType.no_type;
     
@@ -26,12 +24,20 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         speed = pathFollow.speed;
+        pathFollow.pathCreator = GyrussGameManager.Instance.GetCurrentEnemyPathIn();
+        randomWaitTime = UnityEngine.Random.Range(2,20);
+        attackChance = UnityEngine.Random.Range(0,100);
+    }
+
+    private void FixedUpdate() {
+        if(waitReached){
+            internalTimer += Time.deltaTime;
+        }
     }
 
     private void Update() {
         switch(myCurrentState){
             case EnemyStates.entering:
-                randomizePath();
                 enterScreen();
                 break;
 
@@ -40,13 +46,14 @@ public class EnemyController : MonoBehaviour
                 break;
             
             case EnemyStates.wait:
-                // waitInTheMiddle();
-
                 UpdateCenterPosition();
+                if(internalTimer >= randomWaitTime){
+                    myCurrentState = EnemyStates.attack;
+                    waitReached = false;
+                }
                 break;
             
             case EnemyStates.attack:
-                randomizePathBack();
                 attackPlayer();
                 break;
             
@@ -86,13 +93,13 @@ public class EnemyController : MonoBehaviour
 
                 if (transform.position == modulePosition) {
                     GyrussGameManager.Instance.RemoveShipFromAwaitingList(myModule, transform.gameObject);
-                    transform.position = new Vector3(100, 100, 0);
                     myModule.GetComponent<MiniBossModuleController>().EatEnemyShip(transform.gameObject);
                     myCurrentState = EnemyStates.no_state;
                 }
                 break;
             
             case EnemyStates.fly_from_mini_boss:
+                    attackPlayer();
                 break;
             
             case EnemyStates.die:
@@ -117,7 +124,7 @@ public class EnemyController : MonoBehaviour
             
             default:
                 throw new ArgumentOutOfRangeException();
-        }   
+        }
     }
 
     private void enterScreen(){
@@ -130,7 +137,7 @@ public class EnemyController : MonoBehaviour
                     break;
                 
                 case StageType.mini_boss:
-                    myCurrentState = EnemyStates.fly_to_spot;
+                    myCurrentState = EnemyStates.fly_to_mini_boss;
                     break;
                 
                 case StageType.boss:
@@ -144,51 +151,45 @@ public class EnemyController : MonoBehaviour
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        } 
-            
+        }      
     }
 
     private void flyToSpot(){
-        // if (!pathFollow.endPathReached()) return; <- to blokuje latanie do punktu
-
         transform.position = Vector3.MoveTowards(transform.position, centerPosition, Time.deltaTime * speed);
 
         if (transform.position == centerPosition) {
             myCurrentState = EnemyStates.wait;
-        }
-    }
-
-    private void waitInTheMiddle(){
-        if(timeToWait >= 5f){
-            myCurrentState = EnemyStates.attack;
-        }else{
-            timeToWait+=Time.deltaTime;
+            waitReached = true;
         }
     }
 
     private void attackPlayer(){
-        if(!pathFollow.endPathReached()){
-            pathFollow.moveOnPath();
+        if(attackChance > 30 && pathAttackAssigned == false){
+            pathAttackAssigned = true;
+            pathFollow.pathCreator = GyrussGameManager.Instance.getClosestPathOut();
+            pathFollow.distanceTravelled = 0;
+        }else if(attackChance <= 30){
+            myCurrentState = EnemyStates.fly_away;
+        }else{
+            if(!pathFollow.endPathReached()){
+                pathFollow.moveOnPath();
+            }else{
+                Destroy(transform.gameObject);
+            }
         }
     }
 
     private void flyAway(){
-
-    }
-
-    private void randomizePath(){
-        if(pathAssignedIn == false){
-            pathFollow.pathCreator = pathsDatabase.getRandomPathIn();
-            pathFollow.distanceTravelled = 0f;
-            pathAssignedIn = true;
-        }
-    }
-
-    private void randomizePathBack(){
-        if(pathAssignedBack == false){
-            pathFollow.pathCreator = pathsDatabase.getRandomPathBack();
-            pathFollow.distanceTravelled = 0f;
-            pathAssignedBack = true;
+        if(pathBackAssigned == false){
+            pathBackAssigned = true;
+            pathFollow.pathCreator = GyrussGameManager.Instance.GetCurrentEnemyPathOut();
+            pathFollow.distanceTravelled = 0;
+        }else{
+            if(!pathFollow.endPathReached()){
+                pathFollow.moveOnPath();
+            }else{
+                Destroy(transform.gameObject);
+            }
         }
     }
     
@@ -209,6 +210,11 @@ public class EnemyController : MonoBehaviour
 
         if (other.CompareTag("Rocket")) {
             myCurrentState = EnemyStates.die;
+        }
+
+        if(other.CompareTag("Player") && pathAttackAssigned){
+            Destroy(transform.gameObject);
+            GyrussGameManager.Instance.KillPlayer();
         }
     }
 

@@ -1,21 +1,62 @@
 ﻿using UnityEngine;
+using PathCreation;
 
 public class GyrussGameManager : MonoBehaviour
 {
-    [SerializeField] private PlayerManager playerManager;
-    [SerializeField] private LevelManager levelManager;
-    [SerializeField] private StageManager stageManager;
-    [SerializeField] private TimeManager timeManager;
-    [SerializeField] private MinimapManager minimapManager;
-    [SerializeField] private EffectsManager effectsManager;
-    [SerializeField] private ScoreManager scoreManager;
-    [SerializeField] private BossManager bossManager;
-
+    [SerializeField] private PlayerManager playerManager = null;
+    [SerializeField] private LevelManager levelManager = null;
+    [SerializeField] private StageManager stageManager = null;
+    [SerializeField] private TimeManager timeManager = null;
+    [SerializeField] private MinimapManager minimapManager = null;
+    [SerializeField] private EffectsManager effectsManager = null;
+    [SerializeField] private ScoreManager scoreManager = null;
+    [SerializeField] private EnemyManager enemyManager = null;
+    [SerializeField] private BossManager bossManager = null;
+    
     private static GyrussGameManager instance;
 
     private void Awake()
     {
         instance = this;
+    }
+
+    private void ToggleEngineTime()
+    {
+        switch (Time.timeScale) {
+            case 1:
+                Time.timeScale = 0;
+                break;
+            case 0:
+                Time.timeScale = 1;
+                break;
+        }
+    }
+    
+    public void SetGameStatusGameOver()
+    {
+        DeleteAllEnemies();
+        StopCurrentPlayingBGM();
+        PlayBGM("gameOver");
+        DisplayGameOverText();
+    }
+
+    public void PauseGame()
+    {
+        ToggleCurrentPlayingBGM();
+        TogglePauseText();
+        ToggleEngineTime();
+    }
+
+    public void AskIfExitGame()
+    {
+        ToggleCurrentPlayingBGM();
+        ToggleExitPanel();
+        ToggleEngineTime();
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     public void SetCurrentStageType(StageType newStageType)
@@ -485,12 +526,97 @@ public class GyrussGameManager : MonoBehaviour
 
     public bool IsBGMPlaying() =>
         GyrussEventManager.OnIsBGMPlayingInitiated();
-    
-    private void OnDestroy()
+
+    public void SilenceCurrentPlayingBGM()
     {
-        GyrussEventManager.ClearDelegates();
+        GyrussEventManager.OnCurrentPlayingBGMSilencingInitiated();
     }
 
+    public void DisplayGameOverText()
+    {
+        GyrussGUIEventManager.OnGameOverTextDisplayInitiated();
+    }
+
+    public void DeleteAllEnemies()
+    {
+        GyrussEventManager.OnAllEnemiesDeleteInitiated();
+    }
+
+    public void CountToRestartGame()
+    {
+        GyrussGUIEventManager.OnGameRestartCountInitiated();
+    }
+
+    public void DisplayGameEnding()
+    {
+        GyrussGUIEventManager.OnGameEndingDisplayInitiated();
+    }
+
+    public void ToggleShootingMode()
+    {
+        GyrussEventManager.OnShootingModeToggleInitiated();
+    }
+
+    public void AddRocket()
+    {
+        GyrussEventManager.OnRocketAddInitialized();
+    }
+
+    public void SpawnBonus(string bonusType)
+    {
+        GyrussEventManager.OnBonusSpawnInitiated(bonusType);
+    }
+
+    public Vector3 GetPlayerStartingPosition() => 
+        GyrussEventManager.OnGetPlayerShipStartingPositionInitiated();
+
+    public void SetEnemyPathIn(){
+        EnemyManager.setPathIn();
+    }
+
+    public PathCreator GetCurrentEnemyPathIn(){
+        return EnemyManager.getCurrentPath();
+    }
+    public void SetEnemyPathOut(){
+        EnemyManager.setPathOut();
+    }
+
+    public PathCreator GetCurrentEnemyPathOut(){
+        return EnemyManager.getCurrentPathOut();
+    }
+
+    public void setClosestPathOut(){
+        EnemyManager.setClosestPathOut();
+    }
+
+    public PathCreator getClosestPathOut(){
+        return EnemyManager.getClosestPathOut();
+    }
+
+    public void KillWeaponBonus()
+    {
+        GyrussEventManager.OnWeaponBonusKillInitiated();
+    }
+
+    public void TogglePauseText()
+    {
+        GyrussGUIEventManager.OnPausedTextToggleInitiated();
+    }
+
+    public void ToggleExitPanel()
+    {
+        GyrussGUIEventManager.OnExitPanelToggleInitiated();
+    }
+
+    public void ToggleCurrentPlayingBGM()
+    {
+        GyrussEventManager.OnCurrentBGMToggleInitiated();
+    }
+    
+    private void OnDestroy()
+    { 
+        GyrussEventManager.ClearDelegates();
+    }
     public static GyrussGameManager Instance => instance;
     
     public PlayerManager PlayerManager => playerManager;
@@ -508,5 +634,7 @@ public class GyrussGameManager : MonoBehaviour
     public ScoreManager ScoreManager => scoreManager;
 
     public BossManager BossManager => bossManager;
+
+    public EnemyManager EnemyManager => enemyManager;
 }
 

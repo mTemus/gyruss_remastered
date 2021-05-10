@@ -5,12 +5,12 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     [Header("Game views")] 
-    [SerializeField] private GameObject MinimapView;
-    [SerializeField] private GameObject StageView;
+    [SerializeField] private GameObject MinimapView = null;
+    [SerializeField] private GameObject StageView = null;
     
     private int currentLevel = 0;
-    private int currentWave = 1;
     private int currentStage = 1;
+    private int currentWave = 1;
 
     private List<string> planetsInGame;
 
@@ -42,7 +42,7 @@ public class LevelManager : MonoBehaviour
         switch (currentLevelState) {
             case LevelState.start:
                 if (MinimapView.activeSelf) {
-                    if (currentLevel == 0) GyrussGameManager.Instance.PlayBGM("beginning-metal");
+                    if (currentLevel == 0) GyrussGameManager.Instance.PlayBGM("beginning-normal");
 
                     GyrussGameManager.Instance.SetConditionInTimer("playerDelayOnMinimap", true);
                     currentLevelState = LevelState.wait;
@@ -189,8 +189,7 @@ public class LevelManager : MonoBehaviour
                currentStageType = StageType.chance;
                break;
        }
-
-       Debug.Log(currentStageType);
+       
        GyrussGameManager.Instance.SetCurrentStageType(currentStageType);
    }
 
@@ -215,6 +214,5 @@ public class LevelManager : MonoBehaviour
     }
 
     public int CurrentLevel => currentLevel;
-
-    //TODO: method to go to another level, should be added to event (delegate)
+    
 }

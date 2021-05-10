@@ -1,37 +1,42 @@
 ﻿using System.Globalization;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class GyrussGUIManager : MonoBehaviour
 {
     [Header("Main GUI")]
-    [SerializeField] private GameObject GUI;
+    [SerializeField] private GameObject GUI = null;
+    [SerializeField] private GameObject exitGamePanel = null;
     
     [Header("Text fields")] 
-    [SerializeField] private Text scoreText;
-    [SerializeField] private Text hiScoreText;
-    [SerializeField] private Text stageText;
-    [SerializeField] private Text warpsLeftText;
-    [SerializeField] private Text readyText;
-    [SerializeField] private Text chanceBonusText;
+    [SerializeField] private Text scoreText = null;
+    [SerializeField] private Text hiScoreText = null;
+    [SerializeField] private Text stageText = null;
+    [SerializeField] private Text warpsLeftText = null;
+    [SerializeField] private Text readyText = null;
+    [SerializeField] private Text chanceBonusText = null;
+    [SerializeField] private Text gameRestartText = null;
+    [SerializeField] private Text pausedText = null;
 
     [Header("Icons")] 
-    [SerializeField] private GameObject lifeIcon;
-    [SerializeField] private GameObject rocketIcon;
+    [SerializeField] private GameObject lifeIcon = null;
+    [SerializeField] private GameObject rocketIcon = null;
 
     [Header("Groups")] 
-    [SerializeField] private Transform rocketsTransform;
-    [SerializeField] private Transform livesTransform;
+    [SerializeField] private Transform rocketsTransform = null;
+    [SerializeField] private Transform livesTransform = null;
 
     [Header("Prefabs")] 
-    [SerializeField] private GameObject bonusTextPrefab;
-    [SerializeField] private GameObject[] planetsTargets;
+    [SerializeField] private GameObject bonusTextPrefab = null;
+    [SerializeField] private GameObject[] planetsTargets = null;
     
     private float currentVisibility = 0.25f;
 
     private int chanceTextBlinks;
     private int chanceBonusTextBlinks;
+    private int restartCount = 10;
     
     private GameObject currentPlanet;
     
@@ -65,6 +70,11 @@ public class GyrussGUIManager : MonoBehaviour
         GyrussGUIEventManager.ChanceBonusScoreDisplayInitiated += SetChanceBonusText;
         GyrussGUIEventManager.ChanceBonusTextBlinkInitiated += BlinkChanceBonusText;
         GyrussGUIEventManager.ToggleChanceBonusTryInitiated += ToggleChanceBonusText;
+        GyrussGUIEventManager.GameOverTextDisplayInitiated += DisplayGameOverText;
+        GyrussGUIEventManager.GameRestartCountInitiated += CountToRestart;
+        GyrussGUIEventManager.GameEndingDisplayInitiated += DisplayGameEnding;
+        GyrussGUIEventManager.PausedTextToggleInitiated += TogglePausedText;
+        GyrussGUIEventManager.ExitPanelToggleInitiated += ToggleExitPanel;
     }
     
     private void SetScoreText(int score)
@@ -136,6 +146,17 @@ public class GyrussGUIManager : MonoBehaviour
         chanceTextBlinks = 0;
         ToggleWarpsText();
         BlinkChanceStageText();
+    }
+
+    private void DisplayGameOverText()
+    {
+        rocketsTransform.gameObject.SetActive(false);
+        livesTransform.gameObject.SetActive(false);
+        
+        warpsLeftText.text = "GAME OVER";
+        gameRestartText.enabled = true;
+        ToggleWarpsText();
+        CountToRestart();
     }
 
     private void BlinkChanceStageText()
@@ -293,6 +314,40 @@ public class GyrussGUIManager : MonoBehaviour
     private void DestroyDisplayedPlanet()
     {
         Destroy(currentPlanet);
+    }
+
+    private void DisplayGameEnding()
+    {
+        warpsLeftText.fontSize = 12;
+        warpsLeftText.text = "KONIEC DEMA STWORZONEGO NA PROJEKT Z PROGRAMOWANIA APLIKACJI MOBILNYCH\n" +
+                             "MARCIN WOJCIK & MATEUSZ MAJEWSKI \n" +
+                             "GRUPA 4, INFORMATYKA STOSOWANA SEMESTR 6";
+        ToggleWarpsText();
+        
+        gameRestartText.enabled = true;
+        CountToRestart();
+    }
+
+    private void CountToRestart()
+    {
+        gameRestartText.text = "GAME WILL RESTART IN: " + restartCount--;
+
+        if (restartCount >= 0) {
+            GyrussGameManager.Instance.SetConditionInTimer("gameRestart", true);
+        }
+        else {
+            SceneManager.LoadScene("MainMenuScene");
+        }
+    }
+
+    private void TogglePausedText()
+    {
+        pausedText.enabled = !pausedText.enabled;
+    }
+
+    private void ToggleExitPanel()
+    {
+        exitGamePanel.SetActive(!exitGamePanel.activeSelf);
     }
     
     private void OnDestroy()

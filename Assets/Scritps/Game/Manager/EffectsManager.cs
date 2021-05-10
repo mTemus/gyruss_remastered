@@ -4,20 +4,20 @@ using UnityEngine;
 public class EffectsManager : MonoBehaviour
 {
     [Header("Player Ship")]
-    [SerializeField] private GameObject playerShip;
+    [SerializeField] private GameObject playerShip = null;
     
     [Header("Effects Prefabs")]
-    [SerializeField] private GameObject ExplosionPrefab;
-    [SerializeField] private GameObject ExplosionBossPrefab;
+    [SerializeField] private GameObject explosionPrefab = null;
+    [SerializeField] private GameObject explosionBossPrefab = null;
 
     [Header("Pools")] 
-    [SerializeField] private Transform explosionPool;
+    [SerializeField] private Transform explosionPool = null;
 
     [Header("Particles")] 
-    [SerializeField] private ParticleSystem starParticles;
-    [SerializeField] private GameObject[] reviveParticles;
-    [SerializeField] private GameObject[] deathParticles;
-    [SerializeField] private GameObject[] rocketParticles;
+    [SerializeField] private ParticleSystem starParticles = null;
+    [SerializeField] private GameObject[] reviveParticles = null;
+    [SerializeField] private GameObject[] deathParticles = null;
+    [SerializeField] private GameObject[] rocketParticles = null;
     
     private List<GameObject> readyReviveParticles;
     private Vector3 playerShipPosition;
@@ -114,6 +114,8 @@ public class EffectsManager : MonoBehaviour
 
     private void PrepareReviveParticles()
     {
+        GyrussGameManager.Instance.PlaySoundEffect("player-spawn");
+
         foreach (GameObject reviveParticle in reviveParticles) {
             reviveParticle.SetActive(true);
             reviveParticle.GetComponent<ReviveParticleController>().PrepareMovement(playerShipPosition);
@@ -175,11 +177,11 @@ public class EffectsManager : MonoBehaviour
 
         switch (explosionType) {
             case "normal":
-                explosion = Instantiate(ExplosionPrefab, explosionPool, true);
+                explosion = Instantiate(explosionPrefab, explosionPool, true);
                 break;
             
             case "miniBoss":
-                explosion = Instantiate(ExplosionBossPrefab, explosionPool, true);
+                explosion = Instantiate(explosionBossPrefab, explosionPool, true);
                 break;
         }
 

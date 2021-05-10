@@ -25,23 +25,21 @@ public class ScalingController : MonoBehaviour
 
         distanceToCenter = Vector3.Distance(playerPos, centerPos);
 
-        if (transform.CompareTag("EnemyShip")) {
-            currentCollider = transform.GetComponent<BoxCollider2D>();
-            normalEnemyColliderSize = currentCollider.size;
-            normalEnemyColliderOffset = currentCollider.offset;
+        if (!transform.CompareTag("EnemyShip")) return;
+        
+        currentCollider = transform.GetComponent<BoxCollider2D>();
+        normalEnemyColliderSize = currentCollider.size;
+        normalEnemyColliderOffset = currentCollider.offset;
+        
+        myRenderer = transform.GetComponent<SpriteRenderer>();
+        enemyNormalSprite = transform.GetComponent<SpriteRenderer>().sprite;
             
-            
-            // TODO: back to this mechanism
-            myRenderer = transform.GetComponent<SpriteRenderer>();
-            enemyNormalSprite = transform.GetComponent<SpriteRenderer>().sprite;
-            
-            int currentLevel = GyrussGameManager.Instance.LevelManager.CurrentLevel;
-            string enemyName = myRenderer.sprite.name;
-            enemyName = enemyName.Replace("normal", "center");
+        int currentLevel = GyrussGameManager.Instance.LevelManager.CurrentLevel;
+        string enemyName = myRenderer.sprite.name;
+        enemyName = enemyName.Replace("normal", "center");
 
-            enemyCenterSprite = Resources.LoadAll<Sprite>("Sprites/Enemies/enemies-level-" + currentLevel)
-                .Single(sprite => sprite.name.Equals(enemyName));
-        }
+        enemyCenterSprite = Resources.LoadAll<Sprite>("Sprites/Enemies/enemies-level-" + currentLevel)
+            .Single(sprite => sprite.name.Equals(enemyName));
     }
 
     void Update()
@@ -84,9 +82,9 @@ public class ScalingController : MonoBehaviour
             case "Rocket":
                 float doubleScale = scalingFactor * 2;
 
-                if (doubleScale < 1) {
+                if (doubleScale < 1) 
                     transform.localScale = new Vector3(doubleScale, doubleScale, 0);
-                }
+                
                 return;
         }
 

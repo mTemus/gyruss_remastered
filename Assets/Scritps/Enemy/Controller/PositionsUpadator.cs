@@ -2,7 +2,7 @@
 
 public class PositionsUpadator : MonoBehaviour
 {
-    private GameObject miniBossModule;
+    private Transform miniBossModule;
     private Transform centerPoint;
     private EnemyController myEnemyController;
 
@@ -28,7 +28,7 @@ public class PositionsUpadator : MonoBehaviour
         updateTarget = "point";
     }
 
-    public void SetModuleToUpdate(GameObject module)
+    public void SetModuleToUpdate(Transform module)
     {
         miniBossModule = module;
         updateTarget = "module";
@@ -39,6 +39,4 @@ public class PositionsUpadator : MonoBehaviour
         get => myEnemyController;
         set => myEnemyController = value;
     }
-
-    public GameObject MiniBossModule => miniBossModule;
 }

@@ -4,13 +4,22 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -580967654680962555
-    second: enemies-weapons-bonus_0
+    second: weapon_bonus
   - first:
       213: -4615856913681576022
-    second: enemies-weapons-bonus_1
+    second: guard_1_1
   - first:
       213: 5163989142900239724
-    second: enemies-weapons-bonus_2
+    second: rocket_bonus
+  - first:
+      213: -8351397802273470128
+    second: weapon_bonus
+  - first:
+      213: 3957635690181608036
+    second: guard_1_1
+  - first:
+      213: 8474261654753290415
+    second: guard_1_2
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -40,7 +49,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -72,7 +81,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -84,7 +93,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -96,7 +105,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -108,7 +117,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -119,7 +128,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: enemies-weapons-bonus_0
+      name: rocket_bonus
       rect:
         serializedVersion: 2
         x: 0
@@ -133,14 +142,56 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 50adfb40ffcffe7f0800000000000000
-      internalID: -580967654680962555
+      spriteID: c6dea86f3cc2aa740800000000000000
+      internalID: 5163989142900239724
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: enemies-weapons-bonus_1
+      name: weapon_bonus
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 059038942ffd91c80800000000000000
+      internalID: -8351397802273470128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guard_1_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 462cea711b85ce630800000000000000
+      internalID: 3957635690181608036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guard_1_2
       rect:
         serializedVersion: 2
         x: 32
@@ -154,29 +205,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aaf8af5c79e21ffb0800000000000000
-      internalID: -4615856913681576022
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: enemies-weapons-bonus_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c6dea86f3cc2aa740800000000000000
-      internalID: 5163989142900239724
+      spriteID: fa8a8419310aa9570800000000000000
+      internalID: 8474261654753290415
       vertices: []
       indices: 
       edges: []

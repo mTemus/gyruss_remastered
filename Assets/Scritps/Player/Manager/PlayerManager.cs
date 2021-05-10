@@ -3,22 +3,28 @@
 public class PlayerManager : MonoBehaviour
 {
     [Header("Ship parts")]
-    [SerializeField] private GameObject playerShip;
-    [SerializeField] private GameObject shootingPointSingleGO;
-    [SerializeField] private GameObject shootingPointDoubleGO;
-    [SerializeField] private Animator playerAnimator;
-    [SerializeField] private GameObject warpingEffects;
+    [SerializeField] private GameObject playerShip = null;
+    [SerializeField] private GameObject shootingPointSingleGO = null;
+    [SerializeField] private GameObject shootingPointDoubleGO = null;
+    [SerializeField] private Animator playerAnimator = null;
+    [SerializeField] private GameObject warpingEffects = null;
     
     [Header("Prefabs")] 
-    [SerializeField] private GameObject bulletPrefabSingle;
-    [SerializeField] private GameObject bulletPrefabDouble;
-    [SerializeField] private GameObject rocketPrefab;
+    [SerializeField] private GameObject bulletPrefabSingle = null;
+    [SerializeField] private GameObject bulletPrefabDouble = null;
+    [SerializeField] private GameObject rocketPrefab = null;
     
     [Header("Map")]
-    [SerializeField] private SpriteRenderer background;
+    [SerializeField] private SpriteRenderer background = null;
 
     [Header("Pools")] 
-    [SerializeField] private Transform playerBulletPool;
+    [SerializeField] private Transform playerBulletPool = null;
+    
+    [Header("Android input")]
+    [SerializeField] private FixedJoystick fixedJoystick = null;
+    [SerializeField] private FixedButton fixedButtonBullet = null;
+    [SerializeField] private FixedButton fixedButtonRocket = null;
+    
     
     private float speed = 150f;
     private float reload = 1;
@@ -29,7 +35,6 @@ public class PlayerManager : MonoBehaviour
 
     private int lives = 3;
     private int rockets = 1;
-    private int currentScore = 0;
 
     private Vector3 playerStartingPosition;
     
@@ -55,33 +60,20 @@ public class PlayerManager : MonoBehaviour
         shootingPointSingle = shootingPointSingleGO.transform;
         shootingPointDoubleOne = shootingPointDoubleGO.transform.GetChild(0);
         shootingPointDoubleTwo = shootingPointDoubleGO.transform.GetChild(1);
-        
-        // TODO: Remove this after weapon upgrade implementation
-        ToggleShootingMode();
     }
 
     private void Update()
     {
         if (!spawned) return;
-
-        // TODO: Change input for android to be like in original, when left, go only left, when top, only top etc.
-
         reload += Time.deltaTime;
-        
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            RotateShip(Vector3.forward);
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            RotateShip(Vector3.back);
-        }
 
-        if (Input.GetKey(KeyCode.Space)) {
+        RotateShip(Vector3.forward * fixedJoystick.Horizontal * speed);
+
+        if (fixedButtonBullet.Pressed) {
             ShootBullet();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftControl)) {
+        if (fixedButtonRocket.Pressed) {
             if (shootRocket) return;
             if (rockets <= 0) return;
             
@@ -105,6 +97,9 @@ public class PlayerManager : MonoBehaviour
         GyrussEventManager.RocketShootInitiated += ShootRocket;
         GyrussEventManager.RocketReloadInitiated += ReloadRocket;
         GyrussEventManager.LifeAddInitiated += AddLife;
+        GyrussEventManager.ShootingModeToggleInitiated += ToggleShootingMode;
+        GyrussEventManager.RocketAddInitialized += AddRocket;
+        GyrussEventManager.GetPlayerShipStartingPositionInitiated += GetPlayerStartingPosition;
     }
 
     private void RotateShip(Vector3 rotateAxis)
@@ -114,7 +109,7 @@ public class PlayerManager : MonoBehaviour
 
     private void ShootBullet()
     {
-        if (!(reload >= 0.3f)) {
+        if (!(reload >= 0.25f)) {
             if (shootingPointSingleGO.GetComponent<SpriteRenderer>().enabled) {
                 shootingPointSingleGO.GetComponent<SpriteRenderer>().enabled = false;
             }
@@ -154,12 +149,18 @@ public class PlayerManager : MonoBehaviour
 
     private void SetPlayerEnteredInAnimator(bool entered)
     {
+        if (playerAnimator == null) { return; }
         playerAnimator.SetBool(Entered, entered);
     }
     
     private Vector3 GetPlayerPosition()
     {
-        return playerShip.transform.position;
+        return playerShip == null ? Vector3.zero : playerShip.transform.position;
+    }
+
+    private Vector3 GetPlayerStartingPosition()
+    {
+        return playerStartingPosition;
     }
 
     private int GetPlayerLives()
@@ -188,17 +189,18 @@ public class PlayerManager : MonoBehaviour
     private bool MoveShipToWarpingPosition()
     {
         if (playerAnimator.GetBool(Warping)) return true;
-        
-        RotateShip(Vector3.forward);
-        
-        Vector3 currPos = playerShip.transform.position;
 
+        Transform playerTransform = playerShip.transform;
+        Vector3 currPos = playerTransform.position;
+        
+        RotateShip(currPos.x < 0 ? Vector3.forward : Vector3.back);
+        
         float condition = currPos.y - playerStartingPosition.y;
 
         if (!(condition < 0.01)) return false;
         
-        playerShip.transform.position = playerStartingPosition;
-        playerShip.transform.rotation = Quaternion.identity;
+        playerTransform.position = playerStartingPosition;
+        playerTransform.rotation = Quaternion.identity;
         return true;
     }
 
@@ -228,15 +230,30 @@ public class PlayerManager : MonoBehaviour
         
         GyrussGameManager.Instance.SetDeathParticlesOnPosition();
         playerShip.SetActive(false);
+        GyrussGameManager.Instance.PlaySoundEffect("player-death");
         GyrussGameManager.Instance.PrepareDeathParticles();
         
         if (lives < 0) {
-            Debug.LogError("game ends here");
+            GyrussGameManager.Instance.StopTimer("weaponBonusSpawn");
+            GyrussGameManager.Instance.StopTimer("rocketBonusSpawn");
+            GyrussGameManager.Instance.StopTimer("asteroidSpawn");
+            GyrussGameManager.Instance.SetLevelState(LevelState.wait);
+            GyrussGameManager.Instance.SetStageState(StageState.wait);
+
+            GyrussGameManager.Instance.SetConditionInTimer("gameOver", true);
+            Destroy(playerShip);
         }
         else { 
             GyrussGameManager.Instance.DecreaseGUILives(lives);
             GyrussGameManager.Instance.SetConditionInTimer("playerRespawn", true);
+            
+            float randomRespawn = Random.Range(20, 30);
+            GyrussGameManager.Instance.SetPeriodInTimer("weaponBonusSpawn", randomRespawn);
+            GyrussGameManager.Instance.SetConditionInTimer("weaponBonusSpawn", true);
         }
+
+        if (!doubleBulletMode) return;
+        ToggleShootingMode();
     }
 
     private void WarpPlayer()
@@ -254,7 +271,6 @@ public class PlayerManager : MonoBehaviour
         Instantiate(rocketPrefab, shootingPointSingle.position, playerShip.transform.rotation, playerBulletPool);
         shootRocket = true;
         rockets--;
-        Debug.Log("rockets left:" + rockets);
         GyrussGameManager.Instance.DecreasePlayerRockets(rockets);
         GyrussGameManager.Instance.SetConditionInTimer("rocketReload", true);
     }
@@ -268,12 +284,15 @@ public class PlayerManager : MonoBehaviour
 
     private void AddRocket()
     {
-        
+        rockets++;
+        GyrussGameManager.Instance.PlaySoundEffect("rocketIcon-initialize");
+        GyrussGUIEventManager.OnRocketsIconsIncreaseInitiated();
     }
 
     private void ReloadRocket()
     {
         shootRocket = false;
     }
-    
+
+    public bool DoubleBulletMode => doubleBulletMode;
 }

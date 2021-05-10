@@ -3,10 +3,10 @@
 public class RocketController : MonoBehaviour
 {
     [Header("Rocket parts")]
-    [SerializeField] private GameObject head;
-    [SerializeField] private GameObject tail_1;
-    [SerializeField] private GameObject tail_2;
-    [SerializeField] private GameObject tail_3;
+    [SerializeField] private GameObject head = null;
+    [SerializeField] private GameObject tail_1 = null;
+    [SerializeField] private GameObject tail_2 = null;
+    [SerializeField] private GameObject tail_3 = null;
 
     [Header("Other")]
     [SerializeField] private float speed = 4f;

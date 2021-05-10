@@ -5,6 +5,7 @@ public class GyrussEventManager : MonoBehaviour
 {
     public static Func<int, Transform> EnemySpotOccupationInitiated;
     public static Func<Vector3> GetPlayerShipPositionInitiated;
+    public static Func<Vector3> GetPlayerShipStartingPositionInitiated;
     public static Func<int> PlayerLivesGetInitiated;
     public static Func<int> PlayerRocketsGetInitiated;
     public static Func<bool> MovePlayerToWarpPositionInitiated;
@@ -38,6 +39,12 @@ public class GyrussEventManager : MonoBehaviour
     public static Action ChanceBonusPointsToScoreAddingInitiated;
     public static Action StarParticlesToggleInitiated;
     public static Action CurrentSoundBGMStopInitiated;
+    public static Action CurrentPlayingBGMSilencingInitiated;
+    public static Action AllEnemiesDeleteInitiated;
+    public static Action ShootingModeToggleInitiated;
+    public static Action RocketAddInitialized;
+    public static Action WeaponBonusKillInitiated;
+    public static Action CurrentBGMToggleInitiated;
     public static Action<StageType> StageTypeSetupInitiated;
     public static Action<StageState> StageStateSetupInitiated;
     public static Action<LevelState> LevelStateSetupInitiated;
@@ -52,6 +59,7 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<int> ScorePointsIncreaseInitiated;
     public static Action<int> CurrentStageSetupInitiated;
     public static Action<bool> PlayerEnteredSetupInAnimatorInitiated;
+    public static Action<string> BonusSpawnInitiated;
     public static Action<string> TimerStopInitiated;
     public static Action<string> PeriodResetInTimerInitiated;
     public static Action<string> SoundEffectPlayInitiated;
@@ -61,6 +69,44 @@ public class GyrussEventManager : MonoBehaviour
     public static Action<string, float> PeriodSetupInTimerInitiated;
     public static Action<GameObject, GameObject> ShipRemovalFromAwaitingListInitiated;
 
+    public static void OnCurrentBGMToggleInitiated()
+    {
+        CurrentBGMToggleInitiated?.Invoke();
+    }
+    
+    public static void OnWeaponBonusKillInitiated()
+    {
+        WeaponBonusKillInitiated?.Invoke();
+    }
+    
+    public static Vector3 OnGetPlayerShipStartingPositionInitiated() =>
+        (Vector3) GetPlayerShipStartingPositionInitiated?.Invoke();
+    
+    public static void OnBonusSpawnInitiated(string bonusType)
+    {
+        BonusSpawnInitiated?.Invoke(bonusType);
+    }
+    
+    public static void OnRocketAddInitialized()
+    {
+        RocketAddInitialized?.Invoke();
+    }
+    
+    public static void OnShootingModeToggleInitiated()
+    {
+        ShootingModeToggleInitiated?.Invoke();
+    }
+    
+    public static void OnAllEnemiesDeleteInitiated()
+    {
+        AllEnemiesDeleteInitiated?.Invoke();
+    }
+    
+    public static void OnCurrentPlayingBGMSilencingInitiated()
+    {
+        CurrentPlayingBGMSilencingInitiated?.Invoke();
+    }
+    
     public static bool OnIsBGMPlayingInitiated() => 
         IsBGMPlayingInitiated.Invoke();
     
@@ -391,5 +437,13 @@ public class GyrussEventManager : MonoBehaviour
         SoundBGMStopInitiated = null;
         CurrentSoundBGMStopInitiated = null;
         IsBGMPlayingInitiated = null;
+        CurrentPlayingBGMSilencingInitiated = null;
+        AllEnemiesDeleteInitiated = null;
+        ShootingModeToggleInitiated = null;
+        RocketAddInitialized = null;
+        BonusSpawnInitiated = null;
+        GetPlayerShipStartingPositionInitiated = null;
+        WeaponBonusKillInitiated = null;
+        CurrentBGMToggleInitiated = null;
     }
 }

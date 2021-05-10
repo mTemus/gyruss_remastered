@@ -12,6 +12,7 @@ TagManager:
   - Asteroid
   - Rocket
   - MiniBoss
+  - BonusParticle
   layers:
   - Default
   - TransparentFX
